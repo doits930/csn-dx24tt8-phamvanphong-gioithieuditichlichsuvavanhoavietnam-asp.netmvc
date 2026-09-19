@@ -34,7 +34,7 @@
       "name": "Khu trung tâm Hoàng thành Thăng Long - Hà Nội",
       "slug": "hoang-thanh-thang-long",
       "provinceSlug": "ha-noi",
-      "relicType": 3,
+      "relicType": 1,
       "address": "19C Hoàng Diệu, phường Ba Đình, thành phố Hà Nội",
       "latitude": 21.0394,
       "longitude": 105.8372,
@@ -63,7 +63,7 @@
       "name": "Văn Miếu - Quốc Tử Giám",
       "slug": "van-mieu-quoc-tu-giam",
       "provinceSlug": "ha-noi",
-      "relicType": 2,
+      "relicType": 1,
       "address": "58 Quốc Tử Giám, phường Văn Miếu - Quốc Tử Giám, thành phố Hà Nội",
       "latitude": 21.0283,
       "longitude": 105.8358,
@@ -342,7 +342,7 @@
       "name": "Quần thể kiến trúc Cố đô Huế",
       "slug": "quan-the-di-tich-co-do-hue",
       "provinceSlug": "hue",
-      "relicType": 2,
+      "relicType": 1,
       "address": "Phường Phú Xuân và các phường, xã lân cận, thành phố Huế",
       "latitude": 16.4702,
       "longitude": 107.5773,
@@ -394,7 +394,7 @@
       "name": "Thành Nhà Hồ",
       "slug": "thanh-nha-ho",
       "provinceSlug": "thanh-hoa",
-      "relicType": 2,
+      "relicType": 1,
       "address": "Xã Tây Đô, tỉnh Thanh Hóa",
       "latitude": 20.0781,
       "longitude": 105.6047,
@@ -578,6 +578,739 @@
           "file": "nha-tu-con-dao/canh-tra-tan.jpg",
           "caption": "Nhóm tượng phục dựng cảnh tra tấn tù nhân trong một phòng giam",
           "imageSource": "Wikimedia Commons, tác giả Phương Huy, phát hành vào phạm vi công cộng (public domain), https://commons.wikimedia.org/wiki/File:Nh%C3%A0_t%C3%B9_C%C3%B4n_%C4%90%E1%BA%A3o_v%E1%BB%9Bi_t%C6%B0%E1%BB%A3ng_c%E1%BA%A3nh_tra_t%E1%BA%A5n.jpg",
+          "isThumbnail": false
+        }
+      ]
+    },
+    {
+      "name": "Đình Diềm",
+      "slug": "dinh-diem",
+      "provinceSlug": "bac-ninh",
+      "relicType": 2,
+      "address": "Làng Viêm Xá, phường Kinh Bắc, tỉnh Bắc Ninh",
+      "latitude": null,
+      "longitude": null,
+      "history": "Làng Viêm Xá, tên nôm là làng Diềm, nằm bên bờ nam sông Cầu và được xem là quê hương của tục hát quan họ. Ngôi đình của làng được dựng năm 1692, niên hiệu Chính Hòa thứ mười ba, thờ thành hoàng làng theo tục thờ chung của các làng Kinh Bắc. Trong suốt ba thế kỷ, đình vừa là nơi tế lễ vừa là nơi hội họp và diễn xướng của cộng đồng. Năm 1964, đình Diềm nằm trong số những công trình đầu tiên của cả nước được Nhà nước xếp hạng di tích cấp quốc gia, các tài liệu của ngành văn hóa Bắc Ninh xếp di tích vào loại hình kiến trúc nghệ thuật do giá trị chạm khắc gỗ. Ngày 15 tháng 1 năm 2020, bức cửa võng của đình được công nhận bảo vật quốc gia. Cạnh đình, làng còn đền Vua Bà thờ thủy tổ quan họ, được xếp hạng di tích quốc gia năm 1994, hai công trình cùng tạo thành cụm di tích làng Diềm.",
+      "description": "Đình Diềm là ngôi đình cổ của làng Viêm Xá, nay thuộc phường Kinh Bắc, tỉnh Bắc Ninh. Tòa đại đình có bảy gian với bốn góc đao cong, bộ khung gỗ lim dựng theo lối đình làng Bắc Bộ cuối thế kỷ 17. Hiện vật quý nhất là bức cửa võng đặt trước gian giữa, cao gần bảy mét, chạm lộng nhiều lớp với chủ đề rồng ẩn trong mây; các thống kê của ngành văn hóa Bắc Ninh đếm được chín mươi chín hình đầu rồng trên bức cửa võng này. Toàn bộ mặt chạm được sơn son thiếp vàng, kết hợp kỹ thuật chạm gỗ với nghề sơn thếp truyền thống, nên được đánh giá là một trong những tác phẩm trang trí nội thất đình làng đạt trình độ cao nhất còn lại. Ngoài cửa võng, đình còn nhang án và nhiều mảng chạm ở đầu dư, cốn, ván nong. Đình gắn với sinh hoạt quan họ của làng, cùng đền Vua Bà tạo nên một điểm đến về di sản âm nhạc dân gian.",
+      "visitInfo": "Đình nằm trong làng Viêm Xá, phường Kinh Bắc, tỉnh Bắc Ninh, bên bờ sông Cầu, cách trung tâm thành phố Bắc Ninh cũ chừng vài kilômét về phía bắc; khách thường tham quan cụm gồm đình Diềm, đền Vua Bà và giếng Ngọc trong cùng một buổi. Hội làng Diềm mở vào ngày mùng 6 tháng 2 âm lịch hằng năm với lễ hội đền Vua Bà và các canh hát quan họ của những làng kết chạ. Không tìm được thông báo chính thức về giờ mở cửa và phí tham quan nên bản ghi không nêu.",
+      "rankingLevel": 2,
+      "recognizedYear": 1964,
+      "sourceUrl": "https://www.bacninh.gov.vn/web/phuonghoalong/di-tich-lich-su",
+      "images": []
+    },
+    {
+      "name": "Thác Bản Giốc",
+      "slug": "thac-ban-gioc",
+      "provinceSlug": "cao-bang",
+      "relicType": 4,
+      "address": "Xã Đàm Thủy, tỉnh Cao Bằng",
+      "latitude": 22.8558,
+      "longitude": 106.7225,
+      "history": "Thác nằm trên sông Quây Sơn, đoạn sông chảy từ phía Trung Quốc sang đất Cao Bằng rồi trở thành đoạn biên giới tự nhiên giữa hai nước. Địa hình karst của vùng Trùng Khánh tạo ra bậc thềm đá vôi khiến dòng sông đổ xuống thành nhiều tầng. Trong thư tịch và ký ức địa phương, khu vực chân thác từ lâu là nơi cư dân Tày canh tác và họp chợ ven sông. Ngày 20 tháng 5 năm 1998, Bộ Văn hóa - Thông tin xếp hạng Bản Giốc là danh lam thắng cảnh cấp quốc gia theo Quyết định số 989; một số nguồn về sau ghi tên cơ quan ban hành theo tên gọi hiện nay của bộ, nhưng số và ngày quyết định thống nhất. Sau khi hai nước hoàn tất phân giới cắm mốc trên thực địa, phần thác phụ nằm trọn trong lãnh thổ Việt Nam còn thác chính do hai bên cùng quản lý, tạo cơ sở cho việc khai thác du lịch chung về sau.",
+      "description": "Thác Bản Giốc là thác nước trên sông Quây Sơn ở biên giới Việt - Trung, thuộc xã Đàm Thủy, tỉnh Cao Bằng. Toàn cảnh thác trải rộng khoảng ba trăm mét và cao chừng ba mươi lăm mét, chia thành ba tầng nối nhau bởi các bậc đá vôi; nước chảy quanh năm nhưng mạnh nhất vào mùa mưa từ khoảng tháng sáu đến tháng chín. Thác gồm hai phần: thác phụ dài hơn trăm mét nằm hẳn bên phía Việt Nam và thác chính rộng hơn nằm trên đường biên. Phía trước thác là bãi bồi và ruộng lúa của bản Giốc, phía sau là những dãy núi đá vôi dựng đứng, tạo nên bố cục cảnh quan đặc trưng của vùng non nước Cao Bằng. Bản Giốc thường được xếp vào nhóm thác lớn nằm trên biên giới quốc gia có quy mô đáng kể trên thế giới. Khu vực quanh thác còn động Ngườm Ngao, chùa Phật tích Trúc Lâm Bản Giốc và làng đá Khuổi Ky của người Tày.",
+      "visitInfo": "Thác nằm ở xã Đàm Thủy, tỉnh Cao Bằng, cách trung tâm thành phố Cao Bằng khoảng tám mươi kilômét theo đường bộ; có tuyến xe khách chạy trong ngày nối thành phố với khu vực thác. Mùa nước đẹp nhất là mùa mưa, khi lưu lượng lớn và hơi nước bốc lên tạo cầu vồng. Trong khu du lịch có cơ sở lưu trú, hàng ăn và dịch vụ tham quan; khách nên kết hợp tham quan động Ngườm Ngao và làng đá Khuổi Ky gần đó. Vì di tích nằm trên đường biên giới, khách cần tuân thủ hướng dẫn của lực lượng chức năng khi di chuyển bằng bè tới chân thác chính. Không tìm được bảng giá vé chính thức còn hiệu lực nên bản ghi không nêu.",
+      "rankingLevel": 2,
+      "recognizedYear": 1998,
+      "sourceUrl": "https://baocaobang.vn/-39115.html",
+      "images": [
+        {
+          "file": "thac-ban-gioc/thac-ban-gioc-phia-viet-nam.jpg",
+          "caption": "Thác Bản Giốc nhìn từ phía Việt Nam",
+          "imageSource": "Wikimedia Commons, tác giả Applejuice, CC BY-SA 4.0, https://commons.wikimedia.org/wiki/File:Ban_Gioc_waterfalls_1.jpg",
+          "isThumbnail": true
+        },
+        {
+          "file": "thac-ban-gioc/thac-chinh-ban-gioc.jpg",
+          "caption": "Thác chính trên đường biên giới Việt - Trung",
+          "imageSource": "Wikimedia Commons, tác giả Rod Waddington, CC BY-SA 2.0, https://commons.wikimedia.org/wiki/File:Ban_Gioc_Falls_(50000659327).jpg",
+          "isThumbnail": false
+        },
+        {
+          "file": "thac-ban-gioc/toan-canh-thac-ban-gioc.jpg",
+          "caption": "Toàn cảnh thác Bản Giốc",
+          "imageSource": "Wikimedia Commons, tác giả Khoitran1957, CC BY-SA 4.0, https://commons.wikimedia.org/wiki/File:Ban_Gioc_Panorama_.jpg",
+          "isThumbnail": false
+        }
+      ]
+    },
+    {
+      "name": "Vườn Chuối",
+      "slug": "vuon-chuoi",
+      "provinceSlug": "ha-noi",
+      "relicType": 3,
+      "address": "Thôn Lai Xá, xã Hoài Đức, thành phố Hà Nội",
+      "latitude": null,
+      "longitude": null,
+      "history": "Di chỉ được giới khảo cổ biết đến từ năm 1969 và tới nay đã qua mười một lần khai quật, tổng diện tích bóc mở khoảng 7.555 mét vuông. Đợt khai quật quy mô nhất diễn ra trong hai năm 2024 và 2025 trên hơn 6.000 mét vuông ở khu vực phía tây di chỉ, thu về hơn mười lăm nghìn hiện vật bằng đá, gỗ, gốm, đồng, sắt và xương, cùng hàng nghìn mảnh gốm vỡ và các mẫu đất chứa tàn tích thực vật cổ. Trong số hiện vật quý có rìu và vòng bằng ngọc thời tiền Đông Sơn, niên đại khoảng 3.500 năm, được xem là vật biểu trưng quyền lực của thủ lĩnh, bên cạnh đồ trang sức tạo hình đầu chim và sưu tập đồ ngọc. Kết quả nghiên cứu cho thấy đây là một làng Việt cổ hình thành và phát triển liên tục hơn hai nghìn năm, trải các giai đoạn Phùng Nguyên muộn, Đồng Đậu, Gò Mun, Đông Sơn và hậu Đông Sơn. Ngày 23 tháng 6 năm 2025, Ủy ban nhân dân thành phố Hà Nội ban hành Quyết định số 3134/QĐ-UBND xếp hạng Vườn Chuối là di tích cấp thành phố, cùng đợt với chùa Đồng Giá và phủ Ứng Thiên.",
+      "description": "Vườn Chuối là di chỉ khảo cổ cấp thành phố ở thôn Lai Xá, xã Hoài Đức, Hà Nội, nơi còn dấu tích một làng cổ tồn tại liên tục hàng nghìn năm. Điểm làm nên giá trị của di chỉ là bốn lớp văn hóa chồng lên nhau trong cùng một địa điểm, tương ứng với các giai đoạn Phùng Nguyên, Đồng Đậu, Gò Mun và Đông Sơn, phía trên còn lớp hậu Đông Sơn. Mỗi lớp cho thấy một trình độ chế tác khác nhau, từ rìu đá mài, đồ gốm in hoa văn thừng đến công cụ và đồ trang sức bằng đồng, cho phép dựng lại chuỗi phát triển của cư dân thời đại kim khí ở đồng bằng Bắc Bộ mà không phải ghép từ nhiều địa điểm rời rạc. Các cuộc khai quật còn làm lộ nhiều mộ táng cổ, dấu vết nhà ở và hố chứa, giúp hình dung cách tổ chức không gian cư trú của làng. Thành phố Hà Nội đã khoanh vùng bảo vệ, cấm xây dựng và khai thác trong phạm vi di tích, đồng thời đặt hướng lâu dài là xây dựng nơi đây thành công viên di sản khảo cổ.",
+      "visitInfo": "Di chỉ chưa được tổ chức thành điểm tham quan thường xuyên, khu vực khoanh vùng bảo vệ cấm xây dựng và khai thác, mọi hoạt động sử dụng đất phải được Ủy ban nhân dân thành phố chấp thuận. Người muốn tìm hiểu có thể xem trưng bày Những khám phá khảo cổ từ Vườn Chuối, khai mạc ngày 9 tháng 11 năm 2025 tại Bảo tàng Hà Nội trên đường Phạm Hùng, phường Từ Liêm, với gần một nghìn tài liệu và hiện vật, phim tái hiện và trình chiếu ba chiều.",
+      "rankingLevel": 1,
+      "recognizedYear": 2025,
+      "sourceUrl": "https://nhandan.vn/di-chi-khao-co-vuon-chuoi-duoc-xep-hang-di-tich-cap-thanh-pho-post889377.html",
+      "images": []
+    },
+    {
+      "name": "Đền Tam Kỳ",
+      "slug": "den-tam-ky",
+      "provinceSlug": "hai-phong",
+      "relicType": 1,
+      "address": "Phường An Biên, thành phố Hải Phòng",
+      "latitude": null,
+      "longitude": null,
+      "history": "Đền Tam Kỳ bắt nguồn từ một ngôi miếu nhỏ thờ thủy thần, dựng trên gò đất cao ở ngã ba sông Tam Bạc. Tên gọi Tam Kỳ xuất phát từ vị trí ba nhánh sông gặp nhau tại đây. Các tư liệu của thành phố ghi mốc năm 1813 cho giai đoạn đầu của ngôi miếu, gắn với nhu cầu cầu an của cư dân làm nghề sông nước trước khi Hải Phòng hình thành đô thị. Năm 1920, dân sở tại lập thêm đền thờ tứ phủ bên cạnh, dần hợp thành một cơ sở tín ngưỡng hoàn chỉnh. Trải qua chiến tranh và quá trình đô thị hóa, đền nhiều lần được sửa chữa; lần tân tạo năm 2007 định hình diện mạo hiện nay trên khuôn viên khoảng hai trăm mét vuông. Ngày 17 tháng 1 năm 2020, Ủy ban nhân dân thành phố Hải Phòng xếp hạng đền Tam Kỳ là di tích lịch sử cấp thành phố; lễ đón bằng xếp hạng được tổ chức tháng 7 năm 2024.",
+      "description": "Đền Tam Kỳ là ngôi đền nằm bên sông Tam Bạc, thuộc phường An Biên, thành phố Hải Phòng. Đền tọa lạc trong khuôn viên công viên Tam Bạc, giữa khu phố đông đúc của nội thành, nên không gian không rộng nhưng vẫn giữ được bố cục và lối trang trí mang đặc điểm kiến trúc thời Nguyễn. Ban thờ trong đền phối tự nhiều đối tượng: Phật bà Quan Âm, Tam tòa Thánh Mẫu, Đức Thánh Trần, Quan Hoàng và anh linh các anh hùng liệt sĩ, phản ánh lối thờ hỗn dung phổ biến ở các đền ven sông vùng duyên hải Bắc Bộ. Giá trị của di tích nằm ở chỗ nó ghi lại một lớp tín ngưỡng thủy thần của cư dân bản địa trước khi Hải Phòng trở thành đô thị cảng, đồng thời là nơi thực hành tín ngưỡng thờ Mẫu còn hoạt động thường xuyên. Đây cũng là một trong số ít di tích cấp thành phố nằm ngay trung tâm, thuận tiện cho hoạt động giáo dục truyền thống.",
+      "visitInfo": "Đền nằm trong công viên Tam Bạc, phường An Biên, thành phố Hải Phòng, sát bờ sông Tam Bạc và gần khu vực chợ Sắt, có thể đi bộ từ trung tâm thành phố. Đền mở cửa đón khách đến lễ quanh năm, đông nhất vào dịp đầu xuân và các kỳ lễ theo tín ngưỡng thờ Mẫu. Không có thông báo chính thức về giờ mở cửa và phí tham quan nên bản ghi không nêu.",
+      "rankingLevel": 1,
+      "recognizedYear": 2020,
+      "sourceUrl": "https://haiphong.gov.vn/tin-tuc-su-kien/Le-don-nhan-bang-xep-hang-di-tich-lich-su-cap-thanh-pho-doi-voi-di-tich-den-Tam-Ky-phuong-Cat-Dai-quan-Le-Chan-94928",
+      "images": []
+    },
+    {
+      "name": "Di chỉ Cái Bèo",
+      "slug": "di-chi-cai-beo",
+      "provinceSlug": "hai-phong",
+      "relicType": 3,
+      "address": "Khu vực vịnh Cái Bèo, đảo Cát Bà, đặc khu Cát Hải, thành phố Hải Phòng",
+      "latitude": 20.7189,
+      "longitude": 107.0506,
+      "history": "Năm 1938, nhà khảo cổ người Pháp M. Colani khảo sát vùng vịnh phía đông nam đảo Cát Bà và ghi nhận dấu vết cư trú cổ tại đây, đặt tên là vụng của những người đánh cá. Công việc khai quật chỉ bắt đầu từ tháng 4 năm 1972 do nhà khảo cổ Nguyễn Văn Hảo phụ trách, sau đó Viện Khảo cổ học tổ chức thêm các đợt vào các năm 1973, 1981, 1986 và 2006. Kết quả cho thấy tầng văn hóa ở Cái Bèo dày và chia thành ba lớp nối tiếp nhau, từ giai đoạn sớm cách nay khoảng bảy nghìn năm, qua giai đoạn hậu kỳ đá mới cách nay khoảng bốn nghìn rưỡi năm, đến lớp thuộc văn hóa Hạ Long cách nay khoảng bốn nghìn năm. Ngày 22 tháng 1 năm 2009, Bộ Văn hóa, Thể thao và Du lịch xếp hạng Cái Bèo là di tích khảo cổ cấp quốc gia theo Quyết định 316/QĐ-BVHTTDL.",
+      "description": "Di chỉ Cái Bèo là khu khảo cổ tiền sử nằm ven vịnh Cái Bèo trên đảo Cát Bà, thuộc đặc khu Cát Hải, thành phố Hải Phòng. Địa điểm là một thung lũng bằng phẳng rộng khoảng mười tám nghìn mét vuông, ba mặt được núi đá vôi che chắn, mặt còn lại mở ra biển, điều kiện thuận lợi cho một cộng đồng sống bằng nghề biển trú ngụ lâu dài. Các đợt khai quật thu được hàng trăm hiện vật gồm rìu đá, bàn mài, chì lưới, mảnh gốm, công cụ bằng xương cùng lượng lớn vỏ sò vỏ ốc và xương cá. Tổ hợp hiện vật này cho thấy cư dân Cái Bèo khai thác biển là chính chứ không chỉ săn bắt hái lượm ven bờ, vì vậy di chỉ thường được nhắc tới như làng chài cổ sớm nhất được biết đến ở Việt Nam. Giá trị khoa học của địa điểm nằm ở chuỗi ba lớp văn hóa liên tục, giúp nối giai đoạn trước Hạ Long với văn hóa Hạ Long.",
+      "visitInfo": "Di chỉ nằm ở khu vực vịnh Cái Bèo, cách trung tâm thị trấn Cát Bà cũ khoảng một kilômét rưỡi về phía đông nam, thuộc đặc khu Cát Hải, thành phố Hải Phòng; đường bộ và đường thủy từ bến Cát Bà đều tiếp cận được. Đây là hiện trường khảo cổ chứ không phải điểm tham quan có tổ chức, phần lớn hố khai quật đã lấp lại nên khách chủ yếu xem cảnh quan vịnh và tìm hiểu hiện vật qua trưng bày. Không có nguồn chính thức nào công bố giờ mở cửa hay giá vé nên bản ghi không nêu.",
+      "rankingLevel": 2,
+      "recognizedYear": 2009,
+      "sourceUrl": "http://anhp.vn/diem-tham-quan-di-chi-cai-beo-cat-ba-d55237.html",
+      "images": []
+    },
+    {
+      "name": "Đền Hùng",
+      "slug": "den-hung",
+      "provinceSlug": "phu-tho",
+      "relicType": 1,
+      "address": "Núi Nghĩa Lĩnh, xã Hy Cương, tỉnh Phú Thọ",
+      "latitude": 21.3683,
+      "longitude": 105.3214,
+      "history": "Các đền miếu trên núi Nghĩa Lĩnh gắn với tục thờ cúng Hùng Vương, một lớp tín ngưỡng hình thành lâu đời ở vùng đất ven ngã ba sông Hồng và sông Lô. Bia ký cùng cấu kiện còn lại cho thấy phần lớn công trình hiện nay được dựng và tu bổ dưới thời Lê và thời Nguyễn. Chùa Thiên Quang và gác chuông mang dấu vết thế kỷ 17, lăng Hùng Vương xây năm 1870, cổng chính dẫn lên khu đền dựng năm 1917. Sang thời hiện đại, khu di tích được mở rộng thêm đền thờ Tổ mẫu Âu Cơ trên núi Vặn hoàn thành năm 2004 và đền thờ Quốc tổ Lạc Long Quân ở đồi Sim hoàn thành năm 2009. Ngày 12 tháng 8 năm 2009, Thủ tướng Chính phủ xếp hạng Đền Hùng là di tích quốc gia đặc biệt theo Quyết định 1272/QĐ-TTg, thuộc đợt xếp hạng đầu tiên. Tháng 12 năm 2012, Tín ngưỡng thờ cúng Hùng Vương ở Phú Thọ được UNESCO ghi danh là di sản văn hóa phi vật thể đại diện của nhân loại. Đây là hai mốc công nhận khác nhau: một dành cho di tích, một dành cho thực hành tín ngưỡng.",
+      "description": "Đền Hùng là quần thể đền miếu thờ các Vua Hùng trên núi Nghĩa Lĩnh, thuộc xã Hy Cương, tỉnh Phú Thọ. Trục chính của khu di tích đi từ chân núi lên đỉnh theo đường bậc đá, lần lượt qua đền Hạ, chùa Thiên Quang, đền Trung rồi đến đền Thượng ở vị trí cao nhất, nơi đặt lăng Hùng Vương. Đền Giếng nằm ở sườn phía đông nam, gắn với truyền thuyết hai công chúa Tiên Dung và Ngọc Hoa. Ngoài trục đền cổ, khu di tích còn có đền thờ Tổ mẫu Âu Cơ, đền thờ Quốc tổ Lạc Long Quân, bảo tàng Hùng Vương và khu trung tâm lễ hội ở phía ngoài. Giá trị của di tích nằm ở chỗ nó là điểm quy tụ của một thực hành tín ngưỡng chung, được duy trì liên tục qua nhiều thế kỷ và lan ra hàng nghìn làng xã có đền thờ Vua Hùng. Kiến trúc các đền không đồ sộ, chủ yếu là nhà gỗ ba gian hai chái theo lối thời Nguyễn, nhưng cách bố trí men theo thế núi tạo nên nhịp hành lễ riêng.",
+      "visitInfo": "Khu di tích nằm trên núi Nghĩa Lĩnh, xã Hy Cương, tỉnh Phú Thọ, có đường bộ dẫn tới khu vực cổng chính; từ đó khách đi bộ theo bậc đá lên đền Hạ, đền Trung và đền Thượng. Giỗ Tổ Hùng Vương diễn ra hằng năm, chính hội vào ngày mùng 10 tháng 3 âm lịch, phần lễ gồm rước kiệu và dâng hương tại đền Thượng. Không tìm được thông báo còn hiệu lực về giờ mở cửa và mức phí tham quan từ cơ quan quản lý nên bản ghi không nêu hai thông tin này.",
+      "rankingLevel": 3,
+      "recognizedYear": 2009,
+      "sourceUrl": "https://dsvh.gov.vn/di-tich-lich-su-den-hung-2939",
+      "images": [
+        {
+          "file": "den-hung/den-thuong.jpg",
+          "caption": "Đền Thượng trên đỉnh núi Nghĩa Lĩnh",
+          "imageSource": "Wikimedia Commons, tác giả Thang Nguyen, CC BY-SA 2.0, https://commons.wikimedia.org/wiki/File:%C4%90%E1%BB%81n_H%C3%B9ng,_%C4%91%E1%BB%81n_Th%C6%B0%E1%BB%A3ng.jpg",
+          "isThumbnail": true
+        },
+        {
+          "file": "den-hung/den-ha.jpg",
+          "caption": "Đền Hạ ở lưng chừng núi",
+          "imageSource": "Wikimedia Commons, tác giả Thang Nguyen, CC BY-SA 2.0, https://commons.wikimedia.org/wiki/File:%C4%90%E1%BB%81n_H%C3%B9ng,_%C4%91%E1%BB%81n_H%E1%BA%A1.jpg",
+          "isThumbnail": false
+        },
+        {
+          "file": "den-hung/lang-vua-hung.jpg",
+          "caption": "Lăng Hùng Vương xây năm 1870",
+          "imageSource": "Wikimedia Commons, tác giả Viethavvh, phạm vi công cộng, https://commons.wikimedia.org/wiki/File:Mausoleum_of_Hung_King.JPG",
+          "isThumbnail": false
+        }
+      ]
+    },
+    {
+      "name": "Đình Hùng Lô",
+      "slug": "dinh-hung-lo",
+      "provinceSlug": "phu-tho",
+      "relicType": 1,
+      "address": "Làng Hùng Lô, phường Vân Phú, tỉnh Phú Thọ",
+      "latitude": null,
+      "longitude": null,
+      "history": "Làng Hùng Lô nằm bên tả ngạn sông Lô, cách khu đền Hùng khoảng mười kilômét theo đường sông. Tương truyền vùng đất này từng được Vua Hùng dừng chân nên dân làng lập miếu thờ, về sau dựng đình. Ngôi đình hiện nay được khởi dựng dưới thời Lê Trung Hưng; các nguồn của tỉnh Phú Thọ nêu hai mốc khác nhau là năm 1647 và năm 1697, trong đó mốc 1697 gắn với niên đại ghi trên nhiều đồ thờ còn giữ được. Qua các lần trùng tu, khuôn viên đình hình thành đủ năm hạng mục gồm tiền tế, phương đình, lầu chuông, lầu trống và tòa đại đình. Ngày 17 tháng 2 năm 1990, đình được Bộ Văn hóa xếp hạng di tích lịch sử văn hóa cấp quốc gia. Năm 2022, lễ hội đình Hùng Lô được đưa vào danh mục di sản văn hóa phi vật thể quốc gia. Đình là một trong số ít nơi còn duy trì tục rước kiệu về đền Hùng vào dịp giỗ Tổ.",
+      "description": "Đình Hùng Lô là ngôi đình cổ thờ Vua Hùng của làng Hùng Lô, nay thuộc phường Vân Phú, tỉnh Phú Thọ. Khuôn viên đình rộng khoảng năm trăm mét vuông, quay mặt ra hướng sông Lô, gồm tiền tế, phương đình, lầu chuông, lầu trống và tòa đại đình. Tòa đại đình là hạng mục lớn nhất và còn giữ được nhiều nét gốc của kiến trúc thời Lê: bốn mái rộng, bốn góc đao cong, bộ khung dựng bằng các loại gỗ đinh, lim, sến, táu. Trên các cấu kiện gỗ còn nhiều mảng chạm khắc dân gian, được giới nghiên cứu xếp vào nhóm chạm khắc tiêu biểu của vùng đất Tổ cuối thế kỷ 17. Đình còn lưu hàng chục câu đối, hương án, kiệu và đồ thờ có niên đại thời Lê và thời Nguyễn. Lễ hội chính diễn ra vào tháng ba âm lịch với nghi thức rước kiệu từ đình về đền Hùng, đây cũng là phần khiến ngôi đình gắn chặt với không gian tín ngưỡng thờ cúng Hùng Vương.",
+      "visitInfo": "Đình nằm trong làng cổ Hùng Lô, phường Vân Phú, tỉnh Phú Thọ, bên bờ sông Lô và cách khu di tích Đền Hùng không xa; khách thường ghé đình khi đi tuyến tham quan làng cổ kết hợp hát Xoan. Lễ hội chính tổ chức vào ngày mùng 9 và mùng 10 tháng 3 âm lịch, nổi bật là đám rước kiệu về đền Hùng. Đình mở cửa cho khách vào lễ và tham quan, không tìm được thông báo chính thức về giờ mở cửa và phí tham quan nên bản ghi không nêu.",
+      "rankingLevel": 2,
+      "recognizedYear": 1990,
+      "sourceUrl": "https://baophutho.vn/thoi-su/dinh-hung-lo-di-tich-lich-su-van-hoa-cap-quoc-gia/46877.htm",
+      "images": []
+    },
+    {
+      "name": "Thác Khe Vằn",
+      "slug": "thac-khe-van",
+      "provinceSlug": "quang-ninh",
+      "relicType": 4,
+      "address": "Bản Khe Vằn, xã Bình Liêu, tỉnh Quảng Ninh",
+      "latitude": 21.4873,
+      "longitude": 107.4795,
+      "history": "Dòng nước tạo nên thác bắt nguồn từ các khe suối trên núi Thông Châu, chảy qua vùng đồi rừng phía đông nam thị trấn Bình Liêu cũ rồi đổ xuống thành ba bậc đá lớn. Khu vực quanh thác từ lâu là địa bàn cư trú của người Sán Chỉ, bên cạnh đó còn có người Dao và người Tày. Bãi đá dưới chân thác là nơi trai gái trong vùng hẹn gặp và hát giao duyên, về sau hình thành hội hát tháng ba tổ chức vào trung tuần tháng ba âm lịch hằng năm. Trước năm 2010 thác gần như chỉ người địa phương biết tới vì đường vào còn khó đi. Ngày 29 tháng 1 năm 2011, Ủy ban nhân dân tỉnh Quảng Ninh ban hành Quyết định số 373/QĐ-UBND xếp hạng thác Khe Vằn là di tích danh lam thắng cảnh cấp tỉnh; ngày 18 tháng 4 cùng năm, huyện Bình Liêu tổ chức lễ đón bằng xếp hạng. Sau khi được xếp hạng, địa phương đầu tư đường vào và gắn điểm đến này với hướng phát triển du lịch cộng đồng vùng biên giới. Từ ngày 1 tháng 7 năm 2025, xã Húc Động hợp nhất với thị trấn Bình Liêu và một phần xã Vô Ngại thành xã Bình Liêu, nên thác nay thuộc địa giới xã Bình Liêu.",
+      "description": "Thác Khe Vằn là thác nước ba tầng trên suối Khe Vằn thuộc xã Bình Liêu, tỉnh Quảng Ninh. Thác nằm cách trung tâm Bình Liêu khoảng mười lăm kilômét về phía đông nam, ở độ cao địa hình chừng ba trăm ba mươi mét, tổng chiều cao các bậc nước gần một trăm mét. Tầng thứ nhất là một dòng lớn đổ thẳng từ vách đá xuống, tạo thành hồ nước rộng và trong. Tầng thứ hai tách làm hai dòng nhỏ hơn, nước va vào đá bật lên thành bọt trắng rồi tụ lại ở một bể đá phía dưới. Tầng thứ ba chảy hiền hơn, len qua những tảng đá lớn nằm rải rác rồi nhập vào suối chảy về sông Tiên Yên. Khu vực khoanh vùng bảo vệ của di tích rộng khoảng chín mươi bảy nghìn mét vuông, gồm cả phần rừng hai bên suối. Cảnh quan ở đây còn giữ được vẻ tự nhiên, thảm thực vật dày, ít công trình xây dựng xen vào. Giá trị của thác không chỉ ở cảnh sắc mà còn ở sinh hoạt văn hóa gắn liền với nó, khi bãi đá chân thác là nơi diễn ra hội hát của người Sán Chỉ mỗi mùa xuân.",
+      "visitInfo": "Từ trung tâm xã Bình Liêu đi theo quốc lộ 18C rồi rẽ vào đường liên thôn hướng Húc Động khoảng mười lăm kilômét là tới khu vực thác, đoạn cuối phải gửi xe và đi bộ. Thác không bán vé vào cửa. Mùa mưa nước chảy mạnh và mặt đá rất trơn, khu vực này từng xảy ra tai nạn đuối nước nên không nên xuống tắm ở chân thác khi nước lớn.",
+      "rankingLevel": 1,
+      "recognizedYear": 2011,
+      "sourceUrl": "https://baochinhphu.vn/binh-lieu-don-nhan-bang-xep-hang-di-tich-danh-thang-cap-tinh-thac-khe-van-10272758.htm",
+      "images": []
+    },
+    {
+      "name": "Nhà đày Buôn Ma Thuột",
+      "slug": "nha-day-buon-ma-thuot",
+      "provinceSlug": "dak-lak",
+      "relicType": 1,
+      "address": "Số 18 đường Tán Thuật, phường Buôn Ma Thuột, tỉnh Đắk Lắk",
+      "latitude": null,
+      "longitude": null,
+      "history": "Thực dân Pháp dựng nhà đày trong hai năm 1930 và 1931, đặt tên là Pénitencier de Ban Mê Thuột. Khác với nhà lao thông thường, nơi này được lập riêng để đày ải những người yêu nước và đảng viên cộng sản bị bắt, bị kết án nặng ở các tỉnh Trung Kỳ sau cao trào cách mạng 1930 - 1931. Chính quyền thuộc địa chọn vùng cao nguyên khi đó còn hoang vu, xa quê quán của tù nhân, khí hậu khắc nghiệt và bệnh sốt rét hoành hành, coi đó là cách tăng mức đày ải mà không cần thêm bản án. Người tù bị bắt lao dịch nặng nhọc, mở đường và khai phá đồn điền, nhiều người bỏ mạng. Trong hoàn cảnh đó, những người bị giam biến nhà đày thành nơi học tập và rèn luyện chính trị; nhiều người ra tù sau này giữ trọng trách trong bộ máy nhà nước, trong đó có Hồ Tùng Mậu, Phan Đăng Lưu, Nguyễn Chí Thanh, Tố Hữu và Võ Chí Công. Ngày 10 tháng 7 năm 1980, Bộ Văn hóa và Thông tin xếp hạng nhà đày là di tích lịch sử cấp quốc gia. Di tích được tu bổ vào các năm 1992 và 2006. Ngày 24 tháng 12 năm 2018, Thủ tướng Chính phủ ký Quyết định số 1820/QĐ-TTg xếp hạng di tích quốc gia đặc biệt, lễ trao bằng tổ chức ngày 25 tháng 4 năm 2019.",
+      "description": "Nhà đày Buôn Ma Thuột là di tích lịch sử quốc gia đặc biệt nằm tại số 18 đường Tán Thuật, phường Buôn Ma Thuột, tỉnh Đắk Lắk. Khu di tích rộng gần hai hecta, mặt bằng gần vuông với mỗi cạnh khoảng 200 mét. Bao quanh là bốn bức tường dày 40 xentimét, cao hơn 4 mét, phía trên giăng dây thép gai và có đèn chiếu sáng ban đêm; bốn góc tường đặt vọng gác để lính canh bao quát toàn bộ khuôn viên. Bên trong bố trí sáu dãy lao tập thể dùng giam tù theo mức án, kèm nhà kho, bếp ăn, bệnh xá và khu xưởng. Nghiêm ngặt nhất là dãy xà lim biệt giam gồm 21 phòng, mỗi phòng rộng chừng một mét và dài gần hai mét, nền còn nguyên các lỗ cùm chân hình vuông. Cách bố trí ấy cho thấy rõ ý đồ vừa cách ly vừa vắt kiệt sức người bị giam. Kiến trúc hiện còn pha trộn phần xây thời Pháp thuộc với phần cải tạo giai đoạn sau, nên tham quan một vòng có thể đọc được nhiều lớp thời gian. Bảo tàng Đắk Lắk đang quản lý di tích, phục dựng một phần cảnh giam giữ và trưng bày hiện vật phục vụ khách tham quan, học sinh, sinh viên.",
+      "visitInfo": "Di tích mở cửa từ 7 giờ 30 đến 16 giờ 30 các ngày từ thứ Ba đến Chủ nhật, kể cả ngày lễ và Tết; thứ Hai đóng cửa để làm vệ sinh và bảo quản, tổ chức hoặc cá nhân muốn vào ngày thứ Hai cần liên hệ trước hai ngày với Bảo tàng Đắk Lắk. Khung giờ này áp dụng từ ngày 24 tháng 8 năm 2020. Di tích nằm trong nội thành Buôn Ma Thuột nên đi lại thuận tiện.",
+      "rankingLevel": 3,
+      "recognizedYear": 2018,
+      "sourceUrl": "https://daklak.gov.vn/dia-danh-di-tich-thang-canh/-/asset_publisher/bDngMUmMrWIw/content/nha-ay-buon-ma-thuot",
+      "images": [
+        {
+          "file": "nha-day-buon-ma-thuot/day-lao-nha-day.jpg",
+          "caption": "Một dãy nhà giam trong khuôn viên nhà đày",
+          "imageSource": "Wikimedia Commons, tác giả Dominic Nelson, CC BY-SA 4.0, https://commons.wikimedia.org/wiki/File:Bu%C3%B4n_Ma_Thu%E1%BB%99t_-_buildings_at_Exile_House_former_prison_Apr_2024_01.jpg",
+          "isThumbnail": true
+        },
+        {
+          "file": "nha-day-buon-ma-thuot/khu-xa-lim.jpg",
+          "caption": "Khu xà lim biệt giam với các lỗ cùm vuông trên nền",
+          "imageSource": "Wikimedia Commons, tác giả Nhom3 ncppkh, phạm vi công cộng, https://commons.wikimedia.org/wiki/File:Khu_x%C3%A0_lim_v%E1%BB%9Bi_l%E1%BB%97_c%C3%B9m_vu%C3%B4ng.jpg",
+          "isThumbnail": false
+        }
+      ]
+    },
+    {
+      "name": "Thác Drai Nur",
+      "slug": "thac-drai-nur",
+      "provinceSlug": "dak-lak",
+      "relicType": 4,
+      "address": "Buôn Kuôp, xã Ea Na, tỉnh Đắk Lắk",
+      "latitude": null,
+      "longitude": null,
+      "history": "Tên thác bắt nguồn từ tiếng Ê Đê, trong đó drai nghĩa là thác còn nur nói gọn từ anur, nghĩa là con dúi. Người Ê Đê ở vùng Sêrêpôk truyền lại câu chuyện về đôi trai gái hai buôn không được gia đình chấp thuận nên tìm đến dòng nước, từ đó dòng sông tách làm hai nhánh và sinh ra hai ngọn thác mang tên Drai Nur và Dray Sáp. Câu chuyện gắn tên thác với quan niệm về tình yêu và lòng chung thủy, đến nay vẫn được kể trong các buôn quanh vùng. Về mặt tự nhiên, Drai Nur là thác giữa trong hệ thống ba thác Gia Long, Drai Nur và Dray Sáp trên dòng Sêrêpôk, con sông chảy ngược về phía tây rồi nhập vào sông Mê Kông. Trong ba thác này, Dray Sáp thượng, còn gọi là thác Gia Long, được Bộ Văn hóa và Thông tin xếp hạng danh lam thắng cảnh cấp quốc gia từ ngày 4 tháng 1 năm 1999 theo Quyết định số 01/1999/QĐ-BVHTT. Riêng thác Drai Nur được Bộ Văn hóa, Thể thao và Du lịch xếp hạng danh lam thắng cảnh cấp quốc gia ngày 26 tháng 1 năm 2011. Thác nằm trong nhóm mười bảy di tích cấp quốc gia của tỉnh Đắk Lắk theo thống kê của Sở Văn hóa, Thể thao và Du lịch.",
+      "description": "Thác Drai Nur là danh lam thắng cảnh cấp quốc gia trên dòng Sêrêpôk, thuộc buôn Kuôp, xã Ea Na, tỉnh Đắk Lắk. Thác trải dài theo hướng đông tây, bề ngang khoảng 250 mét vào mùa khô và vượt quá 300 mét vào mùa mưa. Độ cao không đều nhau: chỗ dựng đứng nhất gần 30 mét, chỗ thấp chỉ khoảng 15 mét, nên cả dải nước đổ xuống thành nhiều tầng và nhiều luồng thay vì một màn nước duy nhất. Nền đá bazan bị nước bào mòn qua thời gian tạo thành các hốc và hang phía sau màn nước, khách có thể men theo vách đá để nhìn dòng thác từ bên trong. Bọt nước bắn lên dày đặc khiến khu vực chân thác lúc nào cũng ẩm và mát, cây rừng hai bên bờ giữ được màu xanh quanh năm. Cảnh quan thay đổi rõ theo mùa: mùa mưa dòng chảy mạnh và đục, tiếng nước vang xa; mùa khô lưu lượng giảm, lộ ra các khối đá và tầng thác bên dưới. Cùng với Gia Long và Dray Sáp, Drai Nur tạo thành cụm thác tiêu biểu của cao nguyên Đắk Lắk và là một trong những điểm được nhắc đến nhiều nhất khi nói về cảnh quan sông Sêrêpôk.",
+      "visitInfo": "Thác nằm ở buôn Kuôp, xã Ea Na, phía nam Buôn Ma Thuột, tiếp cận bằng đường bộ. Dòng nước mạnh và rộng nhất vào mùa mưa, trong khi mùa khô nước ít hơn nhưng dễ đi lại quanh chân thác và vào các hốc đá phía sau màn nước. Đây là di tích danh lam thắng cảnh cấp quốc gia do tỉnh Đắk Lắk quản lý; chưa tìm được thông báo chính thức còn hiệu lực về giờ mở cửa và giá vé nên phần này không ghi.",
+      "rankingLevel": 2,
+      "recognizedYear": 2011,
+      "sourceUrl": "https://daklakmuseum.vn/tin-tuc-su-kien/bai-viet/thac-drai-nur",
+      "images": [
+        {
+          "file": "thac-drai-nur/toan-canh-thac-drai-nur.jpg",
+          "caption": "Dải nước đổ xuống nhiều tầng của thác Drai Nur",
+          "imageSource": "Wikimedia Commons, tác giả Sketyl, CC BY 2.0, https://commons.wikimedia.org/wiki/File:Dray_Nur_Waterfall_(49483462012).jpg",
+          "isThumbnail": true
+        },
+        {
+          "file": "thac-drai-nur/chan-thac-drai-nur.jpg",
+          "caption": "Vách đá và màn nước nhìn từ hốc đá dưới chân thác",
+          "imageSource": "Wikimedia Commons, tác giả Sketyl, CC BY 2.0, https://commons.wikimedia.org/wiki/File:Dray_Nur_Waterfall_(49483244536).jpg",
+          "isThumbnail": false
+        }
+      ]
+    },
+    {
+      "name": "Hòn Chồng - Hòn Đỏ",
+      "slug": "hon-chong-hon-do",
+      "provinceSlug": "khanh-hoa",
+      "relicType": 4,
+      "address": "Đường Nguyễn Đình Chiểu, phường Bắc Nha Trang, tỉnh Khánh Hòa",
+      "latitude": 12.2728,
+      "longitude": 109.2066,
+      "history": "Khối đá ở Hòn Chồng hình thành do quá trình tự nhiên kéo dài hàng triệu năm: nước biển và gió bào mòn nền đá gốc ven bờ, để lại những tảng đá tròn nhẵn xếp chồng lên nhau thành từng lớp. Người địa phương đặt tên theo hình dáng, gọi cụm đá lớn phía bắc là Hòn Chồng, cụm đá nhỏ hơn cách đó khoảng một trăm mét về phía nam là Hòn Vợ, kèm theo truyền thuyết về người chồng đi biển và dấu bàn tay in trên mặt đá. Cùng nằm trong phạm vi di tích còn có Hòn Đỏ và Hội quán vịnh Nha Trang, công trình dựng lại từ mười lăm ngôi nhà rường Huế nhằm giới thiệu kiến trúc gỗ truyền thống. Ngày 15 tháng 10 năm 1998, Bộ Văn hóa - Thông tin xếp hạng Hòn Chồng - Hòn Đỏ là di tích cấp quốc gia. Từ đó đến nay khu vực được quản lý như một điểm danh thắng, có biển cấm khắc vẽ lên đá để giữ nguyên bề mặt đá cổ, đồng thời là nơi tổ chức một số hoạt động văn hóa của thành phố.",
+      "description": "Hòn Chồng - Hòn Đỏ là bãi đá cổ ven bờ vịnh Nha Trang, thuộc phường Bắc Nha Trang, tỉnh Khánh Hòa. Điểm nhận ra ngay khi tới nơi là khối đá lớn nằm chênh vênh trên một tảng đá khác, tưởng như chỉ cần một lực nhỏ là đổ nhưng đã đứng vững qua nhiều mùa bão. Xung quanh là hàng trăm phiến đá lớn nhỏ nằm rải ra tận mép nước, nhiều tảng rỗng ruột, bề mặt nhẵn bóng do sóng mài. Giữa các khe đá có chỗ tạo thành lối đi hẹp mà dân gian quen gọi là cổng Trời. Nhìn từ bãi đá ra là mặt vịnh rộng, phía bắc là núi Cô Tiên, phía nam là các đảo nhỏ trong vịnh. Vì nước ở đây trong và ít rong, khối đá hiện rõ cả phần chìm dưới mặt nước khi thủy triều xuống. Ngoài phần cảnh quan, di tích còn có Hội quán vịnh Nha Trang trưng bày nhà rường gỗ, nên khách tới đây xem được cả một cụm đá tự nhiên lẫn một mẫu kiến trúc truyền thống. Đây là một trong số ít điểm ven biển trong thành phố còn giữ được dáng bờ đá gần như nguyên trạng.",
+      "visitInfo": "Di tích nằm ven biển phường Bắc Nha Trang, tiếp cận theo đường Nguyễn Đình Chiểu. Khu vực tham quan gồm bãi đá Hòn Chồng, Hòn Đỏ và Hội quán vịnh Nha Trang. Ban quản lý đặt biển nhắc khách không khắc vẽ lên mặt đá. Nên đi lúc thủy triều xuống để thấy rõ phần chân đá.",
+      "rankingLevel": 2,
+      "recognizedYear": 1998,
+      "sourceUrl": "https://scov.gov.vn/dat-nuoc-con-nguoi/dat-nuoc-viet-nam/danh-thang-hon-chong.html",
+      "images": [
+        {
+          "file": "hon-chong-hon-do/bai-da-hon-chong.jpg",
+          "caption": "Bãi đá Hòn Chồng nhìn dọc bờ vịnh",
+          "imageSource": "Wikimedia Commons, tác giả Can't stop shooting film (Flickr), CC BY 2.0, https://commons.wikimedia.org/wiki/File:Hon_Chong_rocks_2011.jpg",
+          "isThumbnail": true
+        },
+        {
+          "file": "hon-chong-hon-do/hon-chong-nhin-tu-xa.jpg",
+          "caption": "Khối đá lớn xếp chồng nhìn từ phía bãi Cô Tiên",
+          "imageSource": "Wikimedia Commons, tác giả Vinhtantran, CC BY-SA 3.0, https://commons.wikimedia.org/wiki/File:Hon_Chong_from_Co_Tien_beach.JPG",
+          "isThumbnail": false
+        },
+        {
+          "file": "hon-chong-hon-do/cum-da-ven-bien.jpg",
+          "caption": "Cụm đá ven mép nước trong khu danh thắng",
+          "imageSource": "Wikimedia Commons, tác giả Phương Huy, phạm vi công cộng, https://commons.wikimedia.org/wiki/File:Hòn_chồng_Nha_Trang_năm_2016_(1).jpg",
+          "isThumbnail": false
+        }
+      ]
+    },
+    {
+      "name": "Tháp Bà Ponagar",
+      "slug": "thap-ba-ponagar",
+      "provinceSlug": "khanh-hoa",
+      "relicType": 2,
+      "address": "Đồi Cù Lao, đường 2 Tháng 4, phường Bắc Nha Trang, tỉnh Khánh Hòa",
+      "latitude": 12.2653,
+      "longitude": 109.1956,
+      "history": "Đồi Cù Lao bên cửa sông Cái từng là trung tâm thờ tự của tiểu quốc Kauthara thuộc vương quốc Chăm Pa. Bia ký còn lại ở đây cho biết ngôi đền bằng gỗ dựng trước đó bị cướp phá vào năm 774, đến năm 784 vua Satyavarman cho xây lại bằng gạch. Việc xây dựng không dừng ở một đợt: các nhà nghiên cứu xác định những công trình hiện còn được tạo dựng và tu bổ trong khoảng từ thế kỷ VIII đến thế kỷ XIII, nên quần thể là kết quả bồi đắp của nhiều triều vua Chăm. Khi vùng đất này thuộc về Đại Việt, cư dân Việt tiếp nhận tín ngưỡng bản địa, gọi nữ thần Po Nagar là Thiên Y A Na Thánh Mẫu và duy trì việc thờ cúng cho đến nay, biến nơi đây thành điểm sinh hoạt tín ngưỡng chung của cả người Chăm lẫn người Việt. Năm 1979 di tích được xếp hạng cấp quốc gia. Ngày 17 tháng 1 năm 2025, Thủ tướng Chính phủ ký Quyết định số 152/QĐ-TTg xếp hạng Tháp Bà Ponagar là di tích quốc gia đặc biệt, thuộc đợt xếp hạng thứ 17. Lễ công bố và đón bằng được tỉnh Khánh Hòa tổ chức tối ngày 10 tháng 7 năm 2025.",
+      "description": "Tháp Bà Ponagar là cụm đền tháp Chăm Pa dựng trên đồi Cù Lao bên cửa sông Cái, thuộc phường Bắc Nha Trang, tỉnh Khánh Hòa. Quần thể bố trí theo ba tầng dựa vào thế đồi. Tầng thấp là khu tháp cổng nay chỉ còn nền móng. Tầng giữa là nhà khách hành hương với hai dãy cột gạch lớn, dấu tích của một gian tiền tế rộng dùng để sửa lễ trước khi lên đền. Tầng trên là bốn ngôi tháp còn đứng vững, trong đó tháp chính cao khoảng hai mươi ba mét thờ nữ thần Po Nagar, ba tháp còn lại thờ các vị thần trong hệ thống Ấn Độ giáo được người Chăm tiếp nhận. Toàn bộ tháp xây bằng gạch nung xếp khít, gần như không thấy mạch vữa, mặt ngoài chạm nổi hoa văn, hình người và linh vật. Trong lòng tháp chính đặt tượng nữ thần bằng đá màu sẫm ngồi trên bệ, được người Việt phủ xiêm y theo lối thờ Mẫu. Giá trị của di tích nằm ở chỗ vừa giữ được kỹ thuật xây gạch và nghệ thuật điêu khắc Chăm Pa, vừa là nơi một tín ngưỡng bản địa tiếp tục sống trong đời sống đương đại qua lễ hội Tháp Bà.",
+      "visitInfo": "Di tích do Trung tâm Bảo tồn di tích tỉnh Khánh Hòa quản lý, nằm trên đồi Cù Lao bên đường 2 Tháng 4, cách trung tâm Nha Trang khoảng 2 kilômét về phía bắc. Lễ hội Tháp Bà diễn ra từ ngày 21 đến ngày 23 tháng Ba âm lịch hằng năm. Từ tháng 8 năm 2024, đơn vị quản lý đưa vào khai thác thêm hai chương trình tham quan buổi tối.",
+      "rankingLevel": 3,
+      "recognizedYear": 2025,
+      "sourceUrl": "https://baokhanhhoa.vn/van-hoa/202501/thap-ba-ponagar-duoc-xep-hang-di-tich-quoc-gia-dac-biet-b5c48ff/",
+      "images": [
+        {
+          "file": "thap-ba-ponagar/thap-chinh-po-nagar.jpg",
+          "caption": "Tháp chính thờ nữ thần Po Nagar",
+          "imageSource": "Wikimedia Commons, tác giả Christophe95, CC BY-SA 4.0, https://commons.wikimedia.org/wiki/File:Po_Nagar_01.jpg",
+          "isThumbnail": true
+        },
+        {
+          "file": "thap-ba-ponagar/quan-the-thap.jpg",
+          "caption": "Bốn ngôi tháp còn lại trên tầng trên của quần thể",
+          "imageSource": "Wikimedia Commons, tác giả Ms Sarah Welch, CC0 1.0, https://commons.wikimedia.org/wiki/File:04052023_Ponagar_Hindu_temples_complex,_Nha_Trang_Vietnam_-_240.jpg",
+          "isThumbnail": false
+        },
+        {
+          "file": "thap-ba-ponagar/khu-thap-nhin-ngang.jpg",
+          "caption": "Khu tháp nhìn từ phía sườn đồi",
+          "imageSource": "Wikimedia Commons, tác giả Christophe95, CC BY-SA 4.0, https://commons.wikimedia.org/wiki/File:Po_Nagar_02.jpg",
+          "isThumbnail": false
+        }
+      ]
+    },
+    {
+      "name": "Ga Đà Lạt",
+      "slug": "ga-da-lat",
+      "provinceSlug": "lam-dong",
+      "relicType": 2,
+      "address": "Số 1 đường Quang Trung, phường Xuân Hương - Đà Lạt, tỉnh Lâm Đồng",
+      "latitude": 11.9422,
+      "longitude": 108.4556,
+      "history": "Nhà ga gắn liền với tuyến đường sắt Tháp Chàm - Đà Lạt dài 84 kilômét, trong đó có khoảng 16 kilômét đường răng cưa vượt dốc trung bình 12 phần trăm, hoàn thành năm 1932. Đây là một trong số ít tuyến đường sắt răng cưa từng được xây dựng trên thế giới, đưa hành khách từ đồng bằng ven biển lên cao nguyên Lâm Viên. Công trình nhà ga do hai kiến trúc sư người Pháp là Moncet và Revéron thiết kế, nhà thầu Võ Đình Dung thi công, khởi công năm 1932 và hoàn thành năm 1938 với kinh phí khoảng 200.000 franc. Chiến tranh làm tuyến đường hư hại, hoạt động chạy tàu dừng từ năm 1972; về sau phần lớn đường ray và thiết bị răng cưa bị tháo dỡ, nhà ga chỉ còn giữ lại đoạn ngắn nối Đà Lạt với Trại Mát. Ngày 28 tháng 12 năm 2001, Bộ Văn hóa và Thông tin xếp hạng Ga Đà Lạt là di tích kiến trúc cấp quốc gia; tấm biển gắn trên tường sảnh ga hiện vẫn ghi lại mốc này. Gần đây, Ủy ban nhân dân tỉnh Lâm Đồng ra quyết định công nhận Ga đường sắt Đà Lạt là điểm du lịch, gắn việc bảo tồn di tích với khai thác tuyến tàu ngắn phục vụ khách.",
+      "description": "Ga Đà Lạt là nhà ga xe lửa cổ được xếp hạng di tích kiến trúc cấp quốc gia, nằm tại số 1 đường Quang Trung, phường Xuân Hương - Đà Lạt. Khối nhà chính dài 66,5 mét, rộng 11,4 mét và cao 11 mét, bố cục đối xứng với hai sảnh vào ở hai đầu. Điểm nhận ra ngay là ba chóp mái nhọn phía trước, thường được giải thích là mô phỏng ba đỉnh núi Lang Biang, đồng thời gợi dáng mái nhà rông của người Tây Nguyên. Phần dưới mỗi chóp mái lắp cửa kính màu, ánh sáng lọt vào sảnh đổi màu theo giờ trong ngày. Tường xây kết hợp bê tông và đá chẻ, mái lợp ngói, tổng thể theo hướng kiến trúc Anglo-Normand có pha ảnh hưởng của kiến trúc hiện đại đầu thế kỷ 20. Trong ga còn giữ đường ray ba dải, trong đó dải giữa là ray răng cưa dùng để bánh răng của đầu máy bám vào khi leo dốc, cùng đầu máy hơi nước và toa xe cũ đặt trưng bày ngoài sân. Đây là một trong số ít công trình giao thông thời Pháp thuộc ở Việt Nam còn giữ được gần như trọn vẹn hình dáng ban đầu.",
+      "visitInfo": "Ga vẫn hoạt động với tuyến tàu du lịch Đà Lạt - Trại Mát dài 7 kilômét, gồm chuyến ban ngày ngắm cảnh và hành trình buổi tối trên đoàn tàu cổ. Ủy ban nhân dân tỉnh Lâm Đồng đã công nhận Ga đường sắt Đà Lạt là điểm du lịch của tỉnh. Khách có thể tham quan khu nhà ga, sân ga và các đầu máy trưng bày. Giá vé tham quan và vé tàu thay đổi theo thời điểm nên cần hỏi trực tiếp tại ga trước khi đi.",
+      "rankingLevel": 2,
+      "recognizedYear": 2001,
+      "sourceUrl": "https://www.tapchikientruc.com.vn/tac-gia-tac-pham/ga-da-lat-nha-ga-xe-lua-dep-nhat-dong-duong.html",
+      "images": [
+        {
+          "file": "ga-da-lat/mat-tien-ga-da-lat.jpg",
+          "caption": "Mặt tiền nhà ga với ba chóp mái nhọn",
+          "imageSource": "Wikimedia Commons, tác giả P. Hughes, CC BY 4.0, https://commons.wikimedia.org/wiki/File:Da_Lat_-_Train_Station.jpg",
+          "isThumbnail": true
+        },
+        {
+          "file": "ga-da-lat/san-ga-da-lat.jpg",
+          "caption": "Biển ghi mốc xếp hạng di tích quốc gia gắn trên tường ga",
+          "imageSource": "Wikimedia Commons, tác giả Schwede66, CC BY-SA 3.0, https://commons.wikimedia.org/wiki/File:Ga_Da_Lat_1327.JPG",
+          "isThumbnail": false
+        }
+      ]
+    },
+    {
+      "name": "Tháp Po Sah Inư",
+      "slug": "thap-po-sah-inu",
+      "provinceSlug": "lam-dong",
+      "relicType": 2,
+      "address": "Đồi Bà Nài, phường Phú Thủy, tỉnh Lâm Đồng",
+      "latitude": 10.9359,
+      "longitude": 108.1462,
+      "history": "Nhóm đền tháp được người Chăm dựng vào khoảng cuối thế kỷ 8 đầu thế kỷ 9 để thờ thần Shiva, thuộc phong cách nghệ thuật Hòa Lai, một trong những phong cách sớm của kiến trúc Chăm Pa. Đến thế kỷ 15, cư dân trong vùng dựng thêm đền thờ công chúa Po Sah Inư, con gái vua Para Chanh, người được truyền tụng là đã dạy dân trồng lúa, dệt vải và đánh cá; tên của bà từ đó trở thành tên gọi chung của cả nhóm tháp. Trải qua hơn một nghìn năm, phần lớn công trình phụ sụp đổ và bị vùi lấp. Ngày 3 tháng 8 năm 1991, Bộ Văn hóa và Thông tin ban hành Quyết định số 1371/QĐ xếp hạng nhóm tháp là di tích kiến trúc nghệ thuật cấp quốc gia. Các đợt khai quật khảo cổ từ năm 1992 đến năm 1995 làm lộ nhiều nền móng đền tháp đã đổ cùng gạch ngói và hiện vật có niên đại thế kỷ 15. Công tác trùng tu lớn tiến hành song song trong giai đoạn 1992 - 1995 và gần nhất là hai năm 2017 - 2018. Năm 2005, lễ hội Katê của người Chăm được phục dựng tại tháp theo đúng không gian, thời gian và trình tự nghi lễ xưa, từ đó tổ chức hằng năm.",
+      "description": "Tháp Po Sah Inư là cụm đền tháp Chăm Pa trên đồi Bà Nài, phường Phú Thủy, tỉnh Lâm Đồng, cách trung tâm Phan Thiết khoảng 7 kilômét. Cụm này hiện còn ba tháp. Tháp chính, thường gọi là tháp A, cao khoảng 15 đến 16 mét, gồm ba tầng thu nhỏ dần, bên trong đặt bộ Linga - Yoni bằng đá xanh đen nguyên khối thờ thần Shiva. Tháp B cao chừng 12 mét, nằm cách tháp chính khoảng 50 mét, là nơi thờ bò thần Nandin. Tháp C chỉ cao khoảng 5 mét, một tầng, thờ thần Lửa và là chỗ người hành hương ngồi chờ trước khi vào làm lễ ở tháp chính. Cả ba đều xây bằng gạch nung, mạch gạch khít đến mức gần như không nhìn thấy vữa, chất kết dính được cho là dầu rái. Thân tháp mở bốn lỗ thông hơi về bốn hướng để thoát khí nóng trong lòng tháp. Hoa văn trang trí tập trung ở vòm cửa, trụ ốp và diềm mái, đường nét chắc và ít rườm rà, đúng đặc điểm của phong cách Hòa Lai. Từ đồi Bà Nài có thể nhìn ra vùng biển Phú Hài phía dưới.",
+      "visitInfo": "Di tích nằm trên đồi Bà Nài, cách trung tâm Phan Thiết khoảng 7 kilômét về hướng đông bắc, đường lên tháp ngắn và dễ đi. Lễ hội Katê của cộng đồng Chăm được phục dựng từ năm 2005 và tổ chức hằng năm tại tháp, có trình diễn nghề dệt và nghề gốm truyền thống. Đây là điểm đón khách thường xuyên: trong bảy tháng đầu năm 2026, khu di tích đón khoảng 120.000 lượt khách, trong đó khoảng 7.000 lượt là khách quốc tế.",
+      "rankingLevel": 2,
+      "recognizedYear": 1991,
+      "sourceUrl": "https://baovanhoa.vn/van-hoa/ky-2-giu-hon-di-san-danh-thuc-gia-tri-du-lich-260291.html",
+      "images": [
+        {
+          "file": "thap-po-sah-inu/cum-thap-po-sah-inu.jpg",
+          "caption": "Toàn cảnh cụm tháp trên đồi Bà Nài",
+          "imageSource": "Wikimedia Commons, tác giả Ms Sarah Welch, CC0, https://commons.wikimedia.org/wiki/File:Thap_Po_Sah_Inu_temples_complex,_Phu_Hai,_Vietnam_01.jpg",
+          "isThumbnail": true
+        },
+        {
+          "file": "thap-po-sah-inu/thap-chinh.jpg",
+          "caption": "Tháp chính ba tầng thờ thần Shiva",
+          "imageSource": "Wikimedia Commons, tác giả Erwin Verbruggen, CC BY-SA 2.0, https://commons.wikimedia.org/wiki/File:Poshanu_Cham_Towers_(14611382581).jpg",
+          "isThumbnail": false
+        }
+      ]
+    },
+    {
+      "name": "Đền Ông Hoàng Mười",
+      "slug": "den-ong-hoang-muoi",
+      "provinceSlug": "nghe-an",
+      "relicType": 1,
+      "address": "Làng Xuân Am, xã Hưng Nguyên, tỉnh Nghệ An",
+      "latitude": null,
+      "longitude": null,
+      "history": "Đền được dựng năm 1634, thời Hậu Lê, tại làng Xuân Am, trên dải đất nằm giữa sông Mộc và sông Vĩnh. Nơi thờ chính là Quan Hoàng Mười, một vị thánh trong hệ thống Tứ phủ của tín ngưỡng thờ Mẫu; dân gian gắn nhân vật này với những người có công mở mang vùng đất xứ Nghệ, vì vậy trong đền còn phối thờ một số nhân vật lịch sử địa phương. Trải qua chiến tranh và thiên tai, công trình hư hại nhiều lần. Năm 1995, đền được phục dựng trên cơ sở khung nhà cũ, giữ lại các cấu kiện gỗ còn dùng được. Đền hiện lưu giữ hai mươi mốt đạo sắc phong của các triều đại, bản thần tích chữ Hán và hệ thống tượng thờ có giá trị lịch sử lẫn thẩm mỹ. Năm 2002, Ủy ban nhân dân tỉnh Nghệ An xếp hạng đền là di tích lịch sử - văn hóa cấp tỉnh. Năm 2018, đền được công nhận là điểm du lịch văn hóa tâm linh; đến năm 2019, lễ hội đền Ông Hoàng Mười được đưa vào danh mục di sản văn hóa phi vật thể quốc gia. Đây là một trong số ít di tích cấp tỉnh ở Nghệ An có lượng khách hành hương lớn quanh năm.",
+      "description": "Đền Ông Hoàng Mười là đền thờ thuộc tín ngưỡng thờ Mẫu ở làng Xuân Am, xã Hưng Nguyên, tỉnh Nghệ An. Khuôn viên rộng hơn mười nghìn sáu trăm mét vuông, bố trí theo trục dọc với tam quan, sân rộng, rồi ba tòa hạ điện, trung điện và thượng điện nối nhau. Kết cấu gỗ mang dáng dấp kiến trúc thời Nguyễn: vì kèo chồng rường, các đầu dư và cốn chạm rồng, phượng cùng hoa lá theo lối chạm nhiều lớp. Trong nội thất, phần đáng chú ý là hệ thống tượng thờ và đồ tế khí sơn son thếp vàng, cùng nơi cất giữ các đạo sắc phong đặt ở hậu cung. Thế đất của đền được người địa phương ví như đầu một con hạc, do hai dòng sông Mộc và sông Vĩnh ôm lấy hai bên. Hoạt động ở đền tập trung vào thực hành hầu đồng và các nghi lễ của đạo Mẫu, vì vậy di tích được xem là một địa chỉ để tìm hiểu tín ngưỡng thờ Mẫu Tứ phủ ở khu vực Bắc Trung Bộ. Lễ hội chính tổ chức vào ngày 9 và 10 tháng Mười âm lịch, gồm phần lễ rước, các trò chơi dân gian và thả đèn hoa đăng trên sông.",
+      "visitInfo": "Đền nằm ở làng Xuân Am, xã Hưng Nguyên, cách trung tâm thành phố Vinh cũ không xa về phía tây nam. Lễ hội chính diễn ra ngày 9 và 10 tháng Mười âm lịch, tương ứng cuối tháng 11 dương lịch. Khách đến lễ đông nhất vào dịp lễ hội và các tháng đầu năm âm lịch.",
+      "rankingLevel": 1,
+      "recognizedYear": 2002,
+      "sourceUrl": "https://hungnguyen.nghean.gov.vn/tiep-can-thong-tin/le-hoi-den-ong-hoang-muoi-diem-den-du-lich-hap-dan-cua-du-khach-trong-hanh-trinh-ve-voi-xu-nghe-984627",
+      "images": [
+        {
+          "file": "den-ong-hoang-muoi/den-ong-hoang-muoi.jpg",
+          "caption": "Tòa điện chính của đền Ông Hoàng Mười",
+          "imageSource": "Wikimedia Commons, tác giả Đền Ông Hoàng Mười, CC BY-SA 4.0, https://commons.wikimedia.org/wiki/File:Den-ong-hoang-muoi.JPG",
+          "isThumbnail": true
+        },
+        {
+          "file": "den-ong-hoang-muoi/khuon-vien-den.jpg",
+          "caption": "Khuôn viên đền nhìn từ phía sân trước",
+          "imageSource": "Wikimedia Commons, tác giả Đền Ông Hoàng Mười, CC BY-SA 4.0, https://commons.wikimedia.org/wiki/File:Den-Ong_Hoang-Muoi-Nghe-An.jpg",
+          "isThumbnail": false
+        }
+      ]
+    },
+    {
+      "name": "Làng Vạc",
+      "slug": "lang-vac",
+      "provinceSlug": "nghe-an",
+      "relicType": 3,
+      "address": "Phường Thái Hòa, tỉnh Nghệ An",
+      "latitude": null,
+      "longitude": null,
+      "history": "Di chỉ Làng Vạc được phát hiện năm 1972 ở thung lũng Khe Vạc, ngay sau đó ngành khảo cổ tiến hành khai quật lần đầu. Các đợt khai quật tiếp theo diễn ra vào những năm 1973, 1980, 1981 và 1990, tổng diện tích đã mở gần một nghìn mét vuông trên khoảng hai mươi nghìn mét vuông của toàn khu. Kết quả thu được hơn ba trăm ngôi mộ táng cùng khoảng một nghìn hai trăm hiện vật bằng đồng, sắt, gốm, đá và thủy tinh, trong đó có trống đồng, dao găm cán hình người, rìu, khuyên tai và nhiều đồ trang sức. Niên đại của di chỉ được xác định trong khoảng hai nghìn năm trăm đến hai nghìn năm cách ngày nay, tương ứng với giai đoạn muộn của văn hóa Đông Sơn. Số lượng mộ táng ở đây thuộc hàng nhiều nhất trong các di chỉ Đông Sơn đã biết, nên giới nghiên cứu xem Làng Vạc là trung tâm Đông Sơn tiêu biểu của lưu vực sông Cả và dùng tên Làng Vạc để gọi nhóm di vật mang đặc trưng vùng này. Ngày 13 tháng 9 năm 1999, Bộ Văn hóa - Thông tin xếp hạng Làng Vạc là di tích quốc gia theo Quyết định số 61/QĐ-BVHTT.",
+      "description": "Làng Vạc là di tích khảo cổ thuộc văn hóa Đông Sơn, nằm ở phường Thái Hòa, tỉnh Nghệ An. Khu di tích trải trên một dải đất ven thung lũng Khe Vạc, cách sông Hiếu khoảng năm trăm mét, gồm hai khu vực gắn liền nhau là nơi cư trú và nơi chôn cất của cộng đồng cư dân cổ. Trên mặt đất hiện không còn dấu tích kiến trúc, nên giá trị của di tích nằm hoàn toàn ở tầng văn hóa dưới lòng đất và ở bộ sưu tập hiện vật đã khai quật. Trong khuôn viên có đền thờ và nhà trưng bày giữ hơn ba trăm hiện vật tiêu biểu phục vụ nghiên cứu và tham quan, phần lớn hiện vật còn lại được bảo quản tại các bảo tàng. Điểm đáng chú ý về mặt khoa học là sự có mặt đồng thời của đồ đồng, đồ sắt và đồ thủy tinh trong cùng các ngôi mộ, cho thấy cư dân Làng Vạc đã có quan hệ trao đổi rộng và đang ở thời điểm chuyển tiếp về kỹ thuật. Bộ sưu tập ở đây cũng là căn cứ để so sánh với các di chỉ Đông Sơn vùng đồng bằng Bắc Bộ. Công tác bảo vệ gặp khó khăn do nạn đào bới trái phép và do địa hình bị biến đổi, vì vậy tỉnh đã lập quy hoạch bảo tồn gắn với du lịch sinh thái.",
+      "visitInfo": "Khu di tích thuộc phường Thái Hòa, cách trung tâm Thái Hòa khoảng 5 kilômét và cách thành phố Vinh cũ gần 100 kilômét. Trong khuôn viên có đền thờ và nhà trưng bày hiện vật, lễ hội Làng Vạc được tổ chức hằng năm tại khu đền thờ.",
+      "rankingLevel": 2,
+      "recognizedYear": 1999,
+      "sourceUrl": "https://bvhttdl.gov.vn/bao-ton-phat-huy-gia-tri-lich-su-van-hoa-di-tich-khao-co-hoc-lang-vac-20201222083919099.htm",
+      "images": []
+    },
+    {
+      "name": "Núi Thiên Ấn",
+      "slug": "nui-thien-an",
+      "provinceSlug": "quang-ngai",
+      "relicType": 4,
+      "address": "Phường Trương Quang Trọng, tỉnh Quảng Ngãi",
+      "latitude": 15.1494,
+      "longitude": 108.8182,
+      "history": "Núi Thiên Ấn cao 106 mét, nằm bên tả ngạn sông Trà Khúc, bốn mặt dốc thoải đều nên nhìn từ xa giống một quả ấn úp xuống đồng bằng; tên gọi cũng từ hình dáng đó mà ra. Trên đỉnh núi, thiền sư Pháp Hóa dựng một am nhỏ để tu hành, ngôi chùa sau đó được xây dựng trong hai năm 1694 và 1695. Năm 1717, chúa Nguyễn Phúc Chu ban biển ngạch, chính thức đặt tên là chùa Thiên Ấn, từ đó chùa trở thành tổ đình của Phật giáo trong vùng. Năm 1850, vua Tự Đức đưa Thiên Ấn vào hàng danh sơn của đất nước. Năm 1947, cụ Huỳnh Thúc Kháng, nhà nho, nhà báo và quyền Chủ tịch nước Việt Nam Dân chủ Cộng hòa, qua đời tại Quảng Ngãi và được an táng ở sườn tây nam của núi, ngay gần chùa. Sự kết hợp giữa một ngôi cổ tự, một ngọn núi được xem là biểu tượng địa phương và phần mộ của một nhân vật lịch sử khiến khu vực này được lập hồ sơ xếp hạng chung. Ngày 2 tháng 3 năm 1990, Bộ Văn hóa - Thông tin xếp hạng thắng cảnh núi Thiên Ấn và mộ cụ Huỳnh Thúc Kháng là di tích quốc gia theo Quyết định số 168-VH/QĐ.",
+      "description": "Núi Thiên Ấn là danh thắng bên tả ngạn sông Trà Khúc, thuộc phường Trương Quang Trọng, tỉnh Quảng Ngãi. Từ chân núi lên đỉnh có đường bê tông uốn quanh sườn, đủ rộng cho xe nhỏ. Đỉnh núi là khoảng đất bằng rộng chừng một héc ta, chùa Thiên Ấn nằm giữa, xung quanh là cây cổ thụ phủ bóng quanh năm. Chùa giữ lối bố cục cổ với chính điện, nhà tổ và khu tháp mộ của các đời trụ trì; trong sân có tượng Quan Âm bằng cao lanh trắng dựng năm 1995. Hai hiện vật gắn với nhiều giai thoại địa phương là giếng Phật đào sâu trong lòng núi đá và quả chuông đúc năm 1845 do thợ làng Chú Tượng thực hiện, tiếng ngân vang xa. Về phía tây nam, cách chùa một quãng ngắn, là phần mộ cụ Huỳnh Thúc Kháng đặt trên nền cao, nhìn xuống sông Trà Khúc và cánh đồng phía dưới. Đứng ở mép đỉnh núi có thể quan sát gần như toàn bộ vùng hạ lưu sông Trà, đây cũng là lý do người địa phương quen gọi Thiên Ấn là đệ nhất thắng cảnh của tỉnh. Cảnh quan thiên nhiên, một ngôi cổ tự và phần mộ danh nhân cùng nằm trong một khu vực nhỏ là nét riêng của di tích này.",
+      "visitInfo": "Di tích nằm ở phường Trương Quang Trọng, phía đông bắc trung tâm thành phố Quảng Ngãi cũ, có đường bê tông lên tận đỉnh núi. Các điểm tham quan gồm chùa Thiên Ấn, giếng Phật, khu tháp mộ các đời trụ trì và mộ cụ Huỳnh Thúc Kháng ở sườn tây nam. Chùa tổ chức lễ Phật đản và lễ Vu lan hằng năm.",
+      "rankingLevel": 2,
+      "recognizedYear": 1990,
+      "sourceUrl": "https://dulichquangngai.vn/diem-du-lich/di-tich-chua-thien-an-va-mo-cu-huynh-thuc-khang-48.html",
+      "images": [
+        {
+          "file": "nui-thien-an/chua-thien-an.jpg",
+          "caption": "Chùa Thiên Ấn trên đỉnh núi",
+          "imageSource": "Wikimedia Commons, tác giả Daoduyan09, CC BY-SA 4.0, https://commons.wikimedia.org/wiki/File:Chùa_Thiên_Ấn.jpg",
+          "isThumbnail": true
+        },
+        {
+          "file": "nui-thien-an/cong-chua-thien-an.jpg",
+          "caption": "Cổng chùa Thiên Ấn",
+          "imageSource": "Wikimedia Commons, tác giả Daoduyan09, CC BY-SA 4.0, https://commons.wikimedia.org/wiki/File:Cổng_chùa_Thiên_Ấn.jpg",
+          "isThumbnail": false
+        },
+        {
+          "file": "nui-thien-an/nui-thien-an-trong-suong.jpg",
+          "caption": "Sân chùa và hàng cây cổ thụ trên đỉnh Thiên Ấn",
+          "imageSource": "Wikimedia Commons, tác giả Daoduyan09, CC BY-SA 4.0, https://commons.wikimedia.org/wiki/File:Ảo_mờ_Thiên_Ấn_.jpg",
+          "isThumbnail": false
+        }
+      ]
+    },
+    {
+      "name": "Nhà tù Lao Bảo",
+      "slug": "nha-tu-lao-bao",
+      "provinceSlug": "quang-tri",
+      "relicType": 1,
+      "address": "Đường Lê Thế Tiết, xã Lao Bảo, tỉnh Quảng Trị",
+      "latitude": 16.6118,
+      "longitude": 106.5876,
+      "history": "Vùng Lao Bảo nằm trong một thung lũng sát biên giới, trước đó đã có đồn binh thời Nguyễn. Năm 1908, thực dân Pháp cho xây tại đây một nhà tù trên khoảng mười héc ta, ban đầu chỉ gồm hai dãy nhà gỗ lợp ngói dùng để giam những người tham gia phong trào Cần Vương và các sĩ phu yêu nước. Sau cao trào cách mạng 1930 - 1931, số tù chính trị tăng nhanh nên nhà tù được mở rộng thêm nhiều dãy lao xây kiên cố, mỗi dãy rộng khoảng sáu mét, dài ba mươi mét, có lúc giam tới gần hai trăm người, kèm khu xà lim biệt giam mười ba phòng và tường bao cao hơn ba mét. Chế độ giam giữ khắc nghiệt với cùm kẹp, lao dịch nặng và khẩu phần thiếu thốn khiến nơi này bị gọi là địa ngục trần gian. Nhiều người về sau giữ trọng trách trong bộ máy nhà nước từng bị giam ở đây, trong đó có Tố Hữu và Nguyễn Chí Thanh. Trong kháng chiến chống Mỹ, khu vực trở thành địa bàn tranh chấp và bị bom đạn tàn phá nặng ở chiến dịch Đường 9 - Khe Sanh. Ngày 25 tháng 1 năm 1991, Bộ Văn hóa - Thông tin xếp hạng nhà tù Lao Bảo là di tích lịch sử cấp quốc gia theo Quyết định số 154/BVHTT.",
+      "description": "Nhà tù Lao Bảo là di tích nhà tù do thực dân Pháp lập năm 1908, nay thuộc xã Lao Bảo, tỉnh Quảng Trị. Khu di tích nằm cuối đường Lê Thế Tiết, cách Đường 9 hơn hai kilômét, lọt giữa một thung lũng có đồi núi bao quanh. Phần lớn công trình cũ đã đổ nát sau chiến tranh; hiện trường còn nền móng các dãy lao, mảng tường xây, khu xà lim ngầm cùng một số hạng mục được phục dựng để người xem hình dung cách bố trí của nhà tù. Sân di tích rộng, lát đá, trồng nhiều cây cổ thụ; giữa khuôn viên có nhà bia và tượng đài tưởng niệm. So với các nhà tù thời thuộc địa khác, Lao Bảo có vị trí đặc biệt vì nằm xa đồng bằng, giáp biên giới, việc vượt ngục gần như không thể, và chính điều đó khiến nơi đây được chọn làm chỗ giam những người bị coi là nguy hiểm nhất. Giá trị của di tích vì vậy không nằm ở kiến trúc còn lại mà ở lớp tư liệu về chế độ nhà tù thuộc địa và về hoạt động đấu tranh của tù chính trị. Việc trùng tu khởi động từ năm 2009 nhưng tiến độ chậm do nguồn thu hạn chế.",
+      "visitInfo": "Theo cổng thông tin du lịch tỉnh Quảng Trị, di tích mở cửa từ 7 giờ đến 18 giờ, mức giá vé chưa được công bố. Khu di tích cách Đường 9 hơn hai kilômét và cách Đông Hà khoảng 80 kilômét về phía tây.",
+      "rankingLevel": 2,
+      "recognizedYear": 1991,
+      "sourceUrl": "https://dulich.quangtri.gov.vn/en/nhatulaobao",
+      "images": [
+        {
+          "file": "nha-tu-lao-bao/khuon-vien-di-tich.jpg",
+          "caption": "Cây cổ thụ và mái ngói một hạng mục trong khuôn viên di tích",
+          "imageSource": "Wikimedia Commons, tác giả Phương Huy, CC0 1.0, https://commons.wikimedia.org/wiki/File:Nhà_tù_Lao_Bảo_th5n2023_(cây_cổ_thụ_và_mái_ngói)_(2).jpg",
+          "isThumbnail": true
+        },
+        {
+          "file": "nha-tu-lao-bao/san-di-tich.jpg",
+          "caption": "Sân lát đá và vườn cây trong khu di tích",
+          "imageSource": "Wikimedia Commons, tác giả Phương Huy, CC0 1.0, https://commons.wikimedia.org/wiki/File:Nhà_tù_Lao_Bảo_th5n2023_(cây_cối_và_khoảnh_sân)_(3).jpg",
+          "isThumbnail": false
+        }
+      ]
+    },
+    {
+      "name": "Chùa Dơi",
+      "slug": "chua-doi",
+      "provinceSlug": "can-tho",
+      "relicType": 2,
+      "address": "Đường Văn Ngọc Chính, phường Phú Lợi, thành phố Cần Thơ",
+      "latitude": 9.5789,
+      "longitude": 105.9722,
+      "history": "Theo thư tịch của nhà chùa, ngôi chùa được dựng năm 1569, đến nay đã hơn bốn trăm năm mươi năm. Tên Khmer của chùa là Wath Sêrâytêchô Mahatup, người Việt và người Hoa quanh vùng đọc chệch thành Mã Tộc, còn tên Chùa Dơi là cách gọi dân gian sinh ra từ đàn dơi cư trú trong vườn chùa. Cũng như nhiều ngôi chùa Khmer khác ở Sóc Trăng cũ, chùa vừa là nơi tu hành của sư sãi vừa là trung tâm sinh hoạt của cộng đồng phum sóc, nơi dạy chữ Khmer và tổ chức các lễ lớn trong năm. Qua nhiều thế kỷ chùa được trùng tu nhiều lần, hình dáng chánh điện hiện nay định hình từ các đợt tu bổ thời cận đại. Tháng 8 năm 2007 chánh điện bị cháy, nhà chùa cùng chính quyền địa phương phục dựng lại theo nguyên mẫu và khánh thành vào tháng 4 năm 2009. Ngày 12 tháng 2 năm 1999, Bộ Văn hóa - Thông tin ban hành Quyết định số 05/1999/QĐ-BVHTT xếp hạng chùa là di tích kiến trúc nghệ thuật cấp quốc gia.",
+      "description": "Chùa Dơi là ngôi chùa Phật giáo Nam tông Khmer ở phường Phú Lợi, thành phố Cần Thơ, nổi tiếng với đàn dơi quạ trú ngụ trong vườn chùa. Khuôn viên rộng khoảng bốn hecta, được bao bọc bởi rừng sao và dầu cổ thụ, bên trong gồm chánh điện, sala, tăng xá, các tháp đựng hài cốt và một số miếu thờ nhỏ. Chánh điện là phần đáng chú ý nhất về mặt nghệ thuật: mái lợp ngói nhiều lớp, các góc mái cong vút gắn hình rắn thần Naga, đỉnh mái vươn lên thành tháp nhọn, còn hàng cột hiên đỡ mái được đắp tượng tiên nữ Kemnar chắp tay. Bên trong đặt pho tượng Phật Thích Ca bằng đá nguyên khối, tường và trần vẽ các tích về cuộc đời Đức Phật theo lối tranh dân gian Khmer. Điểm khiến ngôi chùa được nhắc đến nhiều là hàng nghìn con dơi quạ sải cánh rộng hơn một mét treo mình trên các tán cây trong vườn, chiều tối mới bay đi kiếm ăn; nhà chùa coi việc dơi về trú là điều lành nên nghiêm cấm săn bắt, dù số lượng đàn dơi đã giảm nhiều trong hai chục năm gần đây. Phía sau chùa còn có khu mộ chôn những con heo năm móng do người dân mang tới gửi nuôi.",
+      "visitInfo": "Chùa nằm trên đường Văn Ngọc Chính, phường Phú Lợi, cách trung tâm khu vực Sóc Trăng cũ khoảng hai kilômét. Đây là cơ sở thờ tự đang hoạt động, khách tham quan nên ăn mặc kín đáo, đi nhẹ nói khẽ và không chọc phá đàn dơi. Muốn thấy dơi bay đi kiếm ăn thì nên tới vào lúc chiều muộn. Các lễ lớn của người Khmer như Chôl Chnăm Thmây, Sene Đôlta và Oóc Om Bóc là dịp chùa đông người nhất.",
+      "rankingLevel": 2,
+      "recognizedYear": 1999,
+      "sourceUrl": "https://vietnamnet.vn/ngoi-chua-co-o-soc-trang-noi-tieng-voi-loai-doi-khong-lo-heo-5-mong-2412529.html",
+      "images": [
+        {
+          "file": "chua-doi/khuon-vien-chua-doi.jpg",
+          "caption": "Chánh điện chùa Dơi với mái cong và hàng cột chạm trổ",
+          "imageSource": "Wikimedia Commons, tác giả Mai Lan, CC BY-SA 2.0, https://commons.wikimedia.org/wiki/File:Ch%C3%B9a_D%C6%A1i_S%C3%B3c_Tr%C4%83ng_(40553739771).jpg",
+          "isThumbnail": true
+        },
+        {
+          "file": "chua-doi/cong-chinh-chua-doi.jpg",
+          "caption": "Cổng chính dẫn vào chùa",
+          "imageSource": "Wikimedia Commons, tác giả Nguyễn Thanh Quang, phạm vi công cộng, https://commons.wikimedia.org/wiki/File:Ch%C3%B9a_D%C6%A1i,_c%E1%BB%95ng_ch%C3%ADnh.JPG",
+          "isThumbnail": false
+        },
+        {
+          "file": "chua-doi/chanh-dien-chua-doi.jpg",
+          "caption": "Chánh điện nhìn từ sân chùa",
+          "imageSource": "Wikimedia Commons, tác giả Nguyễn Thanh Quang, phạm vi công cộng, https://commons.wikimedia.org/wiki/File:Ch%C3%B9a_Mahat%C3%BAp.JPG",
+          "isThumbnail": false
+        }
+      ]
+    },
+    {
+      "name": "Nhà cổ Bình Thủy",
+      "slug": "nha-co-binh-thuy",
+      "provinceSlug": "can-tho",
+      "relicType": 2,
+      "address": "Số 26/1A đường Bùi Hữu Nghĩa, phường Bình Thủy, thành phố Cần Thơ",
+      "latitude": null,
+      "longitude": null,
+      "history": "Ngôi nhà do gia đình họ Dương dựng lần đầu năm 1870, trên phần đất làng Bình Thủy nằm ven rạch Bình Thủy, khi đó là một tuyến giao thương sầm uất của miền Tây. Chủ nhân đầu tiên là ông Dương Văn Vị, người làm nghề buôn lúa gạo và muối. Sau khi ông mất năm 1904, người con là Dương Chấn Kỷ cho xây lại với quy mô lớn hơn và hoàn tất khoảng năm 1911. Nhiều vật liệu như gạch bông lát nền, hàng rào sắt và một phần đồ nội thất được đặt mua từ Pháp, kết hợp với gỗ quý và thợ mộc địa phương. Trải qua hơn một thế kỷ cùng hai cuộc chiến tranh, công trình vẫn giữ được bố cục ban đầu và phần lớn đồ đạc nguyên bản, điều hiếm thấy ở nhà cổ vùng đồng bằng sông Cửu Long. Ngôi nhà hiện vẫn do con cháu họ Dương trông nom và dùng làm nhà thờ họ. Ngày 27 tháng 3 năm 2009, Bộ Văn hóa, Thể thao và Du lịch ban hành Quyết định số 314/QĐ-BVHTTDL xếp hạng nhà thờ họ Dương là di tích kiến trúc nghệ thuật cấp quốc gia. Trước đó ngôi nhà đã được nhiều người biết đến nhờ là bối cảnh quay bộ phim Người tình của đạo diễn Jean-Jacques Annaud năm 1992 cùng một số phim Việt Nam khác.",
+      "description": "Nhà cổ Bình Thủy là ngôi nhà của dòng họ Dương ở phường Bình Thủy, thành phố Cần Thơ, được xếp hạng di tích kiến trúc nghệ thuật cấp quốc gia. Người dân quen gọi nơi này là nhà thờ họ Dương hay vườn lan Bình Thủy. Khuôn viên rộng khoảng sáu nghìn mét vuông, ngôi nhà quay theo hướng đông tây và chia thành nhà trước, nhà giữa, nhà sau. Nền nhà tôn cao khoảng một mét so với mặt sân, phía trước là hai vế cầu thang cong hình cánh cung dẫn lên dãy cửa vòm. Bộ khung chịu lực làm theo lối xuyên trính quen thuộc của nhà Nam Bộ, dựa trên hệ cột gỗ cao từ bốn đến sáu mét, trong khi mặt tiền lại đắp phù điêu hoa lá, đầu cột kiểu phương Tây và cửa chớp theo lối Pháp. Gian giữa đặt bàn thờ tổ tiên theo nghi thức truyền thống, hai bên bài trí bàn ghế, đèn treo và đồ sứ có tuổi đời từ thế kỷ XVIII, XIX. Giá trị của di tích nằm ở chỗ chủ nhân tiếp nhận cách trang trí phương Tây nhưng vẫn giữ nguyên cách tổ chức không gian thờ tự của người Việt, tạo nên một mẫu nhà giao thoa Đông Tây còn khá nguyên vẹn. Quanh nhà là sân gạch và vườn cây cảnh, trong đó có vườn lan gắn với thú chơi của các thế hệ chủ nhân.",
+      "visitInfo": "Di tích nằm trên đường Bùi Hữu Nghĩa, phường Bình Thủy, cách trung tâm thành phố Cần Thơ khoảng năm kilômét. Ngôi nhà vẫn là nơi ở và nơi thờ tự của gia đình họ Dương nên khách tham quan cần giữ trật tự và hỏi ý kiến chủ nhà trước khi chụp ảnh bên trong. Các nguồn của cơ quan quản lý không công bố giờ mở cửa và mức phí cố định nên phần này không nêu con số.",
+      "rankingLevel": 2,
+      "recognizedYear": 2009,
+      "sourceUrl": "https://baocantho.com.vn/hieu-them-ve-gia-tri-nghe-thuat-kien-truc-cua-nha-co-binh-thuy-a172437.html",
+      "images": [
+        {
+          "file": "nha-co-binh-thuy/mat-tien-nha-co.jpg",
+          "caption": "Mặt tiền nhà cổ Bình Thủy với cầu thang cong và dãy cửa vòm",
+          "imageSource": "Wikimedia Commons, tác giả Daaé, phạm vi công cộng, https://commons.wikimedia.org/wiki/File:Nha_co_Binh_Thuy_1.jpg",
+          "isThumbnail": true
+        },
+        {
+          "file": "nha-co-binh-thuy/nha-co-binh-thuy.jpg",
+          "caption": "Ngôi nhà nhìn từ sân trước",
+          "imageSource": "Wikimedia Commons, tác giả Thuydaonguyen, CC BY 3.0, https://commons.wikimedia.org/wiki/File:Nh%C3%A0_c%E1%BB%95_B%C3%ACnh_Th%E1%BB%A7y.jpg",
+          "isThumbnail": false
+        },
+        {
+          "file": "nha-co-binh-thuy/san-truoc-nha-co.jpg",
+          "caption": "Vườn cây cảnh trong khuôn viên nhà cổ Bình Thủy",
+          "imageSource": "Wikimedia Commons, tác giả Thuydaonguyen, CC BY 3.0, https://commons.wikimedia.org/wiki/File:Nh%C3%A0_c%E1%BB%95_B%C3%ACnh_Th%E1%BB%A7y_1.jpg",
+          "isThumbnail": false
+        }
+      ]
+    },
+    {
+      "name": "Khu danh thắng Bửu Long",
+      "slug": "buu-long",
+      "provinceSlug": "dong-nai",
+      "relicType": 4,
+      "address": "Phường Trấn Biên, tỉnh Đồng Nai",
+      "latitude": 10.9675,
+      "longitude": 106.8,
+      "history": "Vùng núi Bửu Long gắn với nghề khai thác và chế tác đá của lưu dân người Việt và người Hoa từ thế kỷ XVII, khi Trấn Biên trở thành một trong những điểm tụ cư sớm ở Nam Bộ. Đá lấy từ đây được dùng để xây thành, dựng cầu, tạc bia và tượng cho nhiều công trình trong vùng, lâu dần hình thành làng nghề đá Bửu Long với miếu thờ tổ nghề. Việc khai thác kéo dài hàng thế kỷ đã khoét sâu vào chân núi, để lại những hố lớn về sau tích nước thành hồ Long Ẩn và hồ Long Vân, tạo nên cảnh núi đá xen mặt nước đặc trưng của khu vực. Trên núi Bình Điện có chùa Bửu Phong dựng từ thế kỷ XVII, được xem là một trong những ngôi chùa cổ nhất tỉnh Đồng Nai; trên núi Long Ẩn có chùa Hang, còn gọi là Long Sơn thạch động, hình thành đầu thế kỷ XX. Năm 1980, chính quyền tỉnh phê duyệt quy hoạch khu vực rộng tám mươi tư hecta. Ngày 13 tháng 3 năm 1990, Bộ Văn hóa - Thông tin ban hành Quyết định số 208/VH-QĐ xếp hạng Bửu Long là di tích danh lam thắng cảnh cấp quốc gia. Sau đó khu vực tiếp tục được mở rộng và tổ chức thành điểm tham quan của thành phố Biên Hòa cũ.",
+      "description": "Bửu Long là khu danh thắng ở phường Trấn Biên, tỉnh Đồng Nai, gồm cụm núi đá, hồ nước và chùa cổ nằm bên tả ngạn sông Đồng Nai. Toàn khu rộng khoảng tám mươi tư hecta, độ cao trung bình chừng một trăm mét so với mực nước biển, địa hình chuyển tiếp giữa vùng đồi phía đông và đồng bằng ven sông. Trung tâm cảnh quan là hồ Long Ẩn rộng khoảng mười tám hecta rưỡi, chỗ sâu nhất tới hơn hai mươi mét, mặt hồ nổi lên những khối đá sót có hình dáng lạ mắt nên nhiều người quen gọi vui là vịnh Hạ Long thu nhỏ của phương Nam. Cạnh hồ là núi Long Ẩn với chùa Hang nằm sau bậc đá dẫn lên sườn núi, bên trong đặt tượng Phật và tượng Quan Âm. Núi Bình Điện cao hơn, trên đỉnh có chùa Bửu Phong với bộ khung gỗ chạm trổ tỉ mỉ và những bia đá cổ. Rải rác trong khu vực còn miếu thờ tổ nghề đá và dấu vết các khu khai thác cũ, cho thấy cảnh quan hiện nay là kết quả của cả tự nhiên lẫn bàn tay con người qua nhiều thế hệ.",
+      "visitInfo": "Khu danh thắng nằm cách trung tâm khu vực Biên Hòa cũ khoảng bốn kilômét về phía tây bắc, đi theo đường Huỳnh Văn Nghệ. Khu vực hồ Long Ẩn do đơn vị du lịch quản lý và có bán vé, còn chùa Bửu Phong cùng chùa Hang là cơ sở thờ tự nên khách cần ăn mặc chỉnh tề. Mức phí thay đổi theo từng thời điểm và không tìm được thông báo chính thức còn hiệu lực nên phần này không nêu con số. Không nên xuống tắm ở hồ vì hồ sâu và nhiều vách đá dựng đứng.",
+      "rankingLevel": 2,
+      "recognizedYear": 1990,
+      "sourceUrl": "https://baodongnai.com.vn/vanhoa/200704/di-tich-danh-thang-dong-nai-khu-di-tich-danh-thang-buu-long-2014331/",
+      "images": [
+        {
+          "file": "buu-long/ho-long-an.jpg",
+          "caption": "Hồ Long Ẩn với những khối đá sót giữa mặt nước",
+          "imageSource": "Wikimedia Commons, tác giả Bem photography, CC BY 2.0, https://commons.wikimedia.org/wiki/File:H%E1%BB%93_Long_%E1%BA%A8n_-_10398247865.jpg",
+          "isThumbnail": true
+        },
+        {
+          "file": "buu-long/vach-da-ho-long-an.jpg",
+          "caption": "Vách đá dựng đứng bên hồ Long Ẩn, dấu vết của các khu khai thác đá cũ",
+          "imageSource": "Wikimedia Commons, tác giả Bem photography, CC BY 2.0, https://commons.wikimedia.org/wiki/File:H%E1%BB%93_Long_%E1%BA%A8n_-_10604363093.jpg",
+          "isThumbnail": false
+        },
+        {
+          "file": "buu-long/canh-quan-buu-long.jpg",
+          "caption": "Cầu phao bắc qua hồ Long Ẩn trong khu danh thắng",
+          "imageSource": "Wikimedia Commons, tác giả Lam Tr Th, CC BY-SA 3.0, https://commons.wikimedia.org/wiki/File:B%E1%BB%ADu_Long,_Bien_Hoa,_Dong_Nai,_Vietnam_-_panoramio_(5).jpg",
+          "isThumbnail": false
+        }
+      ]
+    },
+    {
+      "name": "Mộ cự thạch Hàng Gòn",
+      "slug": "mo-cu-thach-hang-gon",
+      "provinceSlug": "dong-nai",
+      "relicType": 3,
+      "address": "Phường Hàng Gòn, tỉnh Đồng Nai",
+      "latitude": 10.8644,
+      "longitude": 107.2306,
+      "history": "Ngôi mộ được kỹ sư người Pháp Jean Bouchot phát hiện năm 1927 khi mở tuyến đường từ Long Khánh đi Bà Rịa. Ngay trong mùa mưa năm đó, cuộc khai quật đầu tiên được tiến hành và kết quả sớm được giới nghiên cứu Đông Dương chú ý vì đây là kiểu mộ cự thạch chưa từng gặp ở Nam Bộ. Các đợt nghiên cứu về sau xác định niên đại di tích vào khoảng từ năm 150 trước Công nguyên đến năm 240 sau Công nguyên, tức giai đoạn cuối thời đại kim khí ở lưu vực sông Đồng Nai. Năm 1995, các nhà khảo cổ tìm thêm khu chế tác nằm cách hầm mộ không xa, nơi còn lại nhiều tấm đá thô, phế liệu và hàng nghìn tiêu bản công cụ đá, cho thấy đá được gia công tại chỗ trước khi lắp dựng. Ngày 24 tháng 12 năm 1982, di tích được Bộ Văn hóa xếp hạng cấp quốc gia. Trong hai năm 2011 và 2012, khu di tích được tu bổ và tôn tạo trên diện tích hơn ba mươi bảy nghìn mét vuông, gồm hầm mộ, khu chế tác, nhà trưng bày và hạ tầng phục vụ khách. Ngày 23 tháng 12 năm 2015, Thủ tướng Chính phủ ký Quyết định số 2367/QĐ-TTg xếp hạng di tích quốc gia đặc biệt.",
+      "description": "Mộ cự thạch Hàng Gòn là di tích khảo cổ ở phường Hàng Gòn, tỉnh Đồng Nai, gồm một ngôi mộ ghép từ những tấm đá hoa cương cỡ lớn. Di tích còn được gọi là di chỉ Hàng Gòn 7, mộ Đông Dương hay Mả Ông Đá. Phần hầm mộ có dạng hộp chữ nhật dài khoảng bốn mét hai, rộng hai mét bảy và cao một mét sáu, do sáu tấm đá lớn ghép lại: bốn tấm dựng đứng làm vách, một tấm lót đáy và một tấm đậy nắp dày chừng ba mươi xentimét. Quanh mộ còn những trụ đá dài nặng hàng chục tấn, đầu trụ đẽo mộng như để dựng thành một kết cấu che phía trên. Điều khiến giới nghiên cứu quan tâm là vùng Long Khánh không có mỏ đá hoa cương, nghĩa là khối đá phải được vận chuyển từ nơi khác về rồi gia công tại khu chế tác cạnh đó, một công việc đòi hỏi tổ chức lao động ở quy mô lớn. Kiểu mộ này thuộc loại hình dolmen, hiếm gặp trong hệ thống di tích khảo cổ Việt Nam, nên di tích được xem là bằng chứng quan trọng về trình độ kỹ thuật và tổ chức xã hội của cư dân lưu vực sông Đồng Nai cách nay khoảng hai nghìn năm.",
+      "visitInfo": "Di tích nằm ở phường Hàng Gòn, cách trung tâm khu vực Long Khánh khoảng tám kilômét theo hướng đi Bà Rịa. Hầm mộ được che bằng nhà mái vòm để tránh mưa nắng, xung quanh có lối đi và khu trưng bày giới thiệu kết quả khai quật. Khách tham quan không được trèo lên các tấm đá. Chưa tìm được thông báo chính thức còn hiệu lực về giờ mở cửa và giá vé nên phần này không nêu.",
+      "rankingLevel": 3,
+      "recognizedYear": 2015,
+      "sourceUrl": "https://dsvh.gov.vn/di-tich-khao-co-mo-cu-thach-hang-gon-1285",
+      "images": [
+        {
+          "file": "mo-cu-thach-hang-gon/ham-mo-cu-thach.jpg",
+          "caption": "Hầm mộ ghép bằng các tấm đá hoa cương, phía trên là nhà che",
+          "imageSource": "Wikimedia Commons, tác giả Lam Tr Th, CC BY-SA 3.0, https://commons.wikimedia.org/wiki/File:H%C3%A0ng_G%C3%B2n,_tx._Long_Kh%C3%A1nh,_%C4%90%E1%BB%93ng_Nai,_Vietnam_-_panoramio_(1).jpg",
+          "isThumbnail": true
+        },
+        {
+          "file": "mo-cu-thach-hang-gon/khu-di-tich-hang-gon.jpg",
+          "caption": "Các trụ đá và khuôn viên khu di tích sau đợt tôn tạo",
+          "imageSource": "Wikimedia Commons, tác giả Lam Tr Th, CC BY-SA 3.0, https://commons.wikimedia.org/wiki/File:H%C3%A0ng_G%C3%B2n,_tx._Long_Kh%C3%A1nh,_%C4%90%E1%BB%93ng_Nai,_Vietnam_-_panoramio.jpg",
+          "isThumbnail": false
+        }
+      ]
+    },
+    {
+      "name": "Đình Tân Đông",
+      "slug": "dinh-tan-dong",
+      "provinceSlug": "dong-thap",
+      "relicType": 1,
+      "address": "Ấp Gò Táo, xã Tân Đông, tỉnh Đồng Tháp",
+      "latitude": null,
+      "longitude": null,
+      "history": "Ngôi đình được dựng năm 1901 với quy mô nhỏ, ban đầu dân trong vùng gọi là miếu Tân Đông. Trận bão năm 1904 làm công trình hư hại nặng, người dân phải dời địa điểm khoảng một kilômét và dựng lại trên nền đất cao hơn, rộng chừng năm trăm ba mươi tám mét vuông. Về thời điểm hoàn thành lần dựng lại này các nguồn ghi không giống nhau, có nơi chép năm 1905, có nơi chép năm 1907. Trong kháng chiến chống Pháp, đình là nơi cán bộ cách mạng địa phương hội họp; sang thời kỳ chống Mỹ, đối phương từng dùng đình làm nơi giam giữ người hoạt động. Sau chiến tranh đình bị bỏ trống nhiều năm, mái ngói hư hỏng, hai cây bồ đề mọc trên nóc buông rễ bám khắp tường nhưng nhờ đó mà khung nhà không sụp. Ngày 9 tháng 12 năm 2010, Ủy ban nhân dân tỉnh Tiền Giang trao bằng xếp hạng di tích lịch sử - văn hóa cấp tỉnh cho đình Tân Đông. Khoảng năm 2020, đình được trùng tu với kinh phí chừng hai tỷ sáu trăm triệu đồng, giữ lại bộ rễ bồ đề. Từ ngày 1 tháng 7 năm 2025, xã Tân Đông thuộc tỉnh Đồng Tháp sau khi Tiền Giang và Đồng Tháp hợp nhất.",
+      "description": "Đình Tân Đông là ngôi đình hơn một trăm năm tuổi ở ấp Gò Táo, xã Tân Đông, tỉnh Đồng Tháp. Đình còn có tên dân gian là đình Gò Táo, đặt theo tên xóm. Mặt tiền đình gây chú ý vì năm vòm cửa cuốn làm theo lối châu Âu, khác với kiểu cửa bức bàn thường gặp ở đình làng Nam Bộ, cho thấy dấu ấn giao thoa kiến trúc đầu thế kỷ hai mươi. Bên trong, hệ cột gỗ kê trên chân tảng đá xanh đỡ bộ kèo chạm hình rồng, phượng và hoa lá; mái lợp ngói âm dương, các đường bờ nóc đắp gờ đơn giản. Thứ khiến ngôi đình được nhắc đến nhiều nhất là hai cây bồ đề mọc trên nóc, rễ buông dài men theo các vết nứt rồi ôm lấy tường và vòm cửa, có chỗ rễ đã thay cho cột chống. Trong nhiều năm đình xuống cấp mà không đổ chính là nhờ bộ rễ này, nên khi trùng tu người ta phải tính cách giữ cả công trình lẫn cây. Đình hiện vẫn là nơi sinh hoạt tín ngưỡng của dân trong ấp và là điểm được nhiều đoàn khách tìm đến chụp ảnh.",
+      "visitInfo": "Đình mở cửa tự do, không thu phí. Trong năm đình có bốn kỳ lễ chính theo âm lịch: lễ Kỳ yên ngày 16 tháng 2, lễ Hạ điền ngày 16 tháng 5, lễ Thượng điền ngày 16 tháng 8 và lễ Cầu bông ngày 16 tháng 11. Khách tới ngoài dịp lễ nên liên hệ người trông coi đình để mở cửa chánh điện.",
+      "rankingLevel": 1,
+      "recognizedYear": 2010,
+      "sourceUrl": "https://baodongthap.vn/dinh-tan-dong-doc-dao-voi-kien-truc-co-1-khong-2-a69142.html",
+      "images": []
+    },
+    {
+      "name": "Văn Thánh miếu Cao Lãnh",
+      "slug": "van-thanh-mieu-cao-lanh",
+      "provinceSlug": "dong-thap",
+      "relicType": 1,
+      "address": "Đường Lý Thường Kiệt, phường Cao Lãnh, tỉnh Đồng Tháp",
+      "latitude": 10.4616,
+      "longitude": 105.635,
+      "history": "Miếu được khởi công ngày mùng 4 tháng Sáu âm lịch năm Đinh Tỵ 1857 tại thôn Mỹ Trà, khi đó thuộc huyện Kiến Phong, tỉnh Định Tường, và hoàn tất vào ngày 28 tháng Mười cùng năm. Người đứng ra lo việc xây dựng là quan Đốc học Hồ Trọng Đính, với mục đích tạo một nơi thờ Khổng Tử và khuyến khích việc học chữ nghĩa trong vùng đất mới khai phá. Năm Mậu Dần 1878, miếu được dời về vị trí hiện nay trên đường Lý Thường Kiệt. Giai đoạn 1935 đến 1940, miếu được trùng tu lớn: dãy nhà bên trái sửa thành thư viện, dãy bên phải dùng làm nơi hội họp, đồng thời một hội khuyến học được lập ra tại đây để duy trì việc dạy và học chữ Hán trước sức ép của lối học mới. Chiến tranh khiến miếu ngừng hoạt động từ năm 1951 và xuống cấp nặng, một số đồ thờ phải gửi sang nơi khác giữ hộ năm 1965. Sau năm 1975, phần đất và công trình được dùng làm thư viện tỉnh. Ngày 20 tháng 4 năm 2001, Ủy ban nhân dân tỉnh Đồng Tháp xếp hạng Văn Thánh miếu Cao Lãnh là di tích lịch sử - văn hóa cấp tỉnh, sau đó miếu được tu bổ và đưa trở lại chức năng thờ tự.",
+      "description": "Văn Thánh miếu Cao Lãnh là nơi thờ Khổng Tử và các bậc hiền triết Nho học, tọa lạc trên đường Lý Thường Kiệt, phường Cao Lãnh, tỉnh Đồng Tháp. Đây là một trong số ít văn miếu còn lại ở miền Tây Nam Bộ, được xếp hạng di tích cấp tỉnh. Lối vào là cổng tam quan quét vôi trắng, mái cong lợp ngói ống, trên trán cổng đắp bốn chữ Hán Khổng Thánh Nho Môn. Qua cổng là sân lát gạch dẫn tới ba nếp nhà bố trí theo trục dọc. Gian chính giữa đặt bài vị Khổng Tử, hai bên là bài vị các học trò xuất sắc của ông, không gian thờ treo nhiều hoành phi và câu đối chữ Hán. Các dãy nhà bên từng được dùng làm thư viện và nơi hội họp của hội khuyến học địa phương, nay dùng cho việc tiếp khách và lưu giữ hiện vật. Miếu nằm lọt trong công viên Văn Miếu rộng khoảng mười hai hecta, gồm phần mặt nước bốn hecta cùng đường dạo và vườn cây với khoảng bảy trăm cây xanh, trong đó có nhiều cây me, phượng và sao đã hàng chục năm tuổi, nên di tích đồng thời là một khoảng xanh quen thuộc giữa lòng đô thị.",
+      "visitInfo": "Di tích nằm trong công viên Văn Miếu ở trung tâm khu vực Cao Lãnh, có thể vào bằng đường Lý Thường Kiệt. Công viên mở cửa tự do cho người dân đến tập thể dục và nghỉ ngơi, khu vực thờ tự cần giữ yên tĩnh. Hằng năm miếu tổ chức lễ tế vào dịp xuân và thu theo lệ cũ. Trong công viên còn có đường sách Cao Lãnh hoạt động từ năm 2022. Không tìm được thông báo chính thức về giờ mở cửa khu thờ tự nên phần này không nêu.",
+      "rankingLevel": 1,
+      "recognizedYear": 2001,
+      "sourceUrl": "https://dulichcaolanh.dongthap.gov.vn/en/places/tourist-places/van-mieu-cao-lanh",
+      "images": [
+        {
+          "file": "van-thanh-mieu-cao-lanh/van-thanh-mieu-cao-lanh.jpg",
+          "caption": "Cổng tam quan Văn Thánh miếu Cao Lãnh với bốn chữ Khổng Thánh Nho Môn",
+          "imageSource": "Wikimedia Commons, tác giả Bùi Thụy Đào Nguyên, CC BY-SA 3.0, https://commons.wikimedia.org/wiki/File:V%C4%83n_mi%E1%BA%BFu_Cao_L%C3%A3nh.jpg",
+          "isThumbnail": true
+        },
+        {
+          "file": "van-thanh-mieu-cao-lanh/van-thanh-mieu-ban-dem.jpg",
+          "caption": "Văn Thánh miếu về đêm",
+          "imageSource": "Wikimedia Commons, tác giả Bùi Thụy Đào Nguyên, CC BY-SA 4.0, https://commons.wikimedia.org/wiki/File:V%C4%83n_mi%E1%BA%BFu_Cao_L%C3%A3nh_v%E1%BB%81_%C4%91%C3%AAm.jpg",
+          "isThumbnail": false
+        }
+      ]
+    },
+    {
+      "name": "Chợ Bến Thành",
+      "slug": "cho-ben-thanh",
+      "provinceSlug": "ho-chi-minh",
+      "relicType": 2,
+      "address": "Phường Bến Thành, Thành phố Hồ Chí Minh",
+      "latitude": 10.7725,
+      "longitude": 106.698,
+      "history": "Tên chợ bắt nguồn từ một ngôi chợ cũ họp bên sông Bến Nghé, gần bến sông và cửa thành Gia Định, nên dân gian ghép hai chữ bến và thành mà gọi. Sau khi người Pháp chiếm Gia Định năm 1859 và quy hoạch lại đô thị, chợ được dời về khu vực gần vị trí hiện nay vào khoảng năm 1860. Ngôi chợ mà ngày nay còn thấy là công trình mới, do hãng thầu Brossard et Maupin khởi công năm 1912 trên nền một vùng đầm lầy được san lấp và hoàn thành vào tháng 3 năm 1914. Lễ khánh thành kéo dài ba ngày, từ 28 đến 30 tháng 3 năm 1914, thu hút hơn một trăm nghìn người tới dự, được báo chí đương thời gọi là hội chợ lớn của Sài Gòn. Chợ trải qua hai đợt sửa chữa lớn vào năm 1952 và năm 1985, ngoài ra còn nhiều lần chỉnh trang nhỏ, nhưng khối nhà và tháp đồng hồ vẫn giữ nguyên hình dáng ban đầu. Ngày 20 tháng 11 năm 2024, Chủ tịch Ủy ban nhân dân Thành phố Hồ Chí Minh ký quyết định xếp hạng chợ Bến Thành là di tích kiến trúc nghệ thuật cấp thành phố, đồng thời giao Sở Văn hóa và Thể thao cùng chính quyền địa phương khoanh vùng bảo vệ và quản lý theo pháp luật về di sản văn hóa.",
+      "description": "Chợ Bến Thành là ngôi chợ lớn nằm ở trung tâm phường Bến Thành, Thành phố Hồ Chí Minh. Công trình chiếm một khu đất rộng khoảng 13.056 mét vuông, bốn mặt giáp các đường Phan Bội Châu, Phan Chu Trinh, Lê Thánh Tôn và Công trường Quách Thị Trang. Mặt bằng chợ là một khối nhà gần vuông với bốn cửa chính quay về bốn hướng đông, tây, nam, bắc, kèm theo mười hai cửa phụ chia đều các phía, nhờ vậy dòng người ra vào được phân tán mà không dồn về một lối. Điểm dễ nhận nhất là tháp đồng hồ dựng ở cửa Nam, khối tháp vuông thấp, mái ngói, mặt đồng hồ hướng ra quảng trường phía trước; hình ảnh này lâu nay được dùng như một biểu tượng quen thuộc của thành phố. Trên bốn cửa chính còn gắn các bức phù điêu gốm làm năm 1952, mô tả những sản vật và con vật gắn với đời sống miền Nam. Bên trong, không gian buôn bán được chia thành các ngành hàng vải, giày dép, thực phẩm khô, hàng lưu niệm và khu ăn uống, lối đi hẹp và liên tục. Giá trị của chợ nằm ở chỗ một công trình thương mại thời thuộc địa vẫn hoạt động đúng chức năng sau hơn một trăm năm, vừa là nơi mua bán vừa là điểm tham quan của khách trong và ngoài nước.",
+      "visitInfo": "Chợ mở cửa buôn bán hằng ngày và không thu phí tham quan. Khu vực trước cửa Nam là Công trường Quách Thị Trang, nơi đặt ga Bến Thành của tuyến đường sắt đô thị số 1 Bến Thành - Suối Tiên, nên có thể tới chợ bằng metro hoặc xe buýt. Khách nên hỏi giá trước khi mua vì phần lớn hàng hóa trong chợ không niêm yết giá cố định.",
+      "rankingLevel": 1,
+      "recognizedYear": 2024,
+      "sourceUrl": "https://tphcm.chinhphu.vn/cho-ben-thanh-duoc-xep-hang-di-tich-cap-thanh-pho-101241120205021906.htm",
+      "images": [
+        {
+          "file": "cho-ben-thanh/cho-ben-thanh-cua-nam.jpg",
+          "caption": "Mặt tiền cửa Nam chợ Bến Thành với tháp đồng hồ",
+          "imageSource": "Wikimedia Commons, tác giả Bahnfrend, CC BY-SA 4.0, https://commons.wikimedia.org/wiki/File:Ben_Thanh_Market,_2023_(01).jpg",
+          "isThumbnail": true
+        },
+        {
+          "file": "cho-ben-thanh/cho-ben-thanh-ben-trong.jpg",
+          "caption": "Lối đi giữa các gian hàng bên trong chợ",
+          "imageSource": "Wikimedia Commons, tác giả Bahnfrend, CC BY-SA 4.0, https://commons.wikimedia.org/wiki/File:Ben_Thanh_Market,_2023_(08).jpg",
+          "isThumbnail": false
+        }
+      ]
+    },
+    {
+      "name": "Giồng Cá Vồ",
+      "slug": "giong-ca-vo",
+      "provinceSlug": "ho-chi-minh",
+      "relicType": 3,
+      "address": "Ấp Hòa Hiệp, xã Cần Giờ, Thành phố Hồ Chí Minh",
+      "latitude": 10.4122,
+      "longitude": 106.7844,
+      "history": "Tháng 12 năm 1993, trong đợt điều tra vùng rừng ngập mặn Cần Giờ, các nhà khảo cổ phát hiện tại giồng đất này ba mươi tám mộ chum, trong đó hai mươi ba chum còn di cốt người kèm đồ gốm, đồ đá, thủy tinh, vỏ nhuyễn thể và đồ sắt, phần lớn là đồ trang sức. Cuộc khai quật chính thức diễn ra từ ngày 26 tháng 4 đến ngày 21 tháng 6 năm 1995 do Bảo tàng Lịch sử Thành phố Hồ Chí Minh phối hợp với Viện Khảo cổ học và một số cơ quan khác thực hiện trên diện tích 230 mét vuông, đưa lên gần ba trăm năm mươi mộ chum cùng mười mộ đất. Niên đại của di tích được xác định trong khoảng hai nghìn năm trăm năm cách nay đến những thế kỷ đầu Công nguyên, thuộc phạm vi ảnh hưởng của văn hóa Sa Huỳnh. Ngày 13 tháng 4 năm 2000, Bộ Văn hóa và Thông tin ban hành Quyết định số 06/2000-QĐ-BVHTT xếp hạng Giồng Cá Vồ là di tích khảo cổ cấp quốc gia. Đây là một trong hai di tích khảo cổ của Thành phố Hồ Chí Minh được xếp hạng ở cấp này.",
+      "description": "Giồng Cá Vồ là di tích khảo cổ cấp quốc gia ở ấp Hòa Hiệp, xã Cần Giờ, Thành phố Hồ Chí Minh. Di tích nằm trên một giồng đất đỏ nổi cao hơn mặt ruộng chung quanh khoảng 1,5 mét, giữa vùng rừng ngập mặn, và có quy mô lớn nhất trong số các địa điểm khảo cổ đã biết ở Cần Giờ. Táng thức đặc trưng ở đây là mộ chum: người chết được đặt trong chum gốm lớn ở tư thế ngồi bó gối, chôn cùng đồ tùy táng. Sưu tập hiện vật thu được gồm hai mươi mốt khuyên tai hai đầu thú, 1.046 hạt chuỗi bằng đá, ba mươi sáu vòng tay đá, ba mươi sáu răng nanh thú, hơn bảy mươi hiện vật kim loại như giáo, lao, lưỡi câu và rìu, cùng đồ đồng và nhiều loại gốm. Khuyên tai hai đầu thú là hiện vật đáng chú ý nhất vì kiểu dáng này phân bố rộng ở Đông Nam Á, cho thấy cư dân ven biển Cần Giờ khi đó đã tham gia mạng lưới trao đổi khu vực. Nhiều hiện vật hiện được trưng bày tại các bảo tàng lớn.",
+      "visitInfo": "Di tích nằm giữa khu dân cư và vùng ruộng ở Cần Giờ, hiện chưa có hạ tầng đón khách tham quan thường xuyên. Muốn xem hiện vật, khách nên đến Bảo tàng Lịch sử Thành phố Hồ Chí Minh hoặc Bảo tàng Lịch sử quốc gia, nơi lưu giữ và trưng bày các sưu tập lấy từ những cuộc khai quật tại đây, trong đó có khuyên tai hai đầu thú và chuỗi hạt đá mã não.",
+      "rankingLevel": 2,
+      "recognizedYear": 2000,
+      "sourceUrl": "https://thegioidisan.vn/vi/di-tich-khao-co-giong-ca-vo.html",
+      "images": [
+        {
+          "file": "giong-ca-vo/khuyen-tai-tren-so-nguoi.jpg",
+          "caption": "Khuyên tai bằng ngọc còn nguyên vị trí trên sọ người, hiện vật khai quật tại Giồng Cá Vồ",
+          "imageSource": "Wikimedia Commons, tác giả Daderot, CC0, https://commons.wikimedia.org/wiki/File:Jade_earring_on_skull,_Giong_Ca_Vo_site,_c._2500_years_before_present_-_Museum_of_Vietnamese_History_-_Ho_Chi_Minh_City_-_DSC06216.JPG",
+          "isThumbnail": true
+        },
+        {
+          "file": "giong-ca-vo/chuoi-hat-ma-nao.jpg",
+          "caption": "Chuỗi hạt đá mã não tìm thấy tại Giồng Cá Vồ",
+          "imageSource": "Wikimedia Commons, tác giả Daderot, CC0, https://commons.wikimedia.org/wiki/File:Necklace,_Giong_Ca_Vo_site,_c._2500_years_before_present,_agate_-_Museum_of_Vietnamese_History_-_Ho_Chi_Minh_City_-_DSC06213.JPG",
+          "isThumbnail": false
+        }
+      ]
+    },
+    {
+      "name": "Núi Bà Đen",
+      "slug": "nui-ba-den",
+      "provinceSlug": "tay-ninh",
+      "relicType": 1,
+      "address": "Phường Bình Minh, tỉnh Tây Ninh",
+      "latitude": 11.3814,
+      "longitude": 106.1712,
+      "history": "Ngọn núi từ lâu là nơi hành hương của cư dân Nam Bộ, gắn với truyền thuyết về nàng Lý Thị Thiên Hương, người con gái được dân gian thờ làm Linh Sơn Thánh Mẫu. Hệ thống chùa trên núi hình thành dần từ thế kỷ XVIII, trong đó chùa Linh Sơn Thiên Thạch nằm ở lưng chừng núi là điểm thờ tự chính. Trong hai cuộc kháng chiến, địa hình hiểm trở với nhiều hang đá biến nơi đây thành căn cứ của lực lượng cách mạng: hang Kim Quang, khu Suối Môn và căn cứ Liên Đội 7 là những địa điểm ghi dấu nhiều trận đánh, đồng thời cũng là nơi quân đội Mỹ đặt trạm thông tin trên đỉnh núi. Sau chiến tranh, các di tích cách mạng cùng hệ thống chùa được khoanh vùng bảo vệ chung trong một hồ sơ. Ngày 21 tháng 1 năm 1989, Bộ Văn hóa ban hành Quyết định số 100/VH-QĐ xếp hạng núi Bà Đen là di tích lịch sử và thắng cảnh cấp quốc gia. Từ năm 2020, tuyến cáp treo mới đưa vào khai thác đã rút ngắn thời gian lên đỉnh, kéo theo lượng khách hành hương và tham quan tăng mạnh. Lễ vía Bà Linh Sơn Thánh Mẫu được đưa vào danh mục di sản văn hóa phi vật thể quốc gia năm 2019.",
+      "description": "Núi Bà Đen là di tích lịch sử và thắng cảnh ở phường Bình Minh, tỉnh Tây Ninh, cao 986 mét và là ngọn núi cao nhất Nam Bộ. Khối núi gồm ba ngọn liền nhau là núi Heo, núi Phụng và núi Bà, nổi lên giữa vùng đồng bằng nên nhìn thấy được từ rất xa, người xưa gọi là Đệ nhất thiên sơn. Trên sườn núi có một cụm chùa và điện thờ, trong đó chùa Linh Sơn Thiên Thạch cùng điện Bà thờ Linh Sơn Thánh Mẫu là nơi đông người đến lễ nhất. Xen giữa các vách đá là hệ thống hang tự nhiên như hang Kim Quang, từng được dùng làm nơi đóng quân trong kháng chiến và nay được giữ lại như chứng tích. Phần chân núi phía tây có thung lũng Ma Thiên Lãnh với hồ nước và các vỉa đá lộ thiên. Khu vực đỉnh núi hiện có tượng Phật Bà Tây Bổ Đà Sơn bằng đồng cùng nhiều công trình phục vụ du lịch xây dựng những năm gần đây. Giá trị của di tích vì vậy nằm ở cả ba lớp: cảnh quan núi đá giữa đồng bằng, hệ thống thờ tự gắn với tín ngưỡng thờ Mẫu của người Nam Bộ và những dấu tích của hai cuộc kháng chiến.",
+      "visitInfo": "Núi nằm cách trung tâm khu vực Tây Ninh khoảng mười một kilômét về phía đông bắc và cách Thành phố Hồ Chí Minh khoảng chín mươi sáu kilômét. Khách có thể đi bộ theo đường mòn lên chùa Bà hoặc dùng tuyến cáp treo hoạt động từ năm 2020. Hội xuân núi Bà Đen kéo dài trong tháng Giêng âm lịch, còn lễ vía Bà diễn ra các ngày mùng 4, 5 và 6 tháng Năm âm lịch, đây là hai dịp đông người nhất trong năm. Khi leo núi cần mang giày bám tốt và mang đủ nước vì đường dốc và nhiều đá.",
+      "rankingLevel": 2,
+      "recognizedYear": 1989,
+      "sourceUrl": "https://khudulichnuibaden.tayninh.gov.vn/gioi-thieu-nui-ba-den",
+      "images": [
+        {
+          "file": "nui-ba-den/toan-canh-nui-ba-den.jpg",
+          "caption": "Núi Bà Đen nhìn từ xa",
+          "imageSource": "Wikimedia Commons, tác giả Khangdora2809, CC BY-SA 4.0, https://commons.wikimedia.org/wiki/File:N%C3%BAi_B%C3%A0_%C4%90en,_2021.jpg",
+          "isThumbnail": true
+        },
+        {
+          "file": "nui-ba-den/chua-linh-son-thien-thach.jpg",
+          "caption": "Chùa Linh Sơn Thiên Thạch trên sườn núi",
+          "imageSource": "Wikimedia Commons, tác giả Nguyễn Thanh Quang, phạm vi công cộng, https://commons.wikimedia.org/wiki/File:Linh_S%C6%A1n_Thi%C3%AAn_Th%E1%BA%A1ch_t%E1%BB%B1.JPG",
+          "isThumbnail": false
+        },
+        {
+          "file": "nui-ba-den/cap-treo-nui-ba-den.jpg",
+          "caption": "Tuyến cáp treo đưa khách lên khu vực chùa Bà",
+          "imageSource": "Wikimedia Commons, tác giả Prenn, CC BY-SA 3.0, https://commons.wikimedia.org/wiki/File:C%C3%A1p_treo,_KDL_N%C3%BAi_B%C3%A0_%C4%90en.JPG",
           "isThumbnail": false
         }
       ]
