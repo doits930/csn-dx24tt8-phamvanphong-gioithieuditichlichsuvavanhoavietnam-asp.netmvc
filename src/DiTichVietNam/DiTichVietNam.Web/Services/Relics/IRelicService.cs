@@ -7,4 +7,6 @@ public interface IRelicService
     Task<HomeShowcaseVM> GetHomeShowcaseAsync(int heroCount, int featuredCount);
 
     Task<HomeStatsVM> GetHomeStatsAsync();
+
+    Task<RelicListVM?> SearchAsync(SearchFilterVM filter);
 }

@@ -11,6 +11,7 @@ public class Relic
     public double? Longitude { get; set; }
     public string? History { get; set; }
     public string Description { get; set; } = string.Empty;
+    public string DescriptionNoAccent { get; set; } = string.Empty;
     public string? VisitInfo { get; set; }
     public RankingLevel RankingLevel { get; set; }
     public int? RecognizedYear { get; set; }

@@ -6,8 +6,11 @@ namespace DiTichVietNam.Web.Services.Relics;
 
 public static class RelicFactory
 {
-    public static RelicCardVM ToCardVM(Relic relic) => new()
+    public static RelicCardVM ToCardVM(Relic relic) => ToCardVM(relic, null);
+
+    public static RelicCardVM ToCardVM(Relic relic, string? matchExcerpt) => new()
     {
+        MatchExcerpt = matchExcerpt,
         Id = relic.Id,
         Name = relic.Name,
         Slug = relic.Slug,

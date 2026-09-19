@@ -1,0 +1,45 @@
+@model PaginationVM
+
+@if (Model.TotalPages > 1)
+{
+    <nav class="pagination-bar" aria-label="Chuyển trang danh sách di tích">
+        @if (Model.HasPrevious)
+        {
+            <a class="pagination-step" href="@PaginationLinks.PageUrl(Model, Model.CurrentPage - 1)" rel="prev">Trang trước</a>
+        }
+        else
+        {
+            <span class="pagination-step is-disabled" aria-hidden="true">Trang trước</span>
+        }
+
+        <ol class="pagination-pages">
+            @foreach (var slot in PaginationLinks.PageSequence(Model))
+            {
+                <li>
+                    @if (slot is null)
+                    {
+                        <span class="pagination-gap">…</span>
+                    }
+                    else if (slot == Model.CurrentPage)
+                    {
+                        <span class="pagination-page is-current" aria-current="page">@slot</span>
+                    }
+                    else
+                    {
+                        <a class="pagination-page" href="@PaginationLinks.PageUrl(Model, slot.Value)"
+                           aria-label="Trang @slot">@slot</a>
+                    }
+                </li>
+            }
+        </ol>
+
+        @if (Model.HasNext)
+        {
+            <a class="pagination-step" href="@PaginationLinks.PageUrl(Model, Model.CurrentPage + 1)" rel="next">Trang sau</a>
+        }
+        else
+        {
+            <span class="pagination-step is-disabled" aria-hidden="true">Trang sau</span>
+        }
+    </nav>
+}

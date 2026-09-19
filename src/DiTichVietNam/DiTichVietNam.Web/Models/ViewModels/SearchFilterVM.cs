@@ -7,30 +7,45 @@ namespace DiTichVietNam.Web.Models.ViewModels;
 public class SearchFilterVM
 {
     public const int PageSize = 12;
+    public const string KeywordKey = "tuKhoa";
+    public const string ProvinceKey = "tinh";
+    public const string TypeKey = "loai";
+    public const string RankingKey = "cap";
+    public const string PageKey = "trang";
 
-    private int _page = 1;
+    private const int MaxPageDigits = 9;
 
-    [FromQuery(Name = "tuKhoa")]
+    private int? _resolvedPage;
+
+    [FromQuery(Name = KeywordKey)]
     public string? Keyword { get; set; }
 
-    [FromQuery(Name = "tinh")]
+    [FromQuery(Name = ProvinceKey)]
     public string? ProvinceSlug { get; set; }
 
-    [FromQuery(Name = "loai")]
+    [FromQuery(Name = TypeKey)]
     public string? TypeSlug { get; set; }
 
-    [FromQuery(Name = "cap")]
+    [FromQuery(Name = RankingKey)]
     public RankingLevel? Ranking { get; set; }
 
-    [FromQuery(Name = "trang")]
+    [FromQuery(Name = PageKey)]
+    public string? PageText { get; set; }
+
+    [BindNever]
     public int Page
     {
-        get => _page;
-        set => _page = value < 1 ? 1 : value;
+        get => _resolvedPage ?? ParsePage(PageText);
+        set => _resolvedPage = value < 1 ? 1 : value;
     }
 
     [BindNever]
-    public string? PageTitle { get; set; }
+    public bool ProvinceFromRoute { get; set; }
+
+    [BindNever]
+    public bool TypeFromRoute { get; set; }
+
+    public string? NormalizedKeyword => string.IsNullOrWhiteSpace(Keyword) ? null : Keyword.Trim();
 
     public bool HasAnyFilter =>
         !string.IsNullOrWhiteSpace(Keyword)
@@ -43,20 +58,37 @@ public class SearchFilterVM
         var values = new Dictionary<string, string?>();
         if (!string.IsNullOrWhiteSpace(Keyword))
         {
-            values["tuKhoa"] = Keyword.Trim();
+            values[KeywordKey] = Keyword.Trim();
         }
         if (!string.IsNullOrWhiteSpace(ProvinceSlug))
         {
-            values["tinh"] = ProvinceSlug;
+            values[ProvinceKey] = ProvinceSlug;
         }
         if (!string.IsNullOrWhiteSpace(TypeSlug))
         {
-            values["loai"] = TypeSlug;
+            values[TypeKey] = TypeSlug;
         }
         if (Ranking.HasValue)
         {
-            values["cap"] = ((int)Ranking.Value).ToString();
+            values[RankingKey] = ((int)Ranking.Value).ToString();
         }
         return values;
+    }
+
+    private static int ParsePage(string? text)
+    {
+        var digits = text?.Trim();
+        if (string.IsNullOrEmpty(digits) || !digits.All(char.IsAsciiDigit))
+        {
+            return 1;
+        }
+
+        if (digits.TrimStart('0').Length > MaxPageDigits)
+        {
+            return int.MaxValue;
+        }
+
+        var page = int.Parse(digits);
+        return page < 1 ? 1 : page;
     }
 }

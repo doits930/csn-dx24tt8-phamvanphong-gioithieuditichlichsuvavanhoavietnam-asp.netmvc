@@ -33,7 +33,28 @@ public static class SeedData
         await SeedRelicTypesAsync(context);
         await SeedProvincesAsync(context, environment, logger);
         await SeedRelicsAsync(context, environment, logger);
+        await FillMissingDescriptionNoAccentAsync(context, logger);
         await SeedAdminAccountAsync(services, logger);
+    }
+
+    private static async Task FillMissingDescriptionNoAccentAsync(AppDbContext context, ILogger logger)
+    {
+        var pending = await context.Relics
+            .Where(r => r.DescriptionNoAccent == "" && r.Description != "")
+            .ToListAsync();
+
+        if (pending.Count == 0)
+        {
+            return;
+        }
+
+        foreach (var relic in pending)
+        {
+            relic.DescriptionNoAccent = SlugHelper.RemoveDiacritics(relic.Description);
+        }
+
+        await context.SaveChangesAsync();
+        logger.LogInformation("Đã tính phần mô tả không dấu cho {Count} di tích.", pending.Count);
     }
 
     private static async Task SeedRelicTypesAsync(AppDbContext context)
@@ -183,6 +204,7 @@ public static class SeedData
                 Longitude = item.Longitude,
                 History = item.History,
                 Description = item.Description!,
+                DescriptionNoAccent = SlugHelper.RemoveDiacritics(item.Description),
                 VisitInfo = item.VisitInfo,
                 RankingLevel = ToRankingLevel(item.RankingLevel),
                 RecognizedYear = item.RecognizedYear,
