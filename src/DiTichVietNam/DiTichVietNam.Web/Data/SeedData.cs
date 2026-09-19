@@ -12,6 +12,11 @@ public static class SeedData
     public const string AdminEmail = "admin@ditich.vn";
     public const string AdminPassword = "Admin@123";
 
+    private const int MaxNameLength = 200;
+    private const int MaxSlugLength = 220;
+    private const int MaxAddressLength = 300;
+    private const int MaxCaptionLength = 300;
+
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
         PropertyNameCaseInsensitive = true,
@@ -161,7 +166,14 @@ public static class SeedData
                 continue;
             }
 
-            added.Add(new Relic
+            var violation = FindConstraintViolation(item, slug);
+            if (violation is not null)
+            {
+                logger.LogWarning("Bỏ qua di tích {Slug} vì {Reason}.", slug, violation);
+                continue;
+            }
+
+            var relic = new Relic
             {
                 Name = item.Name.Trim(),
                 Slug = slug,
@@ -170,15 +182,18 @@ public static class SeedData
                 Latitude = item.Latitude,
                 Longitude = item.Longitude,
                 History = item.History,
-                Description = item.Description ?? string.Empty,
+                Description = item.Description!,
                 VisitInfo = item.VisitInfo,
                 RankingLevel = ToRankingLevel(item.RankingLevel),
                 RecognizedYear = item.RecognizedYear,
-                SourceUrl = item.SourceUrl ?? string.Empty,
+                SourceUrl = item.SourceUrl!.Trim(),
                 ProvinceId = provinceId,
                 RelicTypeId = relicTypeId,
                 CreatedAt = DateTime.Now
-            });
+            };
+
+            AttachImages(relic, item.Images, environment, logger);
+            added.Add(relic);
         }
 
         if (added.Count == 0)
@@ -189,6 +204,106 @@ public static class SeedData
         context.Relics.AddRange(added);
         await context.SaveChangesAsync();
         logger.LogInformation("Đã nạp {Count} di tích từ dữ liệu ban đầu.", added.Count);
+    }
+
+    private static string? FindConstraintViolation(RelicSeed item, string slug)
+    {
+        if (item.Name!.Trim().Length > MaxNameLength)
+        {
+            return $"tên dài quá {MaxNameLength} ký tự";
+        }
+
+        if (slug.Length > MaxSlugLength)
+        {
+            return $"slug dài quá {MaxSlugLength} ký tự";
+        }
+
+        if ((item.Address?.Trim().Length ?? 0) > MaxAddressLength)
+        {
+            return $"địa chỉ dài quá {MaxAddressLength} ký tự";
+        }
+
+        if (string.IsNullOrWhiteSpace(item.Description))
+        {
+            return "thiếu phần mô tả bắt buộc";
+        }
+
+        if (string.IsNullOrWhiteSpace(item.SourceUrl))
+        {
+            return "thiếu nguồn tham khảo bắt buộc";
+        }
+
+        if (SlugHelper.RemoveDiacritics(item.Name).Length > MaxNameLength)
+        {
+            return $"tên không dấu dài quá {MaxNameLength} ký tự";
+        }
+
+        return null;
+    }
+
+    private static void AttachImages(Relic relic, List<RelicImageSeed>? images, IWebHostEnvironment environment, ILogger logger)
+    {
+        if (images is null || images.Count == 0)
+        {
+            return;
+        }
+
+        var webRoot = environment.WebRootPath ?? Path.Combine(environment.ContentRootPath, "wwwroot");
+        var accepted = new List<RelicImage>();
+
+        foreach (var image in images)
+        {
+            var file = image.File?.Trim().Replace('\\', '/').TrimStart('/');
+            if (string.IsNullOrWhiteSpace(file))
+            {
+                logger.LogWarning("Bỏ qua một ảnh của di tích {Slug} vì thiếu tên tệp.", relic.Slug);
+                continue;
+            }
+
+            if (string.IsNullOrWhiteSpace(image.ImageSource))
+            {
+                logger.LogWarning("Bỏ qua ảnh {File} của di tích {Slug} vì thiếu nguồn ảnh.", file, relic.Slug);
+                continue;
+            }
+
+            var physicalPath = Path.Combine(webRoot, "img", "relics", file.Replace('/', Path.DirectorySeparatorChar));
+            if (!File.Exists(physicalPath))
+            {
+                logger.LogWarning("Bỏ qua ảnh {File} của di tích {Slug} vì không tìm thấy tệp trên đĩa.", file, relic.Slug);
+                continue;
+            }
+
+            var caption = image.Caption?.Trim();
+            if (caption is not null && caption.Length > MaxCaptionLength)
+            {
+                caption = null;
+                logger.LogWarning("Chú thích ảnh {File} của di tích {Slug} dài quá {Limit} ký tự nên để trống.",
+                    file, relic.Slug, MaxCaptionLength);
+            }
+
+            accepted.Add(new RelicImage
+            {
+                ImagePath = "/img/relics/" + file,
+                Caption = caption,
+                ImageSource = image.ImageSource.Trim(),
+                IsThumbnail = image.IsThumbnail
+            });
+        }
+
+        if (accepted.Count == 0)
+        {
+            logger.LogWarning("Di tích {Slug} không có ảnh hợp lệ nào.", relic.Slug);
+            return;
+        }
+
+        var thumbnail = accepted.FirstOrDefault(i => i.IsThumbnail) ?? accepted[0];
+        foreach (var image in accepted)
+        {
+            image.IsThumbnail = ReferenceEquals(image, thumbnail);
+            relic.Images.Add(image);
+        }
+
+        relic.ThumbnailPath = thumbnail.ImagePath;
     }
 
     private static async Task<Dictionary<int, int>> GetRelicTypeIdByCodeAsync(AppDbContext context)
@@ -308,5 +423,14 @@ public static class SeedData
         public int RankingLevel { get; set; }
         public int? RecognizedYear { get; set; }
         public string? SourceUrl { get; set; }
+        public List<RelicImageSeed>? Images { get; set; }
+    }
+
+    private class RelicImageSeed
+    {
+        public string? File { get; set; }
+        public string? Caption { get; set; }
+        public string? ImageSource { get; set; }
+        public bool IsThumbnail { get; set; }
     }
 }
