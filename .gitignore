@@ -402,3 +402,11 @@ FodyWeavers.xsd
 .log/
 .note/
 *.env
+
+# SQLite database files
+*.db
+*.db-shm
+*.db-wal
+
+# Uploaded images
+**/wwwroot/uploads/
