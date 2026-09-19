@@ -34,6 +34,7 @@ public class HomeController : Controller
             Stats = await _relicService.GetHomeStatsAsync(),
             Showcase = await _relicService.GetHomeShowcaseAsync(HeroHighlightCount, FeaturedRelicCount),
             Regions = await _provinceService.GetGroupedByRegionAsync(),
+            Map = await _provinceService.GetVietnamMapAsync(),
             RelicTypes = await _relicTypeService.GetAllWithCountAsync()
         };
 
