@@ -1,0 +1,22 @@
+@model List<RegionGroupVM>
+
+<div class="row g-4">
+    @foreach (var group in Model)
+    {
+        <div class="col-12 col-sm-6 col-lg-4 province-column">
+            <h3>@group.DisplayName</h3>
+            <ul class="province-list">
+                @foreach (var province in group.Provinces)
+                {
+                    <li class="@(province.RelicCount > 0 ? "province-has-relic" : string.Empty)">
+                        <a href="/tinh/@province.Slug" data-province-slug="@province.Slug">@province.Name</a>
+                        @if (province.RelicCount > 0)
+                        {
+                            <span class="relic-count">@province.RelicCount</span>
+                        }
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+</div>

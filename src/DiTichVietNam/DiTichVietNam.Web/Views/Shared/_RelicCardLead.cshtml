@@ -1,0 +1,19 @@
+@model RelicCardVM
+
+<a class="relic-card relic-card-lead" href="/di-tich/@Model.Slug" title="@Model.Name">
+    <div class="relic-thumb">
+        <img src="@(string.IsNullOrWhiteSpace(Model.ThumbnailPath) ? "/img/no-image.svg" : Model.ThumbnailPath)"
+             alt="@Model.Name" loading="lazy" decoding="async" onerror="this.src='/img/no-image.svg'" />
+        <span class="ranking-badge @RankingLevelText.CssModifier(Model.RankingLevel)">@Model.RankingLabel</span>
+    </div>
+    <div class="relic-card-body">
+        <h3 class="relic-name">@Model.Name</h3>
+        <p class="relic-meta">
+            <span class="relic-province" title="@Model.ProvinceName">@Model.ProvinceName</span>
+            @if (!string.IsNullOrWhiteSpace(Model.TypeName))
+            {
+                <span class="relic-type" title="@Model.TypeName">@Model.TypeName</span>
+            }
+        </p>
+    </div>
+</a>

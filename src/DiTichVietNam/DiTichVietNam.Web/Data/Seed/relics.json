@@ -1,0 +1,586 @@
+{
+  "provinces": [],
+  "relics": [
+    {
+      "name": "Khu di tích Cổ Loa",
+      "slug": "co-loa",
+      "provinceSlug": "ha-noi",
+      "relicType": 1,
+      "address": "Xã Đông Anh, thành phố Hà Nội",
+      "latitude": 21.1142,
+      "longitude": 105.8706,
+      "history": "Vùng đất Cổ Loa có người cư trú từ rất sớm, dấu tích cư dân thuộc văn hóa Phùng Nguyên cho thấy quá trình tụ cư kéo dài hàng nghìn năm trước Công nguyên. Khoảng thế kỷ III trước Công nguyên, sau khi hợp nhất hai khối cư dân Âu Việt và Lạc Việt lập nước Âu Lạc, An Dương Vương chọn nơi này làm kinh đô và cho đắp tòa thành đất quy mô lớn. Vị trí Cổ Loa nằm ở chỗ chuyển tiếp giữa vùng đồi trung du và đồng bằng sông Hồng, gần sông Hoàng, thuận cho việc kiểm soát cả đường thủy lẫn đường bộ. Câu chuyện nỏ thần, Mỵ Châu và Trọng Thủy gắn với giai đoạn Âu Lạc thất thủ trước Triệu Đà được lưu truyền lâu đời trong dân gian và phản ánh qua hệ thống đền, am trong khu di tích. Đến thế kỷ X, Ngô Quyền một lần nữa chọn Cổ Loa làm nơi đóng đô sau chiến thắng Bạch Đằng. Các cuộc khai quật khảo cổ năm 1970, năm 2005 và giai đoạn 2007 - 2008 thu được nhiều vũ khí đồng, trống đồng và đồ gốm Đông Sơn. Ngày 27 tháng 9 năm 2012, Thủ tướng Chính phủ ký Quyết định số 1419/QĐ-TTg xếp hạng Cổ Loa là di tích quốc gia đặc biệt.",
+      "description": "Điểm đặc trưng của Cổ Loa là ba vòng thành đất lồng vào nhau với tổng chiều dài lũy khoảng 15,82 km, gồm vòng ngoài chừng 8 km, vòng giữa 6,5 km và vòng trong 1,6 km bao lấy khu trung tâm rộng khoảng 2 km vuông. Thân thành đắp bằng đất, có chỗ kè đá ở chân, bên ngoài là hệ thống hào nối với sông Hoàng tạo thành tuyến phòng thủ khép kín, được xem là tòa thành cổ nhất và có cấu trúc riêng biệt trong lịch sử xây thành ở Việt Nam. Trong khu vực bảo vệ rộng khoảng 830 ha hiện có gần 60 di tích, trong đó một số đã được xếp hạng quốc gia. Nổi bật là đền Thượng thờ An Dương Vương với pho tượng đồng đúc năm 1897, đình Cổ Loa, am thờ công chúa Mỵ Châu và chùa Cổ Loa có từ đầu thế kỷ XVII. Bên cạnh giá trị khảo cổ và kiến trúc, khu di tích còn là không gian sinh hoạt tín ngưỡng của cộng đồng các làng trong vùng với lễ hội tổ chức vào đầu xuân hằng năm.",
+      "visitInfo": "Khu di tích do Trung tâm Bảo tồn di sản Thăng Long - Hà Nội quản lý. Phí tham quan 30.000 đồng một lượt theo nghị quyết của Hội đồng nhân dân thành phố Hà Nội thông qua tháng 12 năm 2023. Giờ mở cửa cụ thể chưa được đơn vị quản lý công bố trên trang thông tin chính thức.",
+      "rankingLevel": 3,
+      "recognizedYear": 2012,
+      "sourceUrl": "https://dsvh.gov.vn/di-tich-lich-su-kien-truc-nghe-thuat-va-khao-co-co-loa-2958",
+      "images": [
+        {
+          "file": "co-loa/den-an-duong-vuong.jpg",
+          "caption": "Cổng đền thờ An Dương Vương tại khu di tích Cổ Loa",
+          "imageSource": "Wikimedia Commons, tác giả VuThiAnh, giấy phép CC0 (hiến tặng vào phạm vi công cộng), https://commons.wikimedia.org/wiki/File:Den_tho_An_Duong_Vuong_tai_Co_Loa.JPG",
+          "isThumbnail": true
+        },
+        {
+          "file": "co-loa/am-my-chau.jpg",
+          "caption": "Am thờ công chúa Mỵ Châu trong khu di tích Cổ Loa",
+          "imageSource": "Wikimedia Commons, tác giả VuThiAnh, giấy phép CC0 (hiến tặng vào phạm vi công cộng), https://commons.wikimedia.org/wiki/File:Am_tho_cong_chua_My_Chau.jpg",
+          "isThumbnail": false
+        }
+      ]
+    },
+    {
+      "name": "Khu trung tâm Hoàng thành Thăng Long - Hà Nội",
+      "slug": "hoang-thanh-thang-long",
+      "provinceSlug": "ha-noi",
+      "relicType": 3,
+      "address": "19C Hoàng Diệu, phường Ba Đình, thành phố Hà Nội",
+      "latitude": 21.0394,
+      "longitude": 105.8372,
+      "history": "Năm 1010, vua Lý Thái Tổ dời đô từ Hoa Lư ra thành Đại La và đặt tên là Thăng Long. Trên nền thành Đại La có từ thế kỷ VII, nhà Lý cho xây dựng hệ thống cung điện và tường thành, mở đầu gần tám thế kỷ khu đất này giữ vai trò trung tâm quyền lực của quốc gia. Các triều Trần, Hồ, Lê sơ, Mạc và Lê trung hưng tiếp tục sửa chữa, mở rộng trên cùng vị trí, khiến những lớp kiến trúc chồng lên nhau. Từ năm 1802, khi nhà Nguyễn chọn Phú Xuân làm kinh đô, Thăng Long trở thành lỵ sở của Bắc Thành rồi tỉnh Hà Nội, quy mô thành bị thu hẹp. Cuối thế kỷ XIX, người Pháp phá phần lớn tường thành và cung điện cũ để dựng doanh trại quân sự. Sau năm 1954, khu vực này là trụ sở của Bộ Quốc phòng, nơi có nhà và hầm D67 gắn với hoạt động chỉ huy trong kháng chiến chống Mỹ. Các cuộc khai quật lớn tại 18 Hoàng Diệu những năm 2002 - 2004 làm xuất lộ nền móng kiến trúc nhiều thời kỳ. Ngày 12 tháng 8 năm 2009, di tích được xếp hạng quốc gia đặc biệt theo Quyết định số 1272/QĐ-TTg; ngày 1 tháng 8 năm 2010, UNESCO ghi danh khu trung tâm vào Danh mục Di sản văn hóa thế giới.",
+      "description": "Khu di sản có vùng lõi rộng khoảng 18,395 ha, gồm khu di tích thành cổ Hà Nội và khu khảo cổ học 18 Hoàng Diệu, bao quanh là vùng đệm rộng hơn 100 ha. Trên trục trung tâm còn lại nhiều công trình kiến trúc tiêu biểu: Kỳ Đài xây năm 1812, Đoan Môn là cổng chính dẫn vào cấm thành, nền điện Kính Thiên với đôi thềm rồng đá chạm khắc từ thế kỷ XV, Hậu Lâu, Bắc Môn và các dãy nhà quân sự do người Pháp xây dựng cuối thế kỷ XIX. Khu khảo cổ 18 Hoàng Diệu trưng bày tại chỗ dấu tích móng trụ, giếng nước, đường cống và nền cung điện thuộc nhiều thời kỳ nối tiếp từ Đại La, Đinh - Tiền Lê đến Lý, Trần, Lê và Nguyễn. Cùng với đó là khối lượng lớn di vật gốm sứ, vật liệu kiến trúc, tiền kim loại có nguồn gốc trong nước và nước ngoài. Điểm làm nên giá trị của di sản là tính liên tục: một địa điểm duy nhất giữ vai trò trung tâm chính trị suốt mười ba thế kỷ, để lại các tầng văn hóa xếp chồng hiếm thấy trong khu vực.",
+      "visitInfo": "Mở cửa hằng ngày từ 8h00 đến 17h00. Giá vé 100.000 đồng một lượt, áp dụng từ ngày 01 tháng 01 năm 2025. Giảm 50% cho người từ 60 tuổi, học sinh sinh viên từ 16 tuổi có thẻ và một số đối tượng chính sách; miễn phí cho trẻ em dưới 16 tuổi và người khuyết tật đặc biệt nặng. Không thu phí vào Ngày Di sản văn hóa 23 tháng 11.",
+      "rankingLevel": 3,
+      "recognizedYear": 2009,
+      "sourceUrl": "https://dsvh.gov.vn/di-tich-lich-su-va-khao-co-khu-trung-tam-hoang-thanh-thang-long-ha-noi-2945",
+      "images": [
+        {
+          "file": "hoang-thanh-thang-long/doan-mon.jpg",
+          "caption": "Đoan Môn, cổng chính phía nam dẫn vào khu cấm thành Thăng Long",
+          "imageSource": "Wikimedia Commons, tác giả Christophe95, giấy phép CC BY-SA 4.0, https://commons.wikimedia.org/wiki/File:Doan_Mon_Gate_1.jpg",
+          "isThumbnail": true
+        },
+        {
+          "file": "hoang-thanh-thang-long/nen-dien-kinh-thien.jpg",
+          "caption": "Sân phía sau nền điện Kính Thiên trong khu di tích thành cổ Hà Nội",
+          "imageSource": "Wikimedia Commons, tác giả Jakub Hałun, giấy phép CC BY 4.0, https://commons.wikimedia.org/wiki/File:Backyard_of_the_K%C3%ADnh_Thi%C3%AAn_Palace,_Citadel_of_Hanoi,_20240123_1044_3191.jpg",
+          "isThumbnail": false
+        }
+      ]
+    },
+    {
+      "name": "Văn Miếu - Quốc Tử Giám",
+      "slug": "van-mieu-quoc-tu-giam",
+      "provinceSlug": "ha-noi",
+      "relicType": 2,
+      "address": "58 Quốc Tử Giám, phường Văn Miếu - Quốc Tử Giám, thành phố Hà Nội",
+      "latitude": 21.0283,
+      "longitude": 105.8358,
+      "history": "Văn Miếu được vua Lý Thánh Tông cho dựng năm 1070 để thờ Khổng Tử cùng các bậc tiên nho. Sáu năm sau, vua Lý Nhân Tông lập Quốc Tử Giám bên cạnh Văn Miếu, ban đầu dành cho con vua và con em quý tộc, về sau mở rộng cho những người học giỏi trong dân. Nhờ vậy nơi đây được xem là trường quốc học đầu tiên của nước ta, gắn với nền giáo dục khoa cử suốt các triều Lý, Trần và Lê. Từ năm 1484, vua Lê Thánh Tông cho dựng bia ghi tên những người đỗ tiến sĩ. Qua nhiều đợt dựng bia, khu di tích còn giữ 82 tấm bia đá khắc tên hơn 1.300 vị đỗ trong các khoa thi từ năm 1442 đến năm 1779. Sang triều Nguyễn, kinh đô chuyển vào Huế nên Quốc Tử Giám ở Thăng Long không còn giữ vai trò trường lớn của cả nước; khu Văn Miếu được tu sửa, gác Khuê Văn dựng thêm năm 1805. Năm 1962, Bộ Văn hóa xếp hạng nơi này là di tích quốc gia. Đến ngày 10 tháng 5 năm 2012, Thủ tướng Chính phủ ký Quyết định số 548/QĐ-TTg xếp hạng Văn Miếu - Quốc Tử Giám là di tích quốc gia đặc biệt.",
+      "description": "Khu di tích nằm trên khu đất rộng phía nam trung tâm Hà Nội, được tường gạch bao quanh và chia thành năm lớp không gian nối nhau theo trục chính từ nam lên bắc. Người tham quan lần lượt đi qua Văn Miếu Môn, Đại Trung Môn, gác Khuê Văn, giếng Thiên Quang cùng hai dãy nhà bia tiến sĩ, rồi tới Đại Thành Môn dẫn vào khu thờ tự. Đại Bái đường và Thượng điện là nơi thờ Khổng Tử và các vị tiên hiền, bên trong còn nhiều hoành phi, câu đối, hạc đồng và đồ thờ mang phong cách thời Lê - Nguyễn. Lớp trong cùng là khu Thái Học, được xây dựng lại cuối những năm 1990 trên nền trường Quốc Tử Giám xưa, hiện dùng làm nơi thờ các danh nhân và tổ chức trưng bày. Giá trị nổi bật nhất của di tích là 82 bia tiến sĩ đặt trên lưng rùa đá, tư liệu gốc phản ánh chế độ khoa cử và quan niệm trọng người tài của các triều đại phong kiến, đã được UNESCO ghi danh là di sản tư liệu thế giới. Gác Khuê Văn dựng năm 1805 ngày nay được chọn làm biểu tượng của thành phố Hà Nội.",
+      "visitInfo": "Mở cửa hằng ngày từ 8h00 đến 17h00; chương trình tham quan buổi tối diễn ra vào thứ Tư, thứ Bảy và Chủ nhật từ 18h30 đến 22h00. Giá vé 70.000 đồng một lượt, giảm còn 35.000 đồng với học sinh, sinh viên, người từ 60 tuổi và người khuyết tật khi xuất trình giấy tờ hợp lệ; miễn phí cho trẻ em dưới 16 tuổi và người khuyết tật đặc biệt nặng. Thông tin theo trang chính thức vanmieu.gov.vn.",
+      "rankingLevel": 3,
+      "recognizedYear": 2012,
+      "sourceUrl": "https://dsvh.gov.vn/di-tich-lich-su-va-kien-truc-nghe-thuat-van-mieu-quoc-tu-giam-2953",
+      "images": [
+        {
+          "file": "van-mieu-quoc-tu-giam/khue-van-cac.jpg",
+          "caption": "Gác Khuê Văn trong khu di tích Văn Miếu - Quốc Tử Giám",
+          "imageSource": "Wikimedia Commons, tác giả Jakub Hałun, giấy phép CC BY 4.0, https://commons.wikimedia.org/wiki/File:Constellation_of_Literature_pavilion,_Temple_of_Literature,_Hanoi,_Vietnam,_20240123_0931_3072.jpg",
+          "isThumbnail": true
+        },
+        {
+          "file": "van-mieu-quoc-tu-giam/dai-bai-duong.jpg",
+          "caption": "Nội thất Đại Bái đường với hàng cột sơn son và đôi hạc đồng",
+          "imageSource": "Wikimedia Commons, tác giả Jorge Láscar, giấy phép CC BY 2.0, https://commons.wikimedia.org/wiki/File:Lascar_Main_hall_of_The_Temple_of_Literature_(V%C4%83n_Mi%E1%BA%BFu)_(4551001026).jpg",
+          "isThumbnail": false
+        }
+      ]
+    },
+    {
+      "name": "Cố đô Hoa Lư",
+      "slug": "co-do-hoa-lu",
+      "provinceSlug": "ninh-binh",
+      "relicType": 1,
+      "address": "Thôn Trường Yên, phường Tây Hoa Lư, tỉnh Ninh Bình",
+      "latitude": 20.2861,
+      "longitude": 105.9067,
+      "history": "Năm 968, sau khi dẹp yên loạn mười hai sứ quân, Đinh Bộ Lĩnh lên ngôi hoàng đế, đặt quốc hiệu Đại Cồ Việt và chọn thung lũng đá vôi Hoa Lư làm nơi đóng đô. Địa thế ở đây kín đáo, bốn bề núi dựng, sông ngòi len lỏi giữa các dãy đá, rất thuận cho việc phòng thủ của một nhà nước vừa giành lại quyền tự chủ. Kinh đô tồn tại bốn mươi hai năm, trải ba triều Đinh, Tiền Lê và Lý với sáu đời vua là Đinh Tiên Hoàng, Đinh Toàn, Lê Đại Hành, Lê Trung Tông, Lê Long Đĩnh và Lý Thái Tổ. Tại đây, nhà Tiền Lê đã đánh bại quân Tống xâm lược và tổ chức các cuộc nam chinh với Chiêm Thành. Năm 1010, Lý Thái Tổ dời đô ra Thăng Long; Hoa Lư từ đó trở thành cố đô. Phần lớn công trình thờ tự còn lại hiện nay được dựng vào thế kỷ XVII trên nền cung điện cũ, tiêu biểu là đền thờ vua Đinh Tiên Hoàng và đền thờ vua Lê Đại Hành. Ngày 10 tháng 5 năm 2012, Thủ tướng Chính phủ ký Quyết định số 548/QĐ-TTg xếp hạng nơi này là di tích quốc gia đặc biệt.",
+      "description": "Khu di tích thường được gọi theo tên dân gian là Cố đô Hoa Lư. Dấu tích kinh thành xưa gồm ba vòng thành Đông, Tây và Nam; người xưa tận dụng các dãy núi đá vôi làm tường thành tự nhiên, chỉ đắp thêm những đoạn tường nối giữa hai chân núi. Trung tâm khu di tích hiện nay là hai ngôi đền dựng theo lối nội công ngoại quốc. Đền vua Đinh Tiên Hoàng nổi bật với hệ thống chạm khắc gỗ và đá thế kỷ XVII, trong đó có long sàng đá đặt trước nghi môn. Đền vua Lê Đại Hành quy mô nhỏ hơn nhưng mảng chạm gỗ được đánh giá tinh xảo. Chung quanh còn chùa Nhất Trụ với cột kinh đá dựng năm 995, động Am Tiên, lăng mộ hai vua cùng nhiều đền miếu thờ các nhân vật hoàng tộc. Theo hồ sơ của Cục Di sản văn hóa, khu di tích lưu giữ 678 hiện vật và cổ vật có giá trị lịch sử, văn hóa, khoa học. Phần lõi của cố đô nằm trong Quần thể danh thắng Tràng An được UNESCO ghi danh năm 2014, vì vậy việc bảo tồn ở đây gắn liền với quản lý cảnh quan đá vôi chung quanh.",
+      "visitInfo": "Khu di tích mở cửa quanh năm. Lễ hội Hoa Lư tại đền Vua Đinh và đền Vua Lê diễn ra từ mùng 8 đến mùng 10 tháng 3 âm lịch hằng năm. Mức vé tham quan do ban quản lý công bố theo từng thời điểm.",
+      "rankingLevel": 3,
+      "recognizedYear": 2012,
+      "sourceUrl": "https://dsvh.gov.vn/di-tich-lich-su-va-kien-truc-nghe-thuat-co-do-hoa-lu-2952",
+      "images": [
+        {
+          "file": "co-do-hoa-lu/den-vua-dinh.jpg",
+          "caption": "Đền thờ vua Đinh Tiên Hoàng ở Cố đô Hoa Lư",
+          "imageSource": "Wikimedia Commons, tác giả Jean-Pierre Dalbéra, giấy phép CC BY 2.0, https://commons.wikimedia.org/wiki/File:Temple_comm%C3%A9moratif_au_roi_Dinh_Tien_Hoang_(Hoa_Lu).jpg",
+          "isThumbnail": true
+        },
+        {
+          "file": "co-do-hoa-lu/den-vua-le.jpg",
+          "caption": "Đền thờ vua Lê Đại Hành",
+          "imageSource": "Wikimedia Commons, tác giả Jean-Pierre Dalbéra, giấy phép CC BY 2.0, https://commons.wikimedia.org/wiki/File:Temple_comm%C3%A9moratif_de_Le_Hoan_(Hoa_Lu).jpg",
+          "isThumbnail": false
+        },
+        {
+          "file": "co-do-hoa-lu/le-hoi-hoa-lu.jpg",
+          "caption": "Lễ hội đền Vua Đinh, Vua Lê tại Hoa Lư",
+          "imageSource": "Wikimedia Commons, tác giả DoktorMax, giấy phép CC BY-SA 3.0, https://commons.wikimedia.org/wiki/File:Festival_of_Dinh_and_Le_kings_at_Hoa_Lu.JPG",
+          "isThumbnail": false
+        }
+      ]
+    },
+    {
+      "name": "Tràng An - Tam Cốc - Bích Động",
+      "slug": "trang-an-tam-coc-bich-dong",
+      "provinceSlug": "ninh-binh",
+      "relicType": 4,
+      "address": "Địa bàn các phường Hoa Lư, Tây Hoa Lư, Nam Hoa Lư và một số xã lân cận, tỉnh Ninh Bình (trước sắp xếp năm 2025 thuộc huyện Hoa Lư, huyện Gia Viễn, huyện Nho Quan và thành phố Ninh Bình)",
+      "latitude": 20.2567,
+      "longitude": 105.8964,
+      "history": "Vùng đá vôi Tràng An hình thành qua hàng trăm triệu năm biến động địa chất, sau đó chịu tác động của nhiều đợt biển tiến và biển thoái khiến khối núi bị chia cắt thành các thung lũng ngập nước. Khảo cổ học đã ghi nhận hơn ba mươi điểm cư trú tiền sử trong khu vực, phản ánh quá trình con người sinh sống và thích ứng với thay đổi môi trường suốt khoảng hai mươi ba nghìn năm. Đến thế kỷ X, dãy núi phía tây nam trở thành tuyến phòng thủ tự nhiên của kinh đô Hoa Lư. Khu Tam Cốc - Bích Động gắn với thời Trần, nơi đây có đền Thái Vi thờ các vua Trần. Chùa Bích Động dựng trên sườn núi đá, qua nhiều lần tôn tạo và mang danh hiệu Nam thiên đệ nhị động. Ngày 10 tháng 5 năm 2012, Thủ tướng Chính phủ xếp hạng khu vực này là di tích quốc gia đặc biệt theo Quyết định số 548/QĐ-TTg. Hai năm sau, Quần thể danh thắng Tràng An được UNESCO ghi danh là di sản thế giới hỗn hợp đầu tiên của Việt Nam. Hai mốc này thuộc hai hệ thống công nhận khác nhau, không thay thế cho nhau.",
+      "description": "Khu danh thắng gồm hai bộ phận chính. Tràng An là hệ thống thung lũng ngập nước nối với nhau bằng các hang xuyên thủy; tài liệu của Cục Di sản văn hóa mô tả khu vực có khoảng năm mươi hang khô và năm mươi hang nước, tiêu biểu là hang Địa Linh, hang Tối, hang Sáng, hang Nấu Rượu, hang Ba Giọt. Thuyền nan là phương tiện duy nhất để đi hết tuyến; mỗi hang có chiều dài và độ cao vòm khác nhau, nhiều đoạn thạch nhũ buông sát mặt nước. Khu Tam Cốc - Bích Động lấy dòng sông Ngô Đồng làm trục, thuyền lần lượt qua hang Cả, hang Hai và hang Ba, hai bên là ruộng lúa xen chân núi đá. Cụm kiến trúc ở đây gồm đền Thái Vi và chùa Bích Động, tạo nên sự gắn kết giữa cảnh quan tự nhiên với công trình tôn giáo. Vùng lõi di sản rộng 6.172 ha, gồm khu sinh thái Tràng An, khu Tam Cốc - Bích Động, khu di tích Cố đô Hoa Lư và rừng đặc dụng Hoa Lư. Hiện vật lưu giữ trong các công trình chủ yếu thuộc thời Nguyễn.",
+      "visitInfo": "Tham quan chủ yếu bằng thuyền chèo tay theo các tuyến do ban quản lý quy định. Khu danh thắng mở cửa quanh năm; giá vé đò và vé tham quan do ban quản lý công bố theo từng thời điểm.",
+      "rankingLevel": 3,
+      "recognizedYear": 2012,
+      "sourceUrl": "https://dsvh.gov.vn/danh-lam-thang-canh-trang-an-tam-coc-bich-dong-2946",
+      "images": [
+        {
+          "file": "trang-an-tam-coc-bich-dong/trang-an.jpg",
+          "caption": "Cảnh quan núi đá và thung nước khu Tràng An",
+          "imageSource": "Wikimedia Commons, tác giả Jakub Hałun, giấy phép CC BY 4.0, https://commons.wikimedia.org/wiki/File:Trang_An_Landscape_Complex,_Ninh_Binh_Province,_20240202_1410_5232.jpg",
+          "isThumbnail": true
+        },
+        {
+          "file": "trang-an-tam-coc-bich-dong/tam-coc-bich-dong.jpg",
+          "caption": "Khu Tam Cốc - Bích Động nhìn từ trên cao",
+          "imageSource": "Wikimedia Commons, tác giả Minh Phương (Neweco), giấy phép CC BY-SA 3.0, https://commons.wikimedia.org/wiki/File:TamCoc-BichDong.jpg",
+          "isThumbnail": false
+        },
+        {
+          "file": "trang-an-tam-coc-bich-dong/tam-coc-mua-xuan.jpg",
+          "caption": "Tam Cốc mùa xuân bên dòng sông Ngô Đồng",
+          "imageSource": "Wikimedia Commons, tác giả Kien1980v, giấy phép public domain, https://commons.wikimedia.org/wiki/File:Muaxuantamcoc.jpg",
+          "isThumbnail": false
+        }
+      ]
+    },
+    {
+      "name": "Vịnh Hạ Long",
+      "slug": "vinh-ha-long",
+      "provinceSlug": "quang-ninh",
+      "relicType": 4,
+      "address": "Vùng vịnh thuộc địa phận các phường ven biển của Hạ Long, Cẩm Phả và đặc khu Vân Đồn, tỉnh Quảng Ninh",
+      "latitude": 20.9,
+      "longitude": 107.2,
+      "history": "Vịnh Hạ Long là kết quả của một quá trình kiến tạo kéo dài khoảng năm trăm triệu năm, trong đó địa hình đá vôi bị ngập chìm khi mực nước biển dâng vào cuối Pleistocen và đầu Holocen. Khảo cổ học đã tìm thấy dấu vết cư trú của người tiền sử trên nhiều đảo và trong các hang động của vịnh, niên đại vào khoảng ba nghìn năm trăm đến năm nghìn năm cách ngày nay. Vùng biển này về sau là địa bàn của thương cảng Vân Đồn thời Lý - Trần và là nơi diễn ra nhiều sự kiện quân sự trong lịch sử giữ nước. Về mặt pháp lý trong nước, ngày 12 tháng 8 năm 2009 Thủ tướng Chính phủ ban hành Quyết định số 1272/QĐ-TTg xếp hạng Vịnh Hạ Long là di tích quốc gia đặc biệt, thuộc loại hình danh lam thắng cảnh. Trước đó, UNESCO đã hai lần ghi danh vịnh vào Danh mục Di sản thế giới: năm 1994 với tiêu chí giá trị thẩm mỹ và năm 2000 với tiêu chí giá trị địa chất, địa mạo. Danh hiệu quốc tế và việc xếp hạng trong nước thuộc hai hệ thống khác nhau, không thay thế cho nhau.",
+      "description": "Vịnh nằm ở vùng đông bắc Việt Nam, trải từ khu vực Yên Hưng cũ qua Hạ Long, Cẩm Phả đến Vân Đồn. Khu vực được UNESCO công nhận rộng 434 km², gồm 775 hòn đảo, trong đó 411 đảo đã được đặt tên. Địa hình chủ yếu là các chóp và tháp đá vôi mọc lên từ mặt nước, xen kẽ những áng, hồ nước mặn khép kín và hàng chục hang động lớn nhỏ. Hồ sơ của Cục Di sản văn hóa nhấn mạnh rằng địa hình karst của vịnh có ý nghĩa toàn cầu, vì phản ánh nhiều giai đoạn phát triển khác nhau của kiểu địa hình này. Hệ sinh thái trong vịnh khá đa dạng, với rừng ngập mặn, rạn san hô, thảm cỏ biển và bảy loài thực vật đặc hữu chỉ gặp ở đây. Giá trị thẩm mỹ của vịnh đến từ sự thay đổi liên tục của hình khối đảo đá theo góc nhìn và theo thời tiết, khiến khu vực trở thành đối tượng nghiên cứu của cả địa chất học lẫn mỹ học cảnh quan. Các di chỉ trong hang cũng cho thấy vùng vịnh từng là không gian sinh sống lâu dài của cư dân biển.",
+      "visitInfo": "Tham quan bằng tàu theo các tuyến do tỉnh Quảng Ninh quy định, xuất phát từ các cảng tàu khách ở Hạ Long. Lịch chạy tàu phụ thuộc thời tiết và bị tạm dừng khi có bão hoặc cảnh báo thời tiết xấu.",
+      "rankingLevel": 3,
+      "recognizedYear": 2009,
+      "sourceUrl": "https://dsvh.gov.vn/danh-lam-thang-canh-vinh-ha-long-2941",
+      "images": [
+        {
+          "file": "vinh-ha-long/vinh-ha-long.jpg",
+          "caption": "Các khối đá vôi trên Vịnh Hạ Long",
+          "imageSource": "Wikimedia Commons, tác giả Vyacheslav Argenberg, giấy phép CC BY 4.0, https://commons.wikimedia.org/wiki/File:Ha_Long_Bay,_Vietnam,_Rock_formations.jpg",
+          "isThumbnail": true
+        },
+        {
+          "file": "vinh-ha-long/dao-da-ha-long.jpg",
+          "caption": "Cụm đảo đá giữa vịnh",
+          "imageSource": "Wikimedia Commons, tác giả Pasztilla aka Attila Terbócs, giấy phép CC BY-SA 4.0, https://commons.wikimedia.org/wiki/File:Ha_Long_Bay_2019-09_01.jpg",
+          "isThumbnail": false
+        },
+        {
+          "file": "vinh-ha-long/hon-dao-ha-long.jpg",
+          "caption": "Một hòn đảo trên Vịnh Hạ Long",
+          "imageSource": "Wikimedia Commons, tác giả Poom Pengcharoen, giấy phép CC BY-SA 4.0, https://commons.wikimedia.org/wiki/File:An_island_in_Ha_Long_Bay,_Vietnam.jpg",
+          "isThumbnail": false
+        }
+      ]
+    },
+    {
+      "name": "Yên Tử",
+      "slug": "yen-tu",
+      "provinceSlug": "quang-ninh",
+      "relicType": 1,
+      "address": "Phường Yên Tử và phường Hoàng Quế, tỉnh Quảng Ninh (trước sắp xếp năm 2025 thuộc thành phố Uông Bí và thành phố Đông Triều)",
+      "latitude": 21.1617,
+      "longitude": 106.7171,
+      "history": "Yên Tử là nơi tu hành của các đạo sĩ và nhà sư từ khá sớm, nhưng vị thế đặc biệt của ngọn núi gắn với vua Trần Nhân Tông (1258-1308). Sau hai lần trực tiếp lãnh đạo kháng chiến chống quân Nguyên, ông nhường ngôi rồi lên Yên Tử xuất gia. Tại đây ông sáng lập Thiền phái Trúc Lâm, dòng thiền mang tinh thần nhập thế và được xem là dòng thiền bản địa đầu tiên của người Việt. Hai vị kế tục là Pháp Loa và Huyền Quang tiếp tục mở mang chùa tháp, đưa Yên Tử thành trung tâm Phật giáo lớn của Đại Việt thời Trần. Hệ thống chùa, am và tháp trên núi được xây dựng, trùng tu qua các triều Lý, Trần, Lê và Nguyễn. Ngày 27 tháng 9 năm 2012, Thủ tướng Chính phủ ban hành Quyết định số 1419/QĐ-TTg xếp hạng Yên Tử là di tích quốc gia đặc biệt. Ngày 12 tháng 7 năm 2025, UNESCO ghi danh Quần thể di tích và danh thắng Yên Tử - Vĩnh Nghiêm, Côn Sơn, Kiếp Bạc là Di sản văn hóa thế giới. Đây là danh hiệu quốc tế, khác với việc xếp hạng di tích quốc gia đặc biệt trong nước.",
+      "description": "Khu di tích rộng khoảng 9.295 ha trên cánh cung Đông Triều. Tuyến hành hương truyền thống bắt đầu từ chân núi với các chùa Trình, Suối Tắm, Cầm Thực và chùa Lân, sau đó lên cụm trung tâm gồm chùa Giải Oan, chùa Hoa Yên, chùa Một Mái, chùa Bảo Sái, kết thúc ở chùa Đồng trên đỉnh, tại độ cao 1.068 mét so với mực nước biển. Chùa Hoa Yên là ngôi chùa lớn nhất trên núi; phía sau chùa là vườn tháp Huệ Quang với hàng chục tháp mộ của các thiền sư, trong đó tháp Huệ Quang lưu giữ xá lợi Trần Nhân Tông. Chùa Đồng hiện nay được đúc bằng đồng và hoàn thành năm 2006, thay cho ngôi chùa nhỏ dựng từ thời Hậu Lê. Cảnh quan chung quanh gồm rừng tự nhiên, rừng trúc, khoảng hai trăm cây tùng cổ được trồng cách nay chừng bảy trăm năm, cùng các thác Ngự Dội, thác Vàng, thác Bạc. Sự đan xen giữa kiến trúc tôn giáo và địa hình núi rừng là lý do di tích được xếp vào nhóm vừa lịch sử vừa danh lam thắng cảnh.",
+      "visitInfo": "Có thể lên núi bằng đường bộ hoặc bằng hệ thống cáp treo. Hội xuân Yên Tử khai mạc vào mùng 10 tháng Giêng và kéo dài khoảng ba tháng. Tỉnh Quảng Ninh áp dụng mức phí tham quan 0 đồng đến hết ngày 31 tháng 12 năm 2028, không bao gồm vé cáp treo.",
+      "rankingLevel": 3,
+      "recognizedYear": 2012,
+      "sourceUrl": "https://dsvh.gov.vn/di-tich-lich-su-va-danh-lam-thang-canh-yen-tu-2962",
+      "images": [
+        {
+          "file": "yen-tu/nui-yen-tu.jpg",
+          "caption": "Cảnh núi Yên Tử",
+          "imageSource": "Wikimedia Commons, tác giả Thang Nguyen, giấy phép CC BY-SA 2.0, https://commons.wikimedia.org/wiki/File:N%C3%BAi_Y%C3%AAn_T%E1%BB%AD.jpg",
+          "isThumbnail": true
+        },
+        {
+          "file": "yen-tu/chua-hoa-yen.jpg",
+          "caption": "Chùa Hoa Yên trên sườn núi Yên Tử",
+          "imageSource": "Wikimedia Commons, tác giả Liftold, giấy phép CC BY-SA 3.0, https://commons.wikimedia.org/wiki/File:Hoa_Y%C3%AAn.JPG",
+          "isThumbnail": false
+        },
+        {
+          "file": "yen-tu/cap-treo-yen-tu.jpg",
+          "caption": "Cáp treo lên núi Yên Tử",
+          "imageSource": "Wikimedia Commons, tác giả Thang Nguyen, giấy phép CC BY-SA 2.0, https://commons.wikimedia.org/wiki/File:C%C3%A1p_treo_n%C3%BAi_Y%C3%AAn_T%E1%BB%AD.jpg",
+          "isThumbnail": false
+        }
+      ]
+    },
+    {
+      "name": "Đô thị cổ Hội An",
+      "slug": "do-thi-co-hoi-an",
+      "provinceSlug": "da-nang",
+      "relicType": 2,
+      "address": "Phường Hội An, thành phố Đà Nẵng",
+      "latitude": 15.8833,
+      "longitude": 108.3333,
+      "history": "Vùng hạ lưu sông Thu Bồn nơi Hội An tọa lạc từng là địa bàn của cư dân tiền Sa Huỳnh, sau đó trở thành một cảng thị của vương quốc Chăm Pa. Đến khoảng thế kỷ 16, chúa Nguyễn mở rộng giao thương đường biển ở Đàng Trong và Hội An dần định hình như một thương cảng quốc tế. Hai thế kỷ 17 và 18 là giai đoạn phồn thịnh nhất: thuyền buôn Nhật Bản, Trung Hoa cùng tàu của một số nước phương Tây đều đặn cập bến theo mùa gió, biến nơi đây thành trung tâm mua bán lớn nhất Đàng Trong và một trong những cảng sầm uất của khu vực Đông Nam Á. Thương nhân nước ngoài lưu trú lâu dài đã lập phố, dựng hội quán và đình miếu, để lại dấu ấn văn hóa chồng lớp trên nền bản địa. Từ thế kỷ 19, khi sông Thu Bồn bồi lấp và Đà Nẵng nổi lên thành cảng chính, hoạt động thương mại ở Hội An suy giảm, nhờ đó diện mạo kiến trúc cũ ít bị phá vỡ bởi quá trình đô thị hóa. Nhà nước xếp hạng khu phố cổ là di tích cấp quốc gia năm 1985. Năm 1999, UNESCO ghi danh Hội An vào Danh mục Di sản văn hóa thế giới. Ngày 12 tháng 8 năm 2009, Thủ tướng Chính phủ ban hành Quyết định số 1272/QĐ-TTg xếp hạng Đô thị cổ Hội An là di tích quốc gia đặc biệt, thuộc loại hình di tích kiến trúc nghệ thuật.",
+      "description": "Khu phố cổ nằm bên bờ bắc sông Thu Bồn, giữ được cấu trúc đường phố hẹp cùng hệ thống công trình gỗ và gạch xây liền kề. Kiểu nhà đặc trưng ở đây là nhà ống: mặt tiền chỉ rộng chừng bốn đến tám mét nhưng chiều sâu kéo dài hàng chục mét, bên trong chia thành nhiều nếp nối nhau bằng sân trời, kết hợp chức năng buôn bán, kho hàng và nơi ở. Bộ khung chịu lực bằng gỗ, tường xây gạch, mái lợp ngói âm dương, các chi tiết chạm khắc trên vì kèo và cửa bản khoa cho thấy tay nghề thợ mộc Kim Bồng cùng ảnh hưởng của phong cách Việt, Hoa và Nhật. Điểm nhấn của khu phố là Chùa Cầu, cây cầu gỗ có mái che dài khoảng mười tám mét bắc qua một lạch nước, gắn với cộng đồng thương nhân Nhật Bản. Bên cạnh đó là năm hội quán của người Hoa, các nhà thờ tộc, đình, miếu và nhiều ngôi nhà cổ vẫn do hậu duệ chủ nhân cũ trông coi. Theo kết quả kiểm kê năm 1999, khu phố cổ có 1.360 di tích, gồm 1.273 công trình kiến trúc nghệ thuật, 69 di tích lịch sử cách mạng, 10 địa điểm khảo cổ và 8 danh thắng. Giá trị nổi bật của Hội An nằm ở chỗ quần thể này còn nguyên vẹn gần như toàn bộ cấu trúc một đô thị thương cảng Đông Nam Á thời trung đại, đồng thời vẫn là không gian sinh sống của cộng đồng dân cư.",
+      "visitInfo": "Khu phố cổ nằm ở phường Hội An, cách trung tâm Đà Nẵng khoảng 28 km về phía nam. Tham quan các điểm di tích trong khu phố cổ áp dụng chế độ vé do Trung tâm Quản lý Bảo tồn Di sản Văn hóa Hội An phát hành; mức giá và giờ mở cửa từng điểm cần kiểm tra trên trang thông tin chính thức trước khi đi. Nhiều tuyến phố trong khu vực lõi hạn chế xe cơ giới theo khung giờ.",
+      "rankingLevel": 3,
+      "recognizedYear": 2009,
+      "sourceUrl": "https://dsvh.gov.vn/di-tich-kien-truc-nghe-thuat-do-thi-co-hoi-an-2942",
+      "images": [
+        {
+          "file": "do-thi-co-hoi-an/chua-cau.jpg",
+          "caption": "Chùa Cầu bắc qua lạch nước trong khu phố cổ Hội An",
+          "imageSource": "Wikimedia Commons, tác giả Steffen Schmitz, giấy phép CC BY-SA 4.0, https://commons.wikimedia.org/wiki/File:H%E1%BB%99i_An,_Ch%C3%B9a_C%E1%BA%A7u,_2020-01_CN-01.jpg",
+          "isThumbnail": true
+        },
+        {
+          "file": "do-thi-co-hoi-an/pho-co-hoi-an.jpg",
+          "caption": "Dãy nhà cổ mái ngói âm dương trên một tuyến phố trong khu phố cổ",
+          "imageSource": "Wikimedia Commons, tác giả Steffen Schmitz, giấy phép CC BY-SA 4.0, https://commons.wikimedia.org/wiki/File:H%E1%BB%99i_An,_Ancient_Town,_2020-01_CN-03.jpg",
+          "isThumbnail": false
+        }
+      ]
+    },
+    {
+      "name": "Khu đền tháp Mỹ Sơn",
+      "slug": "my-son",
+      "provinceSlug": "da-nang",
+      "relicType": 2,
+      "address": "Xã Thu Bồn, thành phố Đà Nẵng (địa bàn xã Duy Phú, huyện Duy Xuyên, tỉnh Quảng Nam trước khi sắp xếp đơn vị hành chính năm 2025)",
+      "latitude": 15.7667,
+      "longitude": 108.1167,
+      "history": "Mỹ Sơn nằm trong một thung lũng kín đường kính khoảng hai ki lô mét, được vương triều Chăm Pa chọn làm trung tâm tôn giáo từ rất sớm. Các công trình sớm nhất được dựng vào khoảng thế kỷ 4 và hoạt động xây dựng, tu bổ kéo dài liên tục đến thế kỷ 13, thậm chí còn dấu vết muộn hơn. Trong suốt thời gian đó, nhiều đời vua Chăm dâng cúng đền tháp và bia ký tại đây, chủ yếu thờ thần Shiva dưới danh hiệu Bhadresvara; một số nhà nghiên cứu cho rằng đến thế kỷ 11 vị thần chủ chuyển thành Srisana Bhadresvara. Sau khi vương quốc Chăm Pa suy tàn, khu thánh địa bị rừng phủ kín và rơi vào quên lãng. Năm 1885, người Pháp tình cờ phát hiện lại quần thể này. Từ đầu thế kỷ 20, các học giả của Trường Viễn Đông Bác cổ tiến hành khảo sát, đo vẽ và công bố kết quả nghiên cứu kiến trúc cùng văn bia, trong đó H. Parmentier đặt ký hiệu chữ cái Latinh cho từng nhóm tháp. Chiến tranh giữa thế kỷ 20 gây thiệt hại nặng cho nhiều công trình. Năm 1999, UNESCO ghi danh Mỹ Sơn là Di sản văn hóa thế giới. Ngày 12 tháng 8 năm 2009, Thủ tướng Chính phủ ký Quyết định số 1272/QĐ-TTg xếp hạng Khu đền tháp Mỹ Sơn là di tích quốc gia đặc biệt.",
+      "description": "Quần thể gồm hơn bảy mươi công trình đền tháp phân bố thành nhiều nhóm trong thung lũng, được các nhà nghiên cứu Pháp ký hiệu từ nhóm A đến nhóm N. Mỗi nhóm thường có một tháp chính thờ thần, xung quanh là tháp cổng, nhà dài, tháp hỏa và các tháp phụ, tạo thành một tổ hợp khép kín. Từng ngôi tháp chia làm ba phần đế, thân và mái, xây bằng gạch nung mài khít với kỹ thuật kết dính đến nay vẫn chưa được giải thích trọn vẹn; các cấu kiện chịu lực và trang trí quan trọng như trụ cửa, lanh tô, đài thờ thì dùng sa thạch. Trên mặt tường gạch, nghệ nhân Chăm chạm trực tiếp hoa văn dây lá, hình vũ nữ, tu sĩ và các vị thần trong thần thoại Ấn Độ giáo, kết hợp với yếu tố bản địa và ảnh hưởng nghệ thuật Ấn Độ, Khmer, Java. Nhà nghiên cứu P. Stern đã phân chia di tích Mỹ Sơn thành sáu phong cách nghệ thuật nối tiếp nhau từ thế kỷ 7 đến thế kỷ 14, nhờ đó quần thể trở thành cơ sở để dựng lại tiến trình phát triển của kiến trúc và điêu khắc Chăm Pa. Khu vực bảo vệ I rộng 324.600 mét vuông, khu vực bảo vệ II rộng 11.255.400 mét vuông. Hệ thống bia ký chữ Phạn và chữ Chăm cổ tại đây còn cung cấp nguồn sử liệu quan trọng về vương triều và đời sống tôn giáo Chăm Pa.",
+      "visitInfo": "Khu đền tháp cách trung tâm Đà Nẵng khoảng 70 km về phía tây nam, thuộc xã Thu Bồn. Khách tham quan mua vé và đi xe trung chuyển từ khu đón tiếp vào thung lũng đền tháp. Giá vé và giờ mở cửa do Ban Quản lý Di sản văn hóa Mỹ Sơn công bố, cần tra cứu trước khi đi. Đường trong khu di tích là đường mòn giữa rừng, nên chuẩn bị giày đi bộ và nước uống.",
+      "rankingLevel": 3,
+      "recognizedYear": 2009,
+      "sourceUrl": "https://dsvh.gov.vn/di-tich-kien-truc-nghe-thuat-khu-den-thap-my-son-2943",
+      "images": [
+        {
+          "file": "my-son/nhom-thap-b-c-d.jpg",
+          "caption": "Các đền tháp thuộc nhóm B, C và D trong khu đền tháp Mỹ Sơn",
+          "imageSource": "Wikimedia Commons, tác giả Chainwit., giấy phép CC BY 4.0, https://commons.wikimedia.org/wiki/File:2024_-_M%E1%BB%B9_S%C6%A1n_Group_B,_C_and_D_-_img_23.jpg",
+          "isThumbnail": true
+        },
+        {
+          "file": "my-son/den-thap-e7.jpg",
+          "caption": "Đền tháp ký hiệu E7 sau khi được trùng tu",
+          "imageSource": "Wikimedia Commons, tác giả Chainwit., giấy phép CC BY 4.0, https://commons.wikimedia.org/wiki/File:2024_-_M%E1%BB%B9_S%C6%A1n_Sanctuary_Temple_E7_-_img_01.jpg",
+          "isThumbnail": false
+        }
+      ]
+    },
+    {
+      "name": "Ngũ Hành Sơn",
+      "slug": "ngu-hanh-son",
+      "provinceSlug": "da-nang",
+      "relicType": 4,
+      "address": "Phường Ngũ Hành Sơn, thành phố Đà Nẵng",
+      "latitude": 16.0,
+      "longitude": 108.26,
+      "history": "Cụm núi đá vôi nổi lên giữa dải cát ven biển phía đông nam Đà Nẵng từ lâu được dân gian gọi là Non Nước. Kết quả khai quật khảo cổ các năm 2000 và 2018 tại khu vực này phát hiện nhiều hiện vật có niên đại từ thế kỷ 7 đến thế kỷ 11, gồm tác phẩm điêu khắc Chăm, bệ thờ và đồ vật có nguồn gốc nước ngoài, cho thấy đây từng là nơi cư trú và giao thương quan trọng. Từ thế kỷ 17 trở đi, Phật giáo phát triển mạnh ở vùng núi này; các chúa Nguyễn và về sau là triều Nguyễn nhiều lần cho dựng chùa, ban sắc phong. Năm 1837, vua Minh Mạng đặt tên cho từng ngọn núi theo thuyết ngũ hành, từ đó hình thành tên gọi Ngũ Hành Sơn. Nhà vua cũng cho khắc nhiều văn bản lên vách đá, góp phần tạo nên hệ thống bia ma nhai đặc sắc còn lại đến nay. Khu danh thắng được xếp hạng di tích cấp quốc gia từ những năm 1980. Ngày 24 tháng 12 năm 2018, Thủ tướng Chính phủ ban hành Quyết định số 1820/QĐ-TTg xếp hạng Danh lam thắng cảnh Ngũ Hành Sơn là di tích quốc gia đặc biệt.",
+      "description": "Khu danh thắng trải trên diện tích khoảng hai ki lô mét vuông, gồm sáu ngọn núi đá vôi mang tên Kim Sơn, Mộc Sơn, Thủy Sơn, Thổ Sơn, Dương Hỏa Sơn và Âm Hỏa Sơn. Thủy Sơn là ngọn lớn nhất, cao khoảng 160 mét với ba đỉnh nhô lên, cũng là nơi tập trung phần lớn công trình tôn giáo và hang động. Trên núi có các ngôi chùa lâu đời như Tam Thai, Linh Ứng cùng nhiều am, tháp; trong lòng núi là hệ thống hang động tự nhiên, tiêu biểu là động Huyền Không với vòm đá thủng cho ánh sáng rọi xuống bàn thờ. Vách đá tại nhiều hang động và lối đi còn lưu giữ hệ thống bia ma nhai khắc chữ Hán và chữ Nôm của vua quan, tăng sĩ và khách hành hương qua nhiều thế kỷ, được xem là nguồn tư liệu quý về lịch sử và văn hóa vùng đất. Dưới chân núi là làng nghề điêu khắc đá Non Nước với truyền thống hơn bốn trăm năm, sử dụng chính nguồn đá cẩm thạch tại chỗ. Giá trị của Ngũ Hành Sơn nằm ở sự kết hợp giữa cảnh quan núi đá giữa đồng bằng ven biển, hệ thống di tích tôn giáo nhiều lớp và dấu tích văn hóa Chăm Pa, Đại Việt cùng tồn tại trong một không gian hẹp.",
+      "visitInfo": "Khu danh thắng thuộc phường Ngũ Hành Sơn, cách trung tâm Đà Nẵng khoảng 8 km về phía đông nam. Lên hòn Thủy Sơn bằng đường bậc cấp hoặc thang máy; vé tham quan và vé thang máy tính riêng. Mức giá và giờ mở cửa theo thông báo của Ban Quản lý Khu du lịch thắng cảnh Ngũ Hành Sơn. Khu vực chùa chiền yêu cầu trang phục kín đáo.",
+      "rankingLevel": 3,
+      "recognizedYear": 2018,
+      "sourceUrl": "https://baochinhphu.vn/danh-thang-ngu-hanh-son-don-nhan-bang-xep-hang-di-tich-quoc-gia-dac-biet-102251143.htm",
+      "images": [
+        {
+          "file": "ngu-hanh-son/chua-tren-thuy-son.jpg",
+          "caption": "Công trình chùa tháp trên hòn Thủy Sơn",
+          "imageSource": "Wikimedia Commons, tác giả Chainwit., giấy phép CC BY 4.0, https://commons.wikimedia.org/wiki/File:Buddhist_temple_complex_on_the_Thuy_Son,_Da_Nang_Marble_Mountains_(2024)_-_img_01.jpg",
+          "isThumbnail": true
+        },
+        {
+          "file": "ngu-hanh-son/cum-chua-thuy-son.jpg",
+          "caption": "Một góc quần thể kiến trúc Phật giáo trên hòn Thủy Sơn",
+          "imageSource": "Wikimedia Commons, tác giả Chainwit., giấy phép CC BY 4.0, https://commons.wikimedia.org/wiki/File:Buddhist_temple_complex_on_the_Thuy_Son,_Da_Nang_Marble_Mountains_(2024)_-_img_03.jpg",
+          "isThumbnail": false
+        }
+      ]
+    },
+    {
+      "name": "Hệ thống di tích lưu niệm Chủ tịch Hồ Chí Minh tại Thừa Thiên Huế",
+      "slug": "he-thong-di-tich-luu-niem-chu-tich-ho-chi-minh-tai-hue",
+      "provinceSlug": "hue",
+      "relicType": 1,
+      "address": "Các điểm di tích thuộc phường Phú Xuân, phường Thuận Hóa và phường Dương Nỗ, thành phố Huế",
+      "latitude": null,
+      "longitude": null,
+      "history": "Chủ tịch Hồ Chí Minh có hai quãng thời gian sinh sống và học tập ở Huế. Lần thứ nhất từ năm 1895 đến năm 1901, khi ông còn mang tên Nguyễn Sinh Cung và theo cha mẹ vào kinh đô, ở độ tuổi từ năm đến mười một. Gia đình khi đó trú tại một ngôi nhà nhỏ trong khu Thành Nội, sau đó có thời gian về làng Dương Nỗ, nơi người cha là ông Nguyễn Sinh Sắc dạy học. Lần thứ hai từ năm 1906 đến năm 1909, ông trở lại Huế với tên Nguyễn Tất Thành, khi đó mười sáu đến mười chín tuổi, theo học Trường Tiểu học Pháp - Việt Đông Ba rồi Trường Quốc Học. Chính trong giai đoạn này, người thanh niên xứ Nghệ tiếp xúc với nền giáo dục mới và với những chuyển động xã hội ở Trung Kỳ đầu thế kỷ XX, trước khi rời Huế vào Nam rồi ra nước ngoài tìm đường cứu nước. Các địa điểm gắn với hai quãng thời gian đó được lập hồ sơ thành một hệ thống di tích thống nhất. Ngày 31 tháng 12 năm 2020, Thủ tướng Chính phủ xếp hạng hệ thống này là di tích quốc gia đặc biệt theo Quyết định số 2280/QĐ-TTg, thuộc đợt xếp hạng thứ mười một.",
+      "description": "Hệ thống gồm bốn điểm di tích nằm cách nhau vài kilômét trong địa bàn thành phố Huế. Điểm thứ nhất là ngôi nhà lưu niệm thời niên thiếu tại số 158 đường Mai Thúc Loan, thuộc khu vực Thành Nội, nay là phường Phú Xuân; đây là nơi gia đình ông Nguyễn Sinh Sắc sinh sống trong lần đầu vào Huế. Điểm thứ hai là nhà lưu niệm ở làng Dương Nỗ, phường Dương Nỗ, gắn với thời gian ông Nguyễn Sinh Sắc về làng dạy học cùng hai con trai. Điểm thứ ba là đình làng Dương Nỗ, công trình tín ngưỡng cổ của làng, gắn với ký ức tuổi thơ của Nguyễn Sinh Cung. Điểm thứ tư là địa điểm Trường Quốc Học ở số 12 đường Lê Lợi, nay thuộc phường Thuận Hóa, ngôi trường thành lập năm 1896 với dãy nhà mái ngói và cổng tam quan sơn đỏ đã trở thành hình ảnh quen thuộc của thành phố. Bốn điểm hợp thành một cụm di tích lưu niệm danh nhân, giá trị chủ yếu nằm ở mối liên hệ lịch sử chứ không ở quy mô kiến trúc.",
+      "visitInfo": "Các điểm di tích do Bảo tàng Hồ Chí Minh Thừa Thiên Huế quản lý và mở cửa đón khách tham quan. Nhà lưu niệm ở 158 Mai Thúc Loan và làng Dương Nỗ nằm trong khu dân cư, thuận tiện đi bộ hoặc xe máy; địa điểm Trường Quốc Học hiện vẫn là trường đang hoạt động nên việc tham quan phụ thuộc vào lịch của nhà trường.",
+      "rankingLevel": 3,
+      "recognizedYear": 2020,
+      "sourceUrl": "https://dsvh.gov.vn/he-thong-di-tich-luu-niem-chu-tich-ho-chi-minh-tai-thua-thien-hue-3310",
+      "images": [
+        {
+          "file": "he-thong-di-tich-luu-niem-chu-tich-ho-chi-minh-tai-hue/truong-quoc-hoc.jpg",
+          "caption": "Cổng Trường Quốc Học Huế trên đường Lê Lợi",
+          "imageSource": "Wikimedia Commons, tác giả Chainwit., giấy phép CC BY 4.0, https://commons.wikimedia.org/wiki/File:Qu%E1%BB%91c_H%E1%BB%8Dc_%E2%80%93_Hu%E1%BA%BF_High_School_for_the_Gifted_(entrance)_(2024)_-_img_01.jpg",
+          "isThumbnail": true
+        }
+      ]
+    },
+    {
+      "name": "Quần thể kiến trúc Cố đô Huế",
+      "slug": "quan-the-di-tich-co-do-hue",
+      "provinceSlug": "hue",
+      "relicType": 2,
+      "address": "Phường Phú Xuân và các phường, xã lân cận, thành phố Huế",
+      "latitude": 16.4702,
+      "longitude": 107.5773,
+      "history": "Năm 1802, Nguyễn Ánh lên ngôi lấy niên hiệu Gia Long và chọn Phú Xuân bên bờ sông Hương làm kinh đô của nước Việt Nam thống nhất. Việc khảo sát địa điểm bắt đầu từ năm 1803, công trường Kinh thành khởi công năm 1805 và kéo dài đến năm 1832 mới hoàn tất dưới thời vua Minh Mạng. Trong hơn một thế kỷ, mười ba đời vua triều Nguyễn nối nhau trị vì tại đây cho đến khi vua Bảo Đại thoái vị năm 1945. Song song với khu thành nội, các vua Nguyễn cho xây dựng lăng tẩm ở vùng đồi phía tây nam, dựng đàn Nam Giao, Văn Miếu, hệ thống phủ đệ và chùa quán, hình thành một tổng thể kiến trúc cung đình trải rộng hai bên sông Hương. Chiến tranh trong thế kỷ XX phá hủy phần lớn công trình bên trong Tử Cấm Thành. Từ thập niên 1980, công tác trùng tu được tiến hành liên tục. Năm 1993, quần thể được UNESCO ghi danh là Di sản văn hóa thế giới. Ngày 12 tháng 8 năm 2009, Thủ tướng Chính phủ xếp hạng di tích quốc gia đặc biệt theo Quyết định số 1272/QĐ-TTg.",
+      "description": "Kinh đô Huế được quy hoạch theo ba vòng thành lồng nhau. Vòng ngoài là Kinh thành, chu vi khoảng mười kilômét, tường cao 6,6 mét và dày tới 21 mét, mở mười cửa chính cùng hai mươi tư pháo đài; mặt bằng vuông vức này cho thấy ảnh hưởng của kỹ thuật thành lũy quân sự phương Tây. Vòng thứ hai là Hoàng thành, xây từ năm 1804, nơi đặt các điện làm việc và thờ tự, có bốn cửa mà Ngọ Môn ở phía nam là cửa chính với lầu Ngũ Phụng bên trên. Vòng trong cùng là Tử Cấm Thành, kích thước khoảng 341 mét nhân 308 mét, dành riêng cho sinh hoạt của nhà vua và hoàng gia. Ngoài khu thành nội, quần thể còn bao gồm lăng Gia Long, Minh Mạng, Thiệu Trị, Tự Đức, Khải Định, đàn Nam Giao, Văn Miếu dựng năm 1808, điện Hòn Chén và nhiều công trình ven sông Hương. Điểm đặc trưng của kiến trúc Huế là sự kết hợp giữa nguyên tắc xây dựng truyền thống, tư tưởng phong thủy phương Đông và cảnh quan tự nhiên, trong đó núi Ngự Bình giữ vai trò tiền án còn sông Hương làm minh đường.",
+      "visitInfo": "Khu di tích do Trung tâm Bảo tồn Di tích Cố đô Huế quản lý, bán vé tại quầy trước Ngọ Môn và qua hệ thống vé điện tử của trung tâm. Theo bảng giá năm 2025, vé tham quan khu Đại Nội khoảng 200.000 đồng với người lớn và 40.000 đồng với trẻ em từ 7 đến 12 tuổi; khu vực này thường mở cửa từ 6 giờ 30 đến 17 giờ 30.",
+      "rankingLevel": 3,
+      "recognizedYear": 2009,
+      "sourceUrl": "https://dsvh.gov.vn/di-tich-lich-su-va-kien-truc-nghe-thuat-quan-the-kien-truc-co-do-hue-2944",
+      "images": [
+        {
+          "file": "quan-the-di-tich-co-do-hue/ngo-mon.jpg",
+          "caption": "Ngọ Môn và lầu Ngũ Phụng, cửa chính phía nam Hoàng thành Huế",
+          "imageSource": "Wikimedia Commons, tác giả Chainwit., giấy phép CC BY 4.0, https://commons.wikimedia.org/wiki/File:Hu%E1%BA%BF_(2024)_-_Meridian_Gate_-_Ng%E1%BB%8D_M%C3%B4n_(Ho%C3%A0ng_th%C3%A0nh_Hu%E1%BA%BF)_-_img_05.jpg",
+          "isThumbnail": true
+        },
+        {
+          "file": "quan-the-di-tich-co-do-hue/cong-hoang-thanh.jpg",
+          "caption": "Một cổng trong khu Hoàng thành với trang trí khảm sành sứ",
+          "imageSource": "Wikimedia Commons, tác giả CEphoto, Uwe Aranas, giấy phép CC BY-SA 3.0, https://commons.wikimedia.org/wiki/File:Hue_Vietnam_Citadel-of-Hu%E1%BA%BF-04.jpg",
+          "isThumbnail": false
+        }
+      ]
+    },
+    {
+      "name": "Lam Kinh",
+      "slug": "lam-kinh",
+      "provinceSlug": "thanh-hoa",
+      "relicType": 1,
+      "address": "Xã Lam Sơn, tỉnh Thanh Hóa",
+      "latitude": 19.9299,
+      "longitude": 105.4071,
+      "history": "Vùng đất Lam Sơn là quê hương của Lê Lợi, nơi ông tập hợp hào kiệt và phát động cuộc khởi nghĩa chống quân Minh kéo dài từ năm 1418 đến năm 1427. Kháng chiến thắng lợi, năm 1428 Lê Lợi lên ngôi hoàng đế, lấy hiệu Lê Thái Tổ, lập ra triều Hậu Lê và đóng đô ở Thăng Long. Năm 1430, nhà vua đổi tên vùng Lam Sơn thành Lam Kinh, biến nơi đây thành kinh đô thứ hai, còn gọi là Tây Kinh. Từ đó Lam Kinh giữ vai trò đặc biệt: vừa là nơi các vua Lê về bái yết tổ tiên, vừa là khu điện miếu và lăng mộ của hoàng tộc. Lê Thái Tổ mất năm 1433 và được an táng tại Vĩnh Lăng ở đây; nhiều vua và hoàng hậu đời sau cũng được đưa về chôn cất trong khu vực này. Trải qua chiến tranh, hỏa hoạn và thời gian, phần lớn cung điện gỗ bị hủy hoại, chỉ còn nền móng và hệ thống bia đá. Di tích được xếp hạng di tích quốc gia năm 1962. Ngày 27 tháng 9 năm 2012, Thủ tướng Chính phủ xếp hạng Lam Kinh là di tích quốc gia đặc biệt theo Quyết định số 1419/QĐ-TTg.",
+      "description": "Khu trung tâm Lam Kinh rộng khoảng 30 hecta, nằm trong vùng bảo vệ khoảng 200 hecta trải trên địa bàn xã Lam Sơn và một phần địa bàn huyện Ngọc Lặc cũ. Mặt bằng khu chính được tổ chức theo trục dọc: qua cầu bắc ngang sông đào là Ngọ môn ba gian, tiếp đến sân rồng rộng, rồi đến chính điện gồm ba tòa dựng theo hình chữ công là Quang Đức, Sùng Hiếu và Diên Khánh. Phía sau chính điện là khu Thái miếu với chín tòa thờ tổ tiên và các vua triều Lê. Bao quanh khu điện miếu là hệ thống lăng mộ của Lê Thái Tổ, Lê Thái Tông, Lê Thánh Tông cùng nhiều thành viên hoàng tộc; mỗi lăng đều có tượng quan hầu, tượng thú bằng đá và bia đá lớn đặt trên lưng rùa. Rừng cây cổ thụ bao phủ gần như toàn bộ khu di tích, tạo nên đặc điểm cảnh quan riêng ít thấy ở các khu lăng miếu cung đình. Nhiều hạng mục như chính điện và các tòa Thái miếu đã được khai quật khảo cổ rồi phục dựng trong những năm gần đây. Lễ hội Lam Kinh được tổ chức thường niên vào tháng Tám âm lịch.",
+      "visitInfo": "Khu di tích do Ban Quản lý Di tích lịch sử Lam Kinh trông coi, mở cửa đón khách tham quan hằng ngày và nằm cách trung tâm thành phố Thanh Hóa cũ khoảng 50 kilômét về phía tây bắc. Thời điểm đông khách nhất là dịp lễ hội tháng Tám âm lịch.",
+      "rankingLevel": 3,
+      "recognizedYear": 2012,
+      "sourceUrl": "https://dsvh.gov.vn/di-tich-lich-su-va-kien-truc-nghe-thuat-lam-kinh-2961",
+      "images": [
+        {
+          "file": "lam-kinh/ngo-mon-lam-kinh.jpg",
+          "caption": "Ngọ môn và cây đa thị nhìn từ sân rồng",
+          "imageSource": "Wikimedia Commons, tác giả Bùi Lê Việt Cường, giấy phép CC BY-SA 4.0, https://commons.wikimedia.org/wiki/File:Lam_Kinh.jpg",
+          "isThumbnail": true
+        }
+      ]
+    },
+    {
+      "name": "Thành Nhà Hồ",
+      "slug": "thanh-nha-ho",
+      "provinceSlug": "thanh-hoa",
+      "relicType": 2,
+      "address": "Xã Tây Đô, tỉnh Thanh Hóa",
+      "latitude": 20.0781,
+      "longitude": 105.6047,
+      "history": "Cuối thế kỷ XIV, triều Trần suy yếu dần, quyền hành thực tế nằm trong tay Hồ Quý Ly. Ông chọn vùng An Tôn, thuộc địa phận Vĩnh Lộc cũ của Thanh Hóa, để dựng một kinh đô mới thay cho Thăng Long. Công trình khởi công vào tháng Giêng năm 1397 và phần tường thành đá hoàn thành trong khoảng ba tháng, một tiến độ rất đáng chú ý nếu so với khối lượng vật liệu phải vận chuyển và gia công. Kinh đô mới mang tên Tây Đô, đặt trong thế đối sánh với Đông Đô là Thăng Long. Năm 1400, Hồ Quý Ly phế vua Trần, lập ra nhà Hồ, Tây Đô trở thành trung tâm chính trị của vương triều. Nhà Hồ tồn tại ngắn ngủi: năm 1407 quân Minh đánh chiếm thành, triều đại sụp đổ và kinh đô bị bỏ hoang. Sau nhiều thế kỷ, tường thành đá vẫn còn đứng vững trong khi các cung điện bên trong chỉ còn dấu vết dưới lòng đất. Di tích được Bộ Văn hóa xếp hạng di tích quốc gia năm 1962. Ngày 27 tháng 6 năm 2011, Ủy ban Di sản thế giới ghi danh Thành Nhà Hồ là Di sản văn hóa thế giới. Ngày 10 tháng 5 năm 2012, Thủ tướng Chính phủ xếp hạng di tích quốc gia đặc biệt theo Quyết định số 548/QĐ-TTg.",
+      "description": "Thành nội có mặt bằng gần vuông, cạnh Đông - Tây dài khoảng 883,5 mét, cạnh Nam - Bắc khoảng 870,5 mét. Phần đáng giá nhất là lớp tường ngoài ghép bằng những khối đá vôi lớn, nhiều khối nặng từ mười đến hơn hai mươi tấn, được đẽo phẳng mặt rồi xếp khít vào nhau mà không dùng chất kết dính; phía trong tường đá là khối đất đắp dày. Toàn bộ công trình sử dụng hơn 100.000 mét khối đất và khoảng 20.000 mét khối đá. Bốn cổng thành đều xây kiểu vòm cuốn bằng đá theo lối xếp múi bưởi. Cổng Nam là cổng chính và lớn nhất, gồm ba cửa cuốn, dài 33,8 mét, cao 9,5 mét, rộng 15,17 mét, đến nay vẫn gần như nguyên vẹn. Ngoài vòng thành nội, khu di sản còn gồm La thành bao bọc bên ngoài, hào nước, đàn tế Nam Giao ở phía nam và các dấu tích khảo cổ nằm dưới mặt đất. Giá trị nổi bật của di tích nằm ở kỹ thuật xây dựng đá quy mô lớn hiếm gặp ở Đông Nam Á thế kỷ XIV và ở cách bố trí kinh thành dựa vào địa hình núi sông xung quanh.",
+      "visitInfo": "Di tích do Trung tâm Bảo tồn Di sản Thành Nhà Hồ quản lý, mở cửa đón khách tham quan hằng ngày. Khu vực cổng Nam và tường thành đá là điểm tham quan chính. Giá vé và khung giờ cụ thể thay đổi theo thông báo của đơn vị quản lý nên cần kiểm tra trước khi đi.",
+      "rankingLevel": 3,
+      "recognizedYear": 2012,
+      "sourceUrl": "https://dsvh.gov.vn/di-tich-thanh-nha-ho-481",
+      "images": [
+        {
+          "file": "thanh-nha-ho/toan-canh-thanh-nha-ho.jpg",
+          "caption": "Cổng Nam Thành Nhà Hồ với ba cửa cuốn bằng đá",
+          "imageSource": "Wikimedia Commons, tác giả Loi Nguyen Duc, giấy phép CC BY 2.0, https://commons.wikimedia.org/wiki/File:Ho_dynasty%27s_citadel,_Vietnam.jpg",
+          "isThumbnail": true
+        },
+        {
+          "file": "thanh-nha-ho/cong-nam.jpg",
+          "caption": "Khối đá xây tường thành và cửa cuốn nhìn từ bên ngoài cổng Nam",
+          "imageSource": "Wikimedia Commons, tác giả Silviculture, giấy phép public domain, https://commons.wikimedia.org/wiki/File:Tay_Do_castle_South_gate.JPG",
+          "isThumbnail": false
+        }
+      ]
+    },
+    {
+      "name": "Khu lưu niệm Chủ tịch Tôn Đức Thắng",
+      "slug": "khu-luu-niem-ton-duc-thang",
+      "provinceSlug": "an-giang",
+      "relicType": 1,
+      "address": "Ấp Mỹ An 2, xã Mỹ Hòa Hưng, tỉnh An Giang",
+      "latitude": null,
+      "longitude": null,
+      "history": "Chủ tịch Tôn Đức Thắng sinh năm 1888 tại cù lao Ông Hổ giữa sông Hậu, nay thuộc xã Mỹ Hòa Hưng. Ngôi nhà sàn nơi ông sống thời niên thiếu do thân sinh là ông Tôn Văn Đề dựng năm 1887 và vẫn được giữ gần như nguyên trạng. Từ vùng quê này, ông ra Sài Gòn học nghề thợ máy, tham gia phong trào công nhân, rồi bị thực dân Pháp bắt và đày ra Côn Đảo trong nhiều năm. Sau Cách mạng Tháng Tám, ông đảm nhiệm nhiều trọng trách và giữ cương vị Chủ tịch nước Việt Nam Dân chủ Cộng hòa, sau đó là Chủ tịch nước Cộng hòa xã hội chủ nghĩa Việt Nam cho đến khi qua đời năm 1980. Ngày 30 tháng 8 năm 1984, Bộ Văn hóa xếp hạng ngôi nhà thời niên thiếu của ông là di tích lịch sử quốc gia. Khu lưu niệm được mở rộng qua các dịp kỷ niệm ngày sinh của ông vào các năm 1988, 1998, 2008 và 2018. Thủ tướng Chính phủ xếp hạng di tích quốc gia đặc biệt theo Quyết định số 548/QĐ-TTg ngày 10 tháng 5 năm 2012.",
+      "description": "Khu lưu niệm rộng khoảng ba nghìn mét vuông, nằm trong vườn cây ven sông Hậu, tổ chức theo trục từ ngôi nhà gốc tới các hạng mục xây thêm về sau. Hạng mục quan trọng nhất là ngôi nhà sàn gỗ ba gian hai chái lợp ngói, diện tích khoảng 156 mét vuông, dựng theo lối nhà truyền thống của cư dân vùng sông nước Nam Bộ, bên trong còn giữ bàn thờ, giường tủ và nhiều vật dụng gia đình. Đền tưởng niệm được xây trong hai năm 1997 và 1998 trên diện tích khoảng 1.600 mét vuông, mái lợp ngói nhiều lớp, đặt tượng bán thân Chủ tịch Tôn Đức Thắng ở gian chính. Nhà trưng bày giới thiệu tài liệu và hiện vật về cuộc đời hoạt động của ông, trong đó có chiếc ca nô mang tên Giải phóng, tàu giang cảnh và chiếc máy bay YAK-40 số hiệu VNA.452 từng chở ông vào dự lễ mừng thống nhất đất nước năm 1975. Sân vườn, hồ nước và cầu dẫn tạo nên bố cục hài hòa với cảnh quan cù lao.",
+      "visitInfo": "Di tích nằm trên cù lao Ông Hổ giữa sông Hậu, từ trung tâm Long Xuyên đi phà sang. Khu lưu niệm mở cửa hằng ngày và không thu phí vào cổng; số điện thoại liên hệ theo cổng thông tin của Ban Quản lý là 02963.851.310.",
+      "rankingLevel": 3,
+      "recognizedYear": 2012,
+      "sourceUrl": "https://dsvh.gov.vn/di-tich-lich-su-khu-luu-niem-chu-tich-ton-duc-thang-tai-my-hoa-hung-thanh-pho-long-xuyen-tinh-an-giang-2951",
+      "images": [
+        {
+          "file": "khu-luu-niem-ton-duc-thang/den-tho-ton-duc-thang.jpg",
+          "caption": "Đền tưởng niệm Chủ tịch Tôn Đức Thắng nhìn qua hồ nước và cầu dẫn",
+          "imageSource": "Wikimedia Commons, tác giả Bùi Thụy Đào Nguyên, giấy phép CC BY-SA 3.0, https://commons.wikimedia.org/wiki/File:%C4%90%E1%BB%81n_th%E1%BB%9D_Ch%E1%BB%A7_t%E1%BB%8Bch_T%C3%B4n_%C4%90%E1%BB%A9c_Th%E1%BA%AFng.jpg",
+          "isThumbnail": true
+        },
+        {
+          "file": "khu-luu-niem-ton-duc-thang/nha-thoi-nien-thieu.jpg",
+          "caption": "Ngôi nhà sàn nơi Chủ tịch Tôn Đức Thắng sống thời niên thiếu",
+          "imageSource": "Wikimedia Commons, tác giả Bùi Thụy Đào Nguyên, giấy phép CC BY-SA 3.0, https://commons.wikimedia.org/wiki/File:Nh%C3%A0_th%E1%BB%9Di_ni%C3%AAn_thi%E1%BA%BFu_c%E1%BB%A7a_T%C3%B4n_%C4%90%E1%BB%A9c_Th%E1%BA%AFng.jpg",
+          "isThumbnail": false
+        },
+        {
+          "file": "khu-luu-niem-ton-duc-thang/tuong-ton-duc-thang.jpg",
+          "caption": "Tượng Chủ tịch Tôn Đức Thắng trong khu lưu niệm",
+          "imageSource": "Wikimedia Commons, tác giả Bùi Thụy Đào Nguyên, giấy phép CC BY-SA 3.0, https://commons.wikimedia.org/wiki/File:T%C6%B0%E1%BB%A3ng_T%C3%B4n_%C4%90%E1%BB%A9c_Th%E1%BA%AFng.jpg",
+          "isThumbnail": false
+        }
+      ]
+    },
+    {
+      "name": "Óc Eo - Ba Thê",
+      "slug": "oc-eo-ba-the",
+      "provinceSlug": "an-giang",
+      "relicType": 3,
+      "address": "Xã Óc Eo, tỉnh An Giang",
+      "latitude": 10.2331,
+      "longitude": 105.1631,
+      "history": "Năm 1944, nhà khảo cổ học người Pháp Louis Malleret tiến hành cuộc khai quật quy mô lớn đầu tiên tại cánh đồng dưới chân núi Ba Thê và công bố phát hiện một đô thị cảng cổ. Từ địa danh Óc Eo, giới nghiên cứu đặt tên cho cả một nền văn hóa phát triển ở châu thổ sông Cửu Long trong khoảng mười thế kỷ đầu Công nguyên, gắn với vương quốc Phù Nam. Sau năm 1975, các cơ quan khảo cổ trong nước tiếp tục khai quật nhiều gò và di chỉ, làm rõ diện mạo một trung tâm kinh tế, tôn giáo và thương mại từng giao thương với Ấn Độ, Trung Hoa và vùng Địa Trung Hải. Thủ tướng Chính phủ xếp hạng di tích quốc gia đặc biệt theo Quyết định số 1419/QĐ-TTg ngày 27 tháng 9 năm 2012. Năm 2022, khu di tích được đưa vào danh sách dự kiến đề cử di sản thế giới của UNESCO; tỉnh An Giang đang hoàn thiện hồ sơ khoa học cho đề cử này. Nhiều hiện vật khai quật tại đây đã được công nhận là bảo vật quốc gia.",
+      "description": "Khu di tích có diện tích khoảng 433,2 hecta, chia thành hai khu vực gắn bó với nhau: sườn và chân núi Ba Thê rộng khoảng 143,9 hecta, cánh đồng Óc Eo rộng khoảng 289,3 hecta. Cấu trúc này phản ánh mô hình đô thị cổ lấy đỉnh núi làm trung tâm tôn giáo, còn khu cư trú, sản xuất và buôn bán trải trên đồng bằng thấp. Các địa điểm tiêu biểu gồm Gò Cây Thị, Gò Út Nhanh, Gò Danh Sang, Gò Tư Trâm, Gò Cây Me, Gò Trung Sơn và Gò Sáu Thuận. Dấu tích lộ ra chủ yếu là nền móng đền tháp xây bằng gạch và đá, di chỉ cư trú nhà sàn, các loại mộ táng trong chum, mộ đất và mộ hỏa táng chứa hạt vàng cùng đá quý. Bên cạnh đó là khu xưởng chế tác hạt chuỗi thủy tinh và đá bán quý với khối lượng phế liệu rất lớn, cho thấy quy mô thủ công nghiệp đáng kể. Hệ thống kênh đào cổ, trong đó có tuyến kênh dài khoảng 30 ki lô mét nối ra vịnh Thái Lan, chứng minh vai trò cảng thị của Óc Eo. Chùa Linh Sơn trên núi Ba Thê, nơi lưu giữ nhiều hiện vật cổ, đã được xếp hạng di tích kiến trúc nghệ thuật cấp quốc gia từ năm 1988.",
+      "visitInfo": "Các điểm khai quật tiêu biểu như Gò Cây Thị, Linh Sơn Tự cùng nhà trưng bày hiện vật đều nằm trong xã Óc Eo và do cơ quan quản lý di tích văn hóa Óc Eo của tỉnh An Giang phụ trách. Nhiều hố khai quật đã được dựng nhà bao che nên khách có thể quan sát trực tiếp nền móng kiến trúc cổ.",
+      "rankingLevel": 3,
+      "recognizedYear": 2012,
+      "sourceUrl": "https://dsvh.gov.vn/di-tich-khao-co-va-kien-truc-nghe-thuat-oc-eo-ba-the-2965",
+      "images": [
+        {
+          "file": "oc-eo-ba-the/go-cay-thi-a.jpg",
+          "caption": "Nền móng kiến trúc gạch lộ ra trong hố khai quật Gò Cây Thị",
+          "imageSource": "Wikimedia Commons, tác giả Bùi Thụy Đào Nguyên, giấy phép CC BY-SA 3.0, https://commons.wikimedia.org/wiki/File:Di_t%C3%ADch_G%C3%B2_C%C3%A2y_Th%E1%BB%8B_A.jpg",
+          "isThumbnail": true
+        },
+        {
+          "file": "oc-eo-ba-the/go-cay-thi-b.jpg",
+          "caption": "Một góc khác của hố khai quật Gò Cây Thị",
+          "imageSource": "Wikimedia Commons, tác giả Bùi Thụy Đào Nguyên, giấy phép CC BY-SA 3.0, https://commons.wikimedia.org/wiki/File:Di_t%C3%ADch_G%C3%B2_C%C3%A2y_Th%E1%BB%8B_B.jpg",
+          "isThumbnail": false
+        },
+        {
+          "file": "oc-eo-ba-the/khu-di-tich-go-cay-thi.jpg",
+          "caption": "Nhà bao che dựng trên khu khai quật Gò Cây Thị",
+          "imageSource": "Wikimedia Commons, tác giả Bùi Thụy Đào Nguyên, giấy phép CC BY-SA 3.0, https://commons.wikimedia.org/wiki/File:Khu_di_t%C3%ADch_G%C3%B2_C%C3%A2y_Th%E1%BB%8B.jpg",
+          "isThumbnail": false
+        }
+      ]
+    },
+    {
+      "name": "Địa đạo Củ Chi",
+      "slug": "dia-dao-cu-chi",
+      "provinceSlug": "ho-chi-minh",
+      "relicType": 1,
+      "address": "Xã An Nhơn Tây (khu Bến Dược) và xã Nhuận Đức (khu Bến Đình), Thành phố Hồ Chí Minh",
+      "latitude": 11.0608,
+      "longitude": 106.5286,
+      "history": "Những đoạn hầm đầu tiên ở vùng Củ Chi được đào khoảng năm 1948, trong kháng chiến chống Pháp, nhằm cất giấu tài liệu, vũ khí và che chở cán bộ khi địch càn quét. Từ đầu thập niên 1960, khi chiến tranh lan rộng, các xã trong vùng nối những đoạn hầm riêng lẻ lại thành một hệ thống liên hoàn dài hơn 200 ki lô mét, kết hợp với khoảng 500 ki lô mét chiến hào trên mặt đất. Nơi đây trở thành căn cứ của Khu ủy và Bộ Tư lệnh Quân khu Sài Gòn - Gia Định, bàn đạp cho nhiều đợt tiến công vào nội đô. Trong giai đoạn 1954-1975, vùng đất này hứng chịu khoảng 500.000 tấn bom đạn. Theo tổng kết được Cục Di sản văn hóa dẫn lại, quân và dân Củ Chi đã đánh 4.269 trận, loại khỏi vòng chiến đấu 22.582 quân đối phương, phá hủy hơn 5.168 xe quân sự và bắn rơi 256 máy bay. Thủ tướng Chính phủ xếp hạng di tích quốc gia đặc biệt theo Quyết định số 2367/QĐ-TTg ngày 23 tháng 12 năm 2015. Thành phố đang xúc tiến hồ sơ đề nghị UNESCO công nhận di sản thế giới.",
+      "description": "Địa đạo được đào trong lớp đất xám phù sa cổ, loại đất dẻo và ít sụt lở nên có thể giữ vòm hầm ổn định mà không cần chống đỡ nhiều. Hệ thống chia thành nhiều tầng, tầng trên cách mặt đất khoảng ba mét, tầng dưới sâu hơn, nối nhau bằng những đoạn hầm hẹp chỉ vừa một người khom lưng di chuyển. Dọc tuyến hầm bố trí hầm chỉ huy, hầm quân y, hầm cứu thương, kho lương thực, giếng nước và bếp Hoàng Cầm có hệ thống rãnh tản khói để tránh bị phát hiện từ trên không. Miệng hầm nhỏ, nắp gỗ phủ lá khô ngụy trang; lỗ thông hơi đắp hình ụ mối, hướng ra nhiều phía. Xung quanh là bãi hầm chông, hố đinh và các vật cản nhằm ngăn bộ binh đối phương tiếp cận. Ngày nay khu di tích mở hai điểm tham quan: Bến Dược giữ nhiều đoạn hầm nguyên trạng cùng Đền Bến Dược tưởng niệm liệt sĩ, còn Bến Đình phục dựng một số đoạn đã được nới rộng cho khách đi lại. Các hố bom, xe tăng hỏng và mô hình sinh hoạt thời chiến được giữ lại ngay trong khu rừng tái sinh.",
+      "visitInfo": "Khu di tích mở cửa hằng ngày, thường từ 7h00 đến 17h00, gồm hai khu tham quan Bến Dược và Bến Đình. Giá vé và các dịch vụ kèm theo do Khu di tích lịch sử Địa đạo Củ Chi niêm yết và điều chỉnh theo từng thời kỳ, nên cần kiểm tra trước khi đi.",
+      "rankingLevel": 3,
+      "recognizedYear": 2015,
+      "sourceUrl": "https://dsvh.gov.vn/di-tich-lich-su-dia-dao-cu-chi-1490",
+      "images": [
+        {
+          "file": "dia-dao-cu-chi/cua-ham-dia-dao.jpg",
+          "caption": "Một miệng hầm nhỏ nằm khuất dưới lớp lá khô",
+          "imageSource": "Wikimedia Commons, tác giả Balon Greyjoy, giấy phép CC0 1.0, https://commons.wikimedia.org/wiki/File:20190925_Cu_Chi_tunnel_entrance.jpg",
+          "isThumbnail": true
+        },
+        {
+          "file": "dia-dao-cu-chi/duong-ham-goc.jpg",
+          "caption": "Lòng một đoạn địa đạo còn giữ nguyên trạng",
+          "imageSource": "Wikimedia Commons, tác giả Matthew Blissett, giấy phép CC BY-SA 3.0, https://commons.wikimedia.org/wiki/File:Cu_Chi_original_tunnel.jpg",
+          "isThumbnail": false
+        },
+        {
+          "file": "dia-dao-cu-chi/doan-dia-dao-lo-thien.jpg",
+          "caption": "Hố lộ thiên cho thấy mặt cắt một đoạn hầm trong khu tham quan",
+          "imageSource": "Wikimedia Commons, tác giả Mkckim, giấy phép CC BY-SA 4.0, https://commons.wikimedia.org/wiki/File:Cu_Chi_Tunnel_trap.JPG",
+          "isThumbnail": false
+        }
+      ]
+    },
+    {
+      "name": "Dinh Độc Lập",
+      "slug": "dinh-doc-lap",
+      "provinceSlug": "ho-chi-minh",
+      "relicType": 1,
+      "address": "135 Nam Kỳ Khởi Nghĩa, phường Bến Thành, Thành phố Hồ Chí Minh",
+      "latitude": 10.7769,
+      "longitude": 106.6953,
+      "history": "Trên khu đất này, chính quyền thực dân Pháp cho xây Dinh Norodom từ năm 1868 và hoàn thành năm 1873 để làm nơi ở và làm việc của Thống đốc Nam Kỳ, về sau là Phủ Cao ủy Pháp tại Đông Dương. Sau Hiệp định Genève năm 1954, công trình được bàn giao cho chính quyền Sài Gòn và mang tên Dinh Độc Lập. Tòa nhà cũ bị hư hại nặng trong vụ ném bom năm 1962 nên được phá bỏ và xây lại theo đồ án của kiến trúc sư Ngô Viết Thụ, khánh thành năm 1966. Đây là nơi đặt bộ máy đầu não của chính quyền Việt Nam Cộng hòa cho tới ngày 30 tháng 4 năm 1975, khi xe tăng số hiệu 843 và 390 của Quân Giải phóng tiến vào, đánh dấu thắng lợi trọn vẹn của cuộc kháng chiến chống Mỹ. Sau ngày thống nhất, công trình được đặt tên Hội trường Thống Nhất. Bộ Văn hóa xếp hạng di tích quốc gia theo Quyết định số 77A/VHQĐ ngày 25 tháng 6 năm 1976; Thủ tướng Chính phủ xếp hạng di tích quốc gia đặc biệt theo Quyết định số 1272/QĐ-TTg ngày 12 tháng 8 năm 2009.",
+      "description": "Công trình hiện nay là một trong những thí dụ tiêu biểu của kiến trúc hiện đại miền Nam giữa thế kỷ XX. Kiến trúc sư Ngô Viết Thụ tổ chức mặt bằng theo ý đồ tạo hình chữ Hán mang nghĩa tốt lành, kết hợp kết cấu bê tông cốt thép với các mô típ quen thuộc của kiến trúc truyền thống. Mặt tiền phía trước được che bằng hệ rèm hoa đá mô phỏng đốt trúc, vừa tạo bóng đổ vừa giảm nắng cho các phòng bên trong. Tòa nhà cao khoảng 26 mét, diện tích sử dụng chừng 4.500 mét vuông với hơn một trăm phòng, bố trí qua tầng trệt, các tầng lầu, hai tầng hầm và sân đỗ trực thăng trên mái. Không gian tiêu biểu gồm phòng Khánh tiết treo bức sơn mài lớn lấy đề tài Bình Ngô đại cáo, phòng Nội các, phòng trình quốc thư và hệ thống hầm chỉ huy cùng phòng thông tin liên lạc dưới lòng đất. Trong khuôn viên còn trưng bày hai chiếc xe tăng mang số hiệu 843 và 390, chiếc máy bay F-5E và trực thăng gắn với các sự kiện năm 1975, giúp người xem hình dung diễn biến lịch sử ngay tại hiện trường.",
+      "visitInfo": "Mở cửa hằng ngày; theo hướng dẫn tham quan công bố năm 2025, quầy vé phục vụ từ 8h00 đến 15h30 và khách tham quan đến 16h30. Vé 40.000 đồng cho khu vực dinh, 65.000 đồng cho vé gộp khu trưng bày. Giờ và giá vé có thể thay đổi theo thông báo của Hội trường Thống Nhất.",
+      "rankingLevel": 3,
+      "recognizedYear": 2009,
+      "sourceUrl": "https://dsvh.gov.vn/di-tich-lich-su-dinh-doc-lap-2937",
+      "images": [
+        {
+          "file": "dinh-doc-lap/dinh-doc-lap-toan-canh.jpg",
+          "caption": "Mặt chính Dinh Độc Lập nhìn từ sân cỏ phía trước",
+          "imageSource": "Wikimedia Commons, tác giả Balon Greyjoy, giấy phép CC0 1.0, https://commons.wikimedia.org/wiki/File:20190923_Independence_Palace-1.jpg",
+          "isThumbnail": true
+        },
+        {
+          "file": "dinh-doc-lap/dinh-doc-lap-mat-tien.jpg",
+          "caption": "Hệ rèm hoa đá trên mặt tiền công trình",
+          "imageSource": "Wikimedia Commons, tác giả LWYang, giấy phép CC BY 2.0, https://commons.wikimedia.org/wiki/File:2019-09-13_Dinh_Th%E1%BB%91ng_Nh%E1%BA%A5t.jpg",
+          "isThumbnail": false
+        }
+      ]
+    },
+    {
+      "name": "Nhà tù Côn Đảo",
+      "slug": "nha-tu-con-dao",
+      "provinceSlug": "ho-chi-minh",
+      "relicType": 1,
+      "address": "Đặc khu Côn Đảo, Thành phố Hồ Chí Minh",
+      "latitude": 8.6889,
+      "longitude": 106.6148,
+      "history": "Thực dân Pháp lập nhà tù trên đảo Côn Sơn từ năm 1862 để giam giữ những người bị coi là nguy hiểm đối với bộ máy cai trị thuộc địa. Qua 113 năm tồn tại cho đến ngày giải phóng năm 1975, hệ thống này lần lượt do chính quyền thực dân rồi chính quyền Sài Gòn quản lý, giam giữ nhiều thế hệ tù chính trị và tù binh. Khoảng hai vạn người Việt Nam đã ngã xuống tại đây. Nhiều nhà lãnh đạo của cách mạng Việt Nam từng bị đày ra Côn Đảo, trong đó có Nguyễn Văn Cừ, Lê Hồng Phong, Phạm Văn Đồng, Lê Đức Thọ và Tôn Đức Thắng; nữ anh hùng Võ Thị Sáu bị xử bắn và an táng tại nghĩa trang Hàng Dương. Điều kiện giam giữ khắc nghiệt cùng phong trào đấu tranh bền bỉ của tù nhân khiến nơi này được nhắc tới như một trường học lớn của những người cách mạng. Năm 1979, Bộ Văn hóa và Thông tin xếp hạng di tích quốc gia với 17 điểm thành phần. Thủ tướng Chính phủ xếp hạng di tích quốc gia đặc biệt theo Quyết định số 548/QĐ-TTg ngày 10 tháng 5 năm 2012.",
+      "description": "Hệ thống di tích trải rộng khắp đảo Côn Sơn, gồm các trại giam, khu hành chính, nơi lao dịch khổ sai và các nghĩa trang. Các trại giam được biết đến nhiều nhất mang tên Phú Hải, Phú Sơn, Phú Thọ và Phú Tường, trong đó Phú Hải là trại cổ nhất với dãy phòng giam tập thể quây quanh sân rộng. Khu chuồng cọp kiểu Pháp và chuồng cọp kiểu Mỹ là những hạng mục gây ám ảnh nhất: các phòng biệt lập chật hẹp có song sắt phía trên để lính canh giám sát và ném vôi bột xuống. Theo hồ sơ của Cục Di sản văn hóa, toàn hệ thống có 127 phòng giam, 42 xà lim và 504 phòng giam biệt lập. Ngoài ra còn nhà Chúa Đảo, cầu Ma Thiên Lãnh, Sở Lò Vôi, Sở Muối cùng nghĩa trang Hàng Dương rộng khoảng 20 hecta với gần 1.900 ngôi mộ. Nhiều phòng giam nay được phục dựng bằng tượng mô phỏng cảnh giam cầm và tra tấn, kết hợp với tư liệu lưu trữ để phục vụ nghiên cứu và giáo dục truyền thống.",
+      "visitInfo": "Các điểm di tích do Trung tâm Bảo tồn di tích quốc gia Côn Đảo quản lý, mở cửa hằng ngày theo hai buổi sáng và chiều, có vé tham quan bán tại trại Phú Hải và các điểm trong hệ thống. Khách ra đảo bằng đường hàng không hoặc tàu biển.",
+      "rankingLevel": 3,
+      "recognizedYear": 2012,
+      "sourceUrl": "https://dsvh.gov.vn/di-tich-lich-su-nha-tu-con-dao-2956",
+      "images": [
+        {
+          "file": "nha-tu-con-dao/nha-tu-con-dao.jpg",
+          "caption": "Sân và dãy phòng giam trong một trại giam ở Côn Đảo",
+          "imageSource": "Wikimedia Commons, tác giả [Tycho] (shansov.net), giấy phép CC BY-SA 3.0, https://commons.wikimedia.org/wiki/File:Nh%C3%A0_t%C3%B9_C%C3%B4n_%C4%90%E1%BA%A3o.JPG",
+          "isThumbnail": true
+        },
+        {
+          "file": "nha-tu-con-dao/canh-tra-tan.jpg",
+          "caption": "Nhóm tượng phục dựng cảnh tra tấn tù nhân trong một phòng giam",
+          "imageSource": "Wikimedia Commons, tác giả Phương Huy, phát hành vào phạm vi công cộng (public domain), https://commons.wikimedia.org/wiki/File:Nh%C3%A0_t%C3%B9_C%C3%B4n_%C4%90%E1%BA%A3o_v%E1%BB%9Bi_t%C6%B0%E1%BB%A3ng_c%E1%BA%A3nh_tra_t%E1%BA%A5n.jpg",
+          "isThumbnail": false
+        }
+      ]
+    }
+  ]
+}
