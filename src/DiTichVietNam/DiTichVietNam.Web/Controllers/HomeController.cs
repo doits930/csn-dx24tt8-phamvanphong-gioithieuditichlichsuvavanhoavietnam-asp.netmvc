@@ -10,7 +10,7 @@ namespace DiTichVietNam.Web.Controllers;
 
 public class HomeController : Controller
 {
-    private const int HeroHighlightCount = 5;
+    private const int HeroSlideCount = 5;
     private const int FeaturedRelicCount = 5;
 
     private readonly IRelicService _relicService;
@@ -31,8 +31,8 @@ public class HomeController : Controller
     {
         var model = new HomeVM
         {
-            Stats = await _relicService.GetHomeStatsAsync(),
-            Showcase = await _relicService.GetHomeShowcaseAsync(HeroHighlightCount, FeaturedRelicCount),
+            Showcase = await _relicService.GetHomeShowcaseAsync(HeroSlideCount, FeaturedRelicCount),
+            SearchBar = await _relicService.GetSearchBarAsync(),
             Regions = await _provinceService.GetGroupedByRegionAsync(),
             Map = await _provinceService.GetVietnamMapAsync(),
             RelicTypes = await _relicTypeService.GetAllWithCountAsync()

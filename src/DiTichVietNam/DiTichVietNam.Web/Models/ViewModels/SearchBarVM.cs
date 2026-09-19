@@ -8,6 +8,11 @@ public class SearchBarVM
     public List<FilterOptionVM> RankingOptions { get; set; } = new();
     public const string AllOptionLabel = "Tất cả";
 
+    public int SelectedFilterCount =>
+        (string.IsNullOrWhiteSpace(Filter.ProvinceSlug) ? 0 : 1)
+        + (string.IsNullOrWhiteSpace(Filter.TypeSlug) ? 0 : 1)
+        + (Filter.Ranking.HasValue ? 1 : 0);
+
     public bool HasSelectedFilter =>
         !string.IsNullOrWhiteSpace(Filter.ProvinceSlug)
         || !string.IsNullOrWhiteSpace(Filter.TypeSlug)

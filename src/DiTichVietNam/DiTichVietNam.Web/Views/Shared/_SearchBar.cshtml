@@ -15,7 +15,13 @@
         </div>
 
         <details class="search-bar-filters" open="@Model.HasSelectedFilter">
-            <summary>Bộ lọc</summary>
+            <summary>
+                <span>Bộ lọc</span>
+                @if (Model.SelectedFilterCount > 0)
+                {
+                    <span class="search-filter-count">@Model.SelectedFilterCount</span>
+                }
+            </summary>
             <div class="search-bar-selects">
                 <div class="search-segment">
                     <span class="search-segment-body">
