@@ -12,4 +12,5 @@ public class RelicCardVM
     public RankingLevel RankingLevel { get; set; }
     public string RankingLabel { get; set; } = string.Empty;
     public string? ThumbnailPath { get; set; }
+    public string? MatchExcerpt { get; set; }
 }

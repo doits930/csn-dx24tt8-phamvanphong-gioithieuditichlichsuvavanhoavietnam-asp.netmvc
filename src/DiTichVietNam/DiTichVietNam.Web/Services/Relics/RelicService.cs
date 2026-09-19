@@ -1,17 +1,31 @@
+using System.Globalization;
 using DiTichVietNam.Web.Data;
+using DiTichVietNam.Web.Helpers;
 using DiTichVietNam.Web.Models.Entities;
 using DiTichVietNam.Web.Models.ViewModels;
+using DiTichVietNam.Web.Services.Provinces;
+using DiTichVietNam.Web.Services.RelicTypes;
 using Microsoft.EntityFrameworkCore;
 
 namespace DiTichVietNam.Web.Services.Relics;
 
 public class RelicService : IRelicService
 {
-    private readonly AppDbContext _context;
+    private static readonly StringComparer VietnameseComparer =
+        StringComparer.Create(CultureInfo.GetCultureInfo("vi-VN"), ignoreCase: true);
 
-    public RelicService(AppDbContext context)
+    private readonly AppDbContext _context;
+    private readonly IProvinceService _provinceService;
+    private readonly IRelicTypeService _relicTypeService;
+
+    public RelicService(
+        AppDbContext context,
+        IProvinceService provinceService,
+        IRelicTypeService relicTypeService)
     {
         _context = context;
+        _provinceService = provinceService;
+        _relicTypeService = relicTypeService;
     }
 
     public async Task<HomeShowcaseVM> GetHomeShowcaseAsync(int heroCount, int featuredCount)
@@ -58,6 +72,326 @@ public class RelicService : IRelicService
             RelicTypeCount = await _context.RelicTypes.CountAsync()
         };
     }
+
+    public async Task<RelicListVM?> SearchAsync(SearchFilterVM filter)
+    {
+        var provinceGroups = await _provinceService.GetGroupedByRegionAsync();
+        var relicTypes = await _relicTypeService.GetAllWithCountAsync();
+
+        var provinces = provinceGroups.SelectMany(g => g.Provinces).ToList();
+
+        ProvinceLinkVM? selectedProvince = null;
+        if (!string.IsNullOrWhiteSpace(filter.ProvinceSlug))
+        {
+            selectedProvince = provinces.FirstOrDefault(p => p.Slug == filter.ProvinceSlug);
+            if (selectedProvince is null)
+            {
+                return null;
+            }
+        }
+
+        RelicTypeLinkVM? selectedType = null;
+        if (!string.IsNullOrWhiteSpace(filter.TypeSlug))
+        {
+            selectedType = relicTypes.FirstOrDefault(t => t.Slug == filter.TypeSlug);
+            if (selectedType is null)
+            {
+                return null;
+            }
+        }
+
+        if (filter.Ranking.HasValue && !Enum.IsDefined(filter.Ranking.Value))
+        {
+            filter.Ranking = null;
+        }
+
+        var keyword = SlugHelper.RemoveDiacritics(filter.NormalizedKeyword);
+        var query = RelicSearchQuery.ApplyFilter(_context.Relics.AsNoTracking(), filter, keyword);
+
+        var totalCount = await query.CountAsync();
+
+        var sortKeys = await query
+            .Select(r => new RelicSortKey(
+                r.Id,
+                r.Name,
+                keyword.Length == 0 || r.NameNoAccent.Contains(keyword)))
+            .ToListAsync();
+
+        var orderedIds = sortKeys
+            .OrderByDescending(k => k.MatchesName)
+            .ThenBy(k => k.Name, VietnameseComparer)
+            .Select(k => k.Id)
+            .ToList();
+
+        var totalPages = Math.Max(1, (int)Math.Ceiling(totalCount / (double)SearchFilterVM.PageSize));
+        var currentPage = Math.Min(filter.Page, totalPages);
+        filter.Page = currentPage;
+
+        var pageIds = orderedIds
+            .Skip((currentPage - 1) * SearchFilterVM.PageSize)
+            .Take(SearchFilterVM.PageSize)
+            .ToList();
+
+        var pageRelics = await _context.Relics
+            .AsNoTracking()
+            .Include(r => r.Province)
+            .Include(r => r.RelicType)
+            .Where(r => pageIds.Contains(r.Id))
+            .ToListAsync();
+
+        var relicById = pageRelics.ToDictionary(r => r.Id);
+        var items = new List<RelicCardVM>();
+        foreach (var id in pageIds)
+        {
+            if (!relicById.TryGetValue(id, out var relic))
+            {
+                continue;
+            }
+
+            var matchesName = keyword.Length == 0 || relic.NameNoAccent.Contains(keyword);
+            var excerpt = matchesName ? null : RelicSearchQuery.BuildMatchExcerpt(relic.Description, keyword);
+            items.Add(RelicFactory.ToCardVM(relic, excerpt));
+        }
+
+        var model = new RelicListVM
+        {
+            Items = items,
+            TotalCount = totalCount,
+            Filter = filter,
+            PageTitle = BuildPageTitle(filter, selectedProvince, selectedType),
+            HeaderNote = BuildHeaderNote(filter, totalCount, provinceGroups, selectedProvince, selectedType),
+            FilterSummary = BuildFilterSummary(filter, totalCount, selectedProvince, selectedType),
+            BasePath = RelicSearchQuery.BasePath(filter),
+            ClearFilterUrl = RelicListPaths.AllRelics,
+            Breadcrumbs = BuildBreadcrumbs(filter, selectedProvince, selectedType),
+            SearchBar = new SearchBarVM
+            {
+                Filter = filter,
+                ProvinceOptionGroups = BuildProvinceOptions(provinceGroups),
+                TypeOptions = relicTypes
+                    .Select(t => new FilterOptionVM { Value = t.Slug, Label = RelicTypeText.ShortLabel(t.Name) })
+                    .ToList(),
+                RankingOptions = BuildRankingOptions()
+            },
+            Pagination = new PaginationVM
+            {
+                CurrentPage = currentPage,
+                TotalPages = totalPages,
+                BasePath = RelicSearchQuery.BasePath(filter),
+                RouteValues = RelicSearchQuery.QueryValues(filter)
+            }
+        };
+
+        ApplySuggestions(model, provinceGroups, relicTypes, selectedProvince, selectedType);
+
+        return model;
+    }
+
+    private const int SparseResultThreshold = 2;
+    private const int MaxSuggestionLinks = 6;
+
+    private static void ApplySuggestions(
+        RelicListVM model,
+        List<RegionGroupVM> provinceGroups,
+        List<RelicTypeLinkVM> relicTypes,
+        ProvinceLinkVM? selectedProvince,
+        RelicTypeLinkVM? selectedType)
+    {
+        if (model.TotalCount > SparseResultThreshold || model.Pagination.CurrentPage > 1)
+        {
+            return;
+        }
+
+        if (selectedProvince is not null)
+        {
+            var region = provinceGroups.FirstOrDefault(g => g.Provinces.Any(p => p.Slug == selectedProvince.Slug));
+            if (region is null)
+            {
+                return;
+            }
+
+            model.SuggestionTitle = $"Tỉnh thành khác ở {region.DisplayName}";
+            model.SuggestionLinks = region.Provinces
+                .Where(p => p.Slug != selectedProvince.Slug && p.RelicCount > 0)
+                .OrderByDescending(p => p.RelicCount)
+                .ThenBy(p => p.Name, VietnameseComparer)
+                .Take(MaxSuggestionLinks)
+                .Select(p => new SuggestionLinkVM
+                {
+                    Label = p.Name,
+                    Url = RelicListPaths.ByProvince(p.Slug),
+                    RelicCount = p.RelicCount
+                })
+                .ToList();
+            return;
+        }
+
+        model.SuggestionTitle = "Duyệt theo loại di tích";
+        model.SuggestionLinks = relicTypes
+            .Where(t => t.RelicCount > 0 && t.Slug != selectedType?.Slug)
+            .Select(t => new SuggestionLinkVM
+            {
+                Label = t.Name,
+                Url = RelicListPaths.ByType(t.Slug),
+                RelicCount = t.RelicCount
+            })
+            .ToList();
+    }
+
+    private static List<BreadcrumbItemVM> BuildBreadcrumbs(
+        SearchFilterVM filter,
+        ProvinceLinkVM? province,
+        RelicTypeLinkVM? type)
+    {
+        var trail = new List<BreadcrumbItemVM>
+        {
+            new() { Label = "Trang chủ", Url = "/" }
+        };
+
+        var hasLeaf = !string.IsNullOrWhiteSpace(filter.NormalizedKeyword) || province is not null || type is not null;
+        trail.Add(new BreadcrumbItemVM
+        {
+            Label = "Di tích",
+            Url = hasLeaf ? RelicListPaths.AllRelics : null
+        });
+
+        if (!hasLeaf)
+        {
+            return trail;
+        }
+
+        if (!string.IsNullOrWhiteSpace(filter.NormalizedKeyword))
+        {
+            trail.Add(new BreadcrumbItemVM { Label = "Kết quả tìm kiếm" });
+        }
+        else if (province is not null && !LeadsWithType(filter, type))
+        {
+            trail.Add(new BreadcrumbItemVM { Label = province.Name });
+        }
+        else if (type is not null)
+        {
+            trail.Add(new BreadcrumbItemVM { Label = type!.Name });
+        }
+
+        return trail;
+    }
+
+    private static string BuildFilterSummary(
+        SearchFilterVM filter,
+        int totalCount,
+        ProvinceLinkVM? province,
+        RelicTypeLinkVM? type)
+    {
+        if (!filter.HasAnyFilter)
+        {
+            return string.Empty;
+        }
+
+        var clauses = new List<string>();
+        if (!string.IsNullOrWhiteSpace(filter.NormalizedKeyword))
+        {
+            clauses.Add($"cho từ khóa “{filter.NormalizedKeyword}”");
+        }
+
+        if (province is not null)
+        {
+            clauses.Add($"tại {province.Name}");
+        }
+
+        if (type is not null)
+        {
+            clauses.Add($"loại {type.Name}");
+        }
+
+        if (filter.Ranking.HasValue)
+        {
+            clauses.Add(RankingLevelText.SummaryPhrase(filter.Ranking.Value));
+        }
+
+        var opening = totalCount > 0
+            ? $"{totalCount} di tích"
+            : "Không có di tích nào";
+
+        return $"{opening} {string.Join(", ", clauses)}";
+    }
+
+    private static string? BuildHeaderNote(
+        SearchFilterVM filter,
+        int totalCount,
+        List<RegionGroupVM> provinceGroups,
+        ProvinceLinkVM? province,
+        RelicTypeLinkVM? type)
+    {
+        if (!filter.HasAnyFilter)
+        {
+            if (totalCount == 0)
+            {
+                return "Chưa có di tích nào để hiển thị.";
+            }
+
+            var provinceCount = provinceGroups.SelectMany(g => g.Provinces).Count(p => p.RelicCount > 0);
+            return $"Hiện có {totalCount} di tích, thuộc {provinceCount} tỉnh thành.";
+        }
+
+        if (!string.IsNullOrWhiteSpace(filter.NormalizedKeyword))
+        {
+            return null;
+        }
+
+        if (province is not null && !LeadsWithType(filter, type))
+        {
+            var region = provinceGroups.FirstOrDefault(g => g.Provinces.Any(p => p.Slug == province.Slug));
+            return region is null ? null : $"{province.Name} thuộc {region.DisplayName}.";
+        }
+
+        return filter.TypeFromRoute ? type?.Description : null;
+    }
+
+    private static bool LeadsWithType(SearchFilterVM filter, RelicTypeLinkVM? type) =>
+        filter.TypeFromRoute && type is not null;
+
+    private static string BuildPageTitle(SearchFilterVM filter, ProvinceLinkVM? province, RelicTypeLinkVM? type)
+    {
+        var keyword = filter.NormalizedKeyword;
+        if (!string.IsNullOrWhiteSpace(keyword))
+        {
+            return $"Kết quả cho “{keyword}”";
+        }
+
+        if (province is not null && !LeadsWithType(filter, type))
+        {
+            return $"Di tích tại {province.Name}";
+        }
+
+        if (type is not null)
+        {
+            return type.Name;
+        }
+
+        return "Tất cả di tích";
+    }
+
+    private static List<FilterOptionGroupVM> BuildProvinceOptions(List<RegionGroupVM> groups) =>
+        groups
+            .Select(g => new FilterOptionGroupVM
+            {
+                DisplayName = g.DisplayName,
+                Options = g.Provinces
+                    .Select(p => new FilterOptionVM { Value = p.Slug, Label = p.Name })
+                    .ToList()
+            })
+            .ToList();
+
+    private static List<FilterOptionVM> BuildRankingOptions() =>
+        new[] { RankingLevel.Provincial, RankingLevel.National, RankingLevel.SpecialNational }
+            .Select(level => new FilterOptionVM
+            {
+                Value = ((int)level).ToString(),
+                Label = RankingLevelText.ShortLabel(level)
+            })
+            .ToList();
+
+    private record RelicSortKey(int Id, string Name, bool MatchesName);
 
     private const int MaxProvinceSpreadLookahead = 60;
 
