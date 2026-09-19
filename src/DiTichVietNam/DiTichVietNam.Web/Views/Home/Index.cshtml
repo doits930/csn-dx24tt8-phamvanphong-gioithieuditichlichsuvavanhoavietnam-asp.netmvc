@@ -86,7 +86,18 @@
     <section class="province-band">
         <div class="container">
             <h2 class="page-section-title">Theo tỉnh thành</h2>
-            <partial name="_ProvinceDirectory" model="Model.Regions" />
+            <div class="row g-4 province-layout">
+                <div class="col-12 col-lg-5">
+                    <partial name="_VietnamMap" model="Model.Map" />
+                </div>
+                <div class="col-12 col-lg-7">
+                    <partial name="_ProvinceDirectory" model="Model.Regions" />
+                </div>
+            </div>
         </div>
     </section>
+}
+
+@section Scripts {
+    <script src="~/js/province-map.js" asp-append-version="true"></script>
 }
