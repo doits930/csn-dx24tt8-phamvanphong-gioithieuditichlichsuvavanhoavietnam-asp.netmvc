@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img" aria-label="Chưa có ảnh di tích">
+  <rect width="800" height="600" fill="#E6E8E1"/>
+  <g fill="none" stroke="#C9CDC2" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M120 250 C 200 246 210 230 400 168 C 590 230 600 246 680 250"/>
+    <path d="M120 250 C 150 258 160 272 150 292"/>
+    <path d="M680 250 C 650 258 640 272 650 292"/>
+    <path d="M175 252 C 245 248 260 240 400 208 C 540 240 555 248 625 252"/>
+    <path d="M400 168 L400 200"/>
+    <path d="M205 262 L205 452"/>
+    <path d="M595 262 L595 452"/>
+    <path d="M330 452 L330 330 C 330 292 470 292 470 330 L470 452"/>
+    <path d="M400 330 L400 452"/>
+  </g>
+  <rect x="145" y="452" width="510" height="14" rx="7" fill="#C9CDC2"/>
+  <rect x="120" y="484" width="560" height="10" rx="5" fill="#C9CDC2" opacity="0.55"/>
+</svg>
