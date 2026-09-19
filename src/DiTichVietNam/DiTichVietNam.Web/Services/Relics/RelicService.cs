@@ -55,22 +55,43 @@ public class RelicService : IRelicService
             .Where(r => !featuredIds.Contains(r.Id))
             .Take(featuredCount - featured.Count));
 
+        var heroImages = await LoadImagesAsync(heroIds);
+
         return new HomeShowcaseVM
         {
-            HeroHighlights = hero.Select(RelicFactory.ToCardVM).ToList(),
+            HeroSlides = hero
+                .Select(r => RelicFactory.ToHeroSlideVM(
+                    r,
+                    heroImages.TryGetValue(r.Id, out var images) ? images : Array.Empty<RelicImage>()))
+                .ToList(),
             Featured = featured.Select(RelicFactory.ToCardVM).ToList()
         };
     }
 
-    public async Task<HomeStatsVM> GetHomeStatsAsync()
+    private async Task<Dictionary<int, IReadOnlyList<RelicImage>>> LoadImagesAsync(IReadOnlyCollection<int> relicIds)
     {
-        return new HomeStatsVM
+        if (relicIds.Count == 0)
         {
-            RelicCount = await _context.Relics.CountAsync(),
-            ProvinceCount = await _context.Provinces.CountAsync(),
-            ProvinceHavingRelicCount = await _context.Provinces.CountAsync(p => p.Relics.Any()),
-            RelicTypeCount = await _context.RelicTypes.CountAsync()
-        };
+            return new Dictionary<int, IReadOnlyList<RelicImage>>();
+        }
+
+        var images = await _context.RelicImages
+            .AsNoTracking()
+            .Where(i => relicIds.Contains(i.RelicId))
+            .OrderBy(i => i.Id)
+            .ToListAsync();
+
+        return images
+            .GroupBy(i => i.RelicId)
+            .ToDictionary(g => g.Key, g => (IReadOnlyList<RelicImage>)g.ToList());
+    }
+
+    public async Task<SearchBarVM> GetSearchBarAsync()
+    {
+        var provinceGroups = await _provinceService.GetGroupedByRegionAsync();
+        var relicTypes = await _relicTypeService.GetAllWithCountAsync();
+
+        return SearchBarFactory.Build(new SearchFilterVM(), provinceGroups, relicTypes);
     }
 
     public async Task<RelicListVM?> SearchAsync(SearchFilterVM filter)
@@ -164,15 +185,7 @@ public class RelicService : IRelicService
             BasePath = RelicSearchQuery.BasePath(filter),
             ClearFilterUrl = RelicListPaths.AllRelics,
             Breadcrumbs = BuildBreadcrumbs(filter, selectedProvince, selectedType),
-            SearchBar = new SearchBarVM
-            {
-                Filter = filter,
-                ProvinceOptionGroups = BuildProvinceOptions(provinceGroups),
-                TypeOptions = relicTypes
-                    .Select(t => new FilterOptionVM { Value = t.Slug, Label = RelicTypeText.ShortLabel(t.Name) })
-                    .ToList(),
-                RankingOptions = BuildRankingOptions()
-            },
+            SearchBar = SearchBarFactory.Build(filter, provinceGroups, relicTypes),
             Pagination = new PaginationVM
             {
                 CurrentPage = currentPage,
@@ -370,26 +383,6 @@ public class RelicService : IRelicService
 
         return "Tất cả di tích";
     }
-
-    private static List<FilterOptionGroupVM> BuildProvinceOptions(List<RegionGroupVM> groups) =>
-        groups
-            .Select(g => new FilterOptionGroupVM
-            {
-                DisplayName = g.DisplayName,
-                Options = g.Provinces
-                    .Select(p => new FilterOptionVM { Value = p.Slug, Label = p.Name })
-                    .ToList()
-            })
-            .ToList();
-
-    private static List<FilterOptionVM> BuildRankingOptions() =>
-        new[] { RankingLevel.Provincial, RankingLevel.National, RankingLevel.SpecialNational }
-            .Select(level => new FilterOptionVM
-            {
-                Value = ((int)level).ToString(),
-                Label = RankingLevelText.ShortLabel(level)
-            })
-            .ToList();
 
     private record RelicSortKey(int Id, string Name, bool MatchesName);
 
