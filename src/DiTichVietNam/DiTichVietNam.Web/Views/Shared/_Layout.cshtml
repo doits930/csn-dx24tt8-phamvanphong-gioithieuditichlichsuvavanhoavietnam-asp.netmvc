@@ -1,0 +1,40 @@
+@{
+    var hideNavSearch = ViewData["HideNavSearch"] as bool? ?? false;
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Di tích Việt Nam</title>
+    <link rel="icon" href="~/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        @await Component.InvokeAsync("MainMenu", new { showSearch = !hideNavSearch })
+    </header>
+
+    <main>
+        @RenderBody()
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="site-footer-grid">
+                <div>
+                    <p class="project-title">Website giới thiệu di tích lịch sử và văn hóa Việt Nam</p>
+                    <p>Đồ án cơ sở ngành của sinh viên Phạm Văn Phong, mã số sinh viên 170124953, lớp DX24TT8.</p>
+                </div>
+                <p class="footer-note">Ảnh trên trang chủ dùng để nhận diện di tích. Nguồn của từng ảnh ghi đầy đủ ở trang chi tiết của di tích đó.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
