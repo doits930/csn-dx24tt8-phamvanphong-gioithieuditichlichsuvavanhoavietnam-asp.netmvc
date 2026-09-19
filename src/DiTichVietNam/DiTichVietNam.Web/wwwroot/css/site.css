@@ -96,9 +96,16 @@
 
   --scrim: rgba(18, 32, 27, 0.82);
 
+  --map-fill-0: #9CB6A6;
+  --map-fill-1: #79A78F;
+  --map-fill-2: #559078;
+  --map-fill-3: #367561;
+  --map-fill-4: #1E4A39;
+
   --font-document: 'Newsreader', 'Times New Roman', serif;
   --font-ui: 'Be Vietnam Pro', 'Segoe UI', system-ui, sans-serif;
 
+  --text-2xs: 0.6875rem;
   --text-xs: 0.8125rem;
   --text-sm: 0.9375rem;
   --text-base: 1rem;
@@ -796,6 +803,290 @@ summary:focus-visible,
   padding-block: var(--space-7);
 }
 
+.province-layout {
+  align-items: start;
+}
+
+.province-map {
+  position: relative;
+  margin: 0 auto;
+  max-width: min(100%, 65vh);
+  --map-label-size: var(--text-2xs);
+  --map-label-width: 7rem;
+}
+
+.province-map-plate {
+  position: relative;
+}
+
+.province-map-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.map-province {
+  stroke: var(--color-celadon);
+}
+
+.map-islet {
+  stroke: var(--color-paper);
+}
+
+.map-province,
+.map-islet {
+  stroke-width: 0.9;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  transition: fill var(--duration) ease;
+}
+
+.map-islet {
+  fill: var(--color-celadon);
+}
+
+.map-step-0 {
+  fill: var(--map-fill-0);
+  background-color: var(--map-fill-0);
+}
+
+.map-step-1 {
+  fill: var(--map-fill-1);
+  background-color: var(--map-fill-1);
+}
+
+.map-step-2 {
+  fill: var(--map-fill-2);
+  background-color: var(--map-fill-2);
+}
+
+.map-step-3 {
+  fill: var(--map-fill-3);
+  background-color: var(--map-fill-3);
+}
+
+.map-step-4 {
+  fill: var(--map-fill-4);
+  background-color: var(--map-fill-4);
+}
+
+@media (hover: hover) {
+  .map-province-link:hover .map-province,
+  .map-archipelago:hover .map-islet,
+  .map-island:hover .map-islet {
+    fill: var(--color-vermilion);
+  }
+}
+
+.map-province-link.is-active .map-province,
+.map-archipelago.is-active .map-islet,
+.map-island.is-active .map-islet {
+  fill: var(--color-vermilion);
+}
+
+.map-province-link:focus-visible,
+.map-archipelago:focus-visible,
+.map-island:focus-visible {
+  outline: none;
+}
+
+.map-province-link:focus-visible .map-province,
+.map-archipelago:focus-visible .map-islet,
+.map-island:focus-visible .map-islet {
+  fill: var(--color-vermilion);
+  stroke: var(--color-ink);
+  stroke-width: 3;
+}
+
+.map-archipelago-label {
+  position: absolute;
+  left: var(--label-x);
+  top: var(--label-y);
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: var(--map-label-width);
+  margin-top: var(--space-2);
+  margin-left: var(--space-2);
+  text-align: center;
+  font-size: var(--map-label-size);
+  line-height: 1.25;
+  color: var(--color-muted);
+  pointer-events: none;
+}
+
+.map-label-line {
+  display: block;
+}
+
+.map-island-label {
+  display: none;
+  position: absolute;
+  left: var(--label-x);
+  top: var(--label-y);
+  transform: translateX(-50%);
+  font-size: var(--map-label-size);
+  line-height: 1.2;
+  white-space: nowrap;
+  color: var(--color-muted);
+  pointer-events: none;
+}
+
+@media (min-width: 992px) {
+  .map-island-label {
+    display: block;
+  }
+}
+
+.map-sea-label {
+  position: absolute;
+  left: 66%;
+  top: 64%;
+  font-size: var(--map-label-size);
+  font-style: italic;
+  letter-spacing: 0.04em;
+  color: var(--color-muted);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.map-archipelago-label-end {
+  left: auto;
+  right: 0;
+  margin-left: 0;
+  transform: none;
+  text-align: right;
+}
+
+.map-readout {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translate(var(--readout-x, 0), var(--readout-y, 0));
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-ink-deep);
+  border-radius: var(--radius);
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-xs);
+  line-height: 1.35;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.map-readout[hidden] {
+  display: none;
+}
+
+.map-readout-name {
+  color: var(--color-paper);
+  font-weight: 600;
+}
+
+.map-readout-note {
+  color: var(--color-paper-dim);
+}
+
+.map-legend {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.map-legend-caption {
+  font-size: var(--text-2xs);
+  color: var(--color-muted);
+}
+
+.map-legend-scale {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-3);
+}
+
+.map-legend-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-2xs);
+  color: var(--color-ink);
+}
+
+.map-legend-swatch {
+  flex: none;
+  width: 1.25rem;
+  height: 0.625rem;
+}
+
+.map-credit {
+  margin-top: var(--space-3);
+  font-size: var(--text-2xs);
+  line-height: 1.5;
+  color: var(--color-muted);
+}
+
+@media (min-width: 576px) and (max-width: 991.98px) {
+  .province-map {
+    max-width: min(100%, 26rem, 65vh);
+  }
+}
+
+@media (min-width: 992px) {
+  .province-map {
+    margin-inline: 0;
+    --map-label-size: var(--text-xs);
+    --map-label-width: 8.5rem;
+  }
+
+  .map-legend {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 44%;
+    display: block;
+    margin-bottom: 0;
+    pointer-events: none;
+  }
+
+  .map-legend-caption {
+    display: block;
+    font-size: var(--text-xs);
+    margin-bottom: var(--space-2);
+  }
+
+  .map-legend-scale {
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .map-legend-item {
+    font-size: var(--text-xs);
+    gap: var(--space-2);
+  }
+
+  .map-legend-swatch {
+    width: 1.5rem;
+    height: 0.6875rem;
+  }
+
+  .map-credit {
+    font-size: var(--text-xs);
+  }
+
+  .province-layout .province-list {
+    columns: 1;
+  }
+
+  .province-layout .province-list li {
+    margin-bottom: var(--space-3);
+  }
+}
+
 .province-column h3 {
   font-family: var(--font-ui);
   font-size: var(--text-sm);
@@ -829,7 +1120,8 @@ summary:focus-visible,
 }
 
 .province-list a:hover,
-.province-list a:focus-visible {
+.province-list a:focus-visible,
+.province-list li.is-active a {
   color: var(--color-vermilion);
   text-decoration: underline;
 }
