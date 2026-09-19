@@ -1,4 +1,7 @@
 using DiTichVietNam.Web.Data;
+using DiTichVietNam.Web.Services.Provinces;
+using DiTichVietNam.Web.Services.RelicTypes;
+using DiTichVietNam.Web.Services.Relics;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,6 +24,10 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
     })
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
+
+builder.Services.AddScoped<IRelicService, RelicService>();
+builder.Services.AddScoped<IProvinceService, ProvinceService>();
+builder.Services.AddScoped<IRelicTypeService, RelicTypeService>();
 
 builder.Services.ConfigureApplicationCookie(options =>
 {

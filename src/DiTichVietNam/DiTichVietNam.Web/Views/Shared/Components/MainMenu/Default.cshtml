@@ -1,0 +1,61 @@
+@model MainMenuVM
+
+<nav class="navbar navbar-expand-lg site-nav">
+    <div class="container">
+        <a class="site-name" href="/">Di tích Việt Nam</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-menu"
+                aria-controls="main-menu" aria-expanded="false" aria-label="Mở menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="main-menu">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Trang chủ</a>
+                </li>
+                @if (Model.Regions.Count > 0)
+                {
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Tỉnh thành
+                        </a>
+                        <div class="dropdown-menu province-menu">
+                            @foreach (var group in Model.Regions)
+                            {
+                                <p class="region-label">@group.DisplayName</p>
+                                <div class="region-columns">
+                                    @foreach (var province in group.Provinces)
+                                    {
+                                        <a class="dropdown-item" href="/tinh/@province.Slug">@province.Name</a>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </li>
+                }
+                @if (Model.RelicTypes.Count > 0)
+                {
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Loại di tích
+                        </a>
+                        <ul class="dropdown-menu">
+                            @foreach (var type in Model.RelicTypes)
+                            {
+                                <li><a class="dropdown-item" href="/loai/@type.Slug">@type.Name</a></li>
+                            }
+                        </ul>
+                    </li>
+                }
+            </ul>
+            @if (Model.ShowSearch)
+            {
+                <form class="search-form" action="/di-tich" method="get" role="search" data-search-form>
+                    <label class="visually-hidden" for="search-nav">Tìm di tích theo tên</label>
+                    <input type="search" id="search-nav" name="tuKhoa" value="@Model.Keyword"
+                           placeholder="Tìm theo tên di tích" maxlength="200" />
+                    <button type="submit" class="btn-accent">Tìm</button>
+                </form>
+            }
+        </div>
+    </div>
+</nav>
