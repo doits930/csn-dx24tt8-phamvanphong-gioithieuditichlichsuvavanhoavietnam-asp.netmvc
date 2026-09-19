@@ -1,0 +1,74 @@
+@model SearchBarVM
+
+<form class="search-bar" action="@RelicListPaths.AllRelics" method="get" role="search">
+    <div class="search-bar-inner">
+        <div class="search-segment search-segment-keyword">
+            <svg class="search-icon" viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false">
+                <circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="1.6" />
+                <path d="M12.8 12.8 17 17" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+            </svg>
+            <span class="search-segment-body">
+                <label for="search-keyword">Từ khóa</label>
+                <input type="search" id="search-keyword" name="tuKhoa" value="@Model.Filter.Keyword"
+                       placeholder="Tên hoặc nội dung mô tả" maxlength="200" />
+            </span>
+        </div>
+
+        <details class="search-bar-filters" open="@Model.HasSelectedFilter">
+            <summary>Bộ lọc</summary>
+            <div class="search-bar-selects">
+                <div class="search-segment">
+                    <span class="search-segment-body">
+                        <label for="search-province">Tỉnh thành</label>
+                        <select id="search-province" name="tinh" title="@Model.SelectedProvinceLabel">
+                            <option value="">@SearchBarVM.AllOptionLabel</option>
+                            @foreach (var group in Model.ProvinceOptionGroups)
+                            {
+                                <optgroup label="@group.DisplayName">
+                                    @foreach (var option in group.Options)
+                                    {
+                                        <option value="@option.Value" selected="@(option.Value == Model.Filter.ProvinceSlug)">@option.Label</option>
+                                    }
+                                </optgroup>
+                            }
+                        </select>
+                    </span>
+                </div>
+
+                <div class="search-segment">
+                    <span class="search-segment-body">
+                        <label for="search-type">Loại di tích</label>
+                        <select id="search-type" name="loai" title="@Model.SelectedTypeLabel">
+                            <option value="">@SearchBarVM.AllOptionLabel</option>
+                            @foreach (var option in Model.TypeOptions)
+                            {
+                                <option value="@option.Value" selected="@(option.Value == Model.Filter.TypeSlug)">@option.Label</option>
+                            }
+                        </select>
+                    </span>
+                </div>
+
+                <div class="search-segment">
+                    <span class="search-segment-body">
+                        <label for="search-ranking">Cấp xếp hạng</label>
+                        <select id="search-ranking" name="cap" title="@Model.SelectedRankingLabel">
+                            <option value="">@SearchBarVM.AllOptionLabel</option>
+                            @foreach (var option in Model.RankingOptions)
+                            {
+                                <option value="@option.Value" selected="@(Model.Filter.Ranking.HasValue && option.Value == ((int)Model.Filter.Ranking.Value).ToString())">@option.Label</option>
+                            }
+                        </select>
+                    </span>
+                </div>
+            </div>
+        </details>
+
+        <button type="submit" class="search-submit" aria-label="Tìm kiếm">
+            <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false">
+                <circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="1.8" />
+                <path d="M12.8 12.8 17 17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+            </svg>
+            <span class="search-submit-text">Tìm kiếm</span>
+        </button>
+    </div>
+</form>

@@ -15,5 +15,9 @@
                 <span class="relic-type" title="@Model.TypeName">@Model.TypeName</span>
             }
         </p>
+        @if (!string.IsNullOrWhiteSpace(Model.MatchExcerpt))
+        {
+            <p class="relic-excerpt">@Model.MatchExcerpt</p>
+        }
     </div>
 </a>
