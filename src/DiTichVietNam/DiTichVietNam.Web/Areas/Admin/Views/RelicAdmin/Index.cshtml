@@ -68,9 +68,8 @@
             <label for="filter-keyword">Từ khóa</label>
             <div class="admin-search-box">
                 <partial name="_AdminIcon" model="@("search")" />
-                <input type="search" id="filter-keyword" name="@SearchFilterVM.KeywordKey" data-search-shortcut
+                <input type="search" id="filter-keyword" name="@SearchFilterVM.KeywordKey"
                        value="@Model.Filter.Keyword" maxlength="200" placeholder="Tên hoặc mô tả di tích" />
-                <span class="admin-search-shortcut" aria-hidden="true">/</span>
             </div>
         </div>
         <div class="admin-toolbar-field">

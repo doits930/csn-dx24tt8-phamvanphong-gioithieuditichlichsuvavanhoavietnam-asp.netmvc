@@ -60,9 +60,8 @@
             <label for="filter-keyword">Tìm tỉnh thành</label>
             <div class="admin-search-box">
                 <partial name="_AdminIcon" model="@("search")" />
-                <input type="search" id="filter-keyword" name="@SearchFilterVM.KeywordKey" data-search-shortcut
+                <input type="search" id="filter-keyword" name="@SearchFilterVM.KeywordKey"
                        value="@Model.Keyword" maxlength="100" placeholder="Gõ có dấu hay không dấu đều được" />
-                <span class="admin-search-shortcut" aria-hidden="true">/</span>
             </div>
         </div>
         <div class="admin-toolbar-actions">
