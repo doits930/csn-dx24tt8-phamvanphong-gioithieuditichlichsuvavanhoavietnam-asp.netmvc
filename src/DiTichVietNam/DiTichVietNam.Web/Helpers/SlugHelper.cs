@@ -27,6 +27,30 @@ public static class SlugHelper
         return builder.ToString().Normalize(NormalizationForm.FormC).ToLowerInvariant().Trim();
     }
 
+    public static string FoldToAsciiLower(string? input)
+    {
+        if (string.IsNullOrEmpty(input))
+        {
+            return string.Empty;
+        }
+
+        var builder = new StringBuilder(input.Length);
+        foreach (var character in input)
+        {
+            var plain = character switch
+            {
+                'đ' => 'd',
+                'Đ' => 'd',
+                _ => character
+            };
+
+            var decomposed = plain.ToString().Normalize(NormalizationForm.FormD);
+            builder.Append(char.ToLowerInvariant(decomposed[0]));
+        }
+
+        return builder.ToString();
+    }
+
     public static string ToSlug(string? input)
     {
         var text = RemoveDiacritics(input);
