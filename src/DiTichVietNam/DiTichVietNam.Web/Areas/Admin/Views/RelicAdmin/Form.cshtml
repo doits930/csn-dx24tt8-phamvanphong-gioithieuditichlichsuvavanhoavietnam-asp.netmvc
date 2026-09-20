@@ -17,7 +17,18 @@
         Title = pageTitle,
         Lead = Model.IsEdit
             ? "Sửa hồ sơ di tích. Đổi tên di tích thì địa chỉ trang công khai đổi theo."
-            : "Điền hồ sơ di tích. Ảnh được thêm ở màn hình riêng sau khi lưu."
+            : "Điền hồ sơ di tích. Ảnh được thêm ở màn hình riêng sau khi lưu.",
+        Links = Model.IsEdit
+            ? new List<AdminPageLinkVM>
+            {
+                new()
+                {
+                    Label = $"Ảnh của di tích ({Model.ImageCount})",
+                    Url = $"/admin/di-tich/{Model.Id}/anh",
+                    Icon = "image"
+                }
+            }
+            : new List<AdminPageLinkVM>()
     };
 
     var fieldOrder = new (string Field, string TargetId)[]
