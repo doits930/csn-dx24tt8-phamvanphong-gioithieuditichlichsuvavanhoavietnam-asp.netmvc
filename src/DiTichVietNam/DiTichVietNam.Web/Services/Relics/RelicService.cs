@@ -3,6 +3,7 @@ using DiTichVietNam.Web.Data;
 using DiTichVietNam.Web.Helpers;
 using DiTichVietNam.Web.Models.Entities;
 using DiTichVietNam.Web.Models.ViewModels;
+using DiTichVietNam.Web.Services.Common;
 using DiTichVietNam.Web.Services.Provinces;
 using DiTichVietNam.Web.Services.RelicTypes;
 using Microsoft.EntityFrameworkCore;
@@ -17,15 +18,18 @@ public class RelicService : IRelicService
     private readonly AppDbContext _context;
     private readonly IProvinceService _provinceService;
     private readonly IRelicTypeService _relicTypeService;
+    private readonly IWebHostEnvironment _environment;
 
     public RelicService(
         AppDbContext context,
         IProvinceService provinceService,
-        IRelicTypeService relicTypeService)
+        IRelicTypeService relicTypeService,
+        IWebHostEnvironment environment)
     {
         _context = context;
         _provinceService = provinceService;
         _relicTypeService = relicTypeService;
+        _environment = environment;
     }
 
     public async Task<HomeShowcaseVM> GetHomeShowcaseAsync(int heroCount, int featuredCount)
@@ -271,6 +275,317 @@ public class RelicService : IRelicService
     }
 
     public Task<int> CountAsync() => _context.Relics.CountAsync();
+
+    public async Task<RelicAdminListResult> SearchForAdminAsync(SearchFilterVM filter, int pageSize)
+    {
+        if (pageSize < 1)
+        {
+            pageSize = SearchFilterVM.PageSize;
+        }
+
+        if (filter.Ranking.HasValue && !Enum.IsDefined(filter.Ranking.Value))
+        {
+            filter.Ranking = null;
+        }
+
+        var keyword = SlugHelper.RemoveDiacritics(filter.NormalizedKeyword);
+        var query = RelicSearchQuery.ApplyFilter(_context.Relics.AsNoTracking(), filter, keyword);
+
+        var totalCount = await query.CountAsync();
+
+        var sortKeys = await query
+            .Select(r => new RelicSortKey(
+                r.Id,
+                r.Name,
+                keyword.Length == 0 || r.NameNoAccent.Contains(keyword)))
+            .ToListAsync();
+
+        var orderedIds = sortKeys
+            .OrderByDescending(k => k.MatchesName)
+            .ThenBy(k => k.Name, VietnameseComparer)
+            .Select(k => k.Id)
+            .ToList();
+
+        var totalPages = Math.Max(1, (int)Math.Ceiling(totalCount / (double)pageSize));
+        var currentPage = Math.Min(filter.Page, totalPages);
+        filter.Page = currentPage;
+
+        var pageIds = orderedIds
+            .Skip((currentPage - 1) * pageSize)
+            .Take(pageSize)
+            .ToList();
+
+        var pageRelics = await _context.Relics
+            .AsNoTracking()
+            .Include(r => r.Province)
+            .Include(r => r.RelicType)
+            .Where(r => pageIds.Contains(r.Id))
+            .ToListAsync();
+
+        var imageCounts = await _context.RelicImages
+            .AsNoTracking()
+            .Where(i => pageIds.Contains(i.RelicId))
+            .GroupBy(i => i.RelicId)
+            .Select(g => new { RelicId = g.Key, Count = g.Count() })
+            .ToDictionaryAsync(g => g.RelicId, g => g.Count);
+
+        var relicById = pageRelics.ToDictionary(r => r.Id);
+        var rows = new List<RelicAdminRow>();
+        foreach (var id in pageIds)
+        {
+            if (!relicById.TryGetValue(id, out var relic))
+            {
+                continue;
+            }
+
+            rows.Add(RelicFactory.ToAdminRow(relic, imageCounts.TryGetValue(id, out var count) ? count : 0));
+        }
+
+        return new RelicAdminListResult
+        {
+            Rows = rows,
+            TotalCount = totalCount,
+            CurrentPage = currentPage,
+            TotalPages = totalPages,
+            Options = await GetFormOptionsAsync(),
+            Summary = await GetAdminSummaryAsync()
+        };
+    }
+
+    public async Task<RelicAdminSummary> GetAdminSummaryAsync() => new()
+    {
+        TotalCount = await _context.Relics.CountAsync(),
+        SpecialNationalCount = await _context.Relics.CountAsync(r => r.RankingLevel == RankingLevel.SpecialNational),
+        WithoutImageCount = await _context.Relics.CountAsync(r => !r.Images.Any()),
+        TotalViewCount = await _context.Relics.SumAsync(r => r.ViewCount)
+    };
+
+    public async Task<RelicFormOptions> GetFormOptionsAsync()
+    {
+        var provinces = await _context.Provinces
+            .AsNoTracking()
+            .Select(p => new { p.Id, p.Name, p.Slug, p.Region })
+            .ToListAsync();
+
+        var options = new RelicFormOptions();
+
+        foreach (var region in RegionText.OrderedRegions)
+        {
+            var items = provinces
+                .Where(p => p.Region == region)
+                .OrderBy(p => p.Name, VietnameseComparer)
+                .Select(p => new RelicOptionItem { Id = p.Id, Name = p.Name, Slug = p.Slug })
+                .ToList();
+
+            if (items.Count > 0)
+            {
+                options.ProvinceGroups.Add(new RelicOptionGroup
+                {
+                    Label = RegionText.DisplayName(region),
+                    Items = items
+                });
+            }
+        }
+
+        options.RelicTypes = await _context.RelicTypes
+            .AsNoTracking()
+            .OrderBy(t => t.Id)
+            .Select(t => new RelicOptionItem { Id = t.Id, Name = t.Name, Slug = t.Slug })
+            .ToListAsync();
+
+        return options;
+    }
+
+    public async Task<RelicEditData?> GetForEditAsync(int id)
+    {
+        var relic = await _context.Relics
+            .AsNoTracking()
+            .FirstOrDefaultAsync(r => r.Id == id);
+
+        if (relic is null)
+        {
+            return null;
+        }
+
+        var imageCount = await _context.RelicImages.CountAsync(i => i.RelicId == id);
+
+        return RelicFactory.ToEditData(relic, imageCount);
+    }
+
+    public async Task<ServiceResult<int>> CreateAsync(RelicInput input)
+    {
+        var reference = await CheckReferencesAsync(input);
+        if (reference is not null)
+        {
+            return ServiceResult<int>.Fail(reference.Value.Message, reference.Value.Field);
+        }
+
+        var slug = await BuildUniqueSlugAsync(input.Name, input.ProvinceId, null);
+        if (slug.Length == 0)
+        {
+            return ServiceResult<int>.Fail(NameWithoutSlugMessage, nameof(RelicInput.Name));
+        }
+
+        var relic = RelicFactory.ToEntity(input);
+        relic.Slug = slug;
+        relic.CreatedAt = DateTime.Now;
+        relic.ViewCount = 0;
+
+        _context.Relics.Add(relic);
+        await _context.SaveChangesAsync();
+
+        return ServiceResult<int>.Ok(relic.Id);
+    }
+
+    public async Task<ServiceResult> UpdateAsync(int id, RelicInput input)
+    {
+        var relic = await _context.Relics.FirstOrDefaultAsync(r => r.Id == id);
+        if (relic is null)
+        {
+            return ServiceResult.Fail(RelicMissingMessage);
+        }
+
+        var reference = await CheckReferencesAsync(input);
+        if (reference is not null)
+        {
+            return ServiceResult.Fail(reference.Value.Message, reference.Value.Field);
+        }
+
+        var newSlug = relic.Slug;
+        if (!string.Equals(relic.Name, input.Name.Trim(), StringComparison.Ordinal))
+        {
+            newSlug = await BuildUniqueSlugAsync(input.Name, input.ProvinceId, id);
+            if (newSlug.Length == 0)
+            {
+                return ServiceResult.Fail(NameWithoutSlugMessage, nameof(RelicInput.Name));
+            }
+        }
+
+        RelicFactory.ApplyToEntity(input, relic);
+        relic.Slug = newSlug;
+        relic.UpdatedAt = DateTime.Now;
+
+        await _context.SaveChangesAsync();
+
+        return ServiceResult.Ok();
+    }
+
+    public async Task<ServiceResult> DeleteAsync(int id)
+    {
+        var relic = await _context.Relics.FirstOrDefaultAsync(r => r.Id == id);
+        if (relic is null)
+        {
+            return ServiceResult.Fail(RelicMissingMessage);
+        }
+
+        _context.Relics.Remove(relic);
+        await _context.SaveChangesAsync();
+
+        return RemoveUploadFolder(id);
+    }
+
+    private ServiceResult RemoveUploadFolder(int relicId)
+    {
+        var root = _environment.WebRootPath;
+        if (string.IsNullOrEmpty(root))
+        {
+            return ServiceResult.Ok();
+        }
+
+        var folder = Path.Combine(root, "uploads", "relics", relicId.ToString(CultureInfo.InvariantCulture));
+        if (!Directory.Exists(folder))
+        {
+            return ServiceResult.Ok();
+        }
+
+        try
+        {
+            Directory.Delete(folder, recursive: true);
+            return ServiceResult.Ok();
+        }
+        catch (Exception error) when (error is IOException or UnauthorizedAccessException)
+        {
+            return ServiceResult.Fail(UploadFolderLeftMessage);
+        }
+    }
+
+    private async Task<(string Field, string Message)?> CheckReferencesAsync(RelicInput input)
+    {
+        if (!await _context.Provinces.AnyAsync(p => p.Id == input.ProvinceId))
+        {
+            return (nameof(RelicInput.ProvinceId), "Tỉnh thành vừa chọn không còn trong danh mục.");
+        }
+
+        if (!await _context.RelicTypes.AnyAsync(t => t.Id == input.RelicTypeId))
+        {
+            return (nameof(RelicInput.RelicTypeId), "Loại di tích vừa chọn không còn trong danh mục.");
+        }
+
+        if (!Enum.IsDefined(input.RankingLevel))
+        {
+            return (nameof(RelicInput.RankingLevel), "Chọn một trong ba cấp xếp hạng.");
+        }
+
+        return null;
+    }
+
+    private async Task<string> BuildUniqueSlugAsync(string name, int provinceId, int? currentRelicId)
+    {
+        var baseSlug = SlugHelper.ToSlug(name);
+        if (baseSlug.Length == 0)
+        {
+            return string.Empty;
+        }
+
+        baseSlug = LimitSlugLength(baseSlug);
+        if (!await SlugTakenAsync(baseSlug, currentRelicId))
+        {
+            return baseSlug;
+        }
+
+        var provinceSlug = await _context.Provinces
+            .Where(p => p.Id == provinceId)
+            .Select(p => p.Slug)
+            .FirstOrDefaultAsync();
+
+        var candidate = baseSlug;
+        if (!string.IsNullOrWhiteSpace(provinceSlug))
+        {
+            candidate = LimitSlugLength($"{baseSlug}-{provinceSlug}");
+            if (!await SlugTakenAsync(candidate, currentRelicId))
+            {
+                return candidate;
+            }
+        }
+
+        var suffix = 2;
+        while (true)
+        {
+            var numbered = LimitSlugLength($"{candidate}-{suffix}");
+            if (!await SlugTakenAsync(numbered, currentRelicId))
+            {
+                return numbered;
+            }
+
+            suffix++;
+        }
+    }
+
+    private Task<bool> SlugTakenAsync(string slug, int? currentRelicId) =>
+        _context.Relics.AnyAsync(r => r.Slug == slug && (currentRelicId == null || r.Id != currentRelicId));
+
+    private static string LimitSlugLength(string slug) =>
+        slug.Length <= MaxSlugLength ? slug : slug[..MaxSlugLength].TrimEnd('-');
+
+    private const int MaxSlugLength = 200;
+
+    private const string NameWithoutSlugMessage =
+        "Tên di tích phải có ít nhất một chữ cái hoặc chữ số để tạo được địa chỉ trang.";
+
+    private const string RelicMissingMessage = "Di tích này không còn trong danh sách.";
+
+    private const string UploadFolderLeftMessage =
+        "Đã xóa di tích, nhưng thư mục ảnh của di tích chưa xóa được. Hãy kiểm tra lại thư mục uploads.";
 
     private const int SparseResultThreshold = 2;
     private const int MaxSuggestionLinks = 6;

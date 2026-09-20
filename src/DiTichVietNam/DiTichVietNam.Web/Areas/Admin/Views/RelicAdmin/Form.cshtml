@@ -1,0 +1,350 @@
+@model RelicFormVM
+@{
+    var formAction = Model.IsEdit ? $"/admin/di-tich/sua/{Model.Id}" : "/admin/di-tich/them";
+    var cancelUrl = string.IsNullOrEmpty(Model.ReturnUrl) ? "/admin/di-tich" : Model.ReturnUrl;
+    var currentYear = DateTime.Now.Year;
+    var pageTitle = Model.IsEdit ? "Sửa di tích" : "Thêm di tích";
+
+    ViewData["AdminCrumbs"] = new List<AdminCrumb>
+    {
+        new() { Label = "Quản trị", Url = "/admin/di-tich" },
+        new() { Label = "Di tích", Url = "/admin/di-tich" },
+        new() { Label = pageTitle }
+    };
+
+    var header = new AdminPageHeaderVM
+    {
+        Title = pageTitle,
+        Lead = Model.IsEdit
+            ? "Sửa hồ sơ di tích. Đổi tên di tích thì địa chỉ trang công khai đổi theo."
+            : "Điền hồ sơ di tích. Ảnh được thêm ở màn hình riêng sau khi lưu."
+    };
+
+    var fieldOrder = new (string Field, string TargetId)[]
+    {
+        (nameof(Model.Name), "field-name"),
+        (nameof(Model.Address), "field-address"),
+        (nameof(Model.Description), "field-description"),
+        (nameof(Model.History), "field-history"),
+        (nameof(Model.VisitInfo), "field-visit-info"),
+        (nameof(Model.ProvinceId), "field-province"),
+        (nameof(Model.RelicTypeId), "field-type"),
+        (nameof(Model.RankingLevel), "field-ranking"),
+        (nameof(Model.RecognizedYear), "field-year"),
+        (nameof(Model.Latitude), "field-latitude"),
+        (nameof(Model.Longitude), "field-longitude"),
+        (nameof(Model.SourceUrl), "field-source-url")
+    };
+
+    var summary = AdminErrorSummaryVM.FromModelState(ViewData.ModelState, fieldOrder);
+
+    var nameError = ErrorFor(nameof(Model.Name));
+    var addressError = ErrorFor(nameof(Model.Address));
+    var descriptionError = ErrorFor(nameof(Model.Description));
+    var historyError = ErrorFor(nameof(Model.History));
+    var visitInfoError = ErrorFor(nameof(Model.VisitInfo));
+    var provinceError = ErrorFor(nameof(Model.ProvinceId));
+    var typeError = ErrorFor(nameof(Model.RelicTypeId));
+    var rankingError = ErrorFor(nameof(Model.RankingLevel));
+    var yearError = ErrorFor(nameof(Model.RecognizedYear));
+    var latitudeError = ErrorFor(nameof(Model.Latitude));
+    var longitudeError = ErrorFor(nameof(Model.Longitude));
+    var sourceUrlError = ErrorFor(nameof(Model.SourceUrl));
+}
+
+@functions {
+    private string? ErrorFor(string field)
+        => ViewData.ModelState[field]?.Errors.FirstOrDefault()?.ErrorMessage;
+
+    private static string FieldClass(string? error)
+        => error is null ? "admin-field" : "admin-field admin-field-invalid";
+
+    private static string DescribedBy(string hintId, string? error, string errorId)
+        => error is null ? hintId : $"{hintId} {errorId}";
+}
+
+<partial name="_AdminPageHeader" model="header" />
+
+<form id="relic-form" class="admin-form" action="@formAction" method="post" novalidate>
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="ReturnUrl" value="@Model.ReturnUrl" />
+
+    <partial name="_AdminErrorSummary" model="summary" />
+
+    <p class="admin-form-legend">Ô có dấu <span class="admin-required">*</span> là bắt buộc.</p>
+
+    <div class="admin-form-grid">
+        <div>
+            <section class="admin-card admin-card-pad">
+                <div class="admin-card-head">
+                    <h2 class="admin-card-title">
+                        <partial name="_AdminIcon" model="@("relic")" />
+                        <span>Nhận dạng di tích</span>
+                    </h2>
+                    <p class="admin-card-note">Tên gọi chính thức và nơi di tích tọa lạc.</p>
+                </div>
+
+                <div class="@FieldClass(nameError)">
+                    <label for="field-name">Tên di tích <span class="admin-required" aria-hidden="true">*</span></label>
+                    <input type="text" id="field-name" name="Name" value="@Model.Name" maxlength="200"
+                           autocomplete="off" spellcheck="false" data-slug-source
+                           aria-invalid="@(nameError is null ? "false" : "true")"
+                           aria-describedby="@DescribedBy("field-name-hint", nameError, "field-name-error")" />
+                    <div class="admin-hint-row">
+                        <p class="admin-hint" id="field-name-hint">Ghi đúng tên trong hồ sơ xếp hạng.</p>
+                        <span class="admin-field-count" data-counter aria-live="polite"></span>
+                    </div>
+                    <p class="admin-slug-preview">
+                        Đường dẫn công khai: /di-tich/<span data-slug-preview>@Model.Slug</span>
+                    </p>
+                    @if (nameError is not null)
+                    {
+                        <p class="field-error" id="field-name-error">@nameError</p>
+                    }
+                </div>
+
+                <div class="@FieldClass(addressError)">
+                    <label for="field-address">Địa chỉ <span class="admin-required" aria-hidden="true">*</span></label>
+                    <input type="text" id="field-address" name="Address" value="@Model.Address" maxlength="300"
+                           autocomplete="off"
+                           aria-invalid="@(addressError is null ? "false" : "true")"
+                           aria-describedby="@DescribedBy("field-address-hint", addressError, "field-address-error")" />
+                    <div class="admin-hint-row">
+                        <p class="admin-hint" id="field-address-hint">Từ chi tiết nhất đến rộng nhất: số nhà, xã, huyện, tỉnh.</p>
+                        <span class="admin-field-count" data-counter aria-live="polite"></span>
+                    </div>
+                    @if (addressError is not null)
+                    {
+                        <p class="field-error" id="field-address-error">@addressError</p>
+                    }
+                </div>
+            </section>
+
+            <section class="admin-card admin-card-pad">
+                <div class="admin-card-head">
+                    <h2 class="admin-card-title">
+                        <partial name="_AdminIcon" model="@("text")" />
+                        <span>Nội dung giới thiệu</span>
+                    </h2>
+                    <p class="admin-card-note">Phần chữ hiển thị ở trang chi tiết của di tích.</p>
+                </div>
+
+                <div class="@FieldClass(descriptionError)">
+                    <label for="field-description">Mô tả <span class="admin-required" aria-hidden="true">*</span></label>
+                    <textarea id="field-description" name="Description" rows="6" data-autogrow maxlength="20000"
+                              aria-invalid="@(descriptionError is null ? "false" : "true")"
+                              aria-describedby="@DescribedBy("field-description-hint", descriptionError, "field-description-error")">@Model.Description</textarea>
+                    <div class="admin-hint-row">
+                        <p class="admin-hint" id="field-description-hint">
+                            Câu đầu dùng làm lời giới thiệu ở trang chủ, nên viết trọn ý trong khoảng 160 ký tự.
+                        </p>
+                        <span class="admin-field-count" data-counter aria-live="polite"></span>
+                    </div>
+                    @if (descriptionError is not null)
+                    {
+                        <p class="field-error" id="field-description-error">@descriptionError</p>
+                    }
+                </div>
+
+                <div class="@FieldClass(historyError)">
+                    <label for="field-history">Lịch sử</label>
+                    <textarea id="field-history" name="History" rows="6" data-autogrow maxlength="20000"
+                              aria-describedby="@DescribedBy("field-history-hint", historyError, "field-history-error")"
+                              aria-invalid="@(historyError is null ? "false" : "true")">@Model.History</textarea>
+                    <div class="admin-hint-row">
+                        <p class="admin-hint" id="field-history-hint">
+                            Mỗi mốc thời gian một câu. Câu mở đầu bằng năm sẽ hiện thành dòng niên biểu.
+                        </p>
+                        <span class="admin-field-count" data-counter aria-live="polite"></span>
+                    </div>
+                    @if (historyError is not null)
+                    {
+                        <p class="field-error" id="field-history-error">@historyError</p>
+                    }
+                </div>
+
+                <div class="@FieldClass(visitInfoError)">
+                    <label for="field-visit-info">Thông tin tham quan</label>
+                    <textarea id="field-visit-info" name="VisitInfo" rows="4" data-autogrow maxlength="4000"
+                              aria-describedby="@DescribedBy("field-visit-info-hint", visitInfoError, "field-visit-info-error")"
+                              aria-invalid="@(visitInfoError is null ? "false" : "true")">@Model.VisitInfo</textarea>
+                    <div class="admin-hint-row">
+                        <p class="admin-hint" id="field-visit-info-hint">
+                            Mỗi ý một câu; câu có giá vé sẽ hiện thành thẻ vé ở trang chi tiết.
+                        </p>
+                        <span class="admin-field-count" data-counter aria-live="polite"></span>
+                    </div>
+                    @if (visitInfoError is not null)
+                    {
+                        <p class="field-error" id="field-visit-info-error">@visitInfoError</p>
+                    }
+                </div>
+            </section>
+        </div>
+
+        <div>
+            <section class="admin-card admin-card-pad">
+                <div class="admin-card-head">
+                    <h2 class="admin-card-title">
+                        <partial name="_AdminIcon" model="@("type")" />
+                        <span>Phân loại</span>
+                    </h2>
+                    <p class="admin-card-note">Dùng cho bộ lọc và nhãn cấp xếp hạng.</p>
+                </div>
+
+                <div class="@FieldClass(provinceError)">
+                    <label for="field-province">Tỉnh thành <span class="admin-required" aria-hidden="true">*</span></label>
+                    <select id="field-province" name="ProvinceId"
+                            aria-invalid="@(provinceError is null ? "false" : "true")"
+                            aria-describedby="@(provinceError is null ? null : "field-province-error")">
+                        <option value="">Chọn tỉnh thành</option>
+                        @foreach (var group in Model.Options.ProvinceGroups)
+                        {
+                            <optgroup label="@group.Label">
+                                @foreach (var item in group.Items)
+                                {
+                                    <option value="@item.Id" selected="@(item.Id.ToString() == Model.ProvinceId)">@item.Name</option>
+                                }
+                            </optgroup>
+                        }
+                    </select>
+                    @if (provinceError is not null)
+                    {
+                        <p class="field-error" id="field-province-error">@provinceError</p>
+                    }
+                </div>
+
+                <div class="@FieldClass(typeError)">
+                    <label for="field-type">Loại di tích <span class="admin-required" aria-hidden="true">*</span></label>
+                    <select id="field-type" name="RelicTypeId"
+                            aria-invalid="@(typeError is null ? "false" : "true")"
+                            aria-describedby="@(typeError is null ? null : "field-type-error")">
+                        <option value="">Chọn loại di tích</option>
+                        @foreach (var item in Model.Options.RelicTypes)
+                        {
+                            <option value="@item.Id" selected="@(item.Id.ToString() == Model.RelicTypeId)">@item.Name</option>
+                        }
+                    </select>
+                    @if (typeError is not null)
+                    {
+                        <p class="field-error" id="field-type-error">@typeError</p>
+                    }
+                </div>
+
+                <div class="@FieldClass(rankingError)">
+                    <label for="field-ranking">Cấp xếp hạng <span class="admin-required" aria-hidden="true">*</span></label>
+                    <select id="field-ranking" name="RankingLevel"
+                            aria-invalid="@(rankingError is null ? "false" : "true")"
+                            aria-describedby="@(rankingError is null ? null : "field-ranking-error")">
+                        <option value="">Chọn cấp xếp hạng</option>
+                        <option value="1" selected="@(Model.RankingLevel == "1")">Di tích cấp tỉnh</option>
+                        <option value="2" selected="@(Model.RankingLevel == "2")">Di tích quốc gia</option>
+                        <option value="3" selected="@(Model.RankingLevel == "3")">Di tích quốc gia đặc biệt</option>
+                    </select>
+                    @if (rankingError is not null)
+                    {
+                        <p class="field-error" id="field-ranking-error">@rankingError</p>
+                    }
+                </div>
+
+                <div class="@FieldClass(yearError)">
+                    <label for="field-year">Năm xếp hạng</label>
+                    <input type="text" id="field-year" name="RecognizedYear" value="@Model.RecognizedYear"
+                           inputmode="numeric" maxlength="4" autocomplete="off" data-max-year="@currentYear"
+                           aria-invalid="@(yearError is null ? "false" : "true")"
+                           aria-describedby="@DescribedBy("field-year-hint", yearError, "field-year-error")" />
+                    <div class="admin-hint-row">
+                        <p class="admin-hint" id="field-year-hint">Từ 1000 đến @currentYear. Chưa rõ thì bỏ trống.</p>
+                    </div>
+                    @if (yearError is not null)
+                    {
+                        <p class="field-error" id="field-year-error">@yearError</p>
+                    }
+                </div>
+            </section>
+
+            <section class="admin-card admin-card-pad">
+                <div class="admin-card-head">
+                    <h2 class="admin-card-title">
+                        <partial name="_AdminIcon" model="@("compass")" />
+                        <span>Tọa độ</span>
+                    </h2>
+                    <p class="admin-card-note">Có tọa độ thì trang chi tiết hiện được vị trí trên bản đồ.</p>
+                </div>
+
+                <div class="admin-field-row">
+                    <div class="@FieldClass(latitudeError)">
+                        <label for="field-latitude">Vĩ độ</label>
+                        <input type="text" id="field-latitude" name="Latitude" value="@Model.Latitude"
+                               inputmode="decimal" maxlength="20" autocomplete="off"
+                               aria-invalid="@(latitudeError is null ? "false" : "true")"
+                               aria-describedby="@DescribedBy("field-latitude-hint", latitudeError, "field-latitude-error")" />
+                        <div class="admin-hint-row">
+                            <p class="admin-hint" id="field-latitude-hint">Ví dụ 21.0293</p>
+                        </div>
+                        @if (latitudeError is not null)
+                        {
+                            <p class="field-error" id="field-latitude-error">@latitudeError</p>
+                        }
+                    </div>
+
+                    <div class="@FieldClass(longitudeError)">
+                        <label for="field-longitude">Kinh độ</label>
+                        <input type="text" id="field-longitude" name="Longitude" value="@Model.Longitude"
+                               inputmode="decimal" maxlength="20" autocomplete="off"
+                               aria-invalid="@(longitudeError is null ? "false" : "true")"
+                               aria-describedby="@DescribedBy("field-longitude-hint", longitudeError, "field-longitude-error")" />
+                        <div class="admin-hint-row">
+                            <p class="admin-hint" id="field-longitude-hint">Ví dụ 105.8342</p>
+                        </div>
+                        @if (longitudeError is not null)
+                        {
+                            <p class="field-error" id="field-longitude-error">@longitudeError</p>
+                        }
+                    </div>
+                </div>
+                <p class="admin-hint">Nhập dấu chấm hoặc dấu phẩy đều được. Có vĩ độ thì phải có kinh độ.</p>
+            </section>
+
+            <section class="admin-card admin-card-pad">
+                <div class="admin-card-head">
+                    <h2 class="admin-card-title">
+                        <partial name="_AdminIcon" model="@("link")" />
+                        <span>Nguồn tham khảo</span>
+                    </h2>
+                    <p class="admin-card-note">Mỗi di tích phải dẫn được về nơi lấy thông tin.</p>
+                </div>
+
+                <div class="@FieldClass(sourceUrlError)">
+                    <label for="field-source-url">Đường dẫn nguồn <span class="admin-required" aria-hidden="true">*</span></label>
+                    <input type="text" id="field-source-url" name="SourceUrl" value="@Model.SourceUrl" maxlength="500"
+                           autocomplete="off" spellcheck="false"
+                           aria-invalid="@(sourceUrlError is null ? "false" : "true")"
+                           aria-describedby="@DescribedBy("field-source-url-hint", sourceUrlError, "field-source-url-error")" />
+                    <div class="admin-hint-row">
+                        <p class="admin-hint" id="field-source-url-hint">Bắt đầu bằng http:// hoặc https://.</p>
+                    </div>
+                    @if (sourceUrlError is not null)
+                    {
+                        <p class="field-error" id="field-source-url-error">@sourceUrlError</p>
+                    }
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div class="admin-form-footer">
+        <div class="admin-form-actions">
+            <span class="admin-form-state" data-form-state aria-live="polite"></span>
+            <a class="admin-btn admin-btn-secondary" href="@cancelUrl" data-discard>Hủy</a>
+            <button type="submit" class="admin-btn admin-btn-primary" data-submit-button>
+                @(Model.IsEdit ? "Lưu thay đổi" : "Lưu di tích")
+            </button>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/js/admin/relic-form.js" asp-append-version="true"></script>
+}

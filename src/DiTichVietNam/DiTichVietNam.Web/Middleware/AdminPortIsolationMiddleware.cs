@@ -9,6 +9,8 @@ public class AdminPortIsolationMiddleware
     public const string AdminAreaPath = "/admin";
     public const string AccountAreaPath = "/tai-khoan";
     public const string StatusPath = "/loi";
+    public const string AdminStyleSheetPath = "/css/admin.css";
+    public const string AdminScriptFolder = "/js/admin";
 
     private const string UnknownSegment = "khong-tim-thay";
 
@@ -31,7 +33,7 @@ public class AdminPortIsolationMiddleware
         var path = context.Request.Path;
         var onAdminPort = context.Connection.LocalPort == _options.Port;
 
-        if (IsRestrictedArea(path))
+        if (IsRestrictedArea(path) || IsAdminAsset(path))
         {
             if (!onAdminPort)
             {
@@ -64,11 +66,34 @@ public class AdminPortIsolationMiddleware
     }
 
     private static bool IsRestrictedArea(PathString path)
-        => path.StartsWithSegments(AdminAreaPath) || path.StartsWithSegments(AccountAreaPath);
+        => path.StartsWithSegments(AdminAreaPath, StringComparison.OrdinalIgnoreCase)
+        || path.StartsWithSegments(AccountAreaPath, StringComparison.OrdinalIgnoreCase);
+
+    private static bool IsAdminAsset(PathString path)
+    {
+        var value = path.Value;
+        if (string.IsNullOrEmpty(value))
+        {
+            return false;
+        }
+
+        var normalized = NormalizeSlashes(value);
+
+        return normalized.Equals(AdminStyleSheetPath, StringComparison.OrdinalIgnoreCase)
+            || normalized.StartsWith(AdminScriptFolder + "/", StringComparison.OrdinalIgnoreCase)
+            || normalized.Equals(AdminScriptFolder, StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static string NormalizeSlashes(string value)
+    {
+        var segments = value.Split('/', StringSplitOptions.RemoveEmptyEntries);
+
+        return segments.Length == 0 ? "/" : "/" + string.Join('/', segments);
+    }
 
     private static bool IsServedOnAdminPort(PathString path)
     {
-        if (path.StartsWithSegments(StatusPath))
+        if (path.StartsWithSegments(StatusPath, StringComparison.OrdinalIgnoreCase))
         {
             return true;
         }

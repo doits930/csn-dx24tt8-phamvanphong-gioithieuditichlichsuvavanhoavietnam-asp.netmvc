@@ -9,4 +9,11 @@ namespace DiTichVietNam.Web.Areas.Admin.Controllers;
 [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 public abstract class AdminBaseController : Controller
 {
+    protected IActionResult AdminNotFound()
+    {
+        Response.StatusCode = StatusCodes.Status404NotFound;
+        ViewData["Title"] = "Không tìm thấy trang quản trị";
+
+        return View("NotFound");
+    }
 }

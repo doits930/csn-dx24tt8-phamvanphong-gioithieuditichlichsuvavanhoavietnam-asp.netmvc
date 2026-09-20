@@ -1,5 +1,250 @@
-@model int
+@model RelicAdminListVM
+@inject IOptions<AdminSiteOptions> AdminSite
+@{
+    var publicPort = AdminSite.Value.PublicPort;
+    var listUrl = Model.ListUrl;
+    var createUrl = $"/admin/di-tich/them?returnUrl={Uri.EscapeDataString(listUrl)}";
 
-<h1 class="admin-title">Quản lý di tích</h1>
-<p class="admin-lead">Danh sách di tích sẽ hiển thị tại đây.</p>
-<p class="admin-count">Cơ sở dữ liệu đang có @Model di tích.</p>
+
+    ViewData["AdminCrumbs"] = new List<AdminCrumb>
+    {
+        new() { Label = "Quản trị", Url = "/admin/di-tich" },
+        new() { Label = "Di tích" }
+    };
+
+    var header = new AdminPageHeaderVM
+    {
+        Title = "Quản lý di tích",
+        Lead = "Thêm, sửa, xóa hồ sơ di tích và mở màn hình ảnh của từng di tích.",
+        ActionLabel = "Thêm di tích",
+        ActionUrl = createUrl,
+        ActionIcon = "plus"
+    };
+
+    var confirmDialog = new AdminConfirmVM
+    {
+        ElementId = "delete-relic-dialog",
+        Title = "Xóa di tích",
+        ConfirmLabel = "Xóa di tích",
+        CancelLabel = "Hủy"
+    };
+
+    var stats = new (string Icon, string IconClass, int Value, string Label)[]
+    {
+        ("relic", "admin-stat-icon", Model.Summary.TotalCount, "Tổng di tích"),
+        ("type", "admin-stat-icon admin-stat-icon-gilt", Model.Summary.SpecialNationalCount, "Quốc gia đặc biệt"),
+        ("image", "admin-stat-icon admin-stat-icon-vermilion", Model.Summary.WithoutImageCount, "Chưa có ảnh"),
+        ("views", "admin-stat-icon admin-stat-icon-stone", Model.Summary.TotalViewCount, "Tổng lượt xem")
+    };
+
+    var rankingChoices = new (int Value, string Label)[]
+    {
+        ((int)RankingLevel.Provincial, "Cấp tỉnh"),
+        ((int)RankingLevel.National, "Quốc gia"),
+        ((int)RankingLevel.SpecialNational, "Quốc gia đặc biệt")
+    };
+}
+
+<partial name="_AdminPageHeader" model="header" />
+
+<div class="admin-stats">
+    @foreach (var stat in stats)
+    {
+        <div class="admin-stat">
+            <span class="@stat.IconClass">
+                <partial name="_AdminIcon" model="@stat.Icon" />
+            </span>
+            <span>
+                <span class="admin-stat-value">@stat.Value</span>
+                <span class="admin-stat-label">@stat.Label</span>
+            </span>
+        </div>
+    }
+</div>
+
+<div class="admin-card">
+    <form class="admin-toolbar" action="/admin/di-tich" method="get" role="search">
+        <div class="admin-toolbar-field admin-toolbar-keyword">
+            <label for="filter-keyword">Từ khóa</label>
+            <div class="admin-search-box">
+                <partial name="_AdminIcon" model="@("search")" />
+                <input type="search" id="filter-keyword" name="@SearchFilterVM.KeywordKey" data-search-shortcut
+                       value="@Model.Filter.Keyword" maxlength="200" placeholder="Tên hoặc mô tả di tích" />
+                <span class="admin-search-shortcut" aria-hidden="true">/</span>
+            </div>
+        </div>
+        <div class="admin-toolbar-field">
+            <label for="filter-province">Tỉnh thành</label>
+            <select id="filter-province" name="@SearchFilterVM.ProvinceKey">
+                <option value="">Tất cả</option>
+                @foreach (var group in Model.Options.ProvinceGroups)
+                {
+                    <optgroup label="@group.Label">
+                        @foreach (var item in group.Items)
+                        {
+                            <option value="@item.Slug" selected="@(item.Slug == Model.Filter.ProvinceSlug)">@item.Name</option>
+                        }
+                    </optgroup>
+                }
+            </select>
+        </div>
+        <div class="admin-toolbar-field">
+            <label for="filter-type">Loại di tích</label>
+            <select id="filter-type" name="@SearchFilterVM.TypeKey">
+                <option value="">Tất cả</option>
+                @foreach (var item in Model.Options.RelicTypes)
+                {
+                    <option value="@item.Slug" selected="@(item.Slug == Model.Filter.TypeSlug)">@item.Name</option>
+                }
+            </select>
+        </div>
+        <div class="admin-toolbar-field">
+            <label for="filter-ranking">Cấp xếp hạng</label>
+            <select id="filter-ranking" name="@SearchFilterVM.RankingKey">
+                <option value="">Tất cả</option>
+                @foreach (var choice in rankingChoices)
+                {
+                    <option value="@choice.Value" selected="@((int?)Model.Filter.Ranking == choice.Value)">@choice.Label</option>
+                }
+            </select>
+        </div>
+        <div class="admin-toolbar-actions">
+            <button type="submit" class="admin-btn admin-btn-primary">Lọc</button>
+            @if (Model.HasAnyFilter)
+            {
+                <a class="admin-btn-text" href="/admin/di-tich">Xóa lọc</a>
+            }
+        </div>
+    </form>
+
+    @if (Model.Rows.Count == 0)
+    {
+        <div class="admin-empty">
+            <partial name="_AdminIcon" model="@("search")" />
+            <p class="admin-empty-text">
+                @(Model.HasAnyFilter
+                    ? "Không có di tích nào khớp tiêu chí đang chọn. Bỏ bớt tiêu chí để xem thêm."
+                    : "Danh sách di tích đang trống. Thêm di tích đầu tiên để bắt đầu.")
+            </p>
+            @if (Model.HasAnyFilter)
+            {
+                <a class="admin-btn admin-btn-secondary" href="/admin/di-tich">Xóa lọc</a>
+            }
+            else
+            {
+                <a class="admin-btn admin-btn-primary" href="@createUrl">Thêm di tích</a>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive admin-table-wrap">
+            <table class="admin-table">
+                <caption class="admin-visually-hidden">Danh sách di tích đang có trong hệ thống</caption>
+                <thead>
+                    <tr>
+                        <th scope="col" class="admin-cell-thumb"><span class="admin-visually-hidden">Ảnh đại diện</span></th>
+                        <th scope="col">Tên di tích</th>
+                        <th scope="col">Tỉnh thành</th>
+                        <th scope="col">Loại</th>
+                        <th scope="col">Cấp</th>
+                        <th scope="col" class="admin-cell-number">Ảnh</th>
+                        <th scope="col" class="admin-cell-number">Lượt xem</th>
+                        <th scope="col" title="Ngày sửa gần nhất, di tích chưa sửa thì là ngày tạo">Cập nhật</th>
+                        <th scope="col" class="admin-cell-actions"><span class="admin-visually-hidden">Thao tác</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var row in Model.Rows)
+                    {
+                        var editUrl = $"/admin/di-tich/sua/{row.Id}?returnUrl={Uri.EscapeDataString(listUrl)}";
+                        var deleteUrl = $"/admin/di-tich/xoa/{row.Id}?returnUrl={Uri.EscapeDataString(listUrl)}";
+                        var publicUrl = SiteUrls.OnPort(Context.Request, publicPort, $"/di-tich/{row.Slug}");
+                        var confirmText = row.ImageCount > 0
+                            ? $"Xóa di tích {row.Name}? {row.ImageCount} ảnh của di tích cũng bị xóa theo và không lấy lại được."
+                            : $"Xóa di tích {row.Name}? Thao tác này không lấy lại được.";
+                        <tr>
+                            <td class="admin-cell-thumb">
+                                @if (string.IsNullOrWhiteSpace(row.ThumbnailPath))
+                                {
+                                    <span class="admin-thumb-empty" aria-hidden="true">
+                                        <partial name="_AdminIcon" model="@("image")" />
+                                    </span>
+                                }
+                                else
+                                {
+                                    <img class="admin-thumb" src="@row.ThumbnailPath"
+                                         alt="Ảnh đại diện của @row.Name" loading="lazy" decoding="async"
+                                         onerror="this.src='/img/no-image.svg'" />
+                                }
+                            </td>
+                            <td class="admin-cell-name">
+                                <a class="admin-row-name" href="@editUrl">@row.Name</a>
+                                <span class="admin-row-slug">@row.Slug</span>
+                            </td>
+                            <td data-label="Tỉnh thành" class="admin-cell-province">@row.ProvinceName</td>
+                            <td data-label="Loại" class="admin-cell-type">
+                                <span class="admin-chip admin-chip-outline" title="@row.TypeName">@RelicTypeText.ShortLabel(row.TypeName)</span>
+                            </td>
+                            <td data-label="Cấp">
+                                <span class="admin-chip @row.RankingCssModifier">@row.RankingShortLabel</span>
+                            </td>
+                            <td data-label="Ảnh" class="admin-cell-number">
+                                @if (row.ImageCount > 0)
+                                {
+                                    <span>@row.ImageCount</span>
+                                }
+                                else
+                                {
+                                    <span class="admin-count-empty" title="Chưa có ảnh nào">0</span>
+                                }
+                            </td>
+                            <td data-label="Lượt xem" class="admin-cell-number">@row.ViewCount</td>
+                            <td data-label="Cập nhật">
+                                @row.ChangedAt.ToString("dd/MM/yyyy")
+                                @if (row.WasEdited)
+                                {
+                                    <span class="admin-row-note">đã sửa</span>
+                                }
+                            </td>
+                            <td class="admin-cell-actions">
+                                <span class="admin-row-actions">
+                                    <a class="admin-icon-btn" href="@editUrl" title="Sửa di tích"
+                                       aria-label="Sửa di tích @row.Name">
+                                        <partial name="_AdminIcon" model="@("edit")" />
+                                    </a>
+                                    <a class="admin-icon-btn" href="@publicUrl" target="_blank" rel="noopener"
+                                       title="Mở trang công khai trong tab mới"
+                                       aria-label="Mở trang công khai của @row.Name">
+                                        <partial name="_AdminIcon" model="@("external")" />
+                                    </a>
+                                    <a class="admin-icon-btn admin-icon-btn-danger" href="@deleteUrl"
+                                       title="Xóa di tích" aria-label="Xóa di tích @row.Name"
+                                       data-delete-trigger
+                                       data-delete-url="@deleteUrl"
+                                       data-delete-message="@confirmText">
+                                        <partial name="_AdminIcon" model="@("trash")" />
+                                    </a>
+                                </span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="admin-card-foot">
+            <p class="admin-result-count" role="status">@Model.ResultSummary</p>
+            <partial name="_Pagination" model="Model.Pagination" />
+        </div>
+    }
+</div>
+
+@if (Model.Rows.Count > 0)
+{
+    <partial name="_AdminConfirmDialog" model="confirmDialog" />
+}
+
+@section Scripts {
+    <script src="~/js/admin/admin-confirm.js" asp-append-version="true"></script>
+}

@@ -3,13 +3,15 @@
 @{
     var currentPath = Context.Request.Path.Value ?? string.Empty;
     var accountName = AccountService.GetDisplayName(User);
+    var initial = string.IsNullOrEmpty(accountName) ? "Q" : accountName[..1].ToUpperInvariant();
     var publicSiteUrl = SiteUrls.OnPort(Context.Request, AdminSite.Value.PublicPort, "/");
-    var menuItems = new (string Label, string Path)[]
+    var crumbs = ViewData["AdminCrumbs"] as List<AdminCrumb> ?? new List<AdminCrumb>
     {
-        ("Di tích", "/admin/di-tich"),
-        ("Tỉnh thành", "/admin/tinh-thanh"),
-        ("Loại di tích", "/admin/loai-di-tich"),
-        ("Thống kê", "/admin/thong-ke")
+        new() { Label = ViewData["Title"] as string ?? "Quản trị" }
+    };
+    var menuItems = new (string Label, string Path, string Icon)[]
+    {
+        ("Di tích", "/admin/di-tich", "relic")
     };
 }
 <!DOCTYPE html>
@@ -26,51 +28,110 @@
     <script>document.documentElement.classList.remove('no-js');</script>
 </head>
 <body class="admin-body">
-    <header>
-        <nav class="navbar navbar-expand-lg admin-bar">
-            <div class="container">
-                <a class="admin-brand" href="/admin/di-tich">
-                    Di tích Việt Nam
-                    <span class="admin-brand-tag">Quản trị</span>
-                </a>
-                <button class="navbar-toggler admin-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#admin-menu" aria-controls="admin-menu" aria-expanded="false"
-                        aria-label="Mở menu quản trị">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="admin-menu">
-                    <ul class="navbar-nav admin-nav">
+    <div class="admin-shell">
+        <aside class="admin-sidebar offcanvas-lg offcanvas-start" tabindex="-1" id="admin-sidebar"
+               aria-label="Điều hướng khu quản trị">
+            <div class="admin-sidebar-inner">
+                <div class="admin-sidebar-top">
+                    <a class="admin-brand" href="/admin/di-tich">
+                        <span class="admin-brand-name">Di tích Việt Nam</span>
+                        <span class="admin-brand-tag">Quản trị</span>
+                    </a>
+                    <button class="admin-sidebar-close" type="button" data-bs-dismiss="offcanvas"
+                            data-bs-target="#admin-sidebar" aria-label="Đóng trình đơn">
+                        <partial name="_AdminIcon" model="@("close")" />
+                    </button>
+                </div>
+                <nav aria-label="Mục quản trị">
+                    <ul class="admin-nav">
                         @foreach (var item in menuItems)
                         {
                             var isCurrent = currentPath.StartsWith(item.Path, StringComparison.OrdinalIgnoreCase);
-                            <li class="nav-item">
-                                <a class="nav-link @(isCurrent ? "admin-nav-current" : string.Empty)"
-                                   href="@item.Path" aria-current="@(isCurrent ? "page" : null)">@item.Label</a>
+                            <li>
+                                <a class="admin-nav-link @(isCurrent ? "is-current" : string.Empty)"
+                                   href="@item.Path" aria-current="@(isCurrent ? "page" : null)">
+                                    <partial name="_AdminIcon" model="@item.Icon" />
+                                    <span>@item.Label</span>
+                                </a>
                             </li>
                         }
                     </ul>
-                    <div class="admin-account">
-                        <span class="admin-account-name" title="@accountName">@accountName</span>
-                        <a class="admin-account-link" href="@publicSiteUrl">Xem trang công khai</a>
-                        <form class="admin-account-form" action="/tai-khoan/dang-xuat" method="post">
-                            @Html.AntiForgeryToken()
-                            <button type="submit" class="admin-signout">Đăng xuất</button>
-                        </form>
-                    </div>
+                </nav>
+                <div class="admin-sidebar-foot">
+                    <a class="admin-sidebar-link" href="@publicSiteUrl" target="_blank" rel="noopener">
+                        <partial name="_AdminIcon" model="@("external")" />
+                        <span>Xem trang công khai</span>
+                    </a>
                 </div>
             </div>
-        </nav>
-    </header>
+        </aside>
 
-    <main class="admin-main">
-        <div class="container">
-            <partial name="_AdminAlerts" />
-            @RenderBody()
+        <div class="admin-content">
+            <header class="admin-topbar">
+                <div class="container admin-topbar-inner">
+                    <button class="admin-menu-button" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#admin-sidebar" aria-controls="admin-sidebar"
+                            aria-label="Mở điều hướng quản trị">
+                        <partial name="_AdminIcon" model="@("menu")" />
+                    </button>
+
+                    <nav aria-label="Đường dẫn trang">
+                        <ol class="admin-crumbs">
+                            @foreach (var crumb in crumbs)
+                            {
+                                <li>
+                                    @if (string.IsNullOrWhiteSpace(crumb.Url))
+                                    {
+                                        <span aria-current="page">@crumb.Label</span>
+                                    }
+                                    else
+                                    {
+                                        <a href="@crumb.Url">@crumb.Label</a>
+                                    }
+                                </li>
+                            }
+                        </ol>
+                    </nav>
+
+                    <div class="dropdown admin-profile">
+                        <button class="admin-avatar" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false" aria-haspopup="menu" aria-label="Tài khoản @accountName">@initial</button>
+                        <div class="dropdown-menu dropdown-menu-end admin-profile-menu">
+                            <div class="admin-profile-head">
+                                <span class="admin-profile-avatar" aria-hidden="true">@initial</span>
+                                <span>
+                                    <span class="admin-profile-name">@accountName</span>
+                                    <span class="admin-profile-role">Quản trị viên</span>
+                                </span>
+                            </div>
+                            <a class="dropdown-item" href="@publicSiteUrl" target="_blank" rel="noopener">
+                                <partial name="_AdminIcon" model="@("external")" />
+                                <span>Xem trang công khai</span>
+                            </a>
+                            <form class="admin-profile-form" action="/tai-khoan/dang-xuat" method="post">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="dropdown-item admin-profile-signout">
+                                    <partial name="_AdminIcon" model="@("signout")" />
+                                    <span>Đăng xuất</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="admin-main">
+                <div class="container">
+                    <partial name="_AdminAlerts" />
+                    @RenderBody()
+                </div>
+            </main>
         </div>
-    </main>
+    </div>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/admin/admin-shell.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

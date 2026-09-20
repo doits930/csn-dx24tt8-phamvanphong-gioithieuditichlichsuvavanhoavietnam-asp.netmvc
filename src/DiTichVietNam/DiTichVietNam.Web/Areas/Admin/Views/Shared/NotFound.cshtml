@@ -1,0 +1,20 @@
+@{
+    ViewData["AdminCrumbs"] = new List<AdminCrumb>
+    {
+        new() { Label = "Quản trị", Url = "/admin/di-tich" },
+        new() { Label = "Không tìm thấy trang" }
+    };
+
+    var header = new AdminPageHeaderVM
+    {
+        Title = "Không tìm thấy trang quản trị"
+    };
+}
+
+<partial name="_AdminPageHeader" model="header" />
+
+<div class="admin-card admin-card-pad admin-state-card">
+    <partial name="_AdminIcon" model="@("alert")" />
+    <p class="admin-panel-text">Địa chỉ này không có trong khu quản trị, hoặc mục cần mở đã bị xóa.</p>
+    <a class="admin-btn admin-btn-secondary" href="/admin/di-tich">Về danh sách di tích</a>
+</div>
