@@ -18,11 +18,13 @@
     <script>document.documentElement.classList.remove('no-js');</script>
 </head>
 <body>
+    <a class="skip-link" href="#main-content">Bỏ qua điều hướng, vào nội dung chính</a>
+
     <header>
         @await Component.InvokeAsync("MainMenu", new { showSearch = !hideNavSearch })
     </header>
 
-    <main>
+    <main id="main-content" tabindex="-1">
         @RenderBody()
     </main>
 

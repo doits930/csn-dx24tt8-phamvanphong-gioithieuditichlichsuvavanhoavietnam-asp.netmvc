@@ -231,6 +231,9 @@ summary:focus-visible,
 }
 
 .site-name {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
   font-family: var(--font-document);
   font-size: var(--text-xl);
   font-weight: 600;
@@ -332,6 +335,7 @@ summary:focus-visible,
 
 .nav-search input[type="search"] {
   flex: 1 1 auto;
+  min-height: 40px;
   font-family: var(--font-ui);
   font-size: var(--text-sm);
   color: var(--color-ink);
@@ -356,8 +360,8 @@ summary:focus-visible,
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   color: var(--color-vermilion);
   background-color: transparent;
   border: 0;
@@ -939,12 +943,14 @@ summary:focus-visible,
   }
 
   .lookbook-plates figcaption {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
     margin: var(--space-2) var(--space-4) 0;
     font-size: var(--text-xs);
     text-align: left;
-    white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
   }
 
   .lookbook-name {
@@ -1053,7 +1059,7 @@ summary:focus-visible,
     align-items: baseline;
     gap: var(--space-2);
     padding-bottom: var(--space-3);
-    min-height: 0;
+    min-height: 2.5rem;
     text-align: left;
   }
 
@@ -1065,11 +1071,13 @@ summary:focus-visible,
   }
 
   .lookbook-toc-name {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
     font-size: var(--text-sm);
     color: var(--color-paper-dim);
-    white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
   }
 
   .lookbook-toc-item.is-active .lookbook-toc-number,
@@ -1166,7 +1174,7 @@ summary:focus-visible,
 
 .featured-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-6);
 }
 
@@ -1557,7 +1565,7 @@ summary:focus-visible,
 }
 
 .map-island-label {
-  display: none;
+  display: block;
   position: absolute;
   left: var(--label-x);
   top: var(--label-y);
@@ -1567,12 +1575,6 @@ summary:focus-visible,
   white-space: nowrap;
   color: var(--color-muted);
   pointer-events: none;
-}
-
-@media (min-width: 992px) {
-  .map-island-label {
-    display: block;
-  }
 }
 
 .map-sea-label {
@@ -1720,8 +1722,8 @@ summary:focus-visible,
     columns: 1;
   }
 
-  .province-layout .province-list li {
-    margin-bottom: var(--space-3);
+  .province-layout .province-list a {
+    min-height: 44px;
   }
 }
 
@@ -1743,11 +1745,13 @@ summary:focus-visible,
 
 .province-list li {
   break-inside: avoid;
-  margin-bottom: var(--space-2);
   font-size: var(--text-sm);
 }
 
 .province-list a {
+  display: flex;
+  align-items: center;
+  min-height: 40px;
   color: var(--color-muted);
   text-decoration: none;
 }
@@ -1908,7 +1912,7 @@ summary:focus-visible,
   align-items: center;
   gap: var(--space-2);
   min-width: 0;
-  padding: var(--space-2) var(--space-4);
+  padding: 0 var(--space-4);
   border-radius: var(--radius-control);
   transition: background-color var(--duration) ease;
 }
@@ -1962,6 +1966,7 @@ summary:focus-visible,
 
 .search-segment input[type="search"],
 .search-segment select {
+  min-height: 2.5rem;
   font-family: var(--font-ui);
   font-size: var(--text-base);
   line-height: 1.5;
@@ -2210,6 +2215,9 @@ summary:focus-visible,
 }
 
 .filter-reset {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
   font-size: var(--text-sm);
   color: var(--color-vermilion);
   text-decoration: none;
@@ -2249,7 +2257,7 @@ summary:focus-visible,
 
 .relic-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-6);
 }
 
@@ -2297,6 +2305,9 @@ summary:focus-visible,
 }
 
 .pagination-step {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
   font-size: var(--text-sm);
   color: var(--color-vermilion);
   text-decoration: none;
@@ -2326,8 +2337,8 @@ summary:focus-visible,
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 2.25rem;
-  height: 2.25rem;
+  min-width: 2.5rem;
+  height: 2.5rem;
   font-size: var(--text-sm);
   border-radius: var(--radius);
   padding-inline: var(--space-2);
@@ -2792,8 +2803,8 @@ summary:focus-visible,
   }
 
   .gallery-step {
-    width: 36px;
-    height: 36px;
+    width: 44px;
+    height: 44px;
     opacity: 0.85;
   }
 
@@ -3349,9 +3360,7 @@ body.has-open-viewer {
 .cover-source-text {
   flex: 1 1 auto;
   min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  overflow-wrap: anywhere;
 }
 
 .cover-source a {
@@ -3432,7 +3441,9 @@ body.has-open-viewer {
 }
 
 .relic-section-links a {
-  display: block;
+  display: flex;
+  align-items: center;
+  min-height: 40px;
   white-space: nowrap;
   font-size: var(--text-sm);
   color: var(--color-muted);
@@ -3453,6 +3464,9 @@ body.has-open-viewer {
 }
 
 .relic-section-visit {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
   flex: 0 0 auto;
   font-size: var(--text-sm);
   font-weight: 600;
@@ -3580,3 +3594,84 @@ body.has-open-viewer {
   }
 }
 
+
+@media (max-height: 620px) {
+  .image-viewer {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .image-viewer-panel {
+    gap: var(--space-2);
+  }
+
+  .image-viewer-image {
+    max-height: 45vh;
+  }
+
+  .image-viewer-close,
+  .image-viewer-step {
+    min-height: 40px;
+    padding-block: var(--space-1);
+  }
+
+  .image-viewer-caption {
+    font-size: var(--text-sm);
+  }
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--space-4);
+  top: var(--space-4);
+  z-index: 1100;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-paper);
+  background-color: var(--color-ink-deep);
+  border-radius: var(--radius-control);
+  padding: var(--space-3) var(--space-4);
+  transform: translateY(-200%);
+}
+
+.skip-link:focus-visible {
+  color: var(--color-paper);
+  outline: 2px solid var(--color-paper);
+  outline-offset: 2px;
+  transform: translateY(0);
+}
+
+main:focus {
+  outline: none;
+}
+
+@media print {
+  .site-nav,
+  .skip-link,
+  .search-bar,
+  .nav-search,
+  .relic-section-bar,
+  .gallery-step,
+  .gallery-thumbs,
+  .province-directory,
+  .site-footer {
+    display: none !important;
+  }
+
+  body,
+  .relic-detail,
+  .relic-cover {
+    color: #000;
+    background: #fff;
+  }
+
+  .relic-cover-plates,
+  .gallery-live {
+    break-inside: avoid;
+  }
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 11px;
+    word-break: break-all;
+  }
+}
