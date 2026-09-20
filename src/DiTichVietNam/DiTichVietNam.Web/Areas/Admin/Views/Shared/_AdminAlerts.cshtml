@@ -4,9 +4,21 @@
 }
 @if (!string.IsNullOrEmpty(successMessage))
 {
-    <p class="admin-alert admin-alert-success" role="status">@successMessage</p>
+    <div class="admin-alert admin-alert-success" role="status">
+        <partial name="_AdminIcon" model="@("check")" />
+        <p class="admin-alert-text">@successMessage</p>
+        <button type="button" class="admin-alert-close" data-alert-close aria-label="Đóng thông báo">
+            <partial name="_AdminIcon" model="@("close")" />
+        </button>
+    </div>
 }
 @if (!string.IsNullOrEmpty(errorMessage))
 {
-    <p class="admin-alert admin-alert-error" role="alert">@errorMessage</p>
+    <div class="admin-alert admin-alert-error" role="alert">
+        <partial name="_AdminIcon" model="@("alert")" />
+        <p class="admin-alert-text">@errorMessage</p>
+        <button type="button" class="admin-alert-close" data-alert-close aria-label="Đóng thông báo">
+            <partial name="_AdminIcon" model="@("close")" />
+        </button>
+    </div>
 }

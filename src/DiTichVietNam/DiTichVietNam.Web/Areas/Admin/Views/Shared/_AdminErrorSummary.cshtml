@@ -1,0 +1,23 @@
+@model AdminErrorSummaryVM
+
+@if (Model.HasItems)
+{
+    <div class="admin-error-summary" id="form-error-summary" role="alert" tabindex="-1">
+        <p class="admin-error-summary-title">@Model.Title</p>
+        <ul class="admin-error-summary-list">
+            @foreach (var item in Model.Items)
+            {
+                <li>
+                    @if (string.IsNullOrEmpty(item.TargetId))
+                    {
+                        <span>@item.Message</span>
+                    }
+                    else
+                    {
+                        <a href="#@item.TargetId">@item.Message</a>
+                    }
+                </li>
+            }
+        </ul>
+    </div>
+}

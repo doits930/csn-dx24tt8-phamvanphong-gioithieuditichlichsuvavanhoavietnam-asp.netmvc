@@ -1,0 +1,37 @@
+@model RelicDeleteVM
+@{
+    var returnQuery = string.IsNullOrEmpty(Model.ReturnUrl)
+        ? string.Empty
+        : $"?returnUrl={Uri.EscapeDataString(Model.ReturnUrl)}";
+    var cancelUrl = string.IsNullOrEmpty(Model.ReturnUrl) ? "/admin/di-tich" : Model.ReturnUrl;
+
+    ViewData["AdminCrumbs"] = new List<AdminCrumb>
+    {
+        new() { Label = "Quản trị", Url = "/admin/di-tich" },
+        new() { Label = "Di tích", Url = "/admin/di-tich" },
+        new() { Label = "Xóa di tích" }
+    };
+
+    var header = new AdminPageHeaderVM
+    {
+        Title = "Xóa di tích",
+        Lead = $"Xóa di tích {Model.Name} khỏi hệ thống."
+    };
+}
+
+<partial name="_AdminPageHeader" model="header" />
+
+<div class="admin-card admin-card-pad admin-state-card">
+    <partial name="_AdminIcon" model="@("alert")" />
+    <p class="admin-panel-text">
+        @(Model.ImageCount > 0
+            ? $"{Model.ImageCount} ảnh của di tích cũng bị xóa theo. Thao tác này không lấy lại được."
+            : "Di tích này chưa có ảnh nào. Thao tác này không lấy lại được.")
+    </p>
+
+    <form class="admin-panel-actions" action="/admin/di-tich/xoa/@Model.Id@returnQuery" method="post">
+        @Html.AntiForgeryToken()
+        <a class="admin-btn admin-btn-secondary" href="@cancelUrl">Hủy</a>
+        <button type="submit" class="admin-btn admin-btn-danger">Xóa di tích</button>
+    </form>
+</div>
