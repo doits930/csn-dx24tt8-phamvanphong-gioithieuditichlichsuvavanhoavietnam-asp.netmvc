@@ -193,7 +193,7 @@ public class RelicImageController : AdminBaseController
 
     private static List<AdminCrumb> BuildCrumbs(string relicName, int relicId, string leaf) => new()
     {
-        new AdminCrumb { Label = "Quản trị", Url = RelicAdminController.ListPath },
+        new AdminCrumb { Label = "Quản trị", Url = DashboardController.IndexPath },
         new AdminCrumb { Label = "Di tích", Url = RelicAdminController.ListPath },
         new AdminCrumb { Label = relicName, Url = $"/admin/di-tich/sua/{relicId}" },
         new AdminCrumb { Label = leaf }

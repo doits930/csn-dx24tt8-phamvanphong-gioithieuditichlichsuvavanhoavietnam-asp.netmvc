@@ -9,7 +9,7 @@ namespace DiTichVietNam.Web.Areas.Admin.Controllers;
 [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 public class AccountController : Controller
 {
-    public const string AdminHomePath = "/admin/di-tich";
+    public const string AdminHomePath = DashboardController.IndexPath;
     public const string LoginPath = "/tai-khoan/dang-nhap";
     public const string LogoutPath = "/tai-khoan/dang-xuat";
 
