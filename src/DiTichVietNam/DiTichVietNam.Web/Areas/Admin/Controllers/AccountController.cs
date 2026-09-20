@@ -66,7 +66,7 @@ public class AccountController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Logout()
     {
-        await _accountService.SignOutAsync();
+        await _accountService.SignOutAsync(User);
 
         return Redirect(LoginPath);
     }

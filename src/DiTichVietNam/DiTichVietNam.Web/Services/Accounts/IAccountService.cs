@@ -7,9 +7,11 @@ public interface IAccountService
 {
     Task<ServiceResult<LoginStatus>> SignInAsync(string? userName, string? password);
 
-    Task SignOutAsync();
+    Task SignOutAsync(ClaimsPrincipal principal);
 
     bool IsAdminSignedIn(ClaimsPrincipal principal);
 
     string? GetDisplayName(ClaimsPrincipal principal);
+
+    string? GetUserId(ClaimsPrincipal principal);
 }
