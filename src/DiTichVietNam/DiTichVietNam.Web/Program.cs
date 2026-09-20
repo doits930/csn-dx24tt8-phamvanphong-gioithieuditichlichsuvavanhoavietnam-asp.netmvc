@@ -78,6 +78,12 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.Use(async (context, next) =>
+{
+    context.Response.Headers["X-Content-Type-Options"] = "nosniff";
+    await next();
+});
+
 app.UseStatusCodePagesWithReExecute("/loi/{0}");
 app.UseMiddleware<AdminPortIsolationMiddleware>();
 app.UseHttpsRedirection();
@@ -101,9 +107,7 @@ app.UseStaticFiles(new StaticFileOptions
     FileProvider = new PhysicalFileProvider(uploadRoot),
     RequestPath = "/uploads",
     ContentTypeProvider = uploadContentTypes,
-    ServeUnknownFileTypes = false,
-    OnPrepareResponse = context =>
-        context.Context.Response.Headers["X-Content-Type-Options"] = "nosniff"
+    ServeUnknownFileTypes = false
 });
 
 app.MapStaticAssets();
