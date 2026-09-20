@@ -11,10 +11,13 @@ public class RelicAdminController : AdminBaseController
 {
     public const string ListPath = "/admin/di-tich";
     public const string CreatePath = "/admin/di-tich/them";
+    public const string SuggestPath = "/admin/di-tich/goi-y";
     public const string EditPath = "/admin/di-tich/sua/{id:int}";
+    public const string EditUrlPrefix = "/admin/di-tich/sua/";
     public const string DeletePath = "/admin/di-tich/xoa/{id:int}";
 
     private const int AdminPageSize = 20;
+    private const int SuggestionCount = 6;
     private const string CreateTitle = "Thêm di tích";
     private const string EditTitle = "Sửa di tích";
 
@@ -33,6 +36,14 @@ public class RelicAdminController : AdminBaseController
         ViewData["Title"] = "Quản lý di tích";
 
         return View(RelicAdminListFactory.ToListVM(result, filter, ListPath));
+    }
+
+    [HttpGet(SuggestPath)]
+    public async Task<IActionResult> Suggest([FromQuery(Name = SearchFilterVM.KeywordKey)] string? tuKhoa)
+    {
+        var items = await _relicService.SuggestForAdminAsync(tuKhoa, SuggestionCount);
+
+        return Json(RelicSuggestionFactory.ToViewModels(items, EditUrlPrefix));
     }
 
     [HttpGet(CreatePath)]
