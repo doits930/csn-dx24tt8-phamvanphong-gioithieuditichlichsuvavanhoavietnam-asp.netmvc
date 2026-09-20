@@ -1,26 +1,26 @@
-using DiTichVietNam.Web.Helpers;
-using DiTichVietNam.Web.Models.ViewModels;
+using DiTichVietNam.Web.Areas.Admin.Models;
+using DiTichVietNam.Web.Areas.Admin.Validation;
 using DiTichVietNam.Web.Services.Accounts;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 
-namespace DiTichVietNam.Web.Controllers;
+namespace DiTichVietNam.Web.Areas.Admin.Controllers;
 
+[Area("Admin")]
 [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 public class AccountController : Controller
 {
     public const string AdminHomePath = "/admin/di-tich";
+    public const string LoginPath = "/tai-khoan/dang-nhap";
+    public const string LogoutPath = "/tai-khoan/dang-xuat";
 
     private readonly IAccountService _accountService;
-    private readonly AdminSiteOptions _adminSite;
 
-    public AccountController(IAccountService accountService, IOptions<AdminSiteOptions> adminSite)
+    public AccountController(IAccountService accountService)
     {
         _accountService = accountService;
-        _adminSite = adminSite.Value;
     }
 
-    [HttpGet("/tai-khoan/dang-nhap")]
+    [HttpGet(LoginPath)]
     public IActionResult Login(string? returnUrl)
     {
         if (_accountService.IsAdminSignedIn(User))
@@ -33,7 +33,7 @@ public class AccountController : Controller
         return View(new LoginVM { ReturnUrl = ToLocalUrl(returnUrl) });
     }
 
-    [HttpPost("/tai-khoan/dang-nhap")]
+    [HttpPost(LoginPath)]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Login(LoginVM vm)
     {
@@ -46,7 +46,7 @@ public class AccountController : Controller
 
         if (ModelState.IsValid)
         {
-            var result = await _accountService.SignInAsync(vm);
+            var result = await _accountService.SignInAsync(vm.UserName, vm.Password);
             if (result.Success)
             {
                 return Redirect(vm.ReturnUrl ?? AdminHomePath);
@@ -62,20 +62,16 @@ public class AccountController : Controller
         return View(vm);
     }
 
-    [HttpPost("/tai-khoan/dang-xuat")]
+    [HttpPost(LogoutPath)]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Logout()
     {
         await _accountService.SignOutAsync();
 
-        return Redirect(SiteUrls.OnPort(Request, _adminSite.PublicPort, "/"));
+        return Redirect(LoginPath);
     }
 
-    private void PrepareLoginView()
-    {
-        ViewData["Title"] = "Đăng nhập quản trị";
-        ViewData["HideNavSearch"] = true;
-    }
+    private void PrepareLoginView() => ViewData["Title"] = "Đăng nhập quản trị";
 
     private string? ToLocalUrl(string? returnUrl)
         => !string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl) ? returnUrl : null;

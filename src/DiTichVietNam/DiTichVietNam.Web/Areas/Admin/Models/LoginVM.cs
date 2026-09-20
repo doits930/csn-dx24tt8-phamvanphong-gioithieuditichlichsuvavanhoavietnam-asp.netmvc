@@ -1,4 +1,4 @@
-namespace DiTichVietNam.Web.Models.ViewModels;
+namespace DiTichVietNam.Web.Areas.Admin.Models;
 
 public class LoginVM
 {

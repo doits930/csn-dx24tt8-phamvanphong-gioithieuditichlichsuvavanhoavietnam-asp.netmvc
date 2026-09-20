@@ -1,7 +1,7 @@
 using DiTichVietNam.Web.Services.Relics;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DiTichVietNam.Web.Controllers.Admin;
+namespace DiTichVietNam.Web.Areas.Admin.Controllers;
 
 public class RelicAdminController : AdminBaseController
 {
@@ -12,7 +12,7 @@ public class RelicAdminController : AdminBaseController
         _relicService = relicService;
     }
 
-    [HttpGet("/admin/di-tich")]
+    [HttpGet(AccountController.AdminHomePath)]
     public async Task<IActionResult> Index()
     {
         ViewData["Title"] = "Quản lý di tích";

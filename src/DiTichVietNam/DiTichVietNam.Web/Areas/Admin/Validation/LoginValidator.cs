@@ -1,7 +1,7 @@
 using System.Text.RegularExpressions;
-using DiTichVietNam.Web.Models.ViewModels;
+using DiTichVietNam.Web.Areas.Admin.Models;
 
-namespace DiTichVietNam.Web.Services.Accounts;
+namespace DiTichVietNam.Web.Areas.Admin.Validation;
 
 public static partial class LoginValidator
 {

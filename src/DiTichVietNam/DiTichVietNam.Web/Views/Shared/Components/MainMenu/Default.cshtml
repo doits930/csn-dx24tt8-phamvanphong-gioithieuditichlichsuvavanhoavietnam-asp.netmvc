@@ -65,17 +65,6 @@
                     </button>
                 </form>
             }
-            @if (Model.IsAdminSignedIn)
-            {
-                <div class="nav-account">
-                    <span class="nav-account-name" title="@Model.AccountName">@Model.AccountName</span>
-                    <a class="nav-account-link" href="@Model.AdminHomeUrl">Quản trị</a>
-                    <form class="nav-account-form" action="@Model.LogoutUrl" method="post">
-                        @Html.AntiForgeryToken()
-                        <button type="submit" class="nav-account-signout">Đăng xuất</button>
-                    </form>
-                </div>
-            }
         </div>
     </div>
 </nav>

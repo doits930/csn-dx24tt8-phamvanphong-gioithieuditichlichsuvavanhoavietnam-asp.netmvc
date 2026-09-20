@@ -1,6 +1,5 @@
 using System.Security.Claims;
 using DiTichVietNam.Web.Data;
-using DiTichVietNam.Web.Models.ViewModels;
 using DiTichVietNam.Web.Services.Common;
 using Microsoft.AspNetCore.Identity;
 
@@ -23,26 +22,26 @@ public class AccountService : IAccountService
         _userManager = userManager;
     }
 
-    public async Task<ServiceResult<LoginStatus>> SignInAsync(LoginVM vm)
+    public async Task<ServiceResult<LoginStatus>> SignInAsync(string? userName, string? password)
     {
-        var userName = vm.UserName?.Trim();
-        if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(vm.Password))
+        var trimmedUserName = userName?.Trim();
+        if (string.IsNullOrEmpty(trimmedUserName) || string.IsNullOrEmpty(password))
         {
             return ServiceResult<LoginStatus>.Fail(GenericFailureMessage, LoginStatus.InvalidCredentials);
         }
 
-        var user = await _userManager.FindByNameAsync(userName);
+        var user = await _userManager.FindByNameAsync(trimmedUserName);
         if (user is null)
         {
-            SpendHashingTime(vm.Password);
+            SpendHashingTime(password);
             return ServiceResult<LoginStatus>.Fail(GenericFailureMessage, LoginStatus.InvalidCredentials);
         }
 
-        var attempt = await _signInManager.PasswordSignInAsync(user, vm.Password, isPersistent: false, lockoutOnFailure: true);
+        var attempt = await _signInManager.PasswordSignInAsync(user, password, isPersistent: false, lockoutOnFailure: true);
 
         if (attempt.IsLockedOut)
         {
-            return ServiceResult<LoginStatus>.Fail(await BuildLockoutMessageAsync(userName), LoginStatus.LockedOut);
+            return ServiceResult<LoginStatus>.Fail(await BuildLockoutMessageAsync(trimmedUserName), LoginStatus.LockedOut);
         }
 
         if (!attempt.Succeeded)

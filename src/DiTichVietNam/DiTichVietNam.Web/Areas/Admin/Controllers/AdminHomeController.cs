@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace DiTichVietNam.Web.Controllers.Admin;
+namespace DiTichVietNam.Web.Areas.Admin.Controllers;
 
 public class AdminHomeController : AdminBaseController
 {
