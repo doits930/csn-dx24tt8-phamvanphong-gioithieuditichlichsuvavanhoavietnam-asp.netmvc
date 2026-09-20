@@ -112,4 +112,10 @@ public static class VietnamMapGeometry
         new IslandShape { Name = "Quần đảo Côn Đảo", ProvinceSlug = "ho-chi-minh", X = 311.2, Y = 1036.6, ShowMarker = true, ShowLabel = true, LabelText = "Côn Đảo", LabelOffsetY = 22 },
         new IslandShape { Name = "Hòn Khoai", ProvinceSlug = "ca-mau", X = 190.6, Y = 1054.5, ShowMarker = true, ShowLabel = false, LabelText = "", LabelOffsetY = 0 },
     };
+
+    private static readonly HashSet<string> MappedProvinceSlugs =
+        Provinces.Select(p => p.Slug).ToHashSet(StringComparer.Ordinal);
+
+    public static bool HasProvinceShape(string? slug) =>
+        !string.IsNullOrEmpty(slug) && MappedProvinceSlugs.Contains(slug);
 }
