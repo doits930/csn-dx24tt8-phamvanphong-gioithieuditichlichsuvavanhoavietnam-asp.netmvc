@@ -5,10 +5,26 @@
         return;
     }
 
-    $(function () {
-        $(document).on('click', '[data-alert-close]', function () {
-            $(this).closest('.admin-alert').remove();
+    var SUCCESS_DELAY = 6000;
+
+    function startToasts() {
+        if (!window.bootstrap || !window.bootstrap.Toast) {
+            return;
+        }
+
+        Array.prototype.forEach.call(document.querySelectorAll('[data-admin-toast]'), function (element) {
+            var autohide = element.getAttribute('data-toast-autohide') === 'true';
+            var toast = new window.bootstrap.Toast(element, {
+                autohide: autohide,
+                delay: SUCCESS_DELAY
+            });
+
+            toast.show();
         });
+    }
+
+    $(function () {
+        startToasts();
 
         var sidebar = document.getElementById('admin-sidebar');
         var menuButton = document.querySelector('.admin-menu-button');
