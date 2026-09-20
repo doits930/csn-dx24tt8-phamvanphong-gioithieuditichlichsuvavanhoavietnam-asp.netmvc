@@ -1,0 +1,40 @@
+@model AdminUserConfirmVM
+@{
+    ViewData["AdminCrumbs"] = new List<AdminCrumb>
+    {
+        new() { Label = "Quản trị", Url = DashboardController.IndexPath },
+        new() { Label = "Tài khoản", Url = AdminUserController.ListPath },
+        new() { Label = Model.Title }
+    };
+
+    var header = new AdminPageHeaderVM
+    {
+        Title = Model.Title,
+        Lead = Model.Lead
+    };
+}
+
+<partial name="_AdminPageHeader" model="header" />
+
+<div class="admin-card admin-card-pad admin-state-card">
+    <partial name="_AdminIcon" model="@("alert")" />
+
+    @if (Model.IsBlocked)
+    {
+        <p class="admin-panel-text">@Model.BlockReason</p>
+        <div class="admin-panel-actions">
+            <a class="admin-btn admin-btn-secondary" href="@Model.CancelUrl">Quay lại danh sách</a>
+        </div>
+    }
+    else
+    {
+        <p class="admin-panel-text">@Model.Message</p>
+        <form class="admin-panel-actions" action="@Model.ActionUrl" method="post">
+            @Html.AntiForgeryToken()
+            <a class="admin-btn admin-btn-secondary" href="@Model.CancelUrl">Hủy</a>
+            <button type="submit" class="admin-btn @(Model.IsDangerous ? "admin-btn-danger" : "admin-btn-primary")">
+                @Model.ConfirmLabel
+            </button>
+        </form>
+    }
+</div>
