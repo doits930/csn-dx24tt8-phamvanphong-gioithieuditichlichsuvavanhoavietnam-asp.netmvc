@@ -13,7 +13,6 @@
     {
         ("Di tích", "/admin/di-tich", "relic")
     };
-    var mainClass = ViewData["AdminWideContent"] is true ? "admin-main admin-main-wide" : "admin-main";
 }
 <!DOCTYPE html>
 <html lang="vi" class="no-js">
@@ -69,59 +68,63 @@
 
         <div class="admin-content">
             <header class="admin-topbar">
-                <button class="admin-menu-button" type="button" data-bs-toggle="offcanvas"
-                        data-bs-target="#admin-sidebar" aria-controls="admin-sidebar"
-                        aria-label="Mở điều hướng quản trị">
-                    <partial name="_AdminIcon" model="@("menu")" />
-                </button>
+                <div class="container admin-topbar-inner">
+                    <button class="admin-menu-button" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#admin-sidebar" aria-controls="admin-sidebar"
+                            aria-label="Mở điều hướng quản trị">
+                        <partial name="_AdminIcon" model="@("menu")" />
+                    </button>
 
-                <nav aria-label="Đường dẫn trang">
-                    <ol class="admin-crumbs">
-                        @foreach (var crumb in crumbs)
-                        {
-                            <li>
-                                @if (string.IsNullOrWhiteSpace(crumb.Url))
-                                {
-                                    <span aria-current="page">@crumb.Label</span>
-                                }
-                                else
-                                {
-                                    <a href="@crumb.Url">@crumb.Label</a>
-                                }
-                            </li>
-                        }
-                    </ol>
-                </nav>
+                    <nav aria-label="Đường dẫn trang">
+                        <ol class="admin-crumbs">
+                            @foreach (var crumb in crumbs)
+                            {
+                                <li>
+                                    @if (string.IsNullOrWhiteSpace(crumb.Url))
+                                    {
+                                        <span aria-current="page">@crumb.Label</span>
+                                    }
+                                    else
+                                    {
+                                        <a href="@crumb.Url">@crumb.Label</a>
+                                    }
+                                </li>
+                            }
+                        </ol>
+                    </nav>
 
-                <div class="dropdown admin-profile">
-                    <button class="admin-avatar" type="button" data-bs-toggle="dropdown"
-                            aria-expanded="false" aria-haspopup="menu" aria-label="Tài khoản @accountName">@initial</button>
-                    <div class="dropdown-menu dropdown-menu-end admin-profile-menu">
-                        <div class="admin-profile-head">
-                            <span class="admin-profile-avatar" aria-hidden="true">@initial</span>
-                            <span>
-                                <span class="admin-profile-name">@accountName</span>
-                                <span class="admin-profile-role">Quản trị viên</span>
-                            </span>
+                    <div class="dropdown admin-profile">
+                        <button class="admin-avatar" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false" aria-haspopup="menu" aria-label="Tài khoản @accountName">@initial</button>
+                        <div class="dropdown-menu dropdown-menu-end admin-profile-menu">
+                            <div class="admin-profile-head">
+                                <span class="admin-profile-avatar" aria-hidden="true">@initial</span>
+                                <span>
+                                    <span class="admin-profile-name">@accountName</span>
+                                    <span class="admin-profile-role">Quản trị viên</span>
+                                </span>
+                            </div>
+                            <a class="dropdown-item" href="@publicSiteUrl" target="_blank" rel="noopener">
+                                <partial name="_AdminIcon" model="@("external")" />
+                                <span>Xem trang công khai</span>
+                            </a>
+                            <form class="admin-profile-form" action="/tai-khoan/dang-xuat" method="post">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="dropdown-item admin-profile-signout">
+                                    <partial name="_AdminIcon" model="@("signout")" />
+                                    <span>Đăng xuất</span>
+                                </button>
+                            </form>
                         </div>
-                        <a class="dropdown-item" href="@publicSiteUrl" target="_blank" rel="noopener">
-                            <partial name="_AdminIcon" model="@("external")" />
-                            <span>Xem trang công khai</span>
-                        </a>
-                        <form class="admin-profile-form" action="/tai-khoan/dang-xuat" method="post">
-                            @Html.AntiForgeryToken()
-                            <button type="submit" class="dropdown-item admin-profile-signout">
-                                <partial name="_AdminIcon" model="@("signout")" />
-                                <span>Đăng xuất</span>
-                            </button>
-                        </form>
                     </div>
                 </div>
             </header>
 
-            <main class="@mainClass">
-                <partial name="_AdminAlerts" />
-                @RenderBody()
+            <main class="admin-main">
+                <div class="container">
+                    <partial name="_AdminAlerts" />
+                    @RenderBody()
+                </div>
             </main>
         </div>
     </div>
