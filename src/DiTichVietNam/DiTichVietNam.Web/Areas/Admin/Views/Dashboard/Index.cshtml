@@ -1,0 +1,306 @@
+@model DashboardVM
+@inject IOptions<AdminSiteOptions> AdminSite
+@{
+    var publicPort = AdminSite.Value.PublicPort;
+
+    ViewData["AdminCrumbs"] = new List<AdminCrumb>
+    {
+        new() { Label = "Quản trị", Url = DashboardController.IndexPath },
+        new() { Label = "Thống kê" }
+    };
+
+    var header = new AdminPageHeaderVM
+    {
+        Title = "Thống kê",
+        Lead = "Toàn cảnh dữ liệu đang có trong hệ thống: phân bố theo cấp xếp hạng, loại và tỉnh thành, di tích được xem nhiều và những hồ sơ còn thiếu thông tin.",
+        ActionLabel = "Quản lý di tích",
+        ActionUrl = RelicAdminController.ListPath,
+        ActionIcon = "list"
+    };
+}
+
+@functions {
+    private static string PublicRelicUrl(HttpRequest request, int port, string slug)
+        => SiteUrls.OnPort(request, port, $"/di-tich/{slug}");
+}
+
+<partial name="_AdminPageHeader" model="header" />
+
+<div class="admin-stats">
+    @foreach (var total in Model.Totals)
+    {
+        <div class="admin-stat">
+            <span class="@total.IconClass">
+                <partial name="_AdminIcon" model="@total.Icon" />
+            </span>
+            <span>
+                <span class="admin-stat-value">@total.Value</span>
+                <span class="admin-stat-label">@total.Label</span>
+            </span>
+        </div>
+    }
+</div>
+
+@if (!Model.HasRelics)
+{
+    <div class="admin-card">
+        <div class="admin-empty">
+            <partial name="_AdminIcon" model="@("relic")" />
+            <p class="admin-empty-text">
+                Chưa có di tích nào trong hệ thống nên chưa có số liệu để thống kê.
+                Thêm di tích đầu tiên để các biểu đồ ở trang này bắt đầu có nội dung.
+            </p>
+            <a class="admin-btn admin-btn-primary" href="@RelicAdminController.CreatePath">
+                <partial name="_AdminIcon" model="@("plus")" />
+                <span>Thêm di tích</span>
+            </a>
+        </div>
+    </div>
+}
+else
+{
+    <section class="admin-card admin-card-pad dash-rank" aria-labelledby="dash-rank-title">
+        <div class="admin-card-head">
+            <h2 class="admin-card-title" id="dash-rank-title">
+                <partial name="_AdminIcon" model="@("star")" />
+                <span>Di tích theo cấp xếp hạng</span>
+            </h2>
+            <p class="admin-card-note">Bấm một mức để mở danh sách di tích đã lọc sẵn theo cấp đó.</p>
+        </div>
+
+        <div class="rank-band" aria-hidden="true">
+            @foreach (var level in Model.Rankings.Where(level => level.HasAny))
+            {
+                <span class="rank-band-part @level.Modifier" style="width:@(level.ShareWidth)%"></span>
+            }
+        </div>
+
+        <ul class="rank-legend">
+            @foreach (var level in Model.Rankings)
+            {
+                <li>
+                    @if (level.Url is not null)
+                    {
+                        <a class="rank-legend-item" href="@level.Url">
+                            <span class="admin-chip @level.Modifier">@level.Label</span>
+                            <span class="rank-legend-count">@level.CountText di tích</span>
+                            <span class="rank-legend-percent">@level.PercentText</span>
+                        </a>
+                    }
+                    else
+                    {
+                        <span class="rank-legend-item is-empty">
+                            <span class="admin-chip @level.Modifier">@level.Label</span>
+                            <span class="rank-legend-count">@level.CountText di tích</span>
+                            <span class="rank-legend-percent">@level.PercentText</span>
+                        </span>
+                    }
+                </li>
+            }
+        </ul>
+    </section>
+
+    <div class="dash-columns">
+        <div class="dash-column">
+            <section class="admin-card admin-card-pad" aria-labelledby="dash-type-title">
+                <div class="admin-card-head">
+                    <h2 class="admin-card-title" id="dash-type-title">
+                        <partial name="_AdminIcon" model="@("type")" />
+                        <span>Di tích theo loại</span>
+                    </h2>
+                    <p class="admin-card-note">Bốn loại di tích theo quy định, tính trên @Model.RelicCount hồ sơ đang có.</p>
+                </div>
+                <ul class="bar-list">
+                    @foreach (var item in Model.Types)
+                    {
+                        <partial name="_DashboardBar" model="item" />
+                    }
+                </ul>
+            </section>
+
+            <section class="admin-card admin-card-pad" aria-labelledby="dash-province-title">
+                <div class="admin-card-head">
+                    <h2 class="admin-card-title" id="dash-province-title">
+                        <partial name="_AdminIcon" model="@("province")" />
+                        <span>Di tích theo tỉnh thành</span>
+                    </h2>
+                    <p class="admin-card-note">Mười tỉnh thành có nhiều di tích nhất.</p>
+                </div>
+                <ul class="bar-list">
+                    @foreach (var item in Model.TopProvinces)
+                    {
+                        <partial name="_DashboardBar" model="item" />
+                    }
+                </ul>
+                <p class="dash-note">
+                    @if (Model.OtherProvinceCount > 0)
+                    {
+                        <span>Còn @Model.OtherProvinceCount tỉnh thành khác đang có di tích.</span>
+                    }
+                    @if (Model.ProvinceWithoutRelicCount > 0)
+                    {
+                        <span>@Model.ProvinceWithoutRelicCount tỉnh thành chưa có di tích nào.</span>
+                    }
+                </p>
+            </section>
+
+            <section class="admin-card admin-card-pad" aria-labelledby="dash-region-title">
+                <div class="admin-card-head">
+                    <h2 class="admin-card-title" id="dash-region-title">
+                        <partial name="_AdminIcon" model="@("compass")" />
+                        <span>Phân bố theo miền</span>
+                    </h2>
+                    <p class="admin-card-note">Cộng số di tích của các tỉnh thành trong từng miền.</p>
+                </div>
+                <ul class="bar-list">
+                    @foreach (var item in Model.Regions)
+                    {
+                        <partial name="_DashboardBar" model="item" />
+                    }
+                </ul>
+            </section>
+        </div>
+
+        <div class="dash-column">
+            <section class="admin-card admin-card-pad" aria-labelledby="dash-missing-title">
+                <div class="admin-card-head">
+                    <h2 class="admin-card-title" id="dash-missing-title">
+                        <partial name="_AdminIcon" model="@("alert")" />
+                        <span>Cần bổ sung</span>
+                    </h2>
+                    <p class="admin-card-note">Những chỗ còn trống trong hồ sơ di tích, mở thẳng biểu mẫu sửa để bổ sung.</p>
+                </div>
+                <ul class="missing-list">
+                    @foreach (var group in Model.Missing)
+                    {
+                        <li class="missing-row">
+                            <span class="missing-head">
+                                <span class="missing-icon @(group.HasAny ? "is-alert" : null)">
+                                    <partial name="_AdminIcon" model="@group.Icon" />
+                                </span>
+                                <span class="missing-label">@group.Label</span>
+                                <span class="missing-count @(group.HasAny ? "is-alert" : null)">@group.CountText</span>
+                            </span>
+                            <span class="bar-track" aria-hidden="true">
+                                <span class="bar-fill bar-fill-alert @(group.HasAny ? null : "is-zero")"
+                                      style="width:@(group.BarWidth)%"></span>
+                            </span>
+                            @if (group.HasAny)
+                            {
+                                <span class="missing-samples">
+                                    @for (var index = 0; index < group.Samples.Count; index++)
+                                    {
+                                        var relic = group.Samples[index];
+                                        <a href="@relic.EditUrl">@relic.Name</a>@(index < group.Samples.Count - 1 ? ", " : string.Empty)
+                                    }
+                                    @if (group.RemainingCount > 0)
+                                    {
+                                        <span>và @group.RemainingCount di tích khác</span>
+                                    }
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="missing-done">@group.ClearMessage</span>
+                            }
+                        </li>
+                    }
+                </ul>
+            </section>
+
+            <section class="admin-card admin-card-pad" aria-labelledby="dash-viewed-title">
+                <div class="admin-card-head">
+                    <h2 class="admin-card-title" id="dash-viewed-title">
+                        <partial name="_AdminIcon" model="@("views")" />
+                        <span>Xem nhiều nhất</span>
+                    </h2>
+                    <p class="admin-card-note">Xếp theo lượt xem trang chi tiết ở khu công khai.</p>
+                </div>
+                @if (Model.MostViewed.Count == 0)
+                {
+                    <p class="admin-cell-blank">Chưa có lượt xem nào được ghi nhận.</p>
+                }
+                else
+                {
+                    <ol class="dash-list">
+                        @foreach (var relic in Model.MostViewed)
+                        {
+                            <li class="dash-item">
+                                @if (string.IsNullOrWhiteSpace(relic.ThumbnailPath))
+                                {
+                                    <span class="admin-thumb-empty" aria-hidden="true">
+                                        <partial name="_AdminIcon" model="@("image")" />
+                                    </span>
+                                }
+                                else
+                                {
+                                    <img class="admin-thumb" src="@relic.ThumbnailPath" alt="Ảnh đại diện của @relic.Name"
+                                         width="48" height="48" loading="lazy" decoding="async"
+                                         onerror="this.src='/img/no-image.svg'" />
+                                }
+                                <span class="dash-item-text">
+                                    <a class="dash-item-name" href="@relic.EditUrl">@relic.Name</a>
+                                    <span class="dash-item-meta">@relic.ProvinceName</span>
+                                </span>
+                                <span class="dash-item-figure">
+                                    <span class="dash-item-value">@relic.ViewCountText</span>
+                                    <span class="dash-item-unit">lượt xem</span>
+                                </span>
+                                <a class="admin-icon-btn" href="@PublicRelicUrl(Context.Request, publicPort, relic.Slug)"
+                                   target="_blank" rel="noopener" title="Mở trang công khai trong tab mới"
+                                   aria-label="Mở trang công khai của @relic.Name">
+                                    <partial name="_AdminIcon" model="@("external")" />
+                                </a>
+                            </li>
+                        }
+                    </ol>
+                }
+            </section>
+        </div>
+    </div>
+
+    <section class="admin-card admin-card-pad" aria-labelledby="dash-recent-title">
+        <div class="admin-card-head">
+            <h2 class="admin-card-title" id="dash-recent-title">
+                <partial name="_AdminIcon" model="@("edit")" />
+                <span>Mới cập nhật</span>
+            </h2>
+            <p class="admin-card-note">Năm hồ sơ được thêm hoặc sửa gần đây nhất.</p>
+        </div>
+        <ol class="dash-list">
+            @foreach (var relic in Model.RecentlyChanged)
+            {
+                <li class="dash-item">
+                    @if (string.IsNullOrWhiteSpace(relic.ThumbnailPath))
+                    {
+                        <span class="admin-thumb-empty" aria-hidden="true">
+                            <partial name="_AdminIcon" model="@("image")" />
+                        </span>
+                    }
+                    else
+                    {
+                        <img class="admin-thumb" src="@relic.ThumbnailPath" alt="Ảnh đại diện của @relic.Name"
+                             width="48" height="48" loading="lazy" decoding="async"
+                             onerror="this.src='/img/no-image.svg'" />
+                    }
+                    <span class="dash-item-text">
+                        <a class="dash-item-name" href="@relic.EditUrl">@relic.Name</a>
+                        <span class="dash-item-meta">@relic.ProvinceName</span>
+                    </span>
+                    <span class="dash-item-figure">
+                        <span class="dash-item-value">@relic.ChangedAtText</span>
+                        @if (relic.ChangedNote is not null)
+                        {
+                            <span class="dash-item-unit">@relic.ChangedNote</span>
+                        }
+                    </span>
+                    <a class="admin-icon-btn" href="@PublicRelicUrl(Context.Request, publicPort, relic.Slug)"
+                       target="_blank" rel="noopener" title="Mở trang công khai trong tab mới"
+                       aria-label="Mở trang công khai của @relic.Name">
+                        <partial name="_AdminIcon" model="@("external")" />
+                    </a>
+                </li>
+            }
+        </ol>
+    </section>
+}

@@ -11,9 +11,10 @@
     };
     var menuItems = new (string Label, string Path, string Icon)[]
     {
-        ("Di tích", "/admin/di-tich", "relic"),
-        ("Tỉnh thành", "/admin/tinh-thanh", "province"),
-        ("Loại di tích", "/admin/loai-di-tich", "type")
+        ("Thống kê", DashboardController.IndexPath, "chart"),
+        ("Di tích", RelicAdminController.ListPath, "relic"),
+        ("Tỉnh thành", ProvinceController.ListPath, "province"),
+        ("Loại di tích", RelicTypeController.ListPath, "type")
     };
 }
 <!DOCTYPE html>
@@ -30,12 +31,14 @@
     <script>document.documentElement.classList.remove('no-js');</script>
 </head>
 <body class="admin-body">
+    <a class="skip-link" href="#admin-main-content">Bỏ qua điều hướng, vào nội dung chính</a>
+
     <div class="admin-shell">
         <aside class="admin-sidebar offcanvas-lg offcanvas-start" tabindex="-1" id="admin-sidebar"
                aria-label="Điều hướng khu quản trị">
             <div class="admin-sidebar-inner">
                 <div class="admin-sidebar-top">
-                    <a class="admin-brand" href="/admin/di-tich">
+                    <a class="admin-brand" href="@DashboardController.IndexPath">
                         <span class="admin-brand-name">Di tích Việt Nam</span>
                         <span class="admin-brand-tag">Quản trị</span>
                     </a>
@@ -122,7 +125,7 @@
                 </div>
             </header>
 
-            <main class="admin-main">
+            <main class="admin-main" id="admin-main-content" tabindex="-1">
                 <div class="container">
                     <partial name="_AdminAlerts" />
                     @RenderBody()

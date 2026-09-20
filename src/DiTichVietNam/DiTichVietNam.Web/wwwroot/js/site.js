@@ -8,4 +8,16 @@ $(function () {
             input.trigger('focus');
         }
     });
+
+    var menu = document.getElementById('main-menu');
+    var toggler = document.querySelector('.navbar-toggler[data-bs-target="#main-menu"]');
+    if (menu && toggler && window.bootstrap) {
+        document.addEventListener('keydown', function (e) {
+            if (e.key !== 'Escape' || !menu.classList.contains('show')) {
+                return;
+            }
+            bootstrap.Collapse.getOrCreateInstance(menu).hide();
+            toggler.focus();
+        });
+    }
 });
