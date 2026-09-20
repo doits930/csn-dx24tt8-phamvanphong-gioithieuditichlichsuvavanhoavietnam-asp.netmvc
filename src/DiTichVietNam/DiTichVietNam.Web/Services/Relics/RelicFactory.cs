@@ -7,6 +7,70 @@ namespace DiTichVietNam.Web.Services.Relics;
 
 public static class RelicFactory
 {
+    public static Relic ToEntity(RelicInput input)
+    {
+        var relic = new Relic();
+        ApplyToEntity(input, relic);
+        return relic;
+    }
+
+    public static void ApplyToEntity(RelicInput input, Relic relic)
+    {
+        relic.Name = input.Name.Trim();
+        relic.NameNoAccent = SlugHelper.RemoveDiacritics(relic.Name);
+        relic.Address = input.Address.Trim();
+        relic.ProvinceId = input.ProvinceId;
+        relic.RelicTypeId = input.RelicTypeId;
+        relic.RankingLevel = input.RankingLevel;
+        relic.RecognizedYear = input.RecognizedYear;
+        relic.Description = input.Description.Trim();
+        relic.DescriptionNoAccent = SlugHelper.RemoveDiacritics(relic.Description);
+        relic.History = OptionalText(input.History);
+        relic.VisitInfo = OptionalText(input.VisitInfo);
+        relic.SourceUrl = input.SourceUrl.Trim();
+        relic.Latitude = input.Latitude;
+        relic.Longitude = input.Longitude;
+    }
+
+    public static RelicEditData ToEditData(Relic relic, int imageCount) => new()
+    {
+        Id = relic.Id,
+        Name = relic.Name,
+        Slug = relic.Slug,
+        Address = relic.Address,
+        ProvinceId = relic.ProvinceId,
+        RelicTypeId = relic.RelicTypeId,
+        RankingLevel = relic.RankingLevel,
+        RecognizedYear = relic.RecognizedYear,
+        Description = relic.Description,
+        History = relic.History,
+        VisitInfo = relic.VisitInfo,
+        SourceUrl = relic.SourceUrl,
+        Latitude = relic.Latitude,
+        Longitude = relic.Longitude,
+        ImageCount = imageCount
+    };
+
+    public static RelicAdminRow ToAdminRow(Relic relic, int imageCount) => new()
+    {
+        Id = relic.Id,
+        Name = relic.Name,
+        Slug = relic.Slug,
+        ProvinceName = relic.Province?.Name ?? string.Empty,
+        TypeName = relic.RelicType?.Name ?? string.Empty,
+        RankingLevel = relic.RankingLevel,
+        RankingShortLabel = RankingLevelText.ShortLabel(relic.RankingLevel),
+        RankingCssModifier = RankingLevelText.CssModifier(relic.RankingLevel),
+        ThumbnailPath = relic.ThumbnailPath,
+        ImageCount = imageCount,
+        ViewCount = relic.ViewCount,
+        ChangedAt = relic.UpdatedAt ?? relic.CreatedAt,
+        WasEdited = relic.UpdatedAt.HasValue
+    };
+
+    private static string? OptionalText(string? value)
+        => string.IsNullOrWhiteSpace(value) ? null : value.Trim();
+
     public static RelicCardVM ToCardVM(Relic relic) => ToCardVM(relic, null);
 
     public static RelicCardVM ToCardVM(Relic relic, string? matchExcerpt) => new()
