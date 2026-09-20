@@ -26,7 +26,7 @@ public class RelicAdminController : AdminBaseController
     }
 
     [HttpGet(ListPath)]
-    public async Task<IActionResult> Index(SearchFilterVM filter)
+    public async Task<IActionResult> Index([FromQuery] SearchFilterVM filter)
     {
         var result = await _relicService.SearchForAdminAsync(filter, AdminPageSize);
 
@@ -36,7 +36,7 @@ public class RelicAdminController : AdminBaseController
     }
 
     [HttpGet(CreatePath)]
-    public async Task<IActionResult> Create(string? returnUrl)
+    public async Task<IActionResult> Create([FromQuery] string? returnUrl)
     {
         var options = await _relicService.GetFormOptionsAsync();
 
@@ -45,7 +45,7 @@ public class RelicAdminController : AdminBaseController
 
     [HttpPost(CreatePath)]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create(RelicFormVM vm)
+    public async Task<IActionResult> Create([FromForm] RelicFormVM vm)
     {
         vm.Id = 0;
         vm.ReturnUrl = ToListReturnUrl(vm.ReturnUrl);
@@ -58,6 +58,8 @@ public class RelicAdminController : AdminBaseController
             if (result.Success)
             {
                 TempData["AdminSuccess"] = $"Đã thêm di tích {vm.Name?.Trim()}.";
+                TempData["AdminAlertLinkUrl"] = $"/admin/di-tich/{result.Data}/anh";
+                TempData["AdminAlertLinkText"] = "Thêm ảnh cho di tích này";
 
                 return Redirect(ListPath);
             }
@@ -71,7 +73,7 @@ public class RelicAdminController : AdminBaseController
     }
 
     [HttpGet(EditPath)]
-    public async Task<IActionResult> Edit(int id, string? returnUrl)
+    public async Task<IActionResult> Edit([FromRoute] int id, [FromQuery] string? returnUrl)
     {
         var data = await _relicService.GetForEditAsync(id);
         if (data is null)
@@ -86,7 +88,7 @@ public class RelicAdminController : AdminBaseController
 
     [HttpPost(EditPath)]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, RelicFormVM vm)
+    public async Task<IActionResult> Edit([FromRoute] int id, [FromForm] RelicFormVM vm)
     {
         var current = await _relicService.GetForEditAsync(id);
         if (current is null)
@@ -120,7 +122,7 @@ public class RelicAdminController : AdminBaseController
     }
 
     [HttpGet(DeletePath)]
-    public async Task<IActionResult> ConfirmDelete(int id, string? returnUrl)
+    public async Task<IActionResult> ConfirmDelete([FromRoute] int id, [FromQuery] string? returnUrl)
     {
         var data = await _relicService.GetForEditAsync(id);
         if (data is null)
@@ -141,7 +143,7 @@ public class RelicAdminController : AdminBaseController
 
     [HttpPost(DeletePath)]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Delete(int id, string? returnUrl)
+    public async Task<IActionResult> Delete([FromRoute] int id, [FromQuery] string? returnUrl)
     {
         var data = await _relicService.GetForEditAsync(id);
         if (data is null)
