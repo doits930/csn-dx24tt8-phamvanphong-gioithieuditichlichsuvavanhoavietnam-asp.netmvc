@@ -93,8 +93,8 @@
             }
 
             dirty = false;
-            state.text('Đang lưu…');
-            submitButton.prop('disabled', true).text('Đang lưu…');
+            state.text('Đang lưu...');
+            submitButton.prop('disabled', true).text('Đang lưu...');
         });
 
         $(document).on('click', '[data-discard]', function () {
