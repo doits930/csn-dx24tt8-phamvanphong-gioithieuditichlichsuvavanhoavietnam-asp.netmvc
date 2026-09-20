@@ -366,34 +366,28 @@ public static class SeedData
             await roleManager.CreateAsync(new IdentityRole(AdminRoleName));
         }
 
-        var admin = await userManager.FindByEmailAsync(AdminEmail);
-        if (admin is null)
+        if (await userManager.Users.AnyAsync())
         {
-            admin = new IdentityUser
-            {
-                UserName = AdminEmail,
-                Email = AdminEmail,
-                EmailConfirmed = true,
-                LockoutEnabled = true
-            };
-
-            var created = await userManager.CreateAsync(admin, AdminPassword);
-            if (!created.Succeeded)
-            {
-                logger.LogError("Không tạo được tài khoản quản trị: {Errors}",
-                    string.Join("; ", created.Errors.Select(e => e.Description)));
-                return;
-            }
-        }
-        else if (!admin.LockoutEnabled)
-        {
-            await userManager.SetLockoutEnabledAsync(admin, true);
+            return;
         }
 
-        if (!await userManager.IsInRoleAsync(admin, AdminRoleName))
+        var admin = new IdentityUser
         {
-            await userManager.AddToRoleAsync(admin, AdminRoleName);
+            UserName = AdminEmail,
+            Email = AdminEmail,
+            EmailConfirmed = true,
+            LockoutEnabled = true
+        };
+
+        var created = await userManager.CreateAsync(admin, AdminPassword);
+        if (!created.Succeeded)
+        {
+            logger.LogError("Không tạo được tài khoản quản trị: {Errors}",
+                string.Join("; ", created.Errors.Select(e => e.Description)));
+            return;
         }
+
+        await userManager.AddToRoleAsync(admin, AdminRoleName);
     }
 
     private static T? ReadJsonFile<T>(IWebHostEnvironment environment, string fileName, ILogger logger)
