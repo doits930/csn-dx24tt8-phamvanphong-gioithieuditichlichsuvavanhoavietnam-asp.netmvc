@@ -1,15 +1,21 @@
 @{
     var hideNavSearch = ViewData["HideNavSearch"] as bool? ?? false;
+    var metaDescription = ViewData["MetaDescription"] as string;
 }
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" class="no-js">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Di tích Việt Nam</title>
+    @if (!string.IsNullOrWhiteSpace(metaDescription))
+    {
+        <meta name="description" content="@metaDescription" />
+    }
     <link rel="icon" href="~/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <script>document.documentElement.classList.remove('no-js');</script>
 </head>
 <body>
     <header>

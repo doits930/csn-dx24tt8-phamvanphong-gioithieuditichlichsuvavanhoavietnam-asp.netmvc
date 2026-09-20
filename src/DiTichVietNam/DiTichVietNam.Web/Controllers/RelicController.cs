@@ -32,6 +32,26 @@ public class RelicController : Controller
         return ShowListAsync(filter);
     }
 
+    [AcceptVerbs("GET", "HEAD", Route = "/di-tich/{slug}")]
+    public async Task<IActionResult> Details(string slug)
+    {
+        var model = await _relicService.GetDetailAsync(slug);
+        if (model is null)
+        {
+            return NotFound();
+        }
+
+        if (!HttpMethods.IsHead(Request.Method) && await _relicService.IncreaseViewCountAsync(model.Id))
+        {
+            model.ViewCount++;
+        }
+
+        ViewData["Title"] = model.PageTitle;
+        ViewData["MetaDescription"] = model.MetaDescription;
+
+        return View(model);
+    }
+
     private async Task<IActionResult> ShowListAsync(SearchFilterVM filter)
     {
         var model = await _relicService.SearchAsync(filter);

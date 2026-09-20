@@ -9,4 +9,8 @@ public interface IRelicService
     Task<SearchBarVM> GetSearchBarAsync();
 
     Task<RelicListVM?> SearchAsync(SearchFilterVM filter);
+
+    Task<RelicDetailVM?> GetDetailAsync(string? slug);
+
+    Task<bool> IncreaseViewCountAsync(int relicId);
 }

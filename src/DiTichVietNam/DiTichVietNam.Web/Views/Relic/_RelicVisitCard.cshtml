@@ -1,0 +1,85 @@
+@model VisitCardVM
+
+<section class="@(Model.ShowsTicket ? "visit-card visit-card-ticket" : "visit-card visit-card-plain")" id="tham-quan">
+    @if (Model.ShowsTicket)
+    {
+        <div class="visit-card-stub">
+            <h2 class="visit-card-title">Vé tham quan</h2>
+            @if (Model.HasHeadlineAmount)
+            {
+                <p class="visit-card-amount">@Model.HeadlineAmount</p>
+            }
+        </div>
+        <div class="visit-card-perforation" aria-hidden="true"></div>
+    }
+    else
+    {
+        <h2 class="visit-card-title">Thông tin tham quan</h2>
+    }
+
+    <div class="visit-card-body">
+        @if (Model.ShowsTicket)
+        {
+            <div class="visit-block">
+                @foreach (var line in Model.TicketLines)
+                {
+                    <p class="visit-line">@line</p>
+                }
+                @foreach (var line in Model.FreeLines)
+                {
+                    <p class="visit-line">@line</p>
+                }
+                @foreach (var line in Model.TicketPendingLines)
+                {
+                    <p class="visit-line visit-line-muted">@line</p>
+                }
+            </div>
+        }
+        else
+        {
+            @if (Model.FreeLines.Count > 0)
+            {
+                <div class="visit-block">
+                    <h3 class="visit-block-title">Vào cửa <span class="visit-chip">Miễn phí</span></h3>
+                    @foreach (var line in Model.FreeLines)
+                    {
+                        <p class="visit-line">@line</p>
+                    }
+                </div>
+            }
+
+            @if (Model.TicketPendingLines.Count > 0)
+            {
+                <div class="visit-block">
+                    <h3 class="visit-block-title">Vé tham quan</h3>
+                    @foreach (var line in Model.TicketPendingLines)
+                    {
+                        <p class="visit-line">@line</p>
+                    }
+                </div>
+            }
+        }
+
+        @if (Model.HourLines.Count > 0)
+        {
+            <div class="visit-block">
+                <h3 class="visit-block-title">Giờ mở cửa</h3>
+                @foreach (var line in Model.HourLines)
+                {
+                    <p class="visit-line">@line</p>
+                }
+            </div>
+        }
+
+        @if (Model.NoteLines.Count > 0)
+        {
+            <div class="visit-block">
+                <h3 class="visit-block-title">Lưu ý khi đi</h3>
+                @foreach (var line in Model.NoteLines)
+                {
+                    <p class="visit-line">@line</p>
+                }
+            </div>
+        }
+    </div>
+</section>
