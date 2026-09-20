@@ -1,0 +1,63 @@
+@model LoginVM
+@{
+    var alertMessage = ViewData["LoginAlert"] as string;
+    var alertTone = ViewData["LoginAlertTone"] as string;
+    var userNameError = ViewData.ModelState["UserName"]?.Errors.FirstOrDefault()?.ErrorMessage;
+    var passwordError = ViewData.ModelState["Password"]?.Errors.FirstOrDefault()?.ErrorMessage;
+}
+
+<section class="login-page">
+    <div class="container">
+        <div class="login-card">
+            <h1 class="login-title">Đăng nhập quản trị</h1>
+            <p class="login-note">Khu quản trị dành cho người phụ trách nội dung di tích.</p>
+
+            @if (!string.IsNullOrEmpty(alertMessage))
+            {
+                <p class="login-alert @(alertTone == "warning" ? "login-alert-warning" : string.Empty)" role="alert">@alertMessage</p>
+            }
+
+            <form id="login-form" class="login-form" action="/tai-khoan/dang-nhap" method="post" novalidate>
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="ReturnUrl" value="@Model.ReturnUrl" />
+
+                <div class="login-field">
+                    <label for="user-name">Tài khoản</label>
+                    <input type="email" id="user-name" name="UserName" value="@Model.UserName"
+                           autocomplete="username" maxlength="256" spellcheck="false"
+                           aria-invalid="@(userNameError is null ? "false" : "true")"
+                           aria-describedby="@(userNameError is null ? null : "user-name-error")" />
+                    @if (userNameError is not null)
+                    {
+                        <p class="field-error" id="user-name-error">@userNameError</p>
+                    }
+                </div>
+
+                <div class="login-field">
+                    <label for="password">Mật khẩu</label>
+                    <div class="login-password">
+                        <input type="password" id="password" name="Password"
+                               autocomplete="current-password" maxlength="100"
+                               aria-invalid="@(passwordError is null ? "false" : "true")"
+                               aria-describedby="@(passwordError is null ? null : "password-error")" />
+                        <button type="button" class="login-password-toggle" data-password-toggle aria-pressed="false"
+                                aria-controls="password">Hiện</button>
+                    </div>
+                    @if (passwordError is not null)
+                    {
+                        <p class="field-error" id="password-error">@passwordError</p>
+                    }
+                </div>
+
+                <button type="submit" class="login-submit">Đăng nhập</button>
+            </form>
+
+            <a class="login-back" href="/">Về trang chủ</a>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/js/login-form.js" asp-append-version="true"></script>
+}

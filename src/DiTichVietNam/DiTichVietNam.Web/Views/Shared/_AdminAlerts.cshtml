@@ -1,0 +1,12 @@
+@{
+    var successMessage = TempData["AdminSuccess"] as string;
+    var errorMessage = TempData["AdminError"] as string;
+}
+@if (!string.IsNullOrEmpty(successMessage))
+{
+    <p class="admin-alert admin-alert-success" role="status">@successMessage</p>
+}
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <p class="admin-alert admin-alert-error" role="alert">@errorMessage</p>
+}

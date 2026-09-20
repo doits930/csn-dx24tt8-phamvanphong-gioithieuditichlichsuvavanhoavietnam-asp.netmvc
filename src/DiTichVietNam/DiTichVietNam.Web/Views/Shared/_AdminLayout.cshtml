@@ -1,0 +1,75 @@
+@inject IAccountService AccountService
+@inject IOptions<AdminSiteOptions> AdminSite
+@{
+    var currentPath = Context.Request.Path.Value ?? string.Empty;
+    var accountName = AccountService.GetDisplayName(User);
+    var publicSiteUrl = SiteUrls.OnPort(Context.Request, AdminSite.Value.PublicPort, "/");
+    var menuItems = new (string Label, string Path)[]
+    {
+        ("Di tích", "/admin/di-tich"),
+        ("Tỉnh thành", "/admin/tinh-thanh"),
+        ("Loại di tích", "/admin/loai-di-tich"),
+        ("Thống kê", "/admin/thong-ke")
+    };
+}
+<!DOCTYPE html>
+<html lang="vi" class="no-js">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>@ViewData["Title"] - Quản trị Di tích Việt Nam</title>
+    <link rel="icon" href="~/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <script>document.documentElement.classList.remove('no-js');</script>
+</head>
+<body class="admin-body">
+    <header>
+        <nav class="navbar navbar-expand-lg admin-bar">
+            <div class="container">
+                <a class="admin-brand" href="/admin/di-tich">
+                    Di tích Việt Nam
+                    <span class="admin-brand-tag">Quản trị</span>
+                </a>
+                <button class="navbar-toggler admin-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#admin-menu" aria-controls="admin-menu" aria-expanded="false"
+                        aria-label="Mở menu quản trị">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="admin-menu">
+                    <ul class="navbar-nav admin-nav">
+                        @foreach (var item in menuItems)
+                        {
+                            var isCurrent = currentPath.StartsWith(item.Path, StringComparison.OrdinalIgnoreCase);
+                            <li class="nav-item">
+                                <a class="nav-link @(isCurrent ? "admin-nav-current" : string.Empty)"
+                                   href="@item.Path" aria-current="@(isCurrent ? "page" : null)">@item.Label</a>
+                            </li>
+                        }
+                    </ul>
+                    <div class="admin-account">
+                        <span class="admin-account-name" title="@accountName">@accountName</span>
+                        <a class="admin-account-link" href="@publicSiteUrl">Xem trang công khai</a>
+                        <form class="admin-account-form" action="/tai-khoan/dang-xuat" method="post">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="admin-signout">Đăng xuất</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="admin-main">
+        <div class="container">
+            <partial name="_AdminAlerts" />
+            @RenderBody()
+        </div>
+    </main>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

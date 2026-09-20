@@ -1,4 +1,6 @@
 using DiTichVietNam.Web.Data;
+using DiTichVietNam.Web.Middleware;
+using DiTichVietNam.Web.Services.Accounts;
 using DiTichVietNam.Web.Services.Provinces;
 using DiTichVietNam.Web.Services.RelicTypes;
 using DiTichVietNam.Web.Services.Relics;
@@ -21,6 +23,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
         options.User.RequireUniqueEmail = true;
         options.Lockout.MaxFailedAccessAttempts = 5;
         options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+        options.Lockout.AllowedForNewUsers = true;
     })
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
@@ -28,6 +31,9 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 builder.Services.AddScoped<IRelicService, RelicService>();
 builder.Services.AddScoped<IProvinceService, ProvinceService>();
 builder.Services.AddScoped<IRelicTypeService, RelicTypeService>();
+builder.Services.AddScoped<IAccountService, AccountService>();
+
+builder.Services.Configure<AdminSiteOptions>(builder.Configuration.GetSection(AdminSiteOptions.SectionName));
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
@@ -35,6 +41,9 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.AccessDeniedPath = "/tai-khoan/dang-nhap";
     options.ExpireTimeSpan = TimeSpan.FromHours(8);
     options.SlidingExpiration = true;
+    options.Cookie.HttpOnly = true;
+    options.Cookie.SameSite = SameSiteMode.Lax;
+    options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
 });
 
 var app = builder.Build();
@@ -46,6 +55,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseStatusCodePagesWithReExecute("/loi/{0}");
+app.UseMiddleware<AdminPortIsolationMiddleware>();
 app.UseHttpsRedirection();
 app.UseRouting();
 
@@ -68,5 +78,7 @@ using (var scope = app.Services.CreateScope())
     await context.Database.MigrateAsync();
     await SeedData.InitializeAsync(scope.ServiceProvider);
 }
+
+AdminSiteStartupCheck.Register(app);
 
 app.Run();

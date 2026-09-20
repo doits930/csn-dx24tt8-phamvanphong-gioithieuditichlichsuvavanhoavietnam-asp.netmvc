@@ -43,7 +43,7 @@ public class HomeController : Controller
         return View(model);
     }
 
-    [HttpGet("/loi/{code:int}")]
+    [Route("/loi/{code:int}")]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public async Task<IActionResult> Status(int code)
     {
