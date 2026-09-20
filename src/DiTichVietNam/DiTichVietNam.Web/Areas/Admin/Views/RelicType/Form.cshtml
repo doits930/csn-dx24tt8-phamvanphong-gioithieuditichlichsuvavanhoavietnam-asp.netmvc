@@ -1,0 +1,156 @@
+@model RelicTypeFormVM
+@{
+    var formAction = Model.IsEdit ? $"/admin/loai-di-tich/sua/{Model.Id}" : "/admin/loai-di-tich/them";
+    var cancelUrl = string.IsNullOrEmpty(Model.ReturnUrl) ? "/admin/loai-di-tich" : Model.ReturnUrl;
+    var pageTitle = Model.IsEdit ? "Sửa loại di tích" : "Thêm loại di tích";
+
+    ViewData["AdminCrumbs"] = new List<AdminCrumb>
+    {
+        new() { Label = "Quản trị", Url = "/admin/di-tich" },
+        new() { Label = "Loại di tích", Url = "/admin/loai-di-tich" },
+        new() { Label = pageTitle }
+    };
+
+    var header = new AdminPageHeaderVM
+    {
+        Title = pageTitle,
+        Lead = Model.IsEdit
+            ? "Sửa tên hoặc mô tả của loại di tích. Địa chỉ công khai của loại giữ nguyên."
+            : "Thêm một loại vào danh mục. Loại mới xuất hiện ngay ở bộ lọc công khai và biểu mẫu di tích.",
+        Links = Model.IsEdit && Model.RelicCount > 0
+            ? new List<AdminPageLinkVM>
+            {
+                new()
+                {
+                    Label = $"Di tích thuộc loại này ({Model.RelicCount})",
+                    Url = $"/admin/di-tich?{SearchFilterVM.TypeKey}={Model.Slug}",
+                    Icon = "relic"
+                }
+            }
+            : new List<AdminPageLinkVM>()
+    };
+
+    var fieldOrder = new (string Field, string TargetId)[]
+    {
+        (nameof(Model.Name), "field-name"),
+        (nameof(Model.Description), "field-description")
+    };
+
+    var summary = AdminErrorSummaryVM.FromModelState(ViewData.ModelState, fieldOrder);
+
+    var nameError = ErrorFor(nameof(Model.Name));
+    var descriptionError = ErrorFor(nameof(Model.Description));
+}
+
+@functions {
+    private string? ErrorFor(string field)
+        => ViewData.ModelState[field]?.Errors.FirstOrDefault()?.ErrorMessage;
+
+    private static string FieldClass(string? error)
+        => error is null ? "admin-field" : "admin-field admin-field-invalid";
+
+    private static string DescribedBy(string hintId, string? error, string errorId)
+        => error is null ? hintId : $"{hintId} {errorId}";
+}
+
+<partial name="_AdminPageHeader" model="header" />
+
+<form id="catalog-form" class="admin-form admin-form-narrow" action="@formAction" method="post" novalidate>
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="ReturnUrl" value="@Model.ReturnUrl" />
+
+    <partial name="_AdminErrorSummary" model="summary" />
+
+    <p class="admin-form-legend">Ô có dấu <span class="admin-required">*</span> là bắt buộc.</p>
+
+    <section class="admin-card admin-card-pad">
+        <div class="admin-card-head">
+            <h2 class="admin-card-title">
+                <partial name="_AdminIcon" model="@("type")" />
+                <span>Tên gọi và mô tả</span>
+            </h2>
+            <p class="admin-card-note">Mô tả hiện ở đầu trang danh sách theo loại của khu công khai.</p>
+        </div>
+
+        <div class="@FieldClass(nameError)">
+            <label for="field-name">Tên loại di tích <span class="admin-required" aria-hidden="true">*</span></label>
+            <input type="text" id="field-name" name="Name" value="@Model.Name" maxlength="100"
+                   autocomplete="off" spellcheck="false" data-slug-source
+                   aria-invalid="@(nameError is null ? "false" : "true")"
+                   aria-describedby="@DescribedBy("field-name-hint", nameError, "field-name-error")" />
+            <div class="admin-hint-row">
+                <p class="admin-hint" id="field-name-hint">Đặt tên theo cách phân loại trong Luật Di sản văn hóa.</p>
+                <span class="admin-field-count" data-counter aria-live="polite"></span>
+            </div>
+            @if (Model.IsEdit)
+            {
+                <p class="admin-slug-preview">Đường dẫn công khai: /loai/@Model.Slug</p>
+            }
+            else
+            {
+                <p class="admin-slug-preview">
+                    Đường dẫn công khai sinh từ tên: /loai/<span data-slug-preview>ten-loai-di-tich</span>
+                </p>
+            }
+            @if (nameError is not null)
+            {
+                <p class="field-error" id="field-name-error">@nameError</p>
+            }
+        </div>
+
+        <div class="@FieldClass(descriptionError)">
+            <label for="field-description">Mô tả</label>
+            <textarea id="field-description" name="Description" rows="4" data-autogrow maxlength="500"
+                      aria-invalid="@(descriptionError is null ? "false" : "true")"
+                      aria-describedby="@DescribedBy("field-description-hint", descriptionError, "field-description-error")">@Model.Description</textarea>
+            <div class="admin-hint-row">
+                <p class="admin-hint" id="field-description-hint">Một hai câu nói rõ loại này gồm những gì. Chưa rõ thì bỏ trống.</p>
+                <span class="admin-field-count" data-counter aria-live="polite"></span>
+            </div>
+            @if (descriptionError is not null)
+            {
+                <p class="field-error" id="field-description-error">@descriptionError</p>
+            }
+        </div>
+    </section>
+
+    @if (Model.IsEdit)
+    {
+        <section class="admin-card admin-card-pad">
+            <div class="admin-card-head">
+                <h2 class="admin-card-title">
+                    <partial name="_AdminIcon" model="@("relic")" />
+                    <span>Ràng buộc đang có</span>
+                </h2>
+                <p class="admin-card-note">Số di tích đang gắn với loại này.</p>
+            </div>
+
+            <ul class="admin-fact-list">
+                <li>
+                    <span class="admin-fact-label">Số di tích</span>
+                    <span class="admin-fact-value">@Model.RelicCount</span>
+                </li>
+            </ul>
+            <p class="admin-hint">
+                @(Model.RelicCount > 0
+                    ? "Còn di tích dùng loại này nên không xóa được. Đổi tên và mô tả thì được."
+                    : "Chưa có di tích nào dùng loại này nên có thể xóa.")
+            </p>
+        </section>
+    }
+
+    <div class="admin-form-footer">
+        <div class="admin-form-actions">
+            <span class="admin-form-state" data-form-state aria-live="polite"></span>
+            <a class="admin-btn admin-btn-secondary" href="@cancelUrl" data-discard>Hủy</a>
+            <button type="submit" class="admin-btn admin-btn-primary" data-submit-button>
+                @(Model.IsEdit ? "Lưu thay đổi" : "Lưu loại di tích")
+            </button>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/js/admin/catalog-form.js" asp-append-version="true"></script>
+}

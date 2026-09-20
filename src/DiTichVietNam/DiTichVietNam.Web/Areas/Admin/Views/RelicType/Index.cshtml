@@ -1,0 +1,164 @@
+@model RelicTypeListVM
+@inject IOptions<AdminSiteOptions> AdminSite
+@{
+    var publicPort = AdminSite.Value.PublicPort;
+    var listUrl = "/admin/loai-di-tich";
+    var createUrl = $"/admin/loai-di-tich/them?returnUrl={Uri.EscapeDataString(listUrl)}";
+
+    ViewData["AdminCrumbs"] = new List<AdminCrumb>
+    {
+        new() { Label = "Quản trị", Url = "/admin/di-tich" },
+        new() { Label = "Loại di tích" }
+    };
+
+    var header = new AdminPageHeaderVM
+    {
+        Title = "Quản lý loại di tích",
+        Lead = "Danh mục loại dùng cho bộ lọc công khai, thanh tìm kiếm và biểu mẫu di tích.",
+        ActionLabel = "Thêm loại di tích",
+        ActionUrl = createUrl,
+        ActionIcon = "plus"
+    };
+
+    var confirmDialog = new AdminConfirmVM
+    {
+        ElementId = "delete-type-dialog",
+        Title = "Xóa loại di tích",
+        ConfirmLabel = "Xóa loại di tích",
+        CancelLabel = "Hủy"
+    };
+
+    var stats = new (string Icon, string IconClass, int Value, string Label)[]
+    {
+        ("type", "admin-stat-icon", Model.Summary.TotalCount, "Tổng loại di tích"),
+        ("relic", "admin-stat-icon admin-stat-icon-gilt", Model.Summary.RelicTotal, "Di tích đã phân loại"),
+        ("check", "admin-stat-icon admin-stat-icon-stone", Model.Summary.WithRelicCount, "Loại đang dùng"),
+        ("alert", "admin-stat-icon admin-stat-icon-vermilion", Model.Summary.WithoutRelicCount, "Loại chưa có di tích")
+    };
+}
+
+<partial name="_AdminPageHeader" model="header" />
+
+<div class="admin-stats">
+    @foreach (var stat in stats)
+    {
+        <div class="admin-stat">
+            <span class="@stat.IconClass">
+                <partial name="_AdminIcon" model="@stat.Icon" />
+            </span>
+            <span>
+                <span class="admin-stat-value">@stat.Value</span>
+                <span class="admin-stat-label">@stat.Label</span>
+            </span>
+        </div>
+    }
+</div>
+
+<div class="admin-card">
+    @if (Model.Rows.Count == 0)
+    {
+        <div class="admin-empty">
+            <partial name="_AdminIcon" model="@("type")" />
+            <p class="admin-empty-text">
+                Danh mục loại di tích đang trống. Biểu mẫu di tích cần ít nhất một loại để lưu được hồ sơ.
+            </p>
+            <a class="admin-btn admin-btn-primary" href="@createUrl">Thêm loại di tích</a>
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive admin-table-wrap">
+            <table class="admin-table">
+                <caption class="admin-visually-hidden">Danh mục loại di tích đang có trong hệ thống</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Tên loại</th>
+                        <th scope="col">Mô tả</th>
+                        <th scope="col" class="admin-cell-number">Di tích</th>
+                        <th scope="col" class="admin-cell-actions"><span class="admin-visually-hidden">Thao tác</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var row in Model.Rows)
+                    {
+                        var editUrl = $"/admin/loai-di-tich/sua/{row.Id}?returnUrl={Uri.EscapeDataString(listUrl)}";
+                        var deleteUrl = $"/admin/loai-di-tich/xoa/{row.Id}?returnUrl={Uri.EscapeDataString(listUrl)}";
+                        var relicUrl = $"/admin/di-tich?{SearchFilterVM.TypeKey}={row.Slug}";
+                        var publicUrl = SiteUrls.OnPort(Context.Request, publicPort, $"/loai/{row.Slug}");
+                        var blockReason = RelicTypeFactory.DeleteBlockReason(row.RelicCount);
+                        var confirmText = $"Xóa loại di tích {row.Name}? Thao tác này không lấy lại được.";
+                        <tr>
+                            <td class="admin-cell-name">
+                                <a class="admin-row-name" href="@editUrl">@row.Name</a>
+                                <span class="admin-row-slug">@row.Slug</span>
+                            </td>
+                            <td data-label="Mô tả" class="admin-cell-description">
+                                @if (string.IsNullOrWhiteSpace(row.Description))
+                                {
+                                    <span class="admin-cell-blank">Chưa có mô tả</span>
+                                }
+                                else
+                                {
+                                    <span>@row.Description</span>
+                                }
+                            </td>
+                            <td data-label="Di tích" class="admin-cell-number">
+                                <a class="@(row.RelicCount > 0 ? "admin-count-link" : "admin-count-link admin-count-empty")"
+                                   href="@relicUrl"
+                                   title="@(row.RelicCount > 0 ? $"Xem {row.RelicCount} di tích thuộc loại {row.Name}" : "Chưa có di tích nào")">@row.RelicCount</a>
+                            </td>
+                            <td class="admin-cell-actions">
+                                <span class="admin-row-actions">
+                                    <a class="admin-icon-btn" href="@editUrl" title="Sửa loại di tích"
+                                       aria-label="Sửa loại di tích @row.Name">
+                                        <partial name="_AdminIcon" model="@("edit")" />
+                                    </a>
+                                    <a class="admin-icon-btn" href="@relicUrl" title="Xem di tích thuộc loại @row.Name"
+                                       aria-label="Xem di tích thuộc loại @row.Name">
+                                        <partial name="_AdminIcon" model="@("list")" />
+                                    </a>
+                                    <a class="admin-icon-btn" href="@publicUrl" target="_blank" rel="noopener"
+                                       title="Mở trang công khai trong tab mới"
+                                       aria-label="Mở trang công khai của loại @row.Name">
+                                        <partial name="_AdminIcon" model="@("external")" />
+                                    </a>
+                                    @if (blockReason is null)
+                                    {
+                                        <a class="admin-icon-btn admin-icon-btn-danger" href="@deleteUrl"
+                                           title="Xóa loại di tích" aria-label="Xóa loại di tích @row.Name"
+                                           data-delete-trigger
+                                           data-delete-url="@deleteUrl"
+                                           data-delete-message="@confirmText">
+                                            <partial name="_AdminIcon" model="@("trash")" />
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <button type="button" class="admin-icon-btn admin-icon-btn-blocked"
+                                                aria-disabled="true" title="@blockReason"
+                                                aria-label="@row.Name. @blockReason">
+                                            <partial name="_AdminIcon" model="@("trash")" />
+                                        </button>
+                                    }
+                                </span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="admin-card-foot">
+            <p class="admin-result-count" role="status">@Model.ResultSummary</p>
+        </div>
+    }
+</div>
+
+@if (Model.Rows.Count > 0)
+{
+    <partial name="_AdminConfirmDialog" model="confirmDialog" />
+}
+
+@section Scripts {
+    <script src="~/js/admin/admin-confirm.js" asp-append-version="true"></script>
+}

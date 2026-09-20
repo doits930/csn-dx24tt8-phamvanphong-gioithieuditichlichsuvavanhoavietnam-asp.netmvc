@@ -59,6 +59,11 @@ public static class SeedData
 
     private static async Task SeedRelicTypesAsync(AppDbContext context)
     {
+        if (await context.RelicTypes.AnyAsync())
+        {
+            return;
+        }
+
         var definitions = new[]
         {
             new RelicType
@@ -87,14 +92,7 @@ public static class SeedData
             }
         };
 
-        var existingSlugs = await context.RelicTypes.Select(t => t.Slug).ToListAsync();
-        var missing = definitions.Where(t => !existingSlugs.Contains(t.Slug)).ToList();
-        if (missing.Count == 0)
-        {
-            return;
-        }
-
-        context.RelicTypes.AddRange(missing);
+        context.RelicTypes.AddRange(definitions);
         await context.SaveChangesAsync();
     }
 

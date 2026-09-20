@@ -5,16 +5,6 @@
         return;
     }
 
-    function parseDecimal(value) {
-        var text = $.trim(value).replace(',', '.');
-        if (!/^[-+]?\d*\.?\d+$/.test(text)) {
-            return null;
-        }
-
-        var parsed = parseFloat(text);
-        return isNaN(parsed) ? null : parsed;
-    }
-
     function toSlug(value) {
         return $.trim(value)
             .replace(/đ/g, 'd')
@@ -35,10 +25,13 @@
 
         var original = $.trim(preview.text());
 
-        source.on('input', function () {
+        var update = function () {
             var slug = toSlug(source.val());
             preview.text(slug.length > 0 ? slug : original);
-        });
+        };
+
+        source.on('input', update);
+        update();
     }
 
     function setUpCounters(form) {
@@ -64,7 +57,7 @@
             var area = this;
             var grow = function () {
                 area.style.height = 'auto';
-                area.style.height = Math.min(area.scrollHeight + 2, 640) + 'px';
+                area.style.height = Math.min(area.scrollHeight + 2, 480) + 'px';
             };
 
             $(area).on('input', grow);
@@ -151,111 +144,49 @@
         element.focus({ preventScroll: true });
     }
 
+    function buildRules(form) {
+        var rules = { Name: { required: true, maxlength: 100, nameHasLetterOrDigit: true } };
+        var messages = {};
+
+        if (form.find('#field-region').length > 0) {
+            rules.Region = { required: true };
+            messages.Name = {
+                required: 'Nhập tên tỉnh thành.',
+                maxlength: 'Tên tỉnh thành tối đa 100 ký tự.',
+                nameHasLetterOrDigit: 'Tên tỉnh thành phải có ít nhất một chữ cái hoặc chữ số.'
+            };
+            messages.Region = { required: 'Chọn miền của tỉnh thành.' };
+        } else {
+            rules.Description = { maxlength: 500 };
+            messages.Name = {
+                required: 'Nhập tên loại di tích.',
+                maxlength: 'Tên loại di tích tối đa 100 ký tự.',
+                nameHasLetterOrDigit: 'Tên loại di tích phải có ít nhất một chữ cái hoặc chữ số.'
+            };
+            messages.Description = { maxlength: 'Mô tả tối đa 500 ký tự.' };
+        }
+
+        return { rules: rules, messages: messages };
+    }
+
     function setUpValidation(form) {
         if (!$.validator) {
             return;
         }
 
-        var maxYear = parseInt($('#field-year').attr('data-max-year'), 10) || new Date().getFullYear();
-
-        $.validator.addMethod('wholeNumber', function (value, element) {
-            return this.optional(element) || /^\d+$/.test($.trim(value));
+        $.validator.addMethod('nameHasLetterOrDigit', function (value, element) {
+            return this.optional(element)
+                || (/[\p{L}\p{N}]/u.test(value) && toSlug(value).length > 0);
         });
 
-        $.validator.addMethod('yearRange', function (value, element) {
-            if (this.optional(element)) {
-                return true;
-            }
-
-            var year = parseInt($.trim(value), 10);
-            return isNaN(year) || (year >= 1000 && year <= maxYear);
-        });
-
-        $.validator.addMethod('decimalNumber', function (value, element) {
-            return this.optional(element) || parseDecimal(value) !== null;
-        });
-
-        $.validator.addMethod('decimalRange', function (value, element, param) {
-            if (this.optional(element)) {
-                return true;
-            }
-
-            var number = parseDecimal(value);
-            return number === null || (number >= param[0] && number <= param[1]);
-        });
-
-        $.validator.addMethod('webAddress', function (value, element) {
-            return this.optional(element) || /^https?:\/\/[^\s]+$/i.test($.trim(value));
-        });
-
-        var hasValue = function (selector) {
-            return $.trim($(selector).val() || '') !== '';
-        };
+        var declared = buildRules(form);
 
         form.validate({
             onkeyup: false,
             errorElement: 'p',
             errorClass: 'field-error',
-            rules: {
-                Name: { required: true, maxlength: 200 },
-                Address: { required: true, maxlength: 300 },
-                Description: { required: true, maxlength: 20000 },
-                History: { maxlength: 20000 },
-                VisitInfo: { maxlength: 4000 },
-                ProvinceId: { required: true },
-                RelicTypeId: { required: true },
-                RankingLevel: { required: true },
-                RecognizedYear: { wholeNumber: true, yearRange: true },
-                SourceUrl: { required: true, maxlength: 500, webAddress: true },
-                Latitude: {
-                    required: { depends: function () { return hasValue('#field-longitude'); } },
-                    decimalNumber: true,
-                    decimalRange: [-90, 90]
-                },
-                Longitude: {
-                    required: { depends: function () { return hasValue('#field-latitude'); } },
-                    decimalNumber: true,
-                    decimalRange: [-180, 180]
-                }
-            },
-            messages: {
-                Name: {
-                    required: 'Nhập tên di tích.',
-                    maxlength: 'Tên di tích tối đa 200 ký tự.'
-                },
-                Address: {
-                    required: 'Nhập địa chỉ của di tích.',
-                    maxlength: 'Địa chỉ tối đa 300 ký tự.'
-                },
-                Description: {
-                    required: 'Nhập phần mô tả di tích.',
-                    maxlength: 'Mô tả tối đa 20000 ký tự.'
-                },
-                History: { maxlength: 'Lịch sử tối đa 20000 ký tự.' },
-                VisitInfo: { maxlength: 'Thông tin tham quan tối đa 4000 ký tự.' },
-                ProvinceId: { required: 'Chọn tỉnh thành.' },
-                RelicTypeId: { required: 'Chọn loại di tích.' },
-                RankingLevel: { required: 'Chọn cấp xếp hạng.' },
-                RecognizedYear: {
-                    wholeNumber: 'Năm xếp hạng phải là một số, ví dụ 1962.',
-                    yearRange: 'Năm xếp hạng phải từ 1000 đến ' + maxYear + '.'
-                },
-                SourceUrl: {
-                    required: 'Nhập đường dẫn nguồn tham khảo.',
-                    maxlength: 'Đường dẫn nguồn tham khảo tối đa 500 ký tự.',
-                    webAddress: 'Đường dẫn nguồn tham khảo phải bắt đầu bằng http:// hoặc https://.'
-                },
-                Latitude: {
-                    required: 'Nhập đủ cả vĩ độ và kinh độ, hoặc bỏ trống cả hai.',
-                    decimalNumber: 'Vĩ độ phải là một số, ví dụ 21.0293.',
-                    decimalRange: 'Vĩ độ phải nằm trong khoảng từ -90 đến 90.'
-                },
-                Longitude: {
-                    required: 'Nhập đủ cả vĩ độ và kinh độ, hoặc bỏ trống cả hai.',
-                    decimalNumber: 'Kinh độ phải là một số, ví dụ 105.8342.',
-                    decimalRange: 'Kinh độ phải nằm trong khoảng từ -180 đến 180.'
-                }
-            },
+            rules: declared.rules,
+            messages: declared.messages,
             errorPlacement: function (error, element) {
                 error.appendTo(element.closest('.admin-field'));
             },
@@ -270,14 +201,14 @@
             },
             invalidHandler: function () {
                 window.setTimeout(function () {
-                    focusFirstError($('#relic-form'));
+                    focusFirstError($('#catalog-form'));
                 }, 0);
             }
         });
     }
 
     $(function () {
-        var form = $('#relic-form');
+        var form = $('#catalog-form');
         if (form.length === 0) {
             return;
         }

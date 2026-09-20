@@ -40,7 +40,7 @@ public class RelicAdminController : AdminBaseController
     {
         var options = await _relicService.GetFormOptionsAsync();
 
-        return ShowForm(RelicFormFactory.NewForm(options, ToListReturnUrl(returnUrl)), CreateTitle);
+        return ShowForm(RelicFormFactory.NewForm(options, SafeListReturnUrl(returnUrl, ListPath)), CreateTitle);
     }
 
     [HttpPost(CreatePath)]
@@ -48,7 +48,7 @@ public class RelicAdminController : AdminBaseController
     public async Task<IActionResult> Create([FromForm] RelicFormVM vm)
     {
         vm.Id = 0;
-        vm.ReturnUrl = ToListReturnUrl(vm.ReturnUrl);
+        vm.ReturnUrl = SafeListReturnUrl(vm.ReturnUrl, ListPath);
 
         AddErrors(RelicFormValidator.Validate(vm));
 
@@ -83,7 +83,7 @@ public class RelicAdminController : AdminBaseController
 
         var options = await _relicService.GetFormOptionsAsync();
 
-        return ShowForm(RelicFormFactory.ToFormVM(data, options, ToListReturnUrl(returnUrl)), EditTitle);
+        return ShowForm(RelicFormFactory.ToFormVM(data, options, SafeListReturnUrl(returnUrl, ListPath)), EditTitle);
     }
 
     [HttpPost(EditPath)]
@@ -99,7 +99,7 @@ public class RelicAdminController : AdminBaseController
         vm.Id = id;
         vm.Slug = current.Slug;
         vm.ImageCount = current.ImageCount;
-        vm.ReturnUrl = ToListReturnUrl(vm.ReturnUrl);
+        vm.ReturnUrl = SafeListReturnUrl(vm.ReturnUrl, ListPath);
 
         AddErrors(RelicFormValidator.Validate(vm));
 
@@ -137,7 +137,7 @@ public class RelicAdminController : AdminBaseController
             Id = data.Id,
             Name = data.Name,
             ImageCount = data.ImageCount,
-            ReturnUrl = ToListReturnUrl(returnUrl)
+            ReturnUrl = SafeListReturnUrl(returnUrl, ListPath)
         });
     }
 
@@ -161,7 +161,7 @@ public class RelicAdminController : AdminBaseController
             TempData["AdminError"] = result.Error;
         }
 
-        return Redirect(ToListReturnUrl(returnUrl) ?? ListPath);
+        return Redirect(SafeListReturnUrl(returnUrl, ListPath) ?? ListPath);
     }
 
     private IActionResult ShowForm(RelicFormVM vm, string title)
@@ -169,31 +169,5 @@ public class RelicAdminController : AdminBaseController
         ViewData["Title"] = title;
 
         return View("Form", vm);
-    }
-
-    private void AddErrors(List<(string Field, string Message)> errors)
-    {
-        foreach (var (field, message) in errors)
-        {
-            ModelState.AddModelError(field, message);
-        }
-    }
-
-    private void AddServiceError(ServiceResult result)
-    {
-        ModelState.AddModelError(result.Field ?? string.Empty, result.Error ?? string.Empty);
-    }
-
-    private string? ToListReturnUrl(string? returnUrl)
-    {
-        if (string.IsNullOrWhiteSpace(returnUrl) || !Url.IsLocalUrl(returnUrl))
-        {
-            return null;
-        }
-
-        var isListUrl = returnUrl == ListPath
-            || returnUrl.StartsWith(ListPath + "?", StringComparison.Ordinal);
-
-        return isListUrl ? returnUrl : null;
     }
 }

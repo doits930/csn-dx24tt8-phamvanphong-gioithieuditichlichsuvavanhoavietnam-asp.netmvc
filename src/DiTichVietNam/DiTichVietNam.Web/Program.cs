@@ -1,3 +1,4 @@
+using DiTichVietNam.Web.Areas.Admin.Controllers;
 using DiTichVietNam.Web.Data;
 using DiTichVietNam.Web.Middleware;
 using DiTichVietNam.Web.Services.Accounts;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -59,9 +61,18 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 var app = builder.Build();
 
+var adminSite = app.Services.GetRequiredService<IOptions<AdminSiteOptions>>().Value;
+
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseWhen(
+        context => context.Connection.LocalPort == adminSite.Port,
+        branch => branch.UseExceptionHandler(AdminHomeController.ErrorPath));
+
+    app.UseWhen(
+        context => context.Connection.LocalPort != adminSite.Port,
+        branch => branch.UseExceptionHandler("/Home/Error"));
+
     app.UseHsts();
 }
 

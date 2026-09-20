@@ -432,9 +432,30 @@ public class RelicService : IRelicService
         relic.ViewCount = 0;
 
         _context.Relics.Add(relic);
-        await _context.SaveChangesAsync();
 
-        return ServiceResult<int>.Ok(relic.Id);
+        for (var attempt = 0; attempt < MaxSlugConflictRetries; attempt++)
+        {
+            try
+            {
+                await _context.SaveChangesAsync();
+
+                return ServiceResult<int>.Ok(relic.Id);
+            }
+            catch (DbUpdateException exception) when (DatabaseConflict.IsUniqueViolation(exception))
+            {
+                var retrySlug = await BuildUniqueSlugAsync(input.Name, input.ProvinceId, null);
+                if (retrySlug.Length == 0 || retrySlug == relic.Slug)
+                {
+                    break;
+                }
+
+                relic.Slug = retrySlug;
+            }
+        }
+
+        _context.Entry(relic).State = EntityState.Detached;
+
+        return ServiceResult<int>.Fail(SlugConflictMessage, nameof(RelicInput.Name));
     }
 
     public async Task<ServiceResult> UpdateAsync(int id, RelicInput input)
@@ -465,9 +486,29 @@ public class RelicService : IRelicService
         relic.Slug = newSlug;
         relic.UpdatedAt = DateTime.Now;
 
-        await _context.SaveChangesAsync();
+        for (var attempt = 0; attempt < MaxSlugConflictRetries; attempt++)
+        {
+            try
+            {
+                await _context.SaveChangesAsync();
 
-        return ServiceResult.Ok();
+                return ServiceResult.Ok();
+            }
+            catch (DbUpdateException exception) when (DatabaseConflict.IsUniqueViolation(exception))
+            {
+                var retrySlug = await BuildUniqueSlugAsync(input.Name, input.ProvinceId, id);
+                if (retrySlug.Length == 0 || retrySlug == relic.Slug)
+                {
+                    break;
+                }
+
+                relic.Slug = retrySlug;
+            }
+        }
+
+        await _context.Entry(relic).ReloadAsync();
+
+        return ServiceResult.Fail(SlugConflictMessage, nameof(RelicInput.Name));
     }
 
     public async Task<ServiceResult> DeleteAsync(int id)
@@ -579,8 +620,13 @@ public class RelicService : IRelicService
 
     private const int MaxSlugLength = 200;
 
+    private const int MaxSlugConflictRetries = 5;
+
     private const string NameWithoutSlugMessage =
         "Tên di tích phải có ít nhất một chữ cái hoặc chữ số để tạo được địa chỉ trang.";
+
+    private const string SlugConflictMessage =
+        "Có di tích khác vừa lấy mất địa chỉ trang sinh từ tên này. Bấm lưu lại một lần nữa.";
 
     private const string RelicMissingMessage = "Di tích này không còn trong danh sách.";
 

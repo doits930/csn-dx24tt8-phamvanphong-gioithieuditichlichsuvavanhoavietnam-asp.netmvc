@@ -1,4 +1,5 @@
 using System.Globalization;
+using DiTichVietNam.Web.Helpers;
 using DiTichVietNam.Web.Models.Entities;
 using DiTichVietNam.Web.Models.ViewModels;
 
@@ -14,6 +15,52 @@ public static class ProvinceFactory
         Slug = province.Slug,
         RelicCount = relicCount
     };
+
+    public static ProvinceAdminRow ToAdminRow(Province province, int relicCount) => new()
+    {
+        Id = province.Id,
+        Name = province.Name,
+        NameNoAccent = SlugHelper.RemoveDiacritics(province.Name),
+        Slug = province.Slug,
+        Region = province.Region,
+        RegionLabel = RegionText.DisplayName(province.Region),
+        RelicCount = relicCount,
+        HasMapShape = VietnamMapGeometry.HasProvinceShape(province.Slug)
+    };
+
+    public static ProvinceEditData ToEditData(Province province, int relicCount) => new()
+    {
+        Id = province.Id,
+        Name = province.Name,
+        Slug = province.Slug,
+        Region = province.Region,
+        RelicCount = relicCount,
+        HasMapShape = VietnamMapGeometry.HasProvinceShape(province.Slug)
+    };
+
+    public static Province ToEntity(ProvinceInput input, string slug) => new()
+    {
+        Name = input.Name?.Trim() ?? string.Empty,
+        Slug = slug,
+        Region = input.Region?.Trim() ?? string.Empty
+    };
+
+    public static string? DeleteBlockReason(int relicCount, bool hasMapShape)
+    {
+        if (relicCount > 0)
+        {
+            return $"Không xóa được tỉnh thành này vì còn {relicCount} di tích đang thuộc về nó. "
+                + "Chuyển những di tích đó sang tỉnh thành khác rồi xóa lại.";
+        }
+
+        if (hasMapShape)
+        {
+            return "Không xóa được tỉnh thành này vì nó thuộc danh mục 34 tỉnh thành hiện hành "
+                + "và đang là một mảng trên bản đồ trang chủ. Đổi tên thì được, xóa thì bản đồ mất một mảng.";
+        }
+
+        return null;
+    }
 
     public static int DensityStep(int relicCount) =>
         relicCount <= 0 ? 0 : Math.Min(relicCount, MaxDensityStep);
