@@ -7,6 +7,8 @@ namespace DiTichVietNam.Web.Models.ViewModels;
 public class SearchFilterVM
 {
     public const int PageSize = 12;
+    public const int MaxKeywordLength = 200;
+    public const int MaxSuggestionKeywordLength = 100;
     public const string KeywordKey = "tuKhoa";
     public const string ProvinceKey = "tinh";
     public const string TypeKey = "loai";
@@ -45,7 +47,20 @@ public class SearchFilterVM
     [BindNever]
     public bool TypeFromRoute { get; set; }
 
-    public string? NormalizedKeyword => string.IsNullOrWhiteSpace(Keyword) ? null : Keyword.Trim();
+    public string? NormalizedKeyword
+    {
+        get
+        {
+            if (string.IsNullOrWhiteSpace(Keyword))
+            {
+                return null;
+            }
+
+            var trimmed = Keyword.Trim();
+
+            return trimmed.Length > MaxKeywordLength ? trimmed[..MaxKeywordLength] : trimmed;
+        }
+    }
 
     public bool HasAnyFilter =>
         !string.IsNullOrWhiteSpace(Keyword)
@@ -56,9 +71,9 @@ public class SearchFilterVM
     public Dictionary<string, string?> ToRouteValues()
     {
         var values = new Dictionary<string, string?>();
-        if (!string.IsNullOrWhiteSpace(Keyword))
+        if (NormalizedKeyword is { Length: > 0 } keyword)
         {
-            values[KeywordKey] = Keyword.Trim();
+            values[KeywordKey] = keyword;
         }
         if (!string.IsNullOrWhiteSpace(ProvinceSlug))
         {
