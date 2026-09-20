@@ -43,6 +43,27 @@ public class HomeController : Controller
         return View(model);
     }
 
+    [HttpGet("/loi/{code:int}")]
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    public async Task<IActionResult> Status(int code)
+    {
+        if (code < StatusCodes.Status400BadRequest || code > 599)
+        {
+            return NotFound();
+        }
+
+        Response.StatusCode = code;
+
+        if (code != StatusCodes.Status404NotFound)
+        {
+            return View("Error", new ErrorViewModel());
+        }
+
+        ViewData["Title"] = "Không tìm thấy nội dung";
+
+        return View("NotFound", await _relicService.GetSearchBarAsync());
+    }
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

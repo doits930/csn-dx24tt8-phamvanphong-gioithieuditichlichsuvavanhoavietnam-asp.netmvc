@@ -1,0 +1,53 @@
+@model RelicLocationMapVM
+
+<figure class="relic-locator">
+    <h2 class="relic-aside-title">Vị trí trên bản đồ</h2>
+
+    <div class="relic-locator-plate">
+        <svg class="relic-locator-svg" viewBox="@Model.ViewBox" aria-hidden="true" focusable="false">
+            <g class="locator-provinces">
+                @foreach (var province in Model.Provinces)
+                {
+                    <path class="@(province.IsCurrent ? "locator-province is-current" : "locator-province")"
+                          d="@province.PathData"></path>
+                }
+            </g>
+            <g class="locator-islands">
+                @foreach (var island in Model.Islands)
+                {
+                    <circle class="locator-islet" cx="@island.X" cy="@island.Y" r="@island.Radius"></circle>
+                }
+            </g>
+            @foreach (var archipelago in Model.Archipelagos)
+            {
+                <g class="locator-archipelago">
+                    <title>@archipelago.Name</title>
+                    @foreach (var islet in archipelago.Islets)
+                    {
+                        <circle class="locator-islet" cx="@islet.X" cy="@islet.Y" r="@islet.Radius"></circle>
+                    }
+                </g>
+            }
+            @if (Model.HasMarker)
+            {
+                <g class="locator-marker">
+                    <circle class="locator-marker-halo" cx="@Model.MarkerX" cy="@Model.MarkerY" r="@Model.MarkerHaloRadius"></circle>
+                    <circle class="locator-marker-dot" cx="@Model.MarkerX" cy="@Model.MarkerY" r="@Model.MarkerRadius"></circle>
+                </g>
+            }
+        </svg>
+
+        @foreach (var archipelago in Model.Archipelagos)
+        {
+            <span class="locator-label @(archipelago.LabelAnchorEnd ? "locator-label-end" : string.Empty)"
+                  style="--label-x: @(archipelago.LabelXPercent)%; --label-y: @(archipelago.LabelYPercent)%"><span>@archipelago.LabelText</span><span>(@archipelago.ProvinceName)</span></span>
+        }
+
+        <span class="locator-sea-label" aria-hidden="true">Biển Đông</span>
+    </div>
+
+    <figcaption>
+        <span class="locator-caption">@Model.Caption</span>
+        <span class="locator-credit">@Model.Credit</span>
+    </figcaption>
+</figure>

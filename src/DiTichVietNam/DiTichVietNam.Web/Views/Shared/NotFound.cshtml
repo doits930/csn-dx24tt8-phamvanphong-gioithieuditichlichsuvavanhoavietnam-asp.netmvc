@@ -1,0 +1,30 @@
+@model SearchBarVM
+
+<div class="page-header-band">
+    <div class="container">
+        <nav aria-label="Đường dẫn trang">
+            <ol class="breadcrumb-trail">
+                <li><a href="/">Trang chủ</a></li>
+                <li><span aria-current="page">Không tìm thấy nội dung</span></li>
+            </ol>
+        </nav>
+
+        <h1 class="page-header-title">Không tìm thấy nội dung</h1>
+        <p class="page-header-note">
+            Địa chỉ vừa mở không dẫn tới di tích nào. Có thể đường dẫn bị gõ sai, hoặc bản ghi đã được gỡ khỏi danh mục.
+        </p>
+
+        <partial name="_SearchBar" model="Model" />
+    </div>
+</div>
+
+<section class="list-results">
+    <div class="container">
+        <div class="empty-state">
+            <p>Thử tìm lại bằng tên di tích ở thanh phía trên.</p>
+            <p class="empty-hint">
+                Hoặc mở <a href="/di-tich">danh sách toàn bộ di tích</a> và lọc theo tỉnh thành, loại hình, cấp xếp hạng.
+            </p>
+        </div>
+    </div>
+</section>

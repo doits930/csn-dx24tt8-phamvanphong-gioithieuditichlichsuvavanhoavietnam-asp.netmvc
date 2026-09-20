@@ -1,0 +1,109 @@
+@model RelicDetailVM
+@{
+    var first = Model.Images[0];
+    var total = Model.Images.Count;
+}
+
+<section class="relic-gallery-zone" id="hinh-anh">
+    <div class="container">
+        <div class="gallery-zone-head">
+            <h2 class="gallery-zone-title">Hình ảnh</h2>
+            <p class="gallery-zone-count">@total ảnh</p>
+        </div>
+
+        <div class="gallery-live" data-gallery-stage>
+            <div class="gallery-stage">
+                <div class="gallery-stage-canvas">
+                    <img class="gallery-stage-backdrop" data-stage-backdrop src="@first.Path" alt=""
+                         aria-hidden="true" decoding="async" />
+                    <img class="gallery-stage-image" data-stage-image src="@first.Path" alt="@first.AltText"
+                         decoding="async" onerror="this.src='/img/no-image.svg'" />
+
+                    <button type="button" class="gallery-stage-hit" data-stage-open
+                            aria-label="Xem ảnh toàn màn hình"></button>
+
+                    @if (Model.HasImageStrip)
+                    {
+                        <button type="button" class="gallery-step gallery-step-previous" data-stage-previous
+                                aria-label="Ảnh trước">
+                            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false">
+                                <path d="M15 4 7 12l8 8" fill="none" stroke="currentColor" stroke-width="1.8"
+                                      stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </button>
+                        <button type="button" class="gallery-step gallery-step-next" data-stage-next
+                                aria-label="Ảnh sau">
+                            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false">
+                                <path d="m9 4 8 8-8 8" fill="none" stroke="currentColor" stroke-width="1.8"
+                                      stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </button>
+                    }
+                </div>
+
+                <div class="gallery-stage-bar">
+                    <div class="gallery-stage-text">
+                        <p class="gallery-stage-caption" data-stage-caption></p>
+                        <p class="gallery-stage-source" data-stage-source></p>
+                    </div>
+                    <div class="gallery-stage-tools">
+                        <p class="gallery-counter" data-stage-counter>1 / @total</p>
+                        <button type="button" class="gallery-zoom" data-stage-open
+                                aria-label="Xem ảnh toàn màn hình">
+                            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+                                <path d="M9 3H3v6M15 3h6v6M9 21H3v-6M15 21h6v-6" fill="none" stroke="currentColor"
+                                      stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            @if (Model.HasImageStrip)
+            {
+                <ul class="gallery-thumbs" data-stage-thumbs>
+                    @foreach (var image in Model.Images)
+                    {
+                        <li>
+                            <button type="button" data-stage-pick="@image.Position"
+                                    aria-current="@(image.Position == 0 ? "true" : null)"
+                                    aria-label="Ảnh @(image.Position + 1)@(image.HasCaption ? $": {image.Caption}" : string.Empty)">
+                                <img src="@image.Path" alt="" loading="lazy" decoding="async"
+                                     onerror="this.src='/img/no-image.svg'" />
+                            </button>
+                        </li>
+                    }
+                </ul>
+            }
+        </div>
+
+        <ul class="gallery-fallback" data-relic-gallery>
+            @foreach (var image in Model.Images)
+            {
+                <li class="gallery-fallback-item">
+                    <a class="gallery-fallback-frame" href="@image.Path" data-gallery-open="@image.Position"
+                       aria-label="Mở ảnh lớn: @image.AltText">
+                        <img src="@image.Path" alt="@image.AltText" loading="lazy" decoding="async"
+                             onerror="this.src='/img/no-image.svg'" />
+                    </a>
+                    <div class="gallery-fallback-text">
+                        @if (image.HasCaption)
+                        {
+                            <p class="gallery-stage-caption" data-gallery-caption="@image.Position">@image.Caption</p>
+                        }
+                        @if (image.Source.HasAnything)
+                        {
+                            <p class="gallery-stage-source" data-gallery-source="@image.Position">
+                                Ảnh: @image.Source.Credit@(image.Source.HasCredit ? "." : string.Empty)
+                                @if (image.Source.HasLink)
+                                {
+                                    <a href="@image.Source.Url" target="_blank" rel="noopener noreferrer">Trang gốc</a>
+                                }
+                            </p>
+                        }
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+</section>

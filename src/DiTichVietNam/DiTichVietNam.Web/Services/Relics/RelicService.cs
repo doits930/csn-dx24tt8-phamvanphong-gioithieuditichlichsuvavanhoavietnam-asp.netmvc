@@ -200,6 +200,76 @@ public class RelicService : IRelicService
         return model;
     }
 
+    private const int RelatedRelicCount = 3;
+
+    public async Task<RelicDetailVM?> GetDetailAsync(string? slug)
+    {
+        if (string.IsNullOrWhiteSpace(slug))
+        {
+            return null;
+        }
+
+        var relic = await _context.Relics
+            .AsNoTracking()
+            .Include(r => r.Province)
+            .Include(r => r.RelicType)
+            .FirstOrDefaultAsync(r => r.Slug == slug);
+
+        if (relic is null)
+        {
+            return null;
+        }
+
+        var images = await _context.RelicImages
+            .AsNoTracking()
+            .Where(i => i.RelicId == relic.Id)
+            .OrderBy(i => i.Id)
+            .ToListAsync();
+
+        var model = RelicFactory.ToDetailVM(relic, images);
+
+        model.RelatedSameProvince = await LoadRelatedAsync(
+            _context.Relics.Where(r => r.ProvinceId == relic.ProvinceId),
+            relic.Id,
+            Array.Empty<int>());
+
+        var excluded = model.RelatedSameProvince.Select(card => card.Id).ToList();
+        model.RelatedSameType = await LoadRelatedAsync(
+            _context.Relics.Where(r => r.RelicTypeId == relic.RelicTypeId),
+            relic.Id,
+            excluded);
+
+        return model;
+    }
+
+    private async Task<List<RelicCardVM>> LoadRelatedAsync(
+        IQueryable<Relic> source,
+        int currentRelicId,
+        IReadOnlyCollection<int> excludedIds)
+    {
+        var related = await source
+            .AsNoTracking()
+            .Where(r => r.Id != currentRelicId && !excludedIds.Contains(r.Id))
+            .Include(r => r.Province)
+            .Include(r => r.RelicType)
+            .OrderByDescending(r => r.RankingLevel)
+            .ThenByDescending(r => r.ViewCount)
+            .ThenBy(r => r.Id)
+            .Take(RelatedRelicCount)
+            .ToListAsync();
+
+        return related.Select(RelicFactory.ToCardVM).ToList();
+    }
+
+    public async Task<bool> IncreaseViewCountAsync(int relicId)
+    {
+        var changed = await _context.Relics
+            .Where(r => r.Id == relicId)
+            .ExecuteUpdateAsync(setters => setters.SetProperty(r => r.ViewCount, r => r.ViewCount + 1));
+
+        return changed > 0;
+    }
+
     private const int SparseResultThreshold = 2;
     private const int MaxSuggestionLinks = 6;
 

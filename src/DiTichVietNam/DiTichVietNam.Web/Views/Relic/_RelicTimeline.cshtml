@@ -1,0 +1,14 @@
+@model List<TimelineEntryVM>
+
+<div class="relic-timeline">
+    <h3 class="relic-timeline-title">Mốc thời gian</h3>
+    <ol class="relic-timeline-list">
+        @foreach (var entry in Model)
+        {
+            <li class="relic-timeline-entry">
+                <span class="relic-timeline-year">@entry.YearLabel</span>
+                <span class="relic-timeline-text">@entry.Sentence</span>
+            </li>
+        }
+    </ol>
+</div>

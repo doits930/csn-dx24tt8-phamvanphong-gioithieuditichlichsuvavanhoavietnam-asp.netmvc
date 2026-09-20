@@ -1,0 +1,131 @@
+@model RelicDetailVM
+@{
+    var cover = Model.LeadImage;
+    var inset = Model.InsetImage;
+}
+
+<div class="relic-cover-band">
+    <div class="container">
+        <div class="relic-cover">
+            <div class="relic-cover-copy">
+                <nav aria-label="Đường dẫn trang">
+                    <ol class="breadcrumb-trail">
+                        @foreach (var crumb in Model.Breadcrumbs)
+                        {
+                            <li>
+                                @if (string.IsNullOrWhiteSpace(crumb.Url))
+                                {
+                                    <span aria-current="page">@crumb.Label</span>
+                                }
+                                else
+                                {
+                                    <a href="@crumb.Url">@crumb.Label</a>
+                                }
+                            </li>
+                        }
+                    </ol>
+                </nav>
+
+                <p class="relic-rank-chip @RankingLevelText.CssModifier(Model.RankingLevel)">@Model.RankingLabel</p>
+
+                <h1 class="relic-title @Model.NameSizeModifier">@Model.Name</h1>
+
+                @if (!string.IsNullOrWhiteSpace(Model.Intro))
+                {
+                    <p class="relic-intro">@Model.Intro</p>
+                }
+
+                <dl class="fact-row relic-cover-facts">
+                    <div>
+                        <dt>Tỉnh thành</dt>
+                        <dd>
+                            @if (string.IsNullOrWhiteSpace(Model.ProvinceSlug))
+                            {
+                                @Model.ProvinceName
+                            }
+                            else
+                            {
+                                <a href="@RelicListPaths.ByProvince(Model.ProvinceSlug)">@Model.ProvinceName</a>
+                            }
+                        </dd>
+                    </div>
+                    @if (!string.IsNullOrWhiteSpace(Model.TypeName))
+                    {
+                        <div>
+                            <dt>Loại hình</dt>
+                            <dd>
+                                @if (string.IsNullOrWhiteSpace(Model.TypeSlug))
+                                {
+                                    @Model.TypeName
+                                }
+                                else
+                                {
+                                    <a href="@RelicListPaths.ByType(Model.TypeSlug)">@Model.TypeName</a>
+                                }
+                            </dd>
+                        </div>
+                    }
+                    @if (Model.RecognizedYear.HasValue)
+                    {
+                        <div>
+                            <dt>Năm xếp hạng</dt>
+                            <dd>@Model.RecognizedYear</dd>
+                        </div>
+                    }
+                </dl>
+            </div>
+
+            <figure class="relic-cover-plates">
+                <span class="cover-plate-stack">
+                    @if (cover is null)
+                    {
+                        <span class="cover-plate-frame">
+                            <img src="~/img/no-image.svg" alt="Chưa có ảnh của @Model.Name" decoding="async" />
+                        </span>
+                    }
+                    else
+                    {
+                        <a class="cover-plate-frame" href="@cover.Path" data-gallery-open="0"
+                           aria-label="Mở ảnh lớn: @cover.AltText">
+                            <img src="@cover.Path" alt="@cover.AltText" decoding="async" fetchpriority="high"
+                                 onerror="this.src='/img/no-image.svg'" />
+                        </a>
+
+                        @if (inset is not null)
+                        {
+                            <a class="cover-plate-inset" href="@inset.Path" data-gallery-open="@inset.Position"
+                               aria-label="Mở ảnh lớn: @inset.AltText">
+                                <img src="@inset.Path" alt="@inset.AltText" decoding="async"
+                                     onerror="this.src='/img/no-image.svg'" />
+                            </a>
+                        }
+                    }
+                </span>
+
+                @if (cover is null)
+                {
+                    <figcaption>Bản ghi này chưa có ảnh.</figcaption>
+                }
+                else
+                {
+                    <figcaption>
+                        @if (cover.HasCaption)
+                        {
+                            <span class="cover-caption">@cover.Caption</span>
+                        }
+                        @if (cover.Source.HasAnything)
+                        {
+                            <span class="cover-source">
+                                <span class="cover-source-text" title="@cover.Source.Credit">Ảnh: @cover.Source.Credit@(cover.Source.HasCredit ? "." : string.Empty)</span>
+                                @if (cover.Source.HasLink)
+                                {
+                                    <a href="@cover.Source.Url" target="_blank" rel="noopener noreferrer">Trang gốc</a>
+                                }
+                            </span>
+                        }
+                    </figcaption>
+                }
+            </figure>
+        </div>
+    </div>
+</div>
