@@ -1,11 +1,15 @@
 using DiTichVietNam.Web.Data;
 using DiTichVietNam.Web.Middleware;
 using DiTichVietNam.Web.Services.Accounts;
+using DiTichVietNam.Web.Services.Images;
 using DiTichVietNam.Web.Services.Provinces;
 using DiTichVietNam.Web.Services.RelicTypes;
 using DiTichVietNam.Web.Services.Relics;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.StaticFiles;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +36,13 @@ builder.Services.AddScoped<IRelicService, RelicService>();
 builder.Services.AddScoped<IProvinceService, ProvinceService>();
 builder.Services.AddScoped<IRelicTypeService, RelicTypeService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IRelicImageService, RelicImageService>();
+builder.Services.AddSingleton<RelicImageWriteLock>();
+
+builder.Services.Configure<FormOptions>(options =>
+{
+    options.MultipartBodyLengthLimit = ImageUploadLimits.MaxRequestBytes;
+});
 
 builder.Services.Configure<AdminSiteOptions>(builder.Configuration.GetSection(AdminSiteOptions.SectionName));
 
@@ -61,6 +72,26 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+var uploadRoot = Path.Combine(app.Environment.WebRootPath ?? "wwwroot", "uploads");
+Directory.CreateDirectory(uploadRoot);
+
+var uploadContentTypes = new FileExtensionContentTypeProvider();
+uploadContentTypes.Mappings.Clear();
+uploadContentTypes.Mappings[".jpg"] = "image/jpeg";
+uploadContentTypes.Mappings[".jpeg"] = "image/jpeg";
+uploadContentTypes.Mappings[".png"] = "image/png";
+uploadContentTypes.Mappings[".webp"] = "image/webp";
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(uploadRoot),
+    RequestPath = "/uploads",
+    ContentTypeProvider = uploadContentTypes,
+    ServeUnknownFileTypes = false,
+    OnPrepareResponse = context =>
+        context.Context.Response.Headers["X-Content-Type-Options"] = "nosniff"
+});
 
 app.MapStaticAssets();
 

@@ -159,6 +159,7 @@
                     {
                         var editUrl = $"/admin/di-tich/sua/{row.Id}?returnUrl={Uri.EscapeDataString(listUrl)}";
                         var deleteUrl = $"/admin/di-tich/xoa/{row.Id}?returnUrl={Uri.EscapeDataString(listUrl)}";
+                        var imageUrl = $"/admin/di-tich/{row.Id}/anh";
                         var publicUrl = SiteUrls.OnPort(Context.Request, publicPort, $"/di-tich/{row.Slug}");
                         var confirmText = row.ImageCount > 0
                             ? $"Xóa di tích {row.Name}? {row.ImageCount} ảnh của di tích cũng bị xóa theo và không lấy lại được."
@@ -190,14 +191,9 @@
                                 <span class="admin-chip @row.RankingCssModifier">@row.RankingShortLabel</span>
                             </td>
                             <td data-label="Ảnh" class="admin-cell-number">
-                                @if (row.ImageCount > 0)
-                                {
-                                    <span>@row.ImageCount</span>
-                                }
-                                else
-                                {
-                                    <span class="admin-count-empty" title="Chưa có ảnh nào">0</span>
-                                }
+                                <a class="@(row.ImageCount > 0 ? "admin-count-link" : "admin-count-link admin-count-empty")"
+                                   href="@imageUrl"
+                                   title="@(row.ImageCount > 0 ? $"Quản lý ảnh của {row.Name}" : "Chưa có ảnh nào")">@row.ImageCount</a>
                             </td>
                             <td data-label="Lượt xem" class="admin-cell-number">@row.ViewCount</td>
                             <td data-label="Cập nhật">
@@ -212,6 +208,10 @@
                                     <a class="admin-icon-btn" href="@editUrl" title="Sửa di tích"
                                        aria-label="Sửa di tích @row.Name">
                                         <partial name="_AdminIcon" model="@("edit")" />
+                                    </a>
+                                    <a class="admin-icon-btn" href="@imageUrl" title="Quản lý ảnh"
+                                       aria-label="Quản lý ảnh của @row.Name">
+                                        <partial name="_AdminIcon" model="@("image")" />
                                     </a>
                                     <a class="admin-icon-btn" href="@publicUrl" target="_blank" rel="noopener"
                                        title="Mở trang công khai trong tab mới"

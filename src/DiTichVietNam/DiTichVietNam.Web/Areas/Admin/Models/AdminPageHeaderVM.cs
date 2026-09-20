@@ -7,4 +7,5 @@ public class AdminPageHeaderVM
     public string? ActionLabel { get; set; }
     public string? ActionUrl { get; set; }
     public string? ActionIcon { get; set; }
+    public List<AdminPageLinkVM> Links { get; set; } = new();
 }
