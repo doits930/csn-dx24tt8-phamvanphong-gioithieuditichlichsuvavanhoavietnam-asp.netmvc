@@ -6,6 +6,7 @@ using DiTichVietNam.Web.Services.Images;
 using DiTichVietNam.Web.Services.Provinces;
 using DiTichVietNam.Web.Services.RelicTypes;
 using DiTichVietNam.Web.Services.Relics;
+using DiTichVietNam.Web.Services.Statistics;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -39,6 +40,7 @@ builder.Services.AddScoped<IProvinceService, ProvinceService>();
 builder.Services.AddScoped<IRelicTypeService, RelicTypeService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IRelicImageService, RelicImageService>();
+builder.Services.AddScoped<IStatisticsService, StatisticsService>();
 builder.Services.AddSingleton<RelicImageWriteLock>();
 
 builder.Services.Configure<FormOptions>(options =>
