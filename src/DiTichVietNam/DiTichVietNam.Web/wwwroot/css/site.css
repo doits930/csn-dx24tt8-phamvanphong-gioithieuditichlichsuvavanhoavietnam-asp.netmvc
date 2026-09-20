@@ -237,6 +237,7 @@ summary:focus-visible,
   color: var(--color-ink);
   text-decoration: none;
   letter-spacing: -0.01em;
+  white-space: nowrap;
   margin-right: var(--space-5);
 }
 
@@ -3578,3 +3579,4 @@ body.has-open-viewer {
     display: none;
   }
 }
+

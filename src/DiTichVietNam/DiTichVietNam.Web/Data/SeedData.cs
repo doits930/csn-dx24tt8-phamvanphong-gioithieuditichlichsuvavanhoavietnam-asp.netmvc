@@ -375,7 +375,8 @@ public static class SeedData
             {
                 UserName = AdminEmail,
                 Email = AdminEmail,
-                EmailConfirmed = true
+                EmailConfirmed = true,
+                LockoutEnabled = true
             };
 
             var created = await userManager.CreateAsync(admin, AdminPassword);
@@ -385,6 +386,10 @@ public static class SeedData
                     string.Join("; ", created.Errors.Select(e => e.Description)));
                 return;
             }
+        }
+        else if (!admin.LockoutEnabled)
+        {
+            await userManager.SetLockoutEnabledAsync(admin, true);
         }
 
         if (!await userManager.IsInRoleAsync(admin, AdminRoleName))

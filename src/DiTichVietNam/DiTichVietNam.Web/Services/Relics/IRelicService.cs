@@ -13,4 +13,6 @@ public interface IRelicService
     Task<RelicDetailVM?> GetDetailAsync(string? slug);
 
     Task<bool> IncreaseViewCountAsync(int relicId);
+
+    Task<int> CountAsync();
 }

@@ -270,6 +270,8 @@ public class RelicService : IRelicService
         return changed > 0;
     }
 
+    public Task<int> CountAsync() => _context.Relics.CountAsync();
+
     private const int SparseResultThreshold = 2;
     private const int MaxSuggestionLinks = 6;
 
