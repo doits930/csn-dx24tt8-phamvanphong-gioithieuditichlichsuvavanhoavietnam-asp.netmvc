@@ -25,13 +25,13 @@
     {
         ElementId = "delete-relic-dialog",
         Title = "Xóa di tích",
-        ConfirmLabel = "Xóa di tích",
+        ConfirmLabel = "Xóa hồ sơ",
         CancelLabel = "Hủy"
     };
 
     var stats = new (string Icon, string IconClass, int Value, string Label)[]
     {
-        ("relic", "admin-stat-icon", Model.Summary.TotalCount, "Tổng di tích"),
+        ("relic", "admin-stat-icon", Model.Summary.TotalCount, "Tổng số mục"),
         ("type", "admin-stat-icon admin-stat-icon-gilt", Model.Summary.SpecialNationalCount, "Quốc gia đặc biệt"),
         ("image", "admin-stat-icon admin-stat-icon-vermilion", Model.Summary.WithoutImageCount, "Chưa có ảnh"),
         ("views", "admin-stat-icon admin-stat-icon-stone", Model.Summary.TotalViewCount, "Tổng lượt xem")
@@ -122,8 +122,8 @@
             <partial name="_AdminIcon" model="@("search")" />
             <p class="admin-empty-text">
                 @(Model.HasAnyFilter
-                    ? "Không có di tích nào khớp tiêu chí đang chọn. Bỏ bớt tiêu chí để xem thêm."
-                    : "Danh sách di tích đang trống. Thêm di tích đầu tiên để bắt đầu.")
+                    ? "Bỏ bớt tiêu chí đang chọn để xem thêm."
+                    : "Danh sách đang trống. Thêm di tích đầu tiên để bắt đầu.")
             </p>
             @if (Model.HasAnyFilter)
             {
@@ -161,8 +161,8 @@
                         var imageUrl = $"/admin/di-tich/{row.Id}/anh";
                         var publicUrl = SiteUrls.OnPort(Context.Request, publicPort, $"/di-tich/{row.Slug}");
                         var confirmText = row.ImageCount > 0
-                            ? $"Xóa di tích {row.Name}? {row.ImageCount} ảnh của di tích cũng bị xóa theo và không lấy lại được."
-                            : $"Xóa di tích {row.Name}? Thao tác này không lấy lại được.";
+                            ? $"Xóa hồ sơ {row.Name}? {row.ImageCount} ảnh kèm theo cũng bị xóa và không lấy lại được."
+                            : $"Xóa hồ sơ {row.Name}? Thao tác này không lấy lại được.";
                         <tr>
                             <td class="admin-cell-thumb">
                                 @if (string.IsNullOrWhiteSpace(row.ThumbnailPath))

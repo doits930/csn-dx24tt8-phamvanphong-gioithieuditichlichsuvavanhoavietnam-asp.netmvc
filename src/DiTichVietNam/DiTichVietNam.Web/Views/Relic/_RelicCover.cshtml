@@ -26,7 +26,12 @@
                     </ol>
                 </nav>
 
-                <p class="relic-rank-chip @RankingLevelText.CssModifier(Model.RankingLevel)">@Model.RankingLabel</p>
+                <p class="relic-rank-chips">
+                    @foreach (var chip in Model.RankingChips)
+                    {
+                        <span class="relic-rank-chip @chip.CssModifier">@chip.Label</span>
+                    }
+                </p>
 
                 <h1 class="relic-title @Model.NameSizeModifier">@Model.Name</h1>
 
@@ -52,7 +57,7 @@
                     @if (!string.IsNullOrWhiteSpace(Model.TypeName))
                     {
                         <div>
-                            <dt>Loại hình</dt>
+                            <dt>@Model.TypeFieldLabel</dt>
                             <dd>
                                 @if (string.IsNullOrWhiteSpace(Model.TypeSlug))
                                 {
@@ -68,7 +73,7 @@
                     @if (Model.RecognizedYear.HasValue)
                     {
                         <div>
-                            <dt>Năm xếp hạng</dt>
+                            <dt>@Model.RecognizedYearFieldLabel</dt>
                             <dd>@Model.RecognizedYear</dd>
                         </div>
                     }

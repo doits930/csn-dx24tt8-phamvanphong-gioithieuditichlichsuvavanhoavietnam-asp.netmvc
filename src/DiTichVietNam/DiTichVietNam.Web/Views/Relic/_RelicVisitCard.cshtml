@@ -14,7 +14,7 @@
     }
     else
     {
-        <h2 class="visit-card-title">Thông tin tham quan</h2>
+        <h2 class="visit-card-title">@Model.Title</h2>
     }
 
     <div class="visit-card-body">
@@ -71,10 +71,18 @@
             </div>
         }
 
+        @if (Model.HasContactNote)
+        {
+            <p class="visit-line visit-line-muted">@Model.ContactNote</p>
+        }
+
         @if (Model.NoteLines.Count > 0)
         {
             <div class="visit-block">
-                <h3 class="visit-block-title">Lưu ý khi đi</h3>
+                @if (!Model.PlainNotes)
+                {
+                    <h3 class="visit-block-title">Lưu ý khi đi</h3>
+                }
                 @foreach (var line in Model.NoteLines)
                 {
                     <p class="visit-line">@line</p>

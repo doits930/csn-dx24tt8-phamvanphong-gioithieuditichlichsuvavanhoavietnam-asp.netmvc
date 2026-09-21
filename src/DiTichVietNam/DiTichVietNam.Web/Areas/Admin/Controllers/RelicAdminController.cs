@@ -68,9 +68,9 @@ public class RelicAdminController : AdminBaseController
             var result = await _relicService.CreateAsync(RelicFormFactory.ToInput(vm));
             if (result.Success)
             {
-                TempData["AdminSuccess"] = $"Đã thêm di tích {vm.Name?.Trim()}.";
+                TempData["AdminSuccess"] = $"Đã thêm hồ sơ {vm.Name?.Trim()}.";
                 TempData["AdminAlertLinkUrl"] = $"/admin/di-tich/{result.Data}/anh";
-                TempData["AdminAlertLinkText"] = "Thêm ảnh cho di tích này";
+                TempData["AdminAlertLinkText"] = "Thêm ảnh cho hồ sơ này";
 
                 return Redirect(ListPath);
             }
@@ -119,7 +119,7 @@ public class RelicAdminController : AdminBaseController
             var result = await _relicService.UpdateAsync(id, RelicFormFactory.ToInput(vm));
             if (result.Success)
             {
-                TempData["AdminSuccess"] = $"Đã lưu thay đổi của di tích {vm.Name?.Trim()}.";
+                TempData["AdminSuccess"] = $"Đã lưu thay đổi của hồ sơ {vm.Name?.Trim()}.";
 
                 return Redirect(vm.ReturnUrl ?? ListPath);
             }
@@ -165,7 +165,7 @@ public class RelicAdminController : AdminBaseController
         var result = await _relicService.DeleteAsync(id);
         if (result.Success)
         {
-            TempData["AdminSuccess"] = $"Đã xóa di tích {data.Name}.";
+            TempData["AdminSuccess"] = $"Đã xóa hồ sơ {data.Name}.";
         }
         else
         {

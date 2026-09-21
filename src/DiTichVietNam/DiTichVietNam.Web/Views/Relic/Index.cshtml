@@ -41,6 +41,11 @@
             </div>
         }
 
+        @if (Model.HasIntangibleItem)
+        {
+            <p class="relic-list-note">@IntangibleHeritage.ProvinceNote</p>
+        }
+
         @if (Model.HasResults)
         {
             <div class="relic-grid @(Model.ShowsMatchExcerpt ? "has-excerpt" : string.Empty)">
@@ -57,12 +62,12 @@
             <div class="empty-state">
                 @if (Model.Filter.HasAnyFilter)
                 {
-                    <p>Không có di tích nào khớp với các tiêu chí đang chọn.</p>
+                    <p>Không có mục nào khớp với các tiêu chí đang chọn.</p>
                     <p class="empty-hint">Bỏ bớt một tiêu chí trong thanh tìm kiếm, hoặc xóa toàn bộ bộ lọc để xem lại danh sách đầy đủ.</p>
                 }
                 else
                 {
-                    <p>Chưa có di tích nào để hiển thị.</p>
+                    <p>Chưa có mục nào để hiển thị.</p>
                     <p class="empty-hint">Quản trị viên cần thêm dữ liệu di tích trước khi trang này có kết quả.</p>
                 }
             </div>

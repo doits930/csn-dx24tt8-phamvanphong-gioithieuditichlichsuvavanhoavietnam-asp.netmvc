@@ -53,10 +53,7 @@ public class StatisticsService : IStatisticsService
         statistics.Rankings = await BuildRankingsAsync(statistics.RelicCount);
         statistics.Types = await BuildTypesAsync(statistics.RelicCount);
 
-        statistics.TopProvinces = provinces
-            .Where(p => p.Count > 0)
-            .Take(TopProvinceCount)
-            .ToList();
+        statistics.TopProvinces = TakeWithTies(provinces.Where(p => p.Count > 0).ToList(), TopProvinceCount);
         StatisticsFactory.ApplyShares(statistics.TopProvinces, statistics.RelicCount);
         statistics.OtherProvinceCount = statistics.ProvinceWithRelicCount - statistics.TopProvinces.Count;
 
@@ -100,6 +97,20 @@ public class StatisticsService : IStatisticsService
         statistics.Missing = BuildMissingGroups(await LoadMissingCandidatesAsync());
 
         return statistics;
+    }
+
+    private static List<CountShare> TakeWithTies(List<CountShare> ordered, int limit)
+    {
+        if (ordered.Count <= limit)
+        {
+            return ordered;
+        }
+
+        var lastCount = ordered[limit - 1].Count;
+        var taken = ordered.Take(limit).ToList();
+        taken.AddRange(ordered.Skip(limit).TakeWhile(item => item.Count == lastCount));
+
+        return taken;
     }
 
     private async Task<List<CountShare>> BuildRankingsAsync(int relicCount)
@@ -208,7 +219,9 @@ public class StatisticsService : IStatisticsService
                 },
                 WithoutImage = !r.Images.Any(),
                 WithSingleImage = r.Images.Count == 1,
-                WithoutLocation = r.Latitude == null || r.Longitude == null,
+                WithoutLocation = (r.Latitude == null || r.Longitude == null)
+                    && r.RelicType!.Slug != IntangibleHeritage.TypeSlug
+                    && r.RelicType!.Name != IntangibleHeritage.TypeName,
                 WithoutVisitInfo = r.VisitInfo == null || r.VisitInfo.Trim() == ""
             })
             .ToListAsync();
@@ -223,13 +236,14 @@ public class StatisticsService : IStatisticsService
         return new List<MissingDataGroup>
         {
             BuildMissingGroup(ordered, "anh", "Chưa có ảnh", "image",
-                "Mọi di tích đều đã có ảnh.", candidate => candidate.WithoutImage),
+                "Mọi mục đều đã có ảnh.", candidate => candidate.WithoutImage),
             BuildMissingGroup(ordered, "toa-do", "Chưa có tọa độ", "compass",
-                "Mọi di tích đều đã có tọa độ.", candidate => candidate.WithoutLocation),
+                "Mọi mục cần định vị đều đã có tọa độ.", candidate => candidate.WithoutLocation,
+                "Không tính bản ghi thuộc loại di sản văn hóa phi vật thể vì nhóm này không định vị theo một điểm."),
             BuildMissingGroup(ordered, "mot-anh", "Chỉ có một ảnh", "upload",
-                "Không di tích nào chỉ có một ảnh.", candidate => candidate.WithSingleImage),
+                "Không mục nào chỉ có một ảnh.", candidate => candidate.WithSingleImage),
             BuildMissingGroup(ordered, "tham-quan", "Chưa có thông tin tham quan", "text",
-                "Mọi di tích đều đã có thông tin tham quan.", candidate => candidate.WithoutVisitInfo)
+                "Mọi mục đều đã có thông tin tham quan.", candidate => candidate.WithoutVisitInfo)
         };
     }
 
@@ -239,7 +253,8 @@ public class StatisticsService : IStatisticsService
         string label,
         string icon,
         string clearMessage,
-        Func<MissingDataCandidate, bool> match)
+        Func<MissingDataCandidate, bool> match,
+        string? note = null)
     {
         var matched = ordered.Where(match).ToList();
 
@@ -249,6 +264,7 @@ public class StatisticsService : IStatisticsService
             Label = label,
             Icon = icon,
             ClearMessage = clearMessage,
+            Note = note,
             Count = matched.Count,
             Samples = matched.Take(MissingSampleCount).Select(candidate => candidate.Relic).ToList()
         };

@@ -12,7 +12,7 @@
     var header = new AdminPageHeaderVM
     {
         Title = "Thống kê",
-        Lead = "Toàn cảnh dữ liệu đang có trong hệ thống: phân bố theo cấp xếp hạng, loại và tỉnh thành, di tích được xem nhiều và những hồ sơ còn thiếu thông tin.",
+        Lead = "Toàn cảnh dữ liệu đang có trong hệ thống: phân bố theo cấp xếp hạng, loại và tỉnh thành, mục được xem nhiều và những hồ sơ còn thiếu thông tin.",
         ActionLabel = "Quản lý di tích",
         ActionUrl = RelicAdminController.ListPath,
         ActionIcon = "list"
@@ -47,7 +47,7 @@
         <div class="admin-empty">
             <partial name="_AdminIcon" model="@("relic")" />
             <p class="admin-empty-text">
-                Chưa có di tích nào trong hệ thống nên chưa có số liệu để thống kê.
+                Chưa có mục nào trong hệ thống nên chưa có số liệu để thống kê.
                 Thêm di tích đầu tiên để các biểu đồ ở trang này bắt đầu có nội dung.
             </p>
             <a class="admin-btn admin-btn-primary" href="@RelicAdminController.CreatePath">
@@ -65,7 +65,7 @@ else
                 <partial name="_AdminIcon" model="@("star")" />
                 <span>Di tích theo cấp xếp hạng</span>
             </h2>
-            <p class="admin-card-note">Bấm một mức để mở danh sách di tích đã lọc sẵn theo cấp đó.</p>
+            <p class="admin-card-note">Bấm một mức để mở danh sách đã lọc sẵn theo cấp đó.</p>
         </div>
 
         <div class="rank-band" aria-hidden="true">
@@ -83,7 +83,7 @@ else
                     {
                         <a class="rank-legend-item" href="@level.Url">
                             <span class="admin-chip @level.Modifier">@level.Label</span>
-                            <span class="rank-legend-count">@level.CountText di tích</span>
+                            <span class="rank-legend-count">@level.CountText mục</span>
                             <span class="rank-legend-percent">@level.PercentText</span>
                         </a>
                     }
@@ -91,7 +91,7 @@ else
                     {
                         <span class="rank-legend-item is-empty">
                             <span class="admin-chip @level.Modifier">@level.Label</span>
-                            <span class="rank-legend-count">@level.CountText di tích</span>
+                            <span class="rank-legend-count">@level.CountText mục</span>
                             <span class="rank-legend-percent">@level.PercentText</span>
                         </span>
                     }
@@ -108,7 +108,7 @@ else
                         <partial name="_AdminIcon" model="@("type")" />
                         <span>Di tích theo loại</span>
                     </h2>
-                    <p class="admin-card-note">Bốn loại di tích theo quy định, tính trên @Model.RelicCount hồ sơ đang có.</p>
+                    <p class="admin-card-note">Các loại đang có trong danh mục, tính trên @Model.RelicCount mục.</p>
                 </div>
                 <ul class="bar-list">
                     @foreach (var item in Model.Types)
@@ -124,7 +124,7 @@ else
                         <partial name="_AdminIcon" model="@("province")" />
                         <span>Di tích theo tỉnh thành</span>
                     </h2>
-                    <p class="admin-card-note">Mười tỉnh thành có nhiều di tích nhất.</p>
+                    <p class="admin-card-note">Các tỉnh thành có nhiều mục nhất, kèm cả những tỉnh thành đồng hạng ở vị trí cuối.</p>
                 </div>
                 <ul class="bar-list">
                     @foreach (var item in Model.TopProvinces)
@@ -135,11 +135,11 @@ else
                 <p class="dash-note">
                     @if (Model.OtherProvinceCount > 0)
                     {
-                        <span>Còn @Model.OtherProvinceCount tỉnh thành khác đang có di tích.</span>
+                        <span>Còn @Model.OtherProvinceCount tỉnh thành khác đang có mục.</span>
                     }
                     @if (Model.ProvinceWithoutRelicCount > 0)
                     {
-                        <span>@Model.ProvinceWithoutRelicCount tỉnh thành chưa có di tích nào.</span>
+                        <span>@Model.ProvinceWithoutRelicCount tỉnh thành chưa có mục nào.</span>
                     }
                 </p>
             </section>
@@ -150,7 +150,7 @@ else
                         <partial name="_AdminIcon" model="@("compass")" />
                         <span>Phân bố theo miền</span>
                     </h2>
-                    <p class="admin-card-note">Cộng số di tích của các tỉnh thành trong từng miền.</p>
+                    <p class="admin-card-note">Cộng số mục của các tỉnh thành trong từng miền.</p>
                 </div>
                 <ul class="bar-list">
                     @foreach (var item in Model.Regions)
@@ -168,7 +168,7 @@ else
                         <partial name="_AdminIcon" model="@("alert")" />
                         <span>Cần bổ sung</span>
                     </h2>
-                    <p class="admin-card-note">Những chỗ còn trống trong hồ sơ di tích, mở thẳng biểu mẫu sửa để bổ sung.</p>
+                    <p class="admin-card-note">Những chỗ còn trống trong hồ sơ, mở thẳng biểu mẫu sửa để bổ sung.</p>
                 </div>
                 <ul class="missing-list">
                     @foreach (var group in Model.Missing)
@@ -185,6 +185,10 @@ else
                                 <span class="bar-fill bar-fill-alert @(group.HasAny ? null : "is-zero")"
                                       style="width:@(group.BarWidth)%"></span>
                             </span>
+                            @if (!string.IsNullOrWhiteSpace(group.Note))
+                            {
+                                <span class="missing-note">@group.Note</span>
+                            }
                             @if (group.HasAny)
                             {
                                 <span class="missing-samples">
@@ -195,7 +199,7 @@ else
                                     }
                                     @if (group.RemainingCount > 0)
                                     {
-                                        <span>và @group.RemainingCount di tích khác</span>
+                                        <span>và @group.RemainingCount mục khác</span>
                                     }
                                 </span>
                             }

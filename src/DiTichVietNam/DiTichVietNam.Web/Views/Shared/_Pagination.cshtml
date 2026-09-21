@@ -2,7 +2,7 @@
 
 @if (Model.TotalPages > 1)
 {
-    <nav class="pagination-bar" aria-label="Chuyển trang danh sách di tích">
+    <nav class="pagination-bar" aria-label="Chuyển trang danh sách">
         @if (Model.HasPrevious)
         {
             <a class="pagination-step" href="@PaginationLinks.PageUrl(Model, Model.CurrentPage - 1)" rel="prev">Trang trước</a>

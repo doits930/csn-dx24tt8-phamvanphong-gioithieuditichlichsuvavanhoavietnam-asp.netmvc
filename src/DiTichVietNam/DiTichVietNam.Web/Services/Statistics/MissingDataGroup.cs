@@ -6,6 +6,7 @@ public class MissingDataGroup
     public string Label { get; set; } = string.Empty;
     public string Icon { get; set; } = string.Empty;
     public string ClearMessage { get; set; } = string.Empty;
+    public string? Note { get; set; }
     public int Count { get; set; }
     public List<RelicBrief> Samples { get; set; } = new();
 }

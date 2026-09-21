@@ -9,13 +9,13 @@
     {
         new() { Label = "Quản trị", Url = DashboardController.IndexPath },
         new() { Label = "Di tích", Url = "/admin/di-tich" },
-        new() { Label = "Xóa di tích" }
+        new() { Label = "Xóa hồ sơ" }
     };
 
     var header = new AdminPageHeaderVM
     {
-        Title = "Xóa di tích",
-        Lead = $"Xóa di tích {Model.Name} khỏi hệ thống."
+        Title = "Xóa hồ sơ",
+        Lead = $"Xóa hồ sơ {Model.Name} khỏi hệ thống."
     };
 }
 
@@ -25,13 +25,13 @@
     <partial name="_AdminIcon" model="@("alert")" />
     <p class="admin-panel-text">
         @(Model.ImageCount > 0
-            ? $"{Model.ImageCount} ảnh của di tích cũng bị xóa theo. Thao tác này không lấy lại được."
-            : "Di tích này chưa có ảnh nào. Thao tác này không lấy lại được.")
+            ? $"{Model.ImageCount} ảnh kèm theo cũng bị xóa. Thao tác này không lấy lại được."
+            : "Hồ sơ này chưa có ảnh nào. Thao tác này không lấy lại được.")
     </p>
 
     <form class="admin-panel-actions" action="/admin/di-tich/xoa/@Model.Id@returnQuery" method="post">
         @Html.AntiForgeryToken()
         <a class="admin-btn admin-btn-secondary" href="@cancelUrl">Hủy</a>
-        <button type="submit" class="admin-btn admin-btn-danger">Xóa di tích</button>
+        <button type="submit" class="admin-btn admin-btn-danger">Xóa hồ sơ</button>
     </form>
 </div>

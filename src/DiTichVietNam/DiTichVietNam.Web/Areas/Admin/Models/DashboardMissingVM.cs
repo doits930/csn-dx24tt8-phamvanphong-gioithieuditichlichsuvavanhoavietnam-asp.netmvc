@@ -6,6 +6,7 @@ public class DashboardMissingVM
     public string Icon { get; set; } = string.Empty;
     public string CountText { get; set; } = string.Empty;
     public string ClearMessage { get; set; } = string.Empty;
+    public string? Note { get; set; }
     public string BarWidth { get; set; } = "0";
     public int Count { get; set; }
     public List<DashboardRelicVM> Samples { get; set; } = new();
