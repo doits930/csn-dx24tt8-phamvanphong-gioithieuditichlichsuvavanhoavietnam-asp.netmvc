@@ -1451,6 +1451,11 @@
   overflow-wrap: anywhere;
 }
 
+.admin-slug-note {
+  display: block;
+  font-style: italic;
+}
+
 .admin-card-title {
   display: flex;
   align-items: center;
@@ -2614,6 +2619,7 @@
 }
 
 .missing-samples,
+.missing-note,
 .missing-done {
   display: block;
   font-size: var(--text-xs);
