@@ -10,6 +10,7 @@ public class HeroSlideVM
     public string TypeName { get; set; } = string.Empty;
     public RankingLevel RankingLevel { get; set; }
     public string RankingLabel { get; set; } = string.Empty;
+    public string RankingCssModifier { get; set; } = string.Empty;
     public int? RecognizedYear { get; set; }
     public string Intro { get; set; } = string.Empty;
     public string MainImagePath { get; set; } = string.Empty;

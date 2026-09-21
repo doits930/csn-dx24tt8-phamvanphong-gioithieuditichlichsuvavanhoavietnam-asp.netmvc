@@ -59,7 +59,7 @@ public class RelicService : IRelicService
         var featured = PickOnePerProvince(remaining, featuredCount);
         var featuredIds = featured.Select(r => r.Id).ToHashSet();
         featured.AddRange(remaining
-            .Where(r => !featuredIds.Contains(r.Id))
+            .Where(r => !featuredIds.Contains(r.Id) && !string.IsNullOrWhiteSpace(r.ThumbnailPath))
             .Take(featuredCount - featured.Count));
 
         var heroImages = await LoadImagesAsync(heroIds);
@@ -461,8 +461,33 @@ public class RelicService : IRelicService
         }
 
         var imageCount = await _context.RelicImages.CountAsync(i => i.RelicId == id);
+        var editData = RelicFactory.ToEditData(relic, imageCount);
 
-        return RelicFactory.ToEditData(relic, imageCount);
+        if (await IsIntangibleTypeAsync(relic.RelicTypeId))
+        {
+            editData.Address = IntangibleHeritage.StripAddressPrefix(editData.Address);
+        }
+
+        return editData;
+    }
+
+    private async Task<bool> IsIntangibleTypeAsync(int relicTypeId)
+    {
+        var type = await _context.RelicTypes
+            .AsNoTracking()
+            .Where(t => t.Id == relicTypeId)
+            .Select(t => new { t.Slug, t.Name })
+            .FirstOrDefaultAsync();
+
+        return type is not null && IntangibleHeritage.IsIntangible(type.Slug, type.Name);
+    }
+
+    private async Task ApplyAddressConventionAsync(RelicInput input)
+    {
+        if (await IsIntangibleTypeAsync(input.RelicTypeId))
+        {
+            input.Address = IntangibleHeritage.EnsureAddressPrefix(input.Address);
+        }
     }
 
     public async Task<ServiceResult<int>> CreateAsync(RelicInput input)
@@ -473,7 +498,9 @@ public class RelicService : IRelicService
             return ServiceResult<int>.Fail(reference.Value.Message, reference.Value.Field);
         }
 
-        var slug = await BuildUniqueSlugAsync(input.Name, input.ProvinceId, null);
+        await ApplyAddressConventionAsync(input);
+
+        var slug = await BuildUniqueSlugAsync(input.Name, input.ProvinceId);
         if (slug.Length == 0)
         {
             return ServiceResult<int>.Fail(NameWithoutSlugMessage, nameof(RelicInput.Name));
@@ -496,7 +523,7 @@ public class RelicService : IRelicService
             }
             catch (DbUpdateException exception) when (DatabaseConflict.IsUniqueViolation(exception))
             {
-                var retrySlug = await BuildUniqueSlugAsync(input.Name, input.ProvinceId, null);
+                var retrySlug = await BuildUniqueSlugAsync(input.Name, input.ProvinceId);
                 if (retrySlug.Length == 0 || retrySlug == relic.Slug)
                 {
                     break;
@@ -525,43 +552,14 @@ public class RelicService : IRelicService
             return ServiceResult.Fail(reference.Value.Message, reference.Value.Field);
         }
 
-        var newSlug = relic.Slug;
-        if (!string.Equals(relic.Name, input.Name.Trim(), StringComparison.Ordinal))
-        {
-            newSlug = await BuildUniqueSlugAsync(input.Name, input.ProvinceId, id);
-            if (newSlug.Length == 0)
-            {
-                return ServiceResult.Fail(NameWithoutSlugMessage, nameof(RelicInput.Name));
-            }
-        }
+        await ApplyAddressConventionAsync(input);
 
         RelicFactory.ApplyToEntity(input, relic);
-        relic.Slug = newSlug;
         relic.UpdatedAt = DateTime.Now;
 
-        for (var attempt = 0; attempt < MaxSlugConflictRetries; attempt++)
-        {
-            try
-            {
-                await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync();
 
-                return ServiceResult.Ok();
-            }
-            catch (DbUpdateException exception) when (DatabaseConflict.IsUniqueViolation(exception))
-            {
-                var retrySlug = await BuildUniqueSlugAsync(input.Name, input.ProvinceId, id);
-                if (retrySlug.Length == 0 || retrySlug == relic.Slug)
-                {
-                    break;
-                }
-
-                relic.Slug = retrySlug;
-            }
-        }
-
-        await _context.Entry(relic).ReloadAsync();
-
-        return ServiceResult.Fail(SlugConflictMessage, nameof(RelicInput.Name));
+        return ServiceResult.Ok();
     }
 
     public async Task<ServiceResult> DeleteAsync(int id)
@@ -623,7 +621,7 @@ public class RelicService : IRelicService
         return null;
     }
 
-    private async Task<string> BuildUniqueSlugAsync(string name, int provinceId, int? currentRelicId)
+    private async Task<string> BuildUniqueSlugAsync(string name, int provinceId)
     {
         var baseSlug = SlugHelper.ToSlug(name);
         if (baseSlug.Length == 0)
@@ -632,7 +630,7 @@ public class RelicService : IRelicService
         }
 
         baseSlug = LimitSlugLength(baseSlug);
-        if (!await SlugTakenAsync(baseSlug, currentRelicId))
+        if (!await SlugTakenAsync(baseSlug))
         {
             return baseSlug;
         }
@@ -646,7 +644,7 @@ public class RelicService : IRelicService
         if (!string.IsNullOrWhiteSpace(provinceSlug))
         {
             candidate = LimitSlugLength($"{baseSlug}-{provinceSlug}");
-            if (!await SlugTakenAsync(candidate, currentRelicId))
+            if (!await SlugTakenAsync(candidate))
             {
                 return candidate;
             }
@@ -656,7 +654,7 @@ public class RelicService : IRelicService
         while (true)
         {
             var numbered = LimitSlugLength($"{candidate}-{suffix}");
-            if (!await SlugTakenAsync(numbered, currentRelicId))
+            if (!await SlugTakenAsync(numbered))
             {
                 return numbered;
             }
@@ -665,8 +663,8 @@ public class RelicService : IRelicService
         }
     }
 
-    private Task<bool> SlugTakenAsync(string slug, int? currentRelicId) =>
-        _context.Relics.AnyAsync(r => r.Slug == slug && (currentRelicId == null || r.Id != currentRelicId));
+    private Task<bool> SlugTakenAsync(string slug) =>
+        _context.Relics.AnyAsync(r => r.Slug == slug);
 
     private static string LimitSlugLength(string slug) =>
         slug.Length <= MaxSlugLength ? slug : slug[..MaxSlugLength].TrimEnd('-');
@@ -799,7 +797,7 @@ public class RelicService : IRelicService
 
         if (type is not null)
         {
-            clauses.Add($"loại {type.Name}");
+            clauses.Add($"thuộc loại {type.Name}");
         }
 
         if (filter.Ranking.HasValue)
@@ -807,12 +805,16 @@ public class RelicService : IRelicService
             clauses.Add(RankingLevelText.SummaryPhrase(filter.Ranking.Value));
         }
 
+        var noun = ResultNoun(type);
         var opening = totalCount > 0
-            ? $"{totalCount} di tích"
-            : "Không có di tích nào";
+            ? $"{totalCount} {noun}"
+            : $"Không có {noun} nào";
 
         return $"{opening} {string.Join(", ", clauses)}";
     }
+
+    private static string ResultNoun(RelicTypeLinkVM? type) =>
+        type is not null && !IntangibleHeritage.IsIntangible(type.Slug, type.Name) ? "di tích" : "mục";
 
     private static string? BuildHeaderNote(
         SearchFilterVM filter,
@@ -825,11 +827,11 @@ public class RelicService : IRelicService
         {
             if (totalCount == 0)
             {
-                return "Chưa có di tích nào để hiển thị.";
+                return "Chưa có mục nào để hiển thị.";
             }
 
             var provinceCount = provinceGroups.SelectMany(g => g.Provinces).Count(p => p.RelicCount > 0);
-            return $"Hiện có {totalCount} di tích, thuộc {provinceCount} tỉnh thành.";
+            return $"Hiện có {totalCount} mục, thuộc {provinceCount} tỉnh thành.";
         }
 
         if (!string.IsNullOrWhiteSpace(filter.NormalizedKeyword))

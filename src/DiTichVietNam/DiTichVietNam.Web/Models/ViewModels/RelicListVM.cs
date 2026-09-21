@@ -1,3 +1,5 @@
+using DiTichVietNam.Web.Helpers;
+
 namespace DiTichVietNam.Web.Models.ViewModels;
 
 public class RelicListVM
@@ -20,5 +22,6 @@ public class RelicListVM
 
     public bool HasResults => Items.Count > 0;
     public bool ShowsMatchExcerpt => Items.Any(i => !string.IsNullOrWhiteSpace(i.MatchExcerpt));
+    public bool HasIntangibleItem => Items.Any(i => IntangibleHeritage.IsIntangible(i.TypeSlug, i.TypeName));
     public bool ShowsSuggestions => SuggestionLinks.Count > 0 && !string.IsNullOrWhiteSpace(SuggestionTitle);
 }

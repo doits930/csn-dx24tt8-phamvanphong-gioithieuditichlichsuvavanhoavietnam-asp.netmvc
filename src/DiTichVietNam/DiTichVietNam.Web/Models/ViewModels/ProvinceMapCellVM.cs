@@ -10,8 +10,8 @@ public class ProvinceMapCellVM
     public string LabelXPercent { get; set; } = string.Empty;
     public string LabelYPercent { get; set; } = string.Empty;
 
-    public string CountNote => RelicCount > 0 ? $"{RelicCount} di tích" : "Chưa có di tích";
+    public string CountNote => RelicCount > 0 ? $"{RelicCount} mục" : "Chưa có mục nào";
     public string AccessibleName => RelicCount > 0
-        ? $"{Name}, {RelicCount} di tích"
-        : $"{Name}, chưa có di tích";
+        ? $"{Name}, {RelicCount} mục"
+        : $"{Name}, chưa có mục nào";
 }

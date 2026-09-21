@@ -1,3 +1,5 @@
+using System.Globalization;
+using DiTichVietNam.Web.Helpers;
 using DiTichVietNam.Web.Services.Relics;
 
 namespace DiTichVietNam.Web.Areas.Admin.Models;
@@ -39,4 +41,22 @@ public class RelicFormVM
     public RelicFormOptions Options { get; set; } = new();
 
     public bool IsEdit => Id > 0;
+
+    public const string DefaultAddressLabel = "Địa chỉ";
+
+    public const string DefaultAddressHint = "Từ chi tiết nhất đến rộng nhất: số nhà, xã, huyện, tỉnh.";
+
+    public const string DefaultRecognizedYearLabel = "Năm xếp hạng";
+
+    public bool IsIntangibleSelected => Options.RelicTypes
+        .Any(t => t.Id.ToString(CultureInfo.InvariantCulture) == RelicTypeId
+            && IntangibleHeritage.IsIntangible(t.Slug, t.Name));
+
+    public string AddressLabel => IsIntangibleSelected ? IntangibleHeritage.AddressLabel : DefaultAddressLabel;
+
+    public string AddressHint => IsIntangibleSelected ? IntangibleHeritage.AddressHint : DefaultAddressHint;
+
+    public string RecognizedYearLabel => IsIntangibleSelected
+        ? IntangibleHeritage.RecognizedYearFieldLabel
+        : DefaultRecognizedYearLabel;
 }

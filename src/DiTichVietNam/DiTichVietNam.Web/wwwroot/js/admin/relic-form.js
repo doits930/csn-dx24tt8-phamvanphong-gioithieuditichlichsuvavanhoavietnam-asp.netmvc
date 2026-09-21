@@ -27,7 +27,7 @@
     }
 
     function setUpSlugPreview(form) {
-        var source = form.find('[data-slug-source]');
+        var source = form.find('[data-slug-source="true"]');
         var preview = form.find('[data-slug-preview]');
         if (source.length === 0 || preview.length === 0) {
             return;
@@ -276,12 +276,44 @@
         });
     }
 
+    function setUpAddressHint(form) {
+        var select = form.find('#field-type');
+        var label = form.find('[data-address-label]');
+        var hint = form.find('#field-address-hint');
+        var yearLabel = form.find('[data-year-label]');
+        if (select.length === 0 || label.length === 0) {
+            return;
+        }
+
+        var intangibleSlug = form.data('intangible-type-slug');
+        var intangibleName = $.trim(form.data('intangible-type-name'));
+
+        function apply() {
+            var option = select.find('option:selected');
+            var isIntangible = option.data('type-slug') === intangibleSlug
+                || $.trim(option.text()) === intangibleName;
+
+            label.text(isIntangible
+                ? form.data('address-label-intangible')
+                : form.data('address-label-default'));
+            hint.text(isIntangible
+                ? form.data('address-hint-intangible')
+                : form.data('address-hint-default'));
+            yearLabel.text(isIntangible
+                ? form.data('year-label-intangible')
+                : form.data('year-label-default'));
+        }
+
+        select.on('change', apply);
+    }
+
     $(function () {
         var form = $('#relic-form');
         if (form.length === 0) {
             return;
         }
 
+        setUpAddressHint(form);
         setUpSlugPreview(form);
         setUpCounters(form);
         setUpAutoGrow(form);

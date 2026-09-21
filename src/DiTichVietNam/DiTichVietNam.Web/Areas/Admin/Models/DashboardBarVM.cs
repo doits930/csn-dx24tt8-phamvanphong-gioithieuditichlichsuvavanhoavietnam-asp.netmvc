@@ -3,6 +3,7 @@ namespace DiTichVietNam.Web.Areas.Admin.Models;
 public class DashboardBarVM
 {
     public string Label { get; set; } = string.Empty;
+    public string Unit { get; set; } = "mục";
     public string CountText { get; set; } = string.Empty;
     public string PercentText { get; set; } = string.Empty;
     public string ShareWidth { get; set; } = "0";

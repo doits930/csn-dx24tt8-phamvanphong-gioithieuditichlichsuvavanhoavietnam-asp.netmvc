@@ -1,4 +1,5 @@
 using System.Globalization;
+using DiTichVietNam.Web.Helpers;
 using DiTichVietNam.Web.Models.ViewModels;
 using DiTichVietNam.Web.Services.Relics;
 using Microsoft.AspNetCore.WebUtilities;
@@ -18,7 +19,7 @@ public static class RelicAdminListFactory
             Filter = filter,
             Options = result.Options,
             Summary = result.Summary,
-            ResultSummary = BuildSummary(result.TotalCount, filter.HasAnyFilter),
+            ResultSummary = BuildSummary(result.TotalCount, filter, result.Options),
             ListUrl = BuildListUrl(basePath, routeValues, result.CurrentPage),
             Pagination = new PaginationVM
             {
@@ -30,18 +31,34 @@ public static class RelicAdminListFactory
         };
     }
 
-    private static string BuildSummary(int totalCount, bool hasAnyFilter)
+    private static string BuildSummary(int totalCount, SearchFilterVM filter, RelicFormOptions options)
     {
-        if (!hasAnyFilter)
+        var noun = ResultNoun(filter.TypeSlug, options);
+
+        if (!filter.HasAnyFilter)
         {
             return totalCount == 0
-                ? "Chưa có di tích nào."
-                : $"Đang có {totalCount} di tích.";
+                ? $"Chưa có {noun} nào."
+                : $"Đang có {totalCount} {noun}.";
         }
 
         return totalCount == 0
-            ? "Không có di tích nào khớp tiêu chí đang chọn."
-            : $"{totalCount} di tích khớp tiêu chí đang chọn.";
+            ? $"Không có {noun} nào khớp tiêu chí đang chọn."
+            : $"{totalCount} {noun} khớp tiêu chí đang chọn.";
+    }
+
+    private static string ResultNoun(string? typeSlug, RelicFormOptions options)
+    {
+        if (string.IsNullOrWhiteSpace(typeSlug))
+        {
+            return "mục";
+        }
+
+        var selected = options.RelicTypes.FirstOrDefault(t => t.Slug == typeSlug);
+
+        return selected is not null && !IntangibleHeritage.IsIntangible(selected.Slug, selected.Name)
+            ? "di tích"
+            : "mục";
     }
 
     private static string BuildListUrl(string basePath, Dictionary<string, string?> routeValues, int currentPage)

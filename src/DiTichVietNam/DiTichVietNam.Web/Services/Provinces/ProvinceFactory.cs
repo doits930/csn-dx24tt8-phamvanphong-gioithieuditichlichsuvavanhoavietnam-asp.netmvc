@@ -62,8 +62,20 @@ public static class ProvinceFactory
         return null;
     }
 
-    public static int DensityStep(int relicCount) =>
-        relicCount <= 0 ? 0 : Math.Min(relicCount, MaxDensityStep);
+    private static readonly int[] DensityUpperBounds = { 0, 2, 5, 10 };
+
+    public static int DensityStep(int relicCount)
+    {
+        for (var step = 0; step < DensityUpperBounds.Length; step++)
+        {
+            if (relicCount <= DensityUpperBounds[step])
+            {
+                return step;
+            }
+        }
+
+        return MaxDensityStep;
+    }
 
     public static VietnamMapVM ToMapVM(IReadOnlyDictionary<string, ProvinceLinkVM> provincesBySlug) => new()
     {
@@ -144,14 +156,25 @@ public static class ProvinceFactory
 
     private static List<MapLegendStepVM> BuildLegendSteps()
     {
-        var steps = new List<MapLegendStepVM>();
+        var steps = new List<MapLegendStepVM> { new() { Step = 0, Label = "0" } };
 
-        for (var step = 0; step < MaxDensityStep; step++)
+        for (var step = 1; step < DensityUpperBounds.Length; step++)
         {
-            steps.Add(new MapLegendStepVM { Step = step, Label = step.ToString() });
+            var lower = DensityUpperBounds[step - 1] + 1;
+            var upper = DensityUpperBounds[step];
+            steps.Add(new MapLegendStepVM
+            {
+                Step = step,
+                Label = lower == upper ? lower.ToString() : $"{lower} - {upper}"
+            });
         }
 
-        steps.Add(new MapLegendStepVM { Step = MaxDensityStep, Label = $"{MaxDensityStep}+" });
+        steps.Add(new MapLegendStepVM
+        {
+            Step = MaxDensityStep,
+            Label = $"{DensityUpperBounds[^1] + 1}+"
+        });
+
         return steps;
     }
 

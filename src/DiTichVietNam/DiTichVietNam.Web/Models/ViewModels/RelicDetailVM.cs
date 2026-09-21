@@ -13,6 +13,12 @@ public class RelicDetailVM
     public string RegionName { get; set; } = string.Empty;
     public string TypeName { get; set; } = string.Empty;
     public string TypeSlug { get; set; } = string.Empty;
+    public bool IsIntangible { get; set; }
+    public string AddressLabel { get; set; } = "Địa chỉ";
+    public string TypeFieldLabel { get; set; } = "Loại hình";
+    public string RankingFieldLabel { get; set; } = "Cấp xếp hạng";
+    public string RecognizedYearFieldLabel { get; set; } = "Năm xếp hạng";
+    public List<RankingChipVM> RankingChips { get; set; } = new();
     public RankingLevel RankingLevel { get; set; }
     public string RankingLabel { get; set; } = string.Empty;
     public string RankingShortLabel { get; set; } = string.Empty;
@@ -35,6 +41,8 @@ public class RelicDetailVM
 
     public List<BreadcrumbItemVM> Breadcrumbs { get; set; } = new();
     public List<SectionLinkVM> SectionLinks { get; set; } = new();
+    public string RelatedProvinceTitle { get; set; } = string.Empty;
+    public string RelatedTypeTitle { get; set; } = string.Empty;
     public List<RelicCardVM> RelatedSameProvince { get; set; } = new();
     public List<RelicCardVM> RelatedSameType { get; set; } = new();
 

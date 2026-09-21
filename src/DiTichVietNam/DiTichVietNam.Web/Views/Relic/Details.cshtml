@@ -14,7 +14,7 @@
                 @if (Model.HasDescription)
                 {
                     <section class="relic-section" id="gioi-thieu">
-                        <h2 class="relic-section-title">Giới thiệu về di tích</h2>
+                        <h2 class="relic-section-title">@(Model.IsIntangible ? IntangibleHeritage.IntroSectionTitle : "Giới thiệu về di tích")</h2>
                         <div class="relic-prose relic-prose-lead">@Model.DescriptionBody</div>
                     </section>
                 }
@@ -46,7 +46,7 @@
                         @if (!string.IsNullOrWhiteSpace(Model.Address))
                         {
                             <div class="relic-fact">
-                                <dt>Địa chỉ</dt>
+                                <dt>@Model.AddressLabel</dt>
                                 <dd>@Model.Address</dd>
                             </div>
                         }
@@ -60,18 +60,18 @@
                         @if (!string.IsNullOrWhiteSpace(Model.TypeSlug))
                         {
                             <div class="relic-fact">
-                                <dt>Loại hình</dt>
+                                <dt>@Model.TypeFieldLabel</dt>
                                 <dd><a href="@RelicListPaths.ByType(Model.TypeSlug)">@Model.TypeName</a></dd>
                             </div>
                         }
                         <div class="relic-fact">
-                            <dt>Cấp xếp hạng</dt>
+                            <dt>@Model.RankingFieldLabel</dt>
                             <dd>@Model.RankingLabel</dd>
                         </div>
                         @if (Model.RecognizedYear.HasValue)
                         {
                             <div class="relic-fact">
-                                <dt>Năm xếp hạng</dt>
+                                <dt>@Model.RecognizedYearFieldLabel</dt>
                                 <dd>@Model.RecognizedYear</dd>
                             </div>
                         }
@@ -80,6 +80,10 @@
                             <dd>@Model.ViewCount</dd>
                         </div>
                     </dl>
+                    @if (Model.IsIntangible)
+                    {
+                        <p class="relic-fact-note">@IntangibleHeritage.ProvinceNote</p>
+                    }
                 </div>
 
                 @if (Model.LocationMap is not null)
@@ -116,7 +120,7 @@
                 @if (Model.RelatedSameProvince.Count > 0)
                 {
                     <section class="relic-related-strip">
-                        <h2 class="relic-section-title">Di tích khác tại @Model.ProvinceName</h2>
+                        <h2 class="relic-section-title">@Model.RelatedProvinceTitle</h2>
                         <div class="relic-grid">
                             @foreach (var card in Model.RelatedSameProvince)
                             {
@@ -129,7 +133,7 @@
                 @if (Model.RelatedSameType.Count > 0)
                 {
                     <section class="relic-related-strip">
-                        <h2 class="relic-section-title">Cùng loại @Model.TypeName.ToLowerInvariant()</h2>
+                        <h2 class="relic-section-title">@Model.RelatedTypeTitle</h2>
                         <div class="relic-grid">
                             @foreach (var card in Model.RelatedSameType)
                             {

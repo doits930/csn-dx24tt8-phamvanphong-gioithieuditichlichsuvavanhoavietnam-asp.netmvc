@@ -16,7 +16,7 @@
     {
         Title = pageTitle,
         Lead = Model.IsEdit
-            ? "Sửa hồ sơ di tích. Đổi tên di tích thì địa chỉ trang công khai đổi theo."
+            ? "Sửa hồ sơ di tích. Địa chỉ trang công khai giữ nguyên, đổi tên không làm gãy liên kết đã chia sẻ."
             : "Điền hồ sơ di tích. Ảnh được thêm ở màn hình riêng sau khi lưu.",
         Links = Model.IsEdit
             ? new List<AdminPageLinkVM>
@@ -76,7 +76,15 @@
 
 <partial name="_AdminPageHeader" model="header" />
 
-<form id="relic-form" class="admin-form" action="@formAction" method="post" novalidate>
+<form id="relic-form" class="admin-form" action="@formAction" method="post" novalidate
+      data-intangible-type-slug="@IntangibleHeritage.TypeSlug"
+      data-intangible-type-name="@IntangibleHeritage.TypeName"
+      data-address-label-default="@RelicFormVM.DefaultAddressLabel"
+      data-address-label-intangible="@IntangibleHeritage.AddressLabel"
+      data-address-hint-default="@RelicFormVM.DefaultAddressHint"
+      data-address-hint-intangible="@IntangibleHeritage.AddressHint"
+      data-year-label-default="@RelicFormVM.DefaultRecognizedYearLabel"
+      data-year-label-intangible="@IntangibleHeritage.RecognizedYearFieldLabel">
     @Html.AntiForgeryToken()
     <input type="hidden" name="ReturnUrl" value="@Model.ReturnUrl" />
 
@@ -98,7 +106,7 @@
                 <div class="@FieldClass(nameError)">
                     <label for="field-name">Tên di tích <span class="admin-required" aria-hidden="true">*</span></label>
                     <input type="text" id="field-name" name="Name" value="@Model.Name" maxlength="200"
-                           autocomplete="off" spellcheck="false" data-slug-source
+                           autocomplete="off" spellcheck="false" data-slug-source="@(Model.IsEdit ? "false" : "true")"
                            aria-invalid="@(nameError is null ? "false" : "true")"
                            aria-describedby="@DescribedBy("field-name-hint", nameError, "field-name-error")" />
                     <div class="admin-hint-row">
@@ -107,6 +115,10 @@
                     </div>
                     <p class="admin-slug-preview">
                         Đường dẫn công khai: /di-tich/<span data-slug-preview>@Model.Slug</span>
+                        @if (Model.IsEdit)
+                        {
+                            <span class="admin-slug-note">Đường dẫn này cố định, đổi tên không làm nó đổi theo.</span>
+                        }
                     </p>
                     @if (nameError is not null)
                     {
@@ -115,13 +127,13 @@
                 </div>
 
                 <div class="@FieldClass(addressError)">
-                    <label for="field-address">Địa chỉ <span class="admin-required" aria-hidden="true">*</span></label>
+                    <label for="field-address"><span data-address-label>@Model.AddressLabel</span> <span class="admin-required" aria-hidden="true">*</span></label>
                     <input type="text" id="field-address" name="Address" value="@Model.Address" maxlength="300"
                            autocomplete="off"
                            aria-invalid="@(addressError is null ? "false" : "true")"
                            aria-describedby="@DescribedBy("field-address-hint", addressError, "field-address-error")" />
                     <div class="admin-hint-row">
-                        <p class="admin-hint" id="field-address-hint">Từ chi tiết nhất đến rộng nhất: số nhà, xã, huyện, tỉnh.</p>
+                        <p class="admin-hint" id="field-address-hint">@Model.AddressHint</p>
                         <span class="admin-field-count" data-counter aria-live="polite"></span>
                     </div>
                     @if (addressError is not null)
@@ -233,7 +245,8 @@
                         <option value="">Chọn loại di tích</option>
                         @foreach (var item in Model.Options.RelicTypes)
                         {
-                            <option value="@item.Id" selected="@(item.Id.ToString() == Model.RelicTypeId)">@item.Name</option>
+                            <option value="@item.Id" data-type-slug="@item.Slug"
+                                    selected="@(item.Id.ToString() == Model.RelicTypeId)">@item.Name</option>
                         }
                     </select>
                     @if (typeError is not null)
@@ -259,7 +272,7 @@
                 </div>
 
                 <div class="@FieldClass(yearError)">
-                    <label for="field-year">Năm xếp hạng</label>
+                    <label for="field-year"><span data-year-label>@Model.RecognizedYearLabel</span></label>
                     <input type="text" id="field-year" name="RecognizedYear" value="@Model.RecognizedYear"
                            inputmode="numeric" maxlength="4" autocomplete="off" data-max-year="@currentYear"
                            aria-invalid="@(yearError is null ? "false" : "true")"
