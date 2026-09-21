@@ -19,6 +19,8 @@ public interface IRelicService
 
     Task<RelicAdminListResult> SearchForAdminAsync(SearchFilterVM filter, int pageSize);
 
+    Task<List<RelicSuggestion>> SuggestForAdminAsync(string? keyword, int limit);
+
     Task<RelicFormOptions> GetFormOptionsAsync();
 
     Task<RelicAdminSummary> GetAdminSummaryAsync();

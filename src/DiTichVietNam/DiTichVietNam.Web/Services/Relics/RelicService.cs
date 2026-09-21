@@ -12,6 +12,9 @@ namespace DiTichVietNam.Web.Services.Relics;
 
 public class RelicService : IRelicService
 {
+    private const int MinSuggestionLength = 2;
+    private const int MaxSuggestionCount = 10;
+
     private static readonly StringComparer VietnameseComparer =
         StringComparer.Create(CultureInfo.GetCultureInfo("vi-VN"), ignoreCase: true);
 
@@ -350,6 +353,56 @@ public class RelicService : IRelicService
             Options = await GetFormOptionsAsync(),
             Summary = await GetAdminSummaryAsync()
         };
+    }
+
+    public async Task<List<RelicSuggestion>> SuggestForAdminAsync(string? keyword, int limit)
+    {
+        if (limit < 1)
+        {
+            limit = 1;
+        }
+        else if (limit > MaxSuggestionCount)
+        {
+            limit = MaxSuggestionCount;
+        }
+
+        var trimmed = keyword?.Trim();
+        if (trimmed is not null && trimmed.Length > SearchFilterVM.MaxSuggestionKeywordLength)
+        {
+            return new List<RelicSuggestion>();
+        }
+
+        var normalized = SlugHelper.RemoveDiacritics(trimmed);
+        if (normalized.Length < MinSuggestionLength)
+        {
+            return new List<RelicSuggestion>();
+        }
+
+        var matches = await _context.Relics
+            .AsNoTracking()
+            .Where(r => r.NameNoAccent.Contains(normalized))
+            .Select(r => new
+            {
+                r.Id,
+                r.Name,
+                r.NameNoAccent,
+                r.ThumbnailPath,
+                ProvinceName = r.Province!.Name
+            })
+            .ToListAsync();
+
+        return matches
+            .OrderByDescending(r => r.NameNoAccent.StartsWith(normalized, StringComparison.Ordinal))
+            .ThenBy(r => r.Name, VietnameseComparer)
+            .Take(limit)
+            .Select(r => new RelicSuggestion
+            {
+                Id = r.Id,
+                Name = r.Name,
+                ProvinceName = r.ProvinceName,
+                ThumbnailPath = r.ThumbnailPath
+            })
+            .ToList();
     }
 
     public async Task<RelicAdminSummary> GetAdminSummaryAsync() => new()
