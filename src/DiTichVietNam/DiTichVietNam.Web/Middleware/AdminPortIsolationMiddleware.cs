@@ -9,8 +9,7 @@ public class AdminPortIsolationMiddleware
     public const string AdminAreaPath = "/admin";
     public const string AccountAreaPath = "/tai-khoan";
     public const string StatusPath = "/loi";
-    public const string AdminStyleSheetPath = "/css/admin.css";
-    public const string AdminScriptFolder = "/js/admin";
+    public const string AdminAssetsPath = "/admin-assets";
 
     private const string UnknownSegment = "khong-tim-thay";
 
@@ -77,11 +76,9 @@ public class AdminPortIsolationMiddleware
             return false;
         }
 
-        var normalized = NormalizeSlashes(value);
+        var normalized = new PathString(NormalizeSlashes(value));
 
-        return normalized.Equals(AdminStyleSheetPath, StringComparison.OrdinalIgnoreCase)
-            || normalized.StartsWith(AdminScriptFolder + "/", StringComparison.OrdinalIgnoreCase)
-            || normalized.Equals(AdminScriptFolder, StringComparison.OrdinalIgnoreCase);
+        return normalized.StartsWithSegments(AdminAssetsPath, StringComparison.OrdinalIgnoreCase);
     }
 
     private static string NormalizeSlashes(string value)

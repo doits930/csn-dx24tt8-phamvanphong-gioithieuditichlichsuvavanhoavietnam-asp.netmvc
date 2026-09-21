@@ -30,7 +30,7 @@
     <link rel="icon" href="~/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/admin-assets/css/admin.css" asp-append-version="true" />
     <script>document.documentElement.classList.remove('no-js');try{if(localStorage.getItem('admin-sidebar')==='collapsed'){document.documentElement.classList.add('admin-sidebar-collapsed');}}catch(e){}</script>
 </head>
 <body class="admin-body">
@@ -180,7 +180,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site-shell.js" asp-append-version="true"></script>
-    <script src="~/js/admin/admin-shell.js" asp-append-version="true"></script>
+    <script src="~/admin-assets/js/admin-shell.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
