@@ -16,7 +16,8 @@
         ("Thống kê", DashboardController.IndexPath, "chart"),
         ("Di tích", RelicAdminController.ListPath, "relic"),
         ("Tỉnh thành", ProvinceController.ListPath, "province"),
-        ("Loại di tích", RelicTypeController.ListPath, "type")
+        ("Loại di tích", RelicTypeController.ListPath, "type"),
+        ("Tài khoản", AdminUserController.ListPath, "user")
     };
 }
 <!DOCTYPE html>
@@ -147,6 +148,10 @@
                                     <span class="admin-profile-role">Quản trị viên</span>
                                 </span>
                             </div>
+                            <a class="dropdown-item" href="@AdminUserController.ChangePasswordPath">
+                                <partial name="_AdminIcon" model="@("key")" />
+                                <span>Đổi mật khẩu</span>
+                            </a>
                             <a class="dropdown-item" href="@publicSiteUrl" target="_blank" rel="noopener">
                                 <partial name="_AdminIcon" model="@("external")" />
                                 <span>Xem trang công khai</span>

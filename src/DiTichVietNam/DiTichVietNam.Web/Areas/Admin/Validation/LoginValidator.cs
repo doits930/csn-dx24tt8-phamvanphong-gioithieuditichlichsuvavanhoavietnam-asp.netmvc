@@ -1,9 +1,9 @@
-using System.Text.RegularExpressions;
 using DiTichVietNam.Web.Areas.Admin.Models;
+using DiTichVietNam.Web.Services.Accounts;
 
 namespace DiTichVietNam.Web.Areas.Admin.Validation;
 
-public static partial class LoginValidator
+public static class LoginValidator
 {
     public const int MaxUserNameLength = 256;
     public const int MaxPasswordLength = 100;
@@ -13,9 +13,6 @@ public static partial class LoginValidator
     public const string UserNameTooLong = "Tài khoản tối đa 256 ký tự.";
     public const string PasswordRequired = "Nhập mật khẩu.";
     public const string PasswordTooLong = "Mật khẩu tối đa 100 ký tự.";
-
-    [GeneratedRegex(@"^[^@\s]+@[^@\s.]+(\.[^@\s.]+)+$")]
-    private static partial Regex EmailPattern();
 
     public static List<(string Field, string Message)> Validate(LoginVM vm)
     {
@@ -30,7 +27,7 @@ public static partial class LoginValidator
         {
             errors.Add((nameof(vm.UserName), UserNameTooLong));
         }
-        else if (!EmailPattern().IsMatch(userName))
+        else if (!EmailPattern.IsValid(userName))
         {
             errors.Add((nameof(vm.UserName), UserNameFormat));
         }

@@ -4,11 +4,11 @@
         aria-labelledby="@(Model.ElementId)-title">
     <form class="admin-confirm-form" method="post" data-confirm-form>
         @Html.AntiForgeryToken()
-        <h2 class="admin-confirm-title" id="@(Model.ElementId)-title">@Model.Title</h2>
+        <h2 class="admin-confirm-title" id="@(Model.ElementId)-title" data-confirm-title>@Model.Title</h2>
         <p class="admin-confirm-message" data-confirm-message></p>
         <div class="admin-confirm-actions">
             <button type="button" class="admin-btn admin-btn-secondary" data-confirm-cancel>@Model.CancelLabel</button>
-            <button type="submit" class="admin-btn admin-btn-danger">@Model.ConfirmLabel</button>
+            <button type="submit" class="admin-btn admin-btn-danger" data-confirm-submit>@Model.ConfirmLabel</button>
         </div>
     </form>
 </dialog>

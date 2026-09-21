@@ -39,6 +39,10 @@ builder.Services.AddScoped<IRelicService, RelicService>();
 builder.Services.AddScoped<IProvinceService, ProvinceService>();
 builder.Services.AddScoped<IRelicTypeService, RelicTypeService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IAdminUserService, AdminUserService>();
+builder.Services.AddSingleton<PasswordPolicy>();
+builder.Services.AddSingleton<AccountNamePolicy>();
+builder.Services.AddSingleton<AdminUserWriteLock>();
 builder.Services.AddScoped<IRelicImageService, RelicImageService>();
 builder.Services.AddScoped<IStatisticsService, StatisticsService>();
 builder.Services.AddSingleton<RelicImageWriteLock>();
@@ -49,6 +53,11 @@ builder.Services.Configure<FormOptions>(options =>
 });
 
 builder.Services.Configure<AdminSiteOptions>(builder.Configuration.GetSection(AdminSiteOptions.SectionName));
+
+builder.Services.Configure<SecurityStampValidatorOptions>(options =>
+{
+    options.ValidationInterval = TimeSpan.Zero;
+});
 
 builder.Services.ConfigureApplicationCookie(options =>
 {

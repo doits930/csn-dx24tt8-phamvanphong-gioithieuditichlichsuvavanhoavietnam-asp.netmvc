@@ -1,0 +1,110 @@
+@model AdminUserFormVM
+@{
+    var listUrl = AdminUserController.ListPath;
+    var cancelUrl = string.IsNullOrEmpty(Model.ReturnUrl) ? listUrl : Model.ReturnUrl;
+
+    ViewData["AdminCrumbs"] = new List<AdminCrumb>
+    {
+        new() { Label = "Quản trị", Url = DashboardController.IndexPath },
+        new() { Label = "Tài khoản", Url = listUrl },
+        new() { Label = "Thêm tài khoản" }
+    };
+
+    var header = new AdminPageHeaderVM
+    {
+        Title = "Thêm tài khoản quản trị",
+        Lead = "Tài khoản mới dùng địa chỉ thư điện tử để đăng nhập và có quyền quản trị ngay sau khi lưu."
+    };
+
+    var fieldOrder = new (string Field, string TargetId)[]
+    {
+        (nameof(Model.Email), "field-email"),
+        (nameof(Model.Password), "field-password"),
+        (nameof(Model.ConfirmPassword), "field-confirm-password")
+    };
+
+    var summary = AdminErrorSummaryVM.FromModelState(ViewData.ModelState, fieldOrder);
+    var emailError = ViewData.ModelState[nameof(Model.Email)]?.Errors.FirstOrDefault()?.ErrorMessage;
+
+    var passwordField = new AdminPasswordFieldVM
+    {
+        FieldId = "field-password",
+        Name = nameof(Model.Password),
+        Label = "Mật khẩu",
+        Rules = Model.PasswordRules,
+        Error = ViewData.ModelState[nameof(Model.Password)]?.Errors.FirstOrDefault()?.ErrorMessage
+    };
+
+    var confirmField = new AdminPasswordFieldVM
+    {
+        FieldId = "field-confirm-password",
+        Name = nameof(Model.ConfirmPassword),
+        Label = "Nhập lại mật khẩu",
+        Error = ViewData.ModelState[nameof(Model.ConfirmPassword)]?.Errors.FirstOrDefault()?.ErrorMessage
+    };
+}
+
+<partial name="_AdminPageHeader" model="header" />
+
+<form id="account-form" class="admin-form admin-form-narrow" action="@AdminUserController.CreatePath"
+      method="post" autocomplete="off" novalidate>
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="ReturnUrl" value="@Model.ReturnUrl" />
+
+    <partial name="_AdminErrorSummary" model="summary" />
+
+    <p class="admin-form-legend">Ô có dấu <span class="admin-required">*</span> là bắt buộc.</p>
+
+    <section class="admin-card admin-card-pad">
+        <div class="admin-card-head">
+            <h2 class="admin-card-title">
+                <partial name="_AdminIcon" model="@("user")" />
+                <span>Tài khoản đăng nhập</span>
+            </h2>
+            <p class="admin-card-note">Địa chỉ thư điện tử là tên đăng nhập, không phân biệt chữ hoa chữ thường.</p>
+        </div>
+
+        <div class="@(emailError is null ? "admin-field" : "admin-field admin-field-invalid")">
+            <label for="field-email">Địa chỉ thư điện tử <span class="admin-required" aria-hidden="true">*</span></label>
+            <input type="email" id="field-email" name="Email" value="@Model.Email" maxlength="256"
+                   autocomplete="off" spellcheck="false"
+                   data-email-allowed="@Model.AllowedEmailCharacters"
+                   aria-invalid="@(emailError is null ? "false" : "true")"
+                   aria-describedby="@(emailError is null ? "field-email-hint" : "field-email-hint field-email-error")" />
+            <div class="admin-hint-row">
+                <p class="admin-hint" id="field-email-hint">Ví dụ: bientap@ditich.vn</p>
+                <span class="admin-field-count" data-counter aria-live="polite"></span>
+            </div>
+            @if (emailError is not null)
+            {
+                <p class="field-error" id="field-email-error">@emailError</p>
+            }
+        </div>
+    </section>
+
+    <section class="admin-card admin-card-pad">
+        <div class="admin-card-head">
+            <h2 class="admin-card-title">
+                <partial name="_AdminIcon" model="@("key")" />
+                <span>Mật khẩu</span>
+            </h2>
+            <p class="admin-card-note">Người dùng tài khoản này nên tự đổi mật khẩu sau lần đăng nhập đầu tiên.</p>
+        </div>
+
+        <partial name="_AdminPasswordField" model="passwordField" />
+        <partial name="_AdminPasswordField" model="confirmField" />
+    </section>
+
+    <div class="admin-form-footer">
+        <div class="admin-form-actions">
+            <span class="admin-form-state" data-form-state aria-live="polite"></span>
+            <a class="admin-btn admin-btn-secondary" href="@cancelUrl" data-discard>Hủy</a>
+            <button type="submit" class="admin-btn admin-btn-primary" data-submit-button>Lưu tài khoản</button>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/js/admin/account-form.js" asp-append-version="true"></script>
+}

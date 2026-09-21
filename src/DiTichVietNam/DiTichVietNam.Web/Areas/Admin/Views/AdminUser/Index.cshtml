@@ -1,0 +1,245 @@
+@model AdminUserListVM
+@{
+    var listUrl = AdminUserController.ListPath;
+    var returnQuery = $"?returnUrl={Uri.EscapeDataString(listUrl)}";
+    var createUrl = AdminUserController.CreatePath + returnQuery;
+
+    ViewData["AdminCrumbs"] = new List<AdminCrumb>
+    {
+        new() { Label = "Quản trị", Url = DashboardController.IndexPath },
+        new() { Label = "Tài khoản" }
+    };
+
+    var header = new AdminPageHeaderVM
+    {
+        Title = "Quản lý tài khoản quản trị",
+        Lead = "Mọi tài khoản ở đây đều có quyền quản trị như nhau. Tài khoản bạn đang đăng nhập không tự khóa hay tự xóa được.",
+        ActionLabel = "Thêm tài khoản",
+        ActionUrl = createUrl,
+        ActionIcon = "plus"
+    };
+
+    var confirmDialog = new AdminConfirmVM
+    {
+        ElementId = "account-action-dialog",
+        Title = "Xác nhận thao tác",
+        ConfirmLabel = "Xác nhận",
+        CancelLabel = "Hủy"
+    };
+
+    var stats = new (string Icon, string IconClass, int Value, string Label)[]
+    {
+        ("user", "admin-stat-icon", Model.TotalCount, "Tổng tài khoản"),
+        ("check", "admin-stat-icon admin-stat-icon-stone", Model.ActiveCount, "Đang hoạt động"),
+        ("alert", "admin-stat-icon admin-stat-icon-gilt", Model.TemporaryLockCount, "Tạm khóa"),
+        ("lock", "admin-stat-icon admin-stat-icon-vermilion", Model.LockedCount, "Đang khóa")
+    };
+}
+
+<partial name="_AdminPageHeader" model="header" />
+
+<div class="admin-stats">
+    @foreach (var stat in stats)
+    {
+        <div class="admin-stat">
+            <span class="@stat.IconClass">
+                <partial name="_AdminIcon" model="@stat.Icon" />
+            </span>
+            <span>
+                <span class="admin-stat-value">@stat.Value</span>
+                <span class="admin-stat-label">@stat.Label</span>
+            </span>
+        </div>
+    }
+</div>
+
+<div class="admin-card">
+    @if (Model.Rows.Count == 0)
+    {
+        <div class="admin-empty">
+            <partial name="_AdminIcon" model="@("user")" />
+            <p class="admin-empty-text">Chưa có tài khoản quản trị nào. Thêm tài khoản đầu tiên để bắt đầu.</p>
+            <a class="admin-btn admin-btn-primary" href="@createUrl">Thêm tài khoản</a>
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive admin-table-wrap">
+            <table class="admin-table">
+                <caption class="admin-visually-hidden">Danh sách tài khoản quản trị của hệ thống</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Tài khoản</th>
+                        <th scope="col">Trạng thái</th>
+                        <th scope="col" class="admin-cell-number">Đăng nhập sai</th>
+                        <th scope="col" class="admin-cell-actions"><span class="admin-visually-hidden">Thao tác</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var row in Model.Rows)
+                    {
+                        var resetUrl = AdminUserController.ResetPasswordUrl(row.Id) + returnQuery;
+                        var lockUrl = AdminUserController.LockUrl(row.Id) + returnQuery;
+                        var unlockUrl = AdminUserController.UnlockUrl(row.Id) + returnQuery;
+                        var deleteUrl = AdminUserController.DeleteUrl(row.Id) + returnQuery;
+                        var rowKey = $"account-{row.Id}";
+                        var noteId = $"{rowKey}-note";
+                        var blockedNote = row.ResetBlockReason ?? row.LockBlockReason ?? row.UnlockBlockReason ?? row.DeleteBlockReason;
+                        if (row.IsCurrent)
+                        {
+                            blockedNote = "Đây là tài khoản bạn đang đăng nhập: không tự khóa, không tự xóa, và mật khẩu đổi ở trang Đổi mật khẩu.";
+                        }
+                        <tr>
+                            <td class="admin-cell-name">
+                                <span class="account-identity">
+                                    <span class="account-avatar" aria-hidden="true">@row.Initial</span>
+                                    <span class="account-identity-text">
+                                        <span class="account-email">@row.Email</span>
+                                        @if (row.IsCurrent)
+                                        {
+                                            <span class="account-self">Bạn</span>
+                                        }
+                                    </span>
+                                </span>
+                                @if (blockedNote is not null)
+                                {
+                                    <span class="admin-blocked-note" id="@noteId">@blockedNote</span>
+                                }
+                            </td>
+                            <td data-label="Trạng thái">
+                                @if (row.Status == AdminUserStatus.Active)
+                                {
+                                    <span class="account-state">@row.StatusLabel</span>
+                                }
+                                else if (row.Status == AdminUserStatus.Locked)
+                                {
+                                    <span class="admin-chip account-locked">@row.StatusLabel</span>
+                                }
+                                else
+                                {
+                                    <span class="admin-chip account-waiting">@row.StatusLabel</span>
+                                }
+                            </td>
+                            <td data-label="Đăng nhập sai" class="admin-cell-number">
+                                <span class="@(row.AccessFailedCount > 0 ? "account-fails account-fails-warn" : "account-fails")">
+                                    @row.AccessFailedCount
+                                </span>
+                            </td>
+                            <td class="admin-cell-actions">
+                                <span class="admin-row-actions">
+                                    @if (row.ResetBlockReason is null)
+                                    {
+                                        <a class="admin-icon-btn" href="@resetUrl" title="Đặt lại mật khẩu"
+                                           aria-label="Đặt lại mật khẩu cho @row.Email">
+                                            <partial name="_AdminIcon" model="@("key")" />
+                                            <span class="admin-action-text">Đặt lại mật khẩu</span>
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <partial name="_AdminBlockedButton" model="@(new AdminBlockedButtonVM
+                                        {
+                                            NoteId = noteId,
+                                            Icon = "key",
+                                            Label = "Đặt lại mật khẩu",
+                                            Subject = row.Email,
+                                            ShowLabel = true
+                                        })" />
+                                    }
+
+                                    @if (row.Status != AdminUserStatus.Locked)
+                                    {
+                                        if (row.LockBlockReason is null)
+                                        {
+                                            <a class="admin-icon-btn" href="@lockUrl" title="Khóa tài khoản"
+                                               aria-label="Khóa tài khoản @row.Email"
+                                               data-delete-trigger
+                                               data-delete-url="@lockUrl"
+                                               data-delete-title="Khóa tài khoản"
+                                               data-delete-label="Khóa tài khoản"
+                                               data-delete-message="Khóa tài khoản @row.Email? Tài khoản này sẽ không đăng nhập được cho tới khi được mở khóa.">
+                                                <partial name="_AdminIcon" model="@("lock")" />
+                                                <span class="admin-action-text">Khóa</span>
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <partial name="_AdminBlockedButton" model="@(new AdminBlockedButtonVM
+                                            {
+                                                NoteId = noteId,
+                                                Icon = "lock",
+                                                Label = "Khóa",
+                                                Subject = row.Email,
+                                                ShowLabel = true
+                                            })" />
+                                        }
+                                    }
+                                    else if (row.UnlockBlockReason is null)
+                                    {
+                                        <form class="account-inline-form" action="@unlockUrl" method="post">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="admin-icon-btn" title="Mở khóa tài khoản"
+                                                    aria-label="Mở khóa tài khoản @row.Email">
+                                                <partial name="_AdminIcon" model="@("unlock")" />
+                                                <span class="admin-action-text">Mở khóa</span>
+                                            </button>
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        <partial name="_AdminBlockedButton" model="@(new AdminBlockedButtonVM
+                                        {
+                                            NoteId = noteId,
+                                            Icon = "unlock",
+                                            Label = "Mở khóa",
+                                            Subject = row.Email,
+                                            ShowLabel = true
+                                        })" />
+                                    }
+
+                                    @if (row.DeleteBlockReason is null)
+                                    {
+                                        <a class="admin-icon-btn admin-icon-btn-danger" href="@deleteUrl" title="Xóa tài khoản"
+                                           aria-label="Xóa tài khoản @row.Email"
+                                           data-delete-trigger
+                                           data-delete-url="@deleteUrl"
+                                           data-delete-title="Xóa tài khoản"
+                                           data-delete-label="Xóa tài khoản"
+                                           data-delete-message="Xóa tài khoản @row.Email? Thao tác này không lấy lại được.">
+                                            <partial name="_AdminIcon" model="@("trash")" />
+                                            <span class="admin-action-text">Xóa</span>
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <partial name="_AdminBlockedButton" model="@(new AdminBlockedButtonVM
+                                        {
+                                            NoteId = noteId,
+                                            Icon = "trash",
+                                            Label = "Xóa",
+                                            Subject = row.Email,
+                                            ShowLabel = true
+                                        })" />
+                                    }
+                                </span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="admin-card-foot">
+            <p class="admin-result-count" role="status">@Model.ResultSummary</p>
+        </div>
+    }
+</div>
+
+@if (Model.Rows.Count > 0)
+{
+    <partial name="_AdminConfirmDialog" model="confirmDialog" />
+}
+
+@section Scripts {
+    <script src="~/js/admin/admin-confirm.js" asp-append-version="true"></script>
+}

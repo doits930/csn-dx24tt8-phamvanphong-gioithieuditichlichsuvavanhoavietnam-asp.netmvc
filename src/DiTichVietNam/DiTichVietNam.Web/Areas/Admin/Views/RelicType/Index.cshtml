@@ -91,6 +91,10 @@
                             <td class="admin-cell-name">
                                 <a class="admin-row-name" href="@editUrl">@row.Name</a>
                                 <span class="admin-row-slug">@row.Slug</span>
+                                @if (blockReason is not null)
+                                {
+                                    <span class="admin-blocked-note" id="relic-type-@(row.Id)-note">@blockReason</span>
+                                }
                             </td>
                             <td data-label="Mô tả" class="admin-cell-description">
                                 @if (string.IsNullOrWhiteSpace(row.Description))
@@ -134,11 +138,13 @@
                                     }
                                     else
                                     {
-                                        <button type="button" class="admin-icon-btn admin-icon-btn-blocked"
-                                                aria-disabled="true" title="@blockReason"
-                                                aria-label="@row.Name. @blockReason">
-                                            <partial name="_AdminIcon" model="@("trash")" />
-                                        </button>
+                                        <partial name="_AdminBlockedButton" model="@(new AdminBlockedButtonVM
+                                        {
+                                            NoteId = $"relic-type-{row.Id}-note",
+                                            Icon = "trash",
+                                            Label = "Xóa loại di tích",
+                                            Subject = row.Name
+                                        })" />
                                     }
                                 </span>
                             </td>

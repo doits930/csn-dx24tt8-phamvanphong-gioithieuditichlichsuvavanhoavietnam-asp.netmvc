@@ -1,0 +1,15 @@
+@model AdminBlockedButtonVM
+@{
+    var describedLabel = string.IsNullOrEmpty(Model.Subject)
+        ? Model.Label
+        : $"{Model.Label} {Model.Subject}";
+}
+
+<button type="button" class="admin-icon-btn admin-icon-btn-blocked" aria-disabled="true"
+        aria-label="@describedLabel" aria-describedby="@Model.NoteId">
+    <partial name="_AdminIcon" model="@Model.Icon" />
+    @if (Model.ShowLabel)
+    {
+        <span class="admin-action-text">@Model.Label</span>
+    }
+</button>
