@@ -9,6 +9,8 @@
 | Họ và tên | Phạm Văn Phong |
 | MSSV | 170124953 |
 | Lớp | DX24TT8 |
+| Email | phong.pv579@gmail.com |
+| Số điện thoại | 0961458313 |
 | Khoa | CNTT |
 | Trường | Đại Học Trà Vinh |
 | Học phần | Thực tập Đồ án Cơ sở ngành |
