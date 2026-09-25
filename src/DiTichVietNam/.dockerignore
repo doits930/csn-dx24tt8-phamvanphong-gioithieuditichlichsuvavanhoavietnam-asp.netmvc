@@ -10,6 +10,9 @@
 **/.vscode
 **/*.*proj.user
 **/*.dbmdl
+**/*.db
+**/*.db-shm
+**/*.db-wal
 **/*.jfm
 **/azds.yaml
 **/bin
@@ -19,6 +22,7 @@
 **/node_modules
 **/npm-debug.log
 **/obj
+**/wwwroot/uploads
 **/secrets.dev.yaml
 **/values.dev.yaml
 LICENSE
