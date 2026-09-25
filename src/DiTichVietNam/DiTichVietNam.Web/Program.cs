@@ -1,3 +1,4 @@
+using System.Globalization;
 using DiTichVietNam.Web.Areas.Admin.Controllers;
 using DiTichVietNam.Web.Data;
 using DiTichVietNam.Web.Middleware;
@@ -16,10 +17,15 @@ using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Configuration["AllowedHosts"] = Environment.GetEnvironmentVariable("APP_ALLOWED_HOSTS")
+    ?? builder.Configuration["AllowedHosts"]
+    ?? throw new Exception("APP_ALLOWED_HOSTS environment variable not found");
+
 builder.Services.AddControllersWithViews();
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
-    ?? "Data Source=Data/DiTichVietNam.db";
+var connectionString = Environment.GetEnvironmentVariable("APP_DATABASE")
+    ?? builder.Configuration.GetConnectionString("DefaultConnection")
+    ?? throw new Exception("APP_DATABASE environment variable not found");
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite(connectionString));
 
@@ -52,7 +58,23 @@ builder.Services.Configure<FormOptions>(options =>
     options.MultipartBodyLengthLimit = ImageUploadLimits.MaxRequestBytes;
 });
 
-builder.Services.Configure<AdminSiteOptions>(builder.Configuration.GetSection(AdminSiteOptions.SectionName));
+var adminPort = int.Parse(
+    Environment.GetEnvironmentVariable("APP_ADMIN_PORT")
+        ?? builder.Configuration[$"{AdminSiteOptions.SectionName}:Port"]
+        ?? throw new Exception("APP_ADMIN_PORT environment variable not found"),
+    CultureInfo.InvariantCulture);
+
+var publicPort = int.Parse(
+    Environment.GetEnvironmentVariable("APP_PUBLIC_PORT")
+        ?? builder.Configuration[$"{AdminSiteOptions.SectionName}:PublicPort"]
+        ?? throw new Exception("APP_PUBLIC_PORT environment variable not found"),
+    CultureInfo.InvariantCulture);
+
+builder.Services.Configure<AdminSiteOptions>(options =>
+{
+    options.Port = adminPort;
+    options.PublicPort = publicPort;
+});
 
 builder.Services.Configure<SecurityStampValidatorOptions>(options =>
 {
