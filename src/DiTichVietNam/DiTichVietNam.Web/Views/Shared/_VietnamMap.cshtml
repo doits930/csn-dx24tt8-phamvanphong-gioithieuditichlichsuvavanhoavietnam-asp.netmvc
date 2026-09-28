@@ -1,0 +1,91 @@
+@model VietnamMapVM
+
+<figure class="province-map">
+    <div class="map-legend">
+        <span class="map-legend-caption">Số mục</span>
+        <ul class="map-legend-scale">
+            @foreach (var step in Model.LegendSteps)
+            {
+                <li class="map-legend-item">
+                    <span class="map-legend-swatch map-step-@step.Step"></span>
+                    <span class="map-legend-label">@step.Label</span>
+                </li>
+            }
+        </ul>
+    </div>
+
+    <div class="province-map-plate" data-province-map>
+        <svg class="province-map-svg" viewBox="@Model.ViewBox" role="group"
+             aria-label="Bản đồ Việt Nam. Chọn một tỉnh thành để xem danh sách di tích của tỉnh đó.">
+            <g class="map-provinces">
+                @foreach (var province in Model.Provinces)
+                {
+                    <a href="/tinh/@province.Slug" class="map-province-link"
+                       data-province-slug="@province.Slug"
+                       data-relic-count="@province.RelicCount"
+                       data-readout-name="@province.Name"
+                       data-readout-note="@province.CountNote"
+                       data-label-x="@province.LabelXPercent"
+                       data-label-y="@province.LabelYPercent"
+                       aria-label="@province.AccessibleName">
+                        <path class="map-province map-step-@province.DensityStep" d="@province.PathData"></path>
+                    </a>
+                }
+            </g>
+            <g class="map-archipelagos">
+                @foreach (var archipelago in Model.Archipelagos)
+                {
+                    <a href="/tinh/@archipelago.ProvinceSlug" class="map-archipelago"
+                       data-province-slug="@archipelago.ProvinceSlug"
+                       data-readout-name="@archipelago.Name"
+                       data-readout-note="@archipelago.ProvinceNote"
+                       data-label-x="@archipelago.LabelXPercent"
+                       data-label-y="@archipelago.LabelYPercent"
+                       aria-label="@archipelago.AccessibleName">
+                        @foreach (var islet in archipelago.Islets)
+                        {
+                            <circle class="map-islet" cx="@islet.X" cy="@islet.Y" r="@archipelago.IsletRadius"></circle>
+                        }
+                    </a>
+                }
+            </g>
+            <g class="map-islands">
+                @foreach (var island in Model.Islands.Where(i => i.ShowMarker))
+                {
+                    <a href="/tinh/@island.ProvinceSlug" class="map-island"
+                       data-province-slug="@island.ProvinceSlug"
+                       data-readout-name="@island.Name"
+                       data-readout-note="@island.ProvinceNote">
+                        <title>@island.Title</title>
+                        <circle class="map-islet" cx="@island.X" cy="@island.Y" r="@island.Radius"></circle>
+                    </a>
+                }
+            </g>
+        </svg>
+
+        <span class="map-sea-label" aria-hidden="true">Biển Đông</span>
+
+        @foreach (var island in Model.Islands.Where(i => i.ShowLabel))
+        {
+            <span class="map-island-label"
+                  style="--label-x: @(island.LabelXPercent)%; --label-y: @(island.LabelYPercent)%"
+                  aria-hidden="true">@island.LabelText</span>
+        }
+
+        @foreach (var archipelago in Model.Archipelagos)
+        {
+            <span class="map-archipelago-label @(archipelago.LabelAnchorEnd ? "map-archipelago-label-end" : string.Empty)"
+                  style="--label-x: @(archipelago.LabelXPercent)%; --label-y: @(archipelago.LabelYPercent)%"
+                  aria-hidden="true"><span class="map-label-line">@archipelago.Name</span><span class="map-label-line">(@archipelago.ProvinceName)</span></span>
+        }
+
+        <div class="map-readout" data-map-readout hidden>
+            <span class="map-readout-name" data-map-readout-name></span>
+            <span class="map-readout-note" data-map-readout-note></span>
+        </div>
+    </div>
+
+    <figcaption class="map-credit">
+        Sơ đồ minh họa vị trí các tỉnh thành. Ranh giới từ geoBoundaries gbOpen VNM ADM1 (Runfola và cộng sự, 2020; CC BY 4.0), đã gộp theo Nghị quyết 202/2025/QH15 và giản lược nét; không dùng để xác định địa giới.
+    </figcaption>
+</figure>

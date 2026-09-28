@@ -1,0 +1,23 @@
+@model ErrorViewModel
+@{
+    Layout = "_AuthLayout";
+}
+
+<section class="login-page">
+    <div class="container">
+        <div class="login-card">
+            <h1 class="login-title">Đã xảy ra lỗi</h1>
+            <p class="login-note">
+                Yêu cầu vừa rồi không xử lý được nên thao tác chưa được lưu. Thử lại một lần nữa;
+                nếu vẫn lỗi thì báo lại kèm mã yêu cầu bên dưới.
+            </p>
+            @if (Model.ShowRequestId)
+            {
+                <p class="admin-hint admin-error-code">Mã yêu cầu: @Model.RequestId</p>
+            }
+            <div class="admin-panel-actions">
+                <a class="admin-btn admin-btn-primary" href="@DashboardController.IndexPath">Về khu quản trị</a>
+            </div>
+        </div>
+    </div>
+</section>

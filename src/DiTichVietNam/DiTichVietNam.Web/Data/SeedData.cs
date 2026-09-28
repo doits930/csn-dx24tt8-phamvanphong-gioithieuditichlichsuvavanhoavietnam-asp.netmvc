@@ -30,15 +30,98 @@ public static class SeedData
         var environment = services.GetRequiredService<IWebHostEnvironment>();
         var logger = services.GetRequiredService<ILoggerFactory>().CreateLogger(typeof(SeedData));
 
-        await SeedRelicTypesAsync(context);
+        await SeedRelicTypesAsync(context, logger);
         await SeedProvincesAsync(context, environment, logger);
         await SeedRelicsAsync(context, environment, logger);
+        await FillMissingDescriptionNoAccentAsync(context, logger);
         await SeedAdminAccountAsync(services, logger);
     }
 
-    private static async Task SeedRelicTypesAsync(AppDbContext context)
+    private static async Task FillMissingDescriptionNoAccentAsync(AppDbContext context, ILogger logger)
     {
-        var definitions = new[]
+        var pending = await context.Relics
+            .Where(r => r.DescriptionNoAccent == "" && r.Description != "")
+            .ToListAsync();
+
+        if (pending.Count == 0)
+        {
+            return;
+        }
+
+        foreach (var relic in pending)
+        {
+            relic.DescriptionNoAccent = SlugHelper.RemoveDiacritics(relic.Description);
+        }
+
+        if (await TrySaveAsync(context, logger, "phần mô tả không dấu", pending))
+        {
+            logger.LogInformation("Đã tính phần mô tả không dấu cho {Count} di tích.", pending.Count);
+        }
+    }
+
+    private static async Task<bool> TrySaveAsync(
+        AppDbContext context,
+        ILogger logger,
+        string step,
+        IEnumerable<object> touched)
+    {
+        try
+        {
+            await context.SaveChangesAsync();
+            return true;
+        }
+        catch (DbUpdateException error)
+        {
+            logger.LogWarning(error,
+                "Không ghi được {Step} của dữ liệu ban đầu vào cơ sở dữ liệu. Bỏ qua bước này và chạy tiếp.", step);
+
+            foreach (var entity in touched)
+            {
+                context.Entry(entity).State = EntityState.Detached;
+            }
+
+            return false;
+        }
+    }
+
+    private static readonly string[] LaterBatchRelicTypeSlugs = { IntangibleHeritage.TypeSlug };
+
+    private static async Task SeedRelicTypesAsync(AppDbContext context, ILogger logger)
+    {
+        var definitions = BuildRelicTypeDefinitions();
+
+        if (!await context.RelicTypes.AnyAsync())
+        {
+            context.RelicTypes.AddRange(definitions);
+            await TrySaveAsync(context, logger, "danh mục loại di tích", definitions);
+            return;
+        }
+
+        var existing = await context.RelicTypes.Select(t => new { t.Slug, t.Name }).ToListAsync();
+        var existingSlugs = existing.Select(t => t.Slug).ToHashSet(StringComparer.Ordinal);
+        var existingNameKeys = existing.Select(t => SlugHelper.ToSlug(t.Name)).ToHashSet(StringComparer.Ordinal);
+
+        var missing = definitions
+            .Where(t => LaterBatchRelicTypeSlugs.Contains(t.Slug)
+                && !existingSlugs.Contains(t.Slug)
+                && !existingNameKeys.Contains(SlugHelper.ToSlug(t.Name)))
+            .ToList();
+
+        if (missing.Count == 0)
+        {
+            return;
+        }
+
+        context.RelicTypes.AddRange(missing);
+        if (await TrySaveAsync(context, logger, "loại di tích của đợt dữ liệu mới", missing))
+        {
+            logger.LogInformation("Đã bổ sung {Count} loại di tích của đợt dữ liệu mới.", missing.Count);
+        }
+    }
+
+    private static RelicType[] BuildRelicTypeDefinitions()
+    {
+        return new[]
         {
             new RelicType
             {
@@ -63,18 +146,14 @@ public static class SeedData
                 Name = "Danh lam thắng cảnh",
                 Slug = "danh-lam-thang-canh",
                 Description = "Cảnh quan thiên nhiên hoặc địa điểm có sự kết hợp giữa cảnh quan thiên nhiên với công trình kiến trúc có giá trị."
+            },
+            new RelicType
+            {
+                Name = IntangibleHeritage.TypeName,
+                Slug = IntangibleHeritage.TypeSlug,
+                Description = IntangibleHeritage.TypeDescription
             }
         };
-
-        var existingSlugs = await context.RelicTypes.Select(t => t.Slug).ToListAsync();
-        var missing = definitions.Where(t => !existingSlugs.Contains(t.Slug)).ToList();
-        if (missing.Count == 0)
-        {
-            return;
-        }
-
-        context.RelicTypes.AddRange(missing);
-        await context.SaveChangesAsync();
     }
 
     private static async Task SeedProvincesAsync(AppDbContext context, IWebHostEnvironment environment, ILogger logger)
@@ -122,8 +201,10 @@ public static class SeedData
         }
 
         context.Provinces.AddRange(added);
-        await context.SaveChangesAsync();
-        logger.LogInformation("Đã nạp {Count} tỉnh thành từ dữ liệu ban đầu.", added.Count);
+        if (await TrySaveAsync(context, logger, "danh mục tỉnh thành", added))
+        {
+            logger.LogInformation("Đã nạp {Count} tỉnh thành từ dữ liệu ban đầu.", added.Count);
+        }
     }
 
     private static async Task SeedRelicsAsync(AppDbContext context, IWebHostEnvironment environment, ILogger logger)
@@ -136,7 +217,7 @@ public static class SeedData
         }
 
         var provinceIdBySlug = await context.Provinces.ToDictionaryAsync(p => p.Slug, p => p.Id);
-        var typeIdByCode = await GetRelicTypeIdByCodeAsync(context);
+        var typeIdByCode = await GetRelicTypeIdByCodeAsync(context, logger);
         var existingSlugs = await context.Relics.Select(r => r.Slug).ToListAsync();
         var added = new List<Relic>();
 
@@ -183,6 +264,7 @@ public static class SeedData
                 Longitude = item.Longitude,
                 History = item.History,
                 Description = item.Description!,
+                DescriptionNoAccent = SlugHelper.RemoveDiacritics(item.Description),
                 VisitInfo = item.VisitInfo,
                 RankingLevel = ToRankingLevel(item.RankingLevel),
                 RecognizedYear = item.RecognizedYear,
@@ -202,8 +284,35 @@ public static class SeedData
         }
 
         context.Relics.AddRange(added);
-        await context.SaveChangesAsync();
-        logger.LogInformation("Đã nạp {Count} di tích từ dữ liệu ban đầu.", added.Count);
+        if (await TrySaveAsync(context, logger, "di tích và ảnh kèm theo", WithImages(added)))
+        {
+            logger.LogInformation("Đã nạp {Count} di tích từ dữ liệu ban đầu.", added.Count);
+            return;
+        }
+
+        var saved = 0;
+        foreach (var relic in added)
+        {
+            context.Relics.Add(relic);
+            if (await TrySaveAsync(context, logger, $"di tích {relic.Slug}", WithImages(new[] { relic })))
+            {
+                saved++;
+            }
+        }
+
+        logger.LogWarning("Chỉ nạp được {Saved} trên {Total} di tích của dữ liệu ban đầu.", saved, added.Count);
+    }
+
+    private static IEnumerable<object> WithImages(IEnumerable<Relic> relics)
+    {
+        foreach (var relic in relics)
+        {
+            yield return relic;
+            foreach (var image in relic.Images)
+            {
+                yield return image;
+            }
+        }
     }
 
     private static string? FindConstraintViolation(RelicSeed item, string slug)
@@ -306,23 +415,37 @@ public static class SeedData
         relic.ThumbnailPath = thumbnail.ImagePath;
     }
 
-    private static async Task<Dictionary<int, int>> GetRelicTypeIdByCodeAsync(AppDbContext context)
+    private static async Task<Dictionary<int, int>> GetRelicTypeIdByCodeAsync(AppDbContext context, ILogger logger)
     {
-        var slugByCode = new Dictionary<int, string>
-        {
-            [1] = "di-tich-lich-su",
-            [2] = "di-tich-kien-truc-nghe-thuat",
-            [3] = "di-tich-khao-co",
-            [4] = "danh-lam-thang-canh"
-        };
+        var definitions = BuildRelicTypeDefinitions();
+        var rows = await context.RelicTypes.Select(t => new { t.Id, t.Slug, t.Name }).ToListAsync();
 
-        var idBySlug = await context.RelicTypes.ToDictionaryAsync(t => t.Slug, t => t.Id);
-        var result = new Dictionary<int, int>();
-        foreach (var pair in slugByCode)
+        var idBySlug = new Dictionary<string, int>(StringComparer.Ordinal);
+        var idByNameKey = new Dictionary<string, int>(StringComparer.Ordinal);
+        foreach (var row in rows)
         {
-            if (idBySlug.TryGetValue(pair.Value, out var id))
+            idBySlug.TryAdd(row.Slug, row.Id);
+            idByNameKey.TryAdd(SlugHelper.ToSlug(row.Name), row.Id);
+        }
+
+        var result = new Dictionary<int, int>();
+        for (var index = 0; index < definitions.Length; index++)
+        {
+            var definition = definitions[index];
+            var code = index + 1;
+
+            if (idBySlug.TryGetValue(definition.Slug, out var idFromSlug))
             {
-                result[pair.Key] = id;
+                result[code] = idFromSlug;
+                continue;
+            }
+
+            if (idByNameKey.TryGetValue(SlugHelper.ToSlug(definition.Name), out var idFromName))
+            {
+                result[code] = idFromName;
+                logger.LogWarning(
+                    "Loại {Slug} không có trong danh mục, dùng loại trùng tên {Name} để nạp dữ liệu ban đầu.",
+                    definition.Slug, definition.Name);
             }
         }
 
@@ -346,29 +469,28 @@ public static class SeedData
             await roleManager.CreateAsync(new IdentityRole(AdminRoleName));
         }
 
-        var admin = await userManager.FindByEmailAsync(AdminEmail);
-        if (admin is null)
+        if (await userManager.Users.AnyAsync())
         {
-            admin = new IdentityUser
-            {
-                UserName = AdminEmail,
-                Email = AdminEmail,
-                EmailConfirmed = true
-            };
-
-            var created = await userManager.CreateAsync(admin, AdminPassword);
-            if (!created.Succeeded)
-            {
-                logger.LogError("Không tạo được tài khoản quản trị: {Errors}",
-                    string.Join("; ", created.Errors.Select(e => e.Description)));
-                return;
-            }
+            return;
         }
 
-        if (!await userManager.IsInRoleAsync(admin, AdminRoleName))
+        var admin = new IdentityUser
         {
-            await userManager.AddToRoleAsync(admin, AdminRoleName);
+            UserName = AdminEmail,
+            Email = AdminEmail,
+            EmailConfirmed = true,
+            LockoutEnabled = true
+        };
+
+        var created = await userManager.CreateAsync(admin, AdminPassword);
+        if (!created.Succeeded)
+        {
+            logger.LogError("Không tạo được tài khoản quản trị: {Errors}",
+                string.Join("; ", created.Errors.Select(e => e.Description)));
+            return;
         }
+
+        await userManager.AddToRoleAsync(admin, AdminRoleName);
     }
 
     private static T? ReadJsonFile<T>(IWebHostEnvironment environment, string fileName, ILogger logger)

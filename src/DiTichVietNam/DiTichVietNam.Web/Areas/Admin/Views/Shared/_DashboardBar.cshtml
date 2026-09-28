@@ -1,0 +1,29 @@
+@model DashboardBarVM
+
+<li class="bar-row">
+    @if (Model.Url is not null)
+    {
+        <a class="bar-link" href="@Model.Url">
+            <span class="bar-label">@Model.Label</span>
+            <span class="bar-figure">
+                <span class="bar-value">@Model.CountText</span>
+                <span class="bar-unit">@Model.Unit</span>
+                <span class="bar-percent">@Model.PercentText</span>
+            </span>
+        </a>
+    }
+    else
+    {
+        <span class="bar-link @(Model.HasAny ? null : "is-empty")">
+            <span class="bar-label">@Model.Label</span>
+            <span class="bar-figure">
+                <span class="bar-value">@Model.CountText</span>
+                <span class="bar-unit">@Model.Unit</span>
+                <span class="bar-percent">@Model.PercentText</span>
+            </span>
+        </span>
+    }
+    <span class="bar-track" aria-hidden="true">
+        <span class="bar-fill @(Model.HasAny ? null : "is-zero")" style="width:@(Model.BarWidth)%"></span>
+    </span>
+</li>

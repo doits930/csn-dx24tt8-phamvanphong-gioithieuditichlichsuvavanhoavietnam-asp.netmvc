@@ -1,0 +1,45 @@
+networks:
+  ditichvietnam_network:
+    name: ditichvietnam_network
+    driver: bridge
+
+volumes:
+  ditichvietnam_database:
+    name: ditichvietnam_database
+  ditichvietnam_uploads:
+    name: ditichvietnam_uploads
+  ditichvietnam_dataprotection_keys:
+    name: ditichvietnam_dataprotection_keys
+
+x-common: &common
+  restart: unless-stopped
+  networks: [ditichvietnam_network]
+
+services:
+  ditichvietnam-web:
+    <<: *common
+    container_name: ditichvietnam-web
+    image: "ditichvietnam-web:${APP_VERSION}"
+    build:
+      context: ../src/DiTichVietNam
+      dockerfile: DiTichVietNam.Web/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: "${ASPNETCORE_ENVIRONMENT}"
+      ASPNETCORE_HTTP_PORTS: "8080;8081"
+      APP_DATABASE: "${APP_DATABASE}"
+      APP_PUBLIC_PORT: "${APP_PUBLIC_PORT}"
+      APP_ADMIN_PORT: "8081"
+      APP_ALLOWED_HOSTS: "${APP_ALLOWED_HOSTS}"
+    ports:
+      - "${APP_PUBLIC_PORT}:8080"
+      - "127.0.0.1:${APP_ADMIN_PORT}:8081"
+    volumes:
+      - ditichvietnam_database:/app/storage
+      - ditichvietnam_uploads:/app/wwwroot/uploads
+      - ditichvietnam_dataprotection_keys:/home/app/.aspnet/DataProtection-Keys
+    healthcheck:
+      test: ["CMD-SHELL", "timeout 2 bash -c '</dev/tcp/127.0.0.1/8080'"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 30s

@@ -1,0 +1,19 @@
+@model RelicDetailVM
+
+<div class="relic-section-bar-wrap">
+    <div class="container">
+        <nav class="relic-section-bar" aria-label="Các phần của trang" data-section-bar>
+            <ul class="relic-section-links">
+                @foreach (var link in Model.SectionLinks)
+                {
+                    <li><a href="#@link.Anchor" data-section-link="@link.Anchor">@link.Label</a></li>
+                }
+            </ul>
+
+            @if (!string.IsNullOrWhiteSpace(Model.VisitSummary))
+            {
+                <a class="relic-section-visit" href="#tham-quan">@Model.VisitSummary</a>
+            }
+        </nav>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+@model ProvinceDeleteVM
+@{
+    var returnQuery = string.IsNullOrEmpty(Model.ReturnUrl)
+        ? string.Empty
+        : $"?returnUrl={Uri.EscapeDataString(Model.ReturnUrl)}";
+    var cancelUrl = string.IsNullOrEmpty(Model.ReturnUrl) ? "/admin/tinh-thanh" : Model.ReturnUrl;
+    var relicUrl = $"/admin/di-tich?{SearchFilterVM.ProvinceKey}={Model.Slug}";
+
+    ViewData["AdminCrumbs"] = new List<AdminCrumb>
+    {
+        new() { Label = "Quản trị", Url = DashboardController.IndexPath },
+        new() { Label = "Tỉnh thành", Url = "/admin/tinh-thanh" },
+        new() { Label = "Xóa tỉnh thành" }
+    };
+
+    var header = new AdminPageHeaderVM
+    {
+        Title = "Xóa tỉnh thành",
+        Lead = $"Xóa tỉnh thành {Model.Name} khỏi danh mục."
+    };
+}
+
+<partial name="_AdminPageHeader" model="header" />
+
+<div class="admin-card admin-card-pad admin-state-card">
+    <partial name="_AdminIcon" model="@("alert")" />
+
+    @if (Model.IsBlocked)
+    {
+        <p class="admin-panel-text">@Model.BlockReason</p>
+        <div class="admin-panel-actions">
+            <a class="admin-btn admin-btn-secondary" href="@cancelUrl">Quay lại danh sách</a>
+            @if (Model.RelicCount > 0)
+            {
+                <a class="admin-btn admin-btn-primary" href="@relicUrl">Xem @Model.RelicCount di tích</a>
+            }
+        </div>
+    }
+    else
+    {
+        <p class="admin-panel-text">
+            Tỉnh thành này chưa có di tích nào và chưa được vẽ trên bản đồ trang chủ. Thao tác này không lấy lại được.
+        </p>
+        <form class="admin-panel-actions" action="/admin/tinh-thanh/xoa/@Model.Id@returnQuery" method="post">
+            @Html.AntiForgeryToken()
+            <a class="admin-btn admin-btn-secondary" href="@cancelUrl">Hủy</a>
+            <button type="submit" class="admin-btn admin-btn-danger">Xóa tỉnh thành</button>
+        </form>
+    }
+</div>

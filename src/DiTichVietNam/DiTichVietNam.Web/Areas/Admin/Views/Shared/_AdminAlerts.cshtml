@@ -1,0 +1,52 @@
+@{
+    var notices = new List<(bool IsSuccess, string CssClass, string Title, string Icon, string Message)>();
+
+    if (TempData["AdminSuccess"] is string successMessage && !string.IsNullOrEmpty(successMessage))
+    {
+        notices.Add((true, "admin-toast-success", "Đã lưu", "check", successMessage));
+    }
+
+    if (TempData["AdminWarning"] is string warningMessage && !string.IsNullOrEmpty(warningMessage))
+    {
+        notices.Add((false, "admin-toast-warning", "Có tệp bị từ chối", "alert", warningMessage));
+    }
+
+    if (TempData["AdminError"] is string errorMessage && !string.IsNullOrEmpty(errorMessage))
+    {
+        notices.Add((false, "admin-toast-error", "Không thực hiện được", "alert", errorMessage));
+    }
+
+    var linkUrl = TempData["AdminAlertLinkUrl"] as string;
+    var linkText = TempData["AdminAlertLinkText"] as string;
+    var hasLink = !string.IsNullOrEmpty(linkUrl) && !string.IsNullOrEmpty(linkText);
+}
+
+@if (notices.Count > 0)
+{
+    <div class="toast-container admin-toasts" data-admin-toasts>
+        @foreach (var notice in notices)
+        {
+            var autoHide = notice.IsSuccess && !hasLink;
+            <div class="toast admin-toast @notice.CssClass" data-admin-toast
+                 data-toast-autohide="@(autoHide ? "true" : "false")"
+                 role="@(notice.IsSuccess ? "status" : "alert")"
+                 aria-live="@(notice.IsSuccess ? "polite" : "assertive")" aria-atomic="true">
+                <div class="toast-body admin-toast-body">
+                    <span class="admin-toast-icon" aria-hidden="true">
+                        <partial name="_AdminIcon" model="@notice.Icon" />
+                    </span>
+                    <span class="admin-toast-text">
+                        <span class="admin-toast-title">@notice.Title</span>
+                        <span class="admin-toast-message">@notice.Message</span>
+                        @if (hasLink)
+                        {
+                            <a class="admin-toast-link" href="@linkUrl">@linkText</a>
+                        }
+                    </span>
+                    <button type="button" class="btn-close admin-toast-close" data-bs-dismiss="toast"
+                            aria-label="Đóng thông báo"></button>
+                </div>
+            </div>
+        }
+    </div>
+}

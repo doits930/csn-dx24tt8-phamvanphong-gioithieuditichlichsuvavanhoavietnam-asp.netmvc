@@ -1,0 +1,30 @@
+@model RelicImageDeleteVM
+@{
+    var header = new AdminPageHeaderVM
+    {
+        Title = "Xóa ảnh",
+        Lead = $"Xóa một ảnh của di tích {Model.RelicName}."
+    };
+}
+
+<partial name="_AdminPageHeader" model="header" />
+
+<div class="admin-card admin-card-pad">
+    <div class="image-delete">
+        <img class="image-delete-preview" src="@Model.Image.Path" alt="@Model.Image.AltText" />
+        <div>
+            <p class="admin-panel-text">
+                @(Model.Image.IsThumbnail
+                    ? "Đây đang là ảnh đại diện của di tích. Sau khi xóa, ảnh còn lại đầu tiên sẽ thay thế."
+                    : "Tệp ảnh trên đĩa cũng bị xóa. Thao tác này không lấy lại được.")
+            </p>
+            <p class="image-card-source">@Model.Image.SourceCredit</p>
+
+            <form class="admin-panel-actions" action="@Model.DeleteUrl" method="post">
+                @Html.AntiForgeryToken()
+                <a class="admin-btn admin-btn-secondary" href="@Model.BoardUrl">Hủy</a>
+                <button type="submit" class="admin-btn admin-btn-danger">Xóa ảnh</button>
+            </form>
+        </div>
+    </div>
+</div>

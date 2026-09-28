@@ -1,12 +1,57 @@
 using DiTichVietNam.Web.Helpers;
 using DiTichVietNam.Web.Models.Entities;
 using DiTichVietNam.Web.Models.ViewModels;
+using DiTichVietNam.Web.Services.Provinces;
 
 namespace DiTichVietNam.Web.Services.Relics;
 
 public static class RelicFactory
 {
-    public static RelicCardVM ToCardVM(Relic relic) => new()
+    public static Relic ToEntity(RelicInput input)
+    {
+        var relic = new Relic();
+        ApplyToEntity(input, relic);
+        return relic;
+    }
+
+    public static void ApplyToEntity(RelicInput input, Relic relic)
+    {
+        relic.Name = input.Name.Trim();
+        relic.NameNoAccent = SlugHelper.RemoveDiacritics(relic.Name);
+        relic.Address = input.Address.Trim();
+        relic.ProvinceId = input.ProvinceId;
+        relic.RelicTypeId = input.RelicTypeId;
+        relic.RankingLevel = input.RankingLevel;
+        relic.RecognizedYear = input.RecognizedYear;
+        relic.Description = input.Description.Trim();
+        relic.DescriptionNoAccent = SlugHelper.RemoveDiacritics(relic.Description);
+        relic.History = OptionalText(input.History);
+        relic.VisitInfo = OptionalText(input.VisitInfo);
+        relic.SourceUrl = input.SourceUrl.Trim();
+        relic.Latitude = input.Latitude;
+        relic.Longitude = input.Longitude;
+    }
+
+    public static RelicEditData ToEditData(Relic relic, int imageCount) => new()
+    {
+        Id = relic.Id,
+        Name = relic.Name,
+        Slug = relic.Slug,
+        Address = relic.Address,
+        ProvinceId = relic.ProvinceId,
+        RelicTypeId = relic.RelicTypeId,
+        RankingLevel = relic.RankingLevel,
+        RecognizedYear = relic.RecognizedYear,
+        Description = relic.Description,
+        History = relic.History,
+        VisitInfo = relic.VisitInfo,
+        SourceUrl = relic.SourceUrl,
+        Latitude = relic.Latitude,
+        Longitude = relic.Longitude,
+        ImageCount = imageCount
+    };
+
+    public static RelicAdminRow ToAdminRow(Relic relic, int imageCount) => new()
     {
         Id = relic.Id,
         Name = relic.Name,
@@ -14,7 +59,340 @@ public static class RelicFactory
         ProvinceName = relic.Province?.Name ?? string.Empty,
         TypeName = relic.RelicType?.Name ?? string.Empty,
         RankingLevel = relic.RankingLevel,
-        RankingLabel = RankingLevelText.Label(relic.RankingLevel),
-        ThumbnailPath = relic.ThumbnailPath
+        RankingShortLabel = RankingLevelText.ShortLabel(relic.RankingLevel),
+        RankingCssModifier = RankingLevelText.CssModifier(relic.RankingLevel),
+        ThumbnailPath = relic.ThumbnailPath,
+        ImageCount = imageCount,
+        ViewCount = relic.ViewCount,
+        ChangedAt = relic.UpdatedAt ?? relic.CreatedAt,
+        WasEdited = relic.UpdatedAt.HasValue
     };
+
+    private static string? OptionalText(string? value)
+        => string.IsNullOrWhiteSpace(value) ? null : value.Trim();
+
+    public static RelicCardVM ToCardVM(Relic relic) => ToCardVM(relic, null);
+
+    public static RelicCardVM ToCardVM(Relic relic, string? matchExcerpt)
+    {
+        var chip = BuildRankingChips(relic)[0];
+
+        return new RelicCardVM
+        {
+            MatchExcerpt = matchExcerpt,
+            Id = relic.Id,
+            Name = relic.Name,
+            Slug = relic.Slug,
+            ProvinceName = relic.Province?.Name ?? string.Empty,
+            TypeName = relic.RelicType?.Name ?? string.Empty,
+            TypeSlug = relic.RelicType?.Slug ?? string.Empty,
+            RankingLevel = relic.RankingLevel,
+            RankingLabel = chip.Label,
+            RankingCssModifier = chip.CssModifier,
+            ThumbnailPath = relic.ThumbnailPath
+        };
+    }
+
+    private static List<RankingChipVM> BuildRankingChips(Relic relic)
+    {
+        if (!IntangibleHeritage.IsIntangible(relic.RelicType?.Slug, relic.RelicType?.Name))
+        {
+            return new List<RankingChipVM>
+            {
+                new()
+                {
+                    Label = RankingLevelText.Label(relic.RankingLevel),
+                    CssModifier = RankingLevelText.CssModifier(relic.RankingLevel)
+                }
+            };
+        }
+
+        var chips = new List<RankingChipVM>();
+        if (IntangibleHeritage.IsUnescoInscribed(relic.Description))
+        {
+            chips.Add(new RankingChipVM
+            {
+                Label = IntangibleHeritage.UnescoChipLabel,
+                CssModifier = RankingLevelText.CssModifier(RankingLevel.SpecialNational)
+            });
+        }
+
+        chips.Add(new RankingChipVM
+        {
+            Label = IntangibleHeritage.NationalListChipLabel,
+            CssModifier = RankingLevelText.CssModifier(RankingLevel.National)
+        });
+
+        return chips;
+    }
+
+    public static RelicDetailVM ToDetailVM(Relic relic, IReadOnlyList<RelicImage> images)
+    {
+        var ordered = images
+            .OrderByDescending(image => image.IsThumbnail)
+            .ThenBy(image => image.Id)
+            .ToList();
+
+        var isIntangible = IntangibleHeritage.IsIntangible(relic.RelicType?.Slug, relic.RelicType?.Name);
+        var chips = BuildRankingChips(relic);
+
+        var model = new RelicDetailVM
+        {
+            IsIntangible = isIntangible,
+            RankingChips = chips,
+            AddressLabel = isIntangible ? IntangibleHeritage.AddressLabel : DefaultAddressLabel,
+            TypeFieldLabel = isIntangible ? IntangibleHeritage.TypeFieldLabel : DefaultTypeFieldLabel,
+            RankingFieldLabel = isIntangible ? IntangibleHeritage.RankingFieldLabel : DefaultRankingFieldLabel,
+            RecognizedYearFieldLabel = isIntangible
+                ? IntangibleHeritage.RecognizedYearFieldLabel
+                : DefaultRecognizedYearFieldLabel,
+            Id = relic.Id,
+            Name = relic.Name,
+            Slug = relic.Slug,
+            Address = isIntangible
+                ? IntangibleHeritage.CapitalizeFirst(IntangibleHeritage.StripAddressPrefix(relic.Address))
+                : relic.Address,
+            ProvinceName = relic.Province?.Name ?? string.Empty,
+            ProvinceSlug = relic.Province?.Slug ?? string.Empty,
+            RegionName = relic.Province is null ? string.Empty : RegionText.DisplayName(relic.Province.Region),
+            TypeName = relic.RelicType?.Name ?? string.Empty,
+            TypeSlug = relic.RelicType?.Slug ?? string.Empty,
+            RankingLevel = relic.RankingLevel,
+            RankingLabel = string.Join(", ", chips.Select(chip => chip.Label)),
+            RankingShortLabel = RankingLevelText.ShortLabel(relic.RankingLevel),
+            RecognizedYear = relic.RecognizedYear,
+            ViewCount = relic.ViewCount,
+            Description = relic.Description,
+            History = relic.History,
+            SourceUrl = ImageSourceParser.SafeUrl(relic.SourceUrl),
+            SourceHost = ImageSourceParser.DisplayHost(relic.SourceUrl),
+            Timeline = RelicTimelineParser.Parse(relic.History),
+            Visit = BuildVisitCard(relic.VisitInfo, isIntangible)
+        };
+
+        var position = 0;
+        foreach (var image in ordered)
+        {
+            model.Images.Add(new RelicImageVM
+            {
+                Position = position,
+                Path = image.ImagePath,
+                Caption = image.Caption,
+                Source = ImageSourceParser.Parse(image.ImageSource),
+                AltText = string.IsNullOrWhiteSpace(image.Caption) ? relic.Name : image.Caption!
+            });
+            position++;
+        }
+
+        if (!isIntangible)
+        {
+            model.LocationMap = RelicLocationMapFactory.Build(
+                model.ProvinceSlug,
+                model.ProvinceName,
+                model.RegionName,
+                relic.Latitude,
+                relic.Longitude);
+        }
+
+        ApplyIntroAndBody(model, relic.Description);
+
+        model.RelatedProvinceTitle = $"Mục khác tại {model.ProvinceName}";
+        model.RelatedTypeTitle = $"Cùng loại {model.TypeName.ToLowerInvariant()}";
+        model.Breadcrumbs = BuildDetailBreadcrumbs(model);
+        model.SectionLinks = BuildSectionLinks(model);
+        model.VisitSummary = isIntangible ? string.Empty : BuildVisitSummary(model.Visit);
+
+        return model;
+    }
+
+    private static bool NeedsContactNote(VisitCardVM visit, string? visitInfo)
+    {
+        if (visit.HourLines.Count > 0 || visit.TicketLines.Count > 0 ||
+            visit.FreeLines.Count > 0 || visit.TicketPendingLines.Count > 0)
+        {
+            return false;
+        }
+
+        var folded = SlugHelper.FoldToAsciiLower(visitInfo ?? string.Empty);
+        foreach (var word in VisitContactWords)
+        {
+            if (folded.Contains(word, StringComparison.Ordinal))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private const string DefaultAddressLabel = "Địa chỉ";
+    private const string DefaultTypeFieldLabel = "Loại hình";
+    private const string DefaultRankingFieldLabel = "Cấp xếp hạng";
+    private const string DefaultRecognizedYearFieldLabel = "Năm xếp hạng";
+
+    private const string VisitContactNote =
+        "Giờ mở cửa và giá vé: liên hệ đơn vị quản lý di tích trước khi đến.";
+
+    private static readonly string[] VisitContactWords = { "gio mo cua", "gia ve" };
+
+    private static VisitCardVM? BuildVisitCard(string? visitInfo, bool isIntangible)
+    {
+        if (!isIntangible)
+        {
+            var visit = VisitInfoParser.Parse(visitInfo);
+            if (visit is not null && NeedsContactNote(visit, visitInfo))
+            {
+                visit.ContactNote = VisitContactNote;
+            }
+
+            return visit;
+        }
+
+        var sentences = SentenceSplitter.Split(visitInfo);
+        if (sentences.Count == 0)
+        {
+            return null;
+        }
+
+        var card = new VisitCardVM
+        {
+            Title = IntangibleHeritage.PracticeSectionTitle,
+            PlainNotes = true
+        };
+        card.NoteLines.Add(IntangibleHeritage.CapitalizeFirst(IntangibleHeritage.StripPracticePrefix(sentences[0])));
+        card.NoteLines.AddRange(sentences.Skip(1));
+
+        return card;
+    }
+
+    private static string BuildVisitSummary(VisitCardVM? visit)
+    {
+        if (visit is null || !visit.HasAnything)
+        {
+            return string.Empty;
+        }
+
+        if (visit.ShowsTicket)
+        {
+            return visit.HasHeadlineAmount ? $"Vé từ {visit.HeadlineAmount}" : "Có bán vé tham quan";
+        }
+
+        return visit.IsFreeEntry ? "Vào cửa miễn phí" : "Thông tin tham quan";
+    }
+
+    private static void ApplyIntroAndBody(RelicDetailVM model, string? description)
+    {
+        var text = SentenceSplitter.Normalize(description);
+        model.DescriptionBody = text;
+        model.Intro = string.Empty;
+        model.LeadSentence = string.Empty;
+
+        if (text.Length == 0)
+        {
+            return;
+        }
+
+        var end = SentenceSplitter.FirstSentenceEnd(text);
+        var opening = (end <= 0 ? text : text[..end]).Trim();
+
+        model.LeadSentence = opening.Length <= RelicIntroText.CardMaxLength
+            ? opening
+            : RelicIntroText.Shorten(opening, RelicIntroText.CardMaxLength);
+
+        if (end <= 0 || end >= text.Length)
+        {
+            return;
+        }
+
+        if (opening.Length > RelicIntroText.CoverMaxLength)
+        {
+            model.Intro = RelicIntroText.Shorten(opening, RelicIntroText.CoverMaxLength);
+            return;
+        }
+
+        model.Intro = opening;
+        model.DescriptionBody = text[end..].TrimStart();
+    }
+
+    private static List<BreadcrumbItemVM> BuildDetailBreadcrumbs(RelicDetailVM model)
+    {
+        var trail = new List<BreadcrumbItemVM>
+        {
+            new() { Label = "Trang chủ", Url = "/" },
+            new() { Label = "Di tích", Url = RelicListPaths.AllRelics }
+        };
+
+        if (!string.IsNullOrWhiteSpace(model.ProvinceSlug))
+        {
+            trail.Add(new BreadcrumbItemVM
+            {
+                Label = model.ProvinceName,
+                Url = RelicListPaths.ByProvince(model.ProvinceSlug)
+            });
+        }
+
+        trail.Add(new BreadcrumbItemVM { Label = model.Name });
+        return trail;
+    }
+
+    private static List<SectionLinkVM> BuildSectionLinks(RelicDetailVM model)
+    {
+        var links = new List<SectionLinkVM>();
+
+        if (model.HasDescription)
+        {
+            links.Add(new SectionLinkVM { Label = "Giới thiệu", Anchor = "gioi-thieu" });
+        }
+
+        if (model.HasHistory)
+        {
+            links.Add(new SectionLinkVM { Label = "Lịch sử", Anchor = "lich-su" });
+        }
+
+        if (model.HasVisitCard)
+        {
+            links.Add(new SectionLinkVM
+            {
+                Label = model.IsIntangible ? IntangibleHeritage.PracticeSectionShortLabel : "Tham quan",
+                Anchor = "tham-quan"
+            });
+        }
+
+        if (model.HasImages)
+        {
+            links.Add(new SectionLinkVM { Label = "Hình ảnh", Anchor = "hinh-anh" });
+        }
+
+        if (model.HasSource)
+        {
+            links.Add(new SectionLinkVM { Label = "Nguồn", Anchor = "nguon-tham-khao" });
+        }
+
+        return links;
+    }
+
+    public static HeroSlideVM ToHeroSlideVM(Relic relic, IReadOnlyList<RelicImage> images)
+    {
+        var main = images.FirstOrDefault(i => i.IsThumbnail) ?? images.FirstOrDefault();
+        var mainPath = main?.ImagePath ?? relic.ThumbnailPath;
+        var inset = images.FirstOrDefault(i => !i.IsThumbnail && i.ImagePath != mainPath);
+        var chip = BuildRankingChips(relic)[0];
+
+        return new HeroSlideVM
+        {
+            Name = relic.Name,
+            Slug = relic.Slug,
+            ProvinceName = relic.Province?.Name ?? string.Empty,
+            TypeName = relic.RelicType?.Name ?? string.Empty,
+            RankingLevel = relic.RankingLevel,
+            RankingLabel = chip.Label,
+            RankingCssModifier = chip.CssModifier,
+            RecognizedYear = relic.RecognizedYear,
+            Intro = RelicIntroText.FirstSentence(relic.Description),
+            MainImagePath = string.IsNullOrWhiteSpace(mainPath) ? "/img/no-image.svg" : mainPath,
+            MainImageCaption = main?.Caption,
+            InsetImagePath = inset?.ImagePath,
+            InsetImageCaption = inset?.Caption
+        };
+    }
 }

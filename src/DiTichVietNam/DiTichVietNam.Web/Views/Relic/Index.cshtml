@@ -1,0 +1,92 @@
+@model RelicListVM
+
+<div class="page-header-band">
+    <div class="container">
+        <nav aria-label="Đường dẫn trang">
+            <ol class="breadcrumb-trail">
+                @foreach (var crumb in Model.Breadcrumbs)
+                {
+                    <li>
+                        @if (string.IsNullOrWhiteSpace(crumb.Url))
+                        {
+                            <span aria-current="page">@crumb.Label</span>
+                        }
+                        else
+                        {
+                            <a href="@crumb.Url">@crumb.Label</a>
+                        }
+                    </li>
+                }
+            </ol>
+        </nav>
+
+        <h1 class="page-header-title">@Model.PageTitle</h1>
+
+        @if (!string.IsNullOrWhiteSpace(Model.HeaderNote))
+        {
+            <p class="page-header-note">@Model.HeaderNote</p>
+        }
+
+        <partial name="_SearchBar" model="Model.SearchBar" />
+    </div>
+</div>
+
+<section class="list-results">
+    <div class="container">
+        @if (Model.Filter.HasAnyFilter)
+        {
+            <div class="list-toolbar">
+                <p class="list-toolbar-summary">@Model.FilterSummary</p>
+                <a class="filter-reset" href="@Model.ClearFilterUrl">Xóa bộ lọc</a>
+            </div>
+        }
+
+        @if (Model.HasIntangibleItem)
+        {
+            <p class="relic-list-note">@IntangibleHeritage.ProvinceNote</p>
+        }
+
+        @if (Model.HasResults)
+        {
+            <div class="relic-grid @(Model.ShowsMatchExcerpt ? "has-excerpt" : string.Empty)">
+                @foreach (var relic in Model.Items)
+                {
+                    <partial name="_RelicCard" model="relic" />
+                }
+            </div>
+
+            <partial name="_Pagination" model="Model.Pagination" />
+        }
+        else
+        {
+            <div class="empty-state">
+                @if (Model.Filter.HasAnyFilter)
+                {
+                    <p>Không có mục nào khớp với các tiêu chí đang chọn.</p>
+                    <p class="empty-hint">Bỏ bớt một tiêu chí trong thanh tìm kiếm, hoặc xóa toàn bộ bộ lọc để xem lại danh sách đầy đủ.</p>
+                }
+                else
+                {
+                    <p>Chưa có mục nào để hiển thị.</p>
+                    <p class="empty-hint">Quản trị viên cần thêm dữ liệu di tích trước khi trang này có kết quả.</p>
+                }
+            </div>
+        }
+
+        @if (Model.ShowsSuggestions)
+        {
+            <div class="suggestion-strip">
+                <h2>@Model.SuggestionTitle</h2>
+                <ul class="suggestion-links">
+                    @foreach (var link in Model.SuggestionLinks)
+                    {
+                        <li>
+                            <a href="@link.Url">@link.Label</a>
+                            <span class="suggestion-count">@link.RelicCount</span>
+                        </li>
+                    }
+                </ul>
+            </div>
+        }
+    </div>
+</section>

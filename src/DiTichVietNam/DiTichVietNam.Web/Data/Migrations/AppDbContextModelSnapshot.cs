@@ -67,6 +67,12 @@ namespace DiTichVietNam.Web.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("DescriptionNoAccent")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT")
+                        .HasDefaultValue("");
+
                     b.Property<string>("History")
                         .HasColumnType("TEXT");
 

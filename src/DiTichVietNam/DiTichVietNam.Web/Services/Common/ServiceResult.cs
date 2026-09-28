@@ -20,4 +20,7 @@ public class ServiceResult<T> : ServiceResult
 
     public static new ServiceResult<T> Fail(string error, string? field = null)
         => new() { Success = false, Error = error, Field = field };
+
+    public static ServiceResult<T> Fail(string error, T data, string? field = null)
+        => new() { Success = false, Error = error, Data = data, Field = field };
 }

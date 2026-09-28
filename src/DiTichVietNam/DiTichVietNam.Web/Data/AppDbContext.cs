@@ -44,6 +44,7 @@ public class AppDbContext : IdentityDbContext<IdentityUser, IdentityRole, string
             e.Property(r => r.NameNoAccent).IsRequired().HasMaxLength(200);
             e.Property(r => r.Address).IsRequired().HasMaxLength(300);
             e.Property(r => r.Description).IsRequired();
+            e.Property(r => r.DescriptionNoAccent).IsRequired().HasDefaultValue(string.Empty);
             e.Property(r => r.SourceUrl).IsRequired();
             e.Property(r => r.ViewCount).HasDefaultValue(0);
             e.HasIndex(r => r.Slug).IsUnique();

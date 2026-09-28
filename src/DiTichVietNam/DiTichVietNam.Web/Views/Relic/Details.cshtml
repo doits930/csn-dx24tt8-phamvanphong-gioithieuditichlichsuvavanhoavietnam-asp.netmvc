@@ -1,0 +1,153 @@
+@model RelicDetailVM
+
+<article class="relic-detail">
+    <partial name="_RelicCover" model="Model" />
+
+    @if (Model.SectionLinks.Count > 1)
+    {
+        <partial name="_RelicSectionBar" model="Model" />
+    }
+
+    <div class="container">
+        <div class="relic-body">
+            <div class="relic-content">
+                @if (Model.HasDescription)
+                {
+                    <section class="relic-section" id="gioi-thieu">
+                        <h2 class="relic-section-title">@(Model.IsIntangible ? IntangibleHeritage.IntroSectionTitle : "Giới thiệu về di tích")</h2>
+                        <div class="relic-prose relic-prose-lead">@Model.DescriptionBody</div>
+                    </section>
+                }
+
+                @if (Model.HasHistory)
+                {
+                    <section class="relic-section" id="lich-su">
+                        <h2 class="relic-section-title">Lịch sử hình thành</h2>
+                        <div class="relic-prose">@Model.History</div>
+
+                        @if (Model.HasTimeline)
+                        {
+                            <partial name="_RelicTimeline" model="Model.Timeline" />
+                        }
+                    </section>
+                }
+
+            </div>
+
+            <aside class="relic-aside">
+                @if (Model.HasVisitCard)
+                {
+                    <partial name="_RelicVisitCard" model="Model.Visit" />
+                }
+
+                <div class="relic-facts">
+                    <h2 class="relic-aside-title">Thông tin nhanh</h2>
+                    <dl>
+                        @if (!string.IsNullOrWhiteSpace(Model.Address))
+                        {
+                            <div class="relic-fact">
+                                <dt>@Model.AddressLabel</dt>
+                                <dd>@Model.Address</dd>
+                            </div>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(Model.ProvinceSlug))
+                        {
+                            <div class="relic-fact">
+                                <dt>Tỉnh thành</dt>
+                                <dd><a href="@RelicListPaths.ByProvince(Model.ProvinceSlug)">@Model.ProvinceName</a></dd>
+                            </div>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(Model.TypeSlug))
+                        {
+                            <div class="relic-fact">
+                                <dt>@Model.TypeFieldLabel</dt>
+                                <dd><a href="@RelicListPaths.ByType(Model.TypeSlug)">@Model.TypeName</a></dd>
+                            </div>
+                        }
+                        <div class="relic-fact">
+                            <dt>@Model.RankingFieldLabel</dt>
+                            <dd>@Model.RankingLabel</dd>
+                        </div>
+                        @if (Model.RecognizedYear.HasValue)
+                        {
+                            <div class="relic-fact">
+                                <dt>@Model.RecognizedYearFieldLabel</dt>
+                                <dd>@Model.RecognizedYear</dd>
+                            </div>
+                        }
+                        <div class="relic-fact">
+                            <dt>Lượt xem</dt>
+                            <dd>@Model.ViewCount</dd>
+                        </div>
+                    </dl>
+                    @if (Model.IsIntangible)
+                    {
+                        <p class="relic-fact-note">@IntangibleHeritage.ProvinceNote</p>
+                    }
+                </div>
+
+                @if (Model.LocationMap is not null)
+                {
+                    <partial name="_RelicLocationMap" model="Model.LocationMap" />
+                }
+            </aside>
+        </div>
+    </div>
+
+    @if (Model.HasImages)
+    {
+        <partial name="_RelicGallery" model="Model" />
+    }
+
+    @if (Model.HasSource)
+    {
+        <div class="container">
+            <section class="relic-section relic-source-block" id="nguon-tham-khao">
+                <h2 class="relic-section-title">Nguồn tham khảo</h2>
+                <p class="relic-source">
+                    Nội dung phần chữ của bản ghi này lấy từ
+                    <a href="@Model.SourceUrl" target="_blank" rel="noopener noreferrer">@Model.SourceHost</a>.@if (Model.HasImages)
+                    {<text> Nguồn của từng tấm ảnh ghi ngay dưới ảnh trong mục Hình ảnh.</text>}
+                </p>
+            </section>
+        </div>
+    }
+
+    @if (Model.HasRelated)
+    {
+        <div class="relic-related">
+            <div class="container">
+                @if (Model.RelatedSameProvince.Count > 0)
+                {
+                    <section class="relic-related-strip">
+                        <h2 class="relic-section-title">@Model.RelatedProvinceTitle</h2>
+                        <div class="relic-grid">
+                            @foreach (var card in Model.RelatedSameProvince)
+                            {
+                                <partial name="_RelicCard" model="card" />
+                            }
+                        </div>
+                    </section>
+                }
+
+                @if (Model.RelatedSameType.Count > 0)
+                {
+                    <section class="relic-related-strip">
+                        <h2 class="relic-section-title">@Model.RelatedTypeTitle</h2>
+                        <div class="relic-grid">
+                            @foreach (var card in Model.RelatedSameType)
+                            {
+                                <partial name="_RelicCard" model="card" />
+                            }
+                        </div>
+                    </section>
+                }
+            </div>
+        </div>
+    }
+</article>
+
+@section Scripts {
+    <script src="~/js/relic-gallery.js" asp-append-version="true"></script>
+    <script src="~/js/relic-sections.js" asp-append-version="true"></script>
+}

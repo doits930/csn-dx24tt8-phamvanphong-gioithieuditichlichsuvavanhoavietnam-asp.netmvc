@@ -1,0 +1,126 @@
+@model List<HeroSlideVM>
+@{
+    var total = Model.Count;
+}
+
+<div class="lookbook" data-lookbook role="region" aria-roledescription="carousel"
+     aria-label="Di tích tiêu biểu" tabindex="-1">
+    <div class="container">
+        <h1 class="visually-hidden">Tra cứu di tích lịch sử và văn hóa Việt Nam</h1>
+
+        <div class="lookbook-pages">
+            @for (var i = 0; i < total; i++)
+            {
+                var slide = Model[i];
+                var isFirst = i == 0;
+                var words = slide.Name.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                <article class="lookbook-page @(isFirst ? "is-active" : string.Empty)" data-lookbook-page
+                         role="group" aria-roledescription="slide" aria-label="@(i + 1) trên @total"
+                         aria-hidden="@(isFirst ? "false" : "true")" inert="@(!isFirst)">
+                    <div class="lookbook-copy">
+                        <p class="lookbook-kicker">
+                            <span>Di tích tiêu biểu</span>
+                            <span class="lookbook-rank @slide.RankingCssModifier">@slide.RankingLabel</span>
+                        </p>
+                        <h2 class="lookbook-name @slide.NameSizeModifier">@for (var w = 0; w < words.Length; w++)
+                            {
+                                <span class="lookbook-word" style="--reveal-index: @w"><span>@words[w]</span></span>@(w < words.Length - 1 ? " " : string.Empty)
+                            }</h2>
+                        @if (!string.IsNullOrWhiteSpace(slide.Intro))
+                        {
+                            <p class="lookbook-intro"><span class="lookbook-reveal">@slide.Intro</span></p>
+                        }
+                        <dl class="fact-row lookbook-facts">
+                            <div style="--reveal-index: 0">
+                                <dt>Tỉnh thành</dt>
+                                <dd>@slide.ProvinceName</dd>
+                            </div>
+                            @if (!string.IsNullOrWhiteSpace(slide.TypeName))
+                            {
+                                <div style="--reveal-index: 1">
+                                    <dt>Loại hình</dt>
+                                    <dd>@slide.TypeName</dd>
+                                </div>
+                            }
+                            @if (slide.RecognizedYear.HasValue)
+                            {
+                                <div style="--reveal-index: 2">
+                                    <dt>Năm xếp hạng</dt>
+                                    <dd>@slide.RecognizedYear</dd>
+                                </div>
+                            }
+                        </dl>
+                        <p class="lookbook-action-row">
+                            <a class="lookbook-action" href="/di-tich/@slide.Slug" tabindex="@(isFirst ? 0 : -1)">
+                                <span>Xem di tích</span>
+                                <svg viewBox="0 0 20 12" width="20" height="12" aria-hidden="true" focusable="false">
+                                    <path d="M0 6h17M12.5 1 18 6l-5.5 5" fill="none" stroke="currentColor"
+                                          stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </a>
+                        </p>
+                    </div>
+
+                    <figure class="lookbook-plates">
+                        <span class="lookbook-plate-stack">
+                            <span class="lookbook-plate-frame">
+                                @if (isFirst)
+                                {
+                                    <img class="lookbook-plate-main" src="@slide.MainImagePath" alt="@slide.Name"
+                                         decoding="async" fetchpriority="high" onerror="this.src='/img/no-image.svg'" />
+                                }
+                                else
+                                {
+                                    <img class="lookbook-plate-main" alt="@slide.Name" decoding="async" loading="lazy"
+                                         data-lookbook-src="@slide.MainImagePath" onerror="this.src='/img/no-image.svg'" />
+                                }
+                                <span class="lookbook-curtain" aria-hidden="true"></span>
+                            </span>
+                            @if (slide.HasInsetImage)
+                            {
+                                <span class="lookbook-plate-inset">
+                                    @if (isFirst)
+                                    {
+                                        <img src="@slide.InsetImagePath" alt="@slide.InsetImageCaption" decoding="async"
+                                             onerror="this.src='/img/no-image.svg'" />
+                                    }
+                                    else
+                                    {
+                                        <img alt="@slide.InsetImageCaption" decoding="async" loading="lazy"
+                                             data-lookbook-src="@slide.InsetImagePath" onerror="this.src='/img/no-image.svg'" />
+                                    }
+                                </span>
+                            }
+                        </span>
+                        @if (!string.IsNullOrWhiteSpace(slide.MainImageCaption))
+                        {
+                            <figcaption>@slide.MainImageCaption</figcaption>
+                        }
+                    </figure>
+                </article>
+            }
+        </div>
+
+        <div class="lookbook-index">
+            <ol class="lookbook-toc">
+                @for (var i = 0; i < total; i++)
+                {
+                    var slide = Model[i];
+                    <li>
+                        <button type="button" class="lookbook-toc-item @(i == 0 ? "is-active" : string.Empty)"
+                                data-lookbook-jump data-lookbook-index="@i" title="@slide.Name"
+                                aria-current="@(i == 0 ? "true" : null)"
+                                aria-label="Trang @(i + 1): @slide.Name">
+                            <span class="lookbook-toc-number" aria-hidden="true">@((i + 1).ToString("00"))</span>
+                            <span class="lookbook-toc-name" aria-hidden="true">@slide.Name</span>
+                            <span class="lookbook-toc-bar" aria-hidden="true"></span>
+                        </button>
+                    </li>
+                }
+            </ol>
+            <p class="lookbook-counter" data-lookbook-counter aria-hidden="true">01 / @total.ToString("00")</p>
+        </div>
+    </div>
+
+    <p class="visually-hidden" aria-live="polite" data-lookbook-live></p>
+</div>

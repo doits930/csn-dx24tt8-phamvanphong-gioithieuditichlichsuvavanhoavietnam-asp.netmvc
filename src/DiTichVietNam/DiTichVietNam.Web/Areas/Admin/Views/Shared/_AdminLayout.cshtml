@@ -1,0 +1,186 @@
+@inject IAccountService AccountService
+@inject IOptions<AdminSiteOptions> AdminSite
+@{
+    var currentPath = Context.Request.Path.Value ?? string.Empty;
+    var accountName = AccountService.GetDisplayName(User);
+    var initial = string.IsNullOrEmpty(accountName) ? "Q" : accountName[..1].ToUpperInvariant();
+    var publicSiteUrl = SiteUrls.OnPort(Context.Request, AdminSite.Value.PublicPort, "/");
+    var crumbs = ViewData["AdminCrumbs"] as List<AdminCrumb> ?? new List<AdminCrumb>
+    {
+        new() { Label = ViewData["Title"] as string ?? "Quản trị" }
+    };
+    var onRelicList = currentPath.StartsWith(RelicAdminController.ListPath, StringComparison.OrdinalIgnoreCase);
+    var headerKeyword = onRelicList ? Context.Request.Query[SearchFilterVM.KeywordKey].ToString() : string.Empty;
+    var menuItems = new (string Label, string Path, string Icon)[]
+    {
+        ("Thống kê", DashboardController.IndexPath, "chart"),
+        ("Di tích", RelicAdminController.ListPath, "relic"),
+        ("Tỉnh thành", ProvinceController.ListPath, "province"),
+        ("Loại di tích", RelicTypeController.ListPath, "type"),
+        ("Tài khoản", AdminUserController.ListPath, "user")
+    };
+}
+<!DOCTYPE html>
+<html lang="vi" class="no-js">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>@ViewData["Title"] - Quản trị Di tích Việt Nam</title>
+    <link rel="icon" href="~/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/admin-assets/css/admin.css" asp-append-version="true" />
+    <script>document.documentElement.classList.remove('no-js');try{if(localStorage.getItem('admin-sidebar')==='collapsed'){document.documentElement.classList.add('admin-sidebar-collapsed');}}catch(e){}</script>
+</head>
+<body class="admin-body">
+    <a class="skip-link" href="#admin-main-content">Bỏ qua điều hướng, vào nội dung chính</a>
+    <partial name="_BackToTop" />
+
+    <div class="admin-shell">
+        <aside class="admin-sidebar offcanvas-lg offcanvas-start" tabindex="-1" id="admin-sidebar"
+               aria-label="Điều hướng khu quản trị">
+            <div class="admin-sidebar-inner">
+                <div class="admin-sidebar-top">
+                    <a class="admin-brand" href="@DashboardController.IndexPath">
+                        <span class="admin-brand-mark" aria-hidden="true">DT</span>
+                        <span class="admin-brand-text">
+                            <span class="admin-brand-name">Di tích Việt Nam</span>
+                            <span class="admin-brand-tag">Quản trị</span>
+                        </span>
+                    </a>
+                    <button class="admin-sidebar-close" type="button" data-bs-dismiss="offcanvas"
+                            data-bs-target="#admin-sidebar" aria-label="Đóng trình đơn">
+                        <partial name="_AdminIcon" model="@("close")" />
+                    </button>
+                </div>
+                <nav aria-label="Mục quản trị">
+                    <ul class="admin-nav">
+                        @foreach (var item in menuItems)
+                        {
+                            var isCurrent = currentPath.StartsWith(item.Path, StringComparison.OrdinalIgnoreCase);
+                            <li>
+                                <a class="admin-nav-link @(isCurrent ? "is-current" : string.Empty)"
+                                   href="@item.Path" aria-current="@(isCurrent ? "page" : null)"
+                                   data-nav-label="@item.Label">
+                                    <partial name="_AdminIcon" model="@item.Icon" />
+                                    <span class="admin-nav-text">@item.Label</span>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </nav>
+                <div class="admin-sidebar-foot">
+                    <a class="admin-sidebar-link" href="@publicSiteUrl" target="_blank" rel="noopener"
+                       data-nav-label="Xem trang công khai">
+                        <partial name="_AdminIcon" model="@("external")" />
+                        <span class="admin-nav-text">Xem trang công khai</span>
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+        <div class="admin-content">
+            <header class="admin-topbar">
+                <div class="container admin-topbar-inner">
+                    <button class="admin-menu-button" type="button" data-sidebar-toggle
+                            aria-controls="admin-sidebar" aria-expanded="true"
+                            aria-label="Thu gọn điều hướng">
+                        <partial name="_AdminIcon" model="@("menu")" />
+                    </button>
+
+                    <nav aria-label="Đường dẫn trang">
+                        <ol class="admin-crumbs">
+                            @foreach (var crumb in crumbs)
+                            {
+                                <li>
+                                    @if (string.IsNullOrWhiteSpace(crumb.Url))
+                                    {
+                                        <span aria-current="page">@crumb.Label</span>
+                                    }
+                                    else
+                                    {
+                                        <a href="@crumb.Url">@crumb.Label</a>
+                                    }
+                                </li>
+                            }
+                        </ol>
+                    </nav>
+
+                    <form class="admin-search" action="@RelicAdminController.ListPath" method="get"
+                          role="search" aria-label="Tìm di tích" data-admin-search
+                          data-suggest-url="@RelicAdminController.SuggestPath"
+                          data-keyword-key="@SearchFilterVM.KeywordKey">
+                        <label class="visually-hidden" for="admin-search-input">Tìm di tích theo tên</label>
+                        <div class="admin-search-field">
+                            <span class="admin-search-icon" aria-hidden="true">
+                                <partial name="_AdminIcon" model="@("search")" />
+                            </span>
+                            <input type="search" id="admin-search-input" name="@SearchFilterVM.KeywordKey"
+                                   value="@headerKeyword" maxlength="200" placeholder="Tìm di tích..."
+                                   autocomplete="off" role="combobox" aria-expanded="false"
+                                   aria-controls="admin-search-suggestions" aria-autocomplete="list"
+                                   data-admin-search-input />
+                            <span class="admin-search-hint" aria-hidden="true">/</span>
+                            <button class="admin-search-close" type="button" data-admin-search-close
+                                    aria-label="Đóng ô tìm kiếm">
+                                <partial name="_AdminIcon" model="@("close")" />
+                            </button>
+                        </div>
+                        <ul class="admin-search-suggestions" id="admin-search-suggestions" role="listbox"
+                            aria-label="Di tích khớp từ khóa" data-admin-search-list hidden></ul>
+                        <p class="visually-hidden" role="status" aria-live="polite" data-admin-search-status></p>
+                    </form>
+
+                    <button class="admin-search-open" type="button" data-admin-search-open
+                            aria-controls="admin-search-input" aria-expanded="false" aria-label="Mở ô tìm kiếm">
+                        <partial name="_AdminIcon" model="@("search")" />
+                    </button>
+
+                    <div class="dropdown admin-profile">
+                        <button class="admin-avatar" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false" aria-haspopup="menu" aria-label="Tài khoản @accountName">@initial</button>
+                        <div class="dropdown-menu dropdown-menu-end admin-profile-menu">
+                            <div class="admin-profile-head">
+                                <span class="admin-profile-avatar" aria-hidden="true">@initial</span>
+                                <span>
+                                    <span class="admin-profile-name">@accountName</span>
+                                    <span class="admin-profile-role">Quản trị viên</span>
+                                </span>
+                            </div>
+                            <a class="dropdown-item" href="@AdminUserController.ChangePasswordPath">
+                                <partial name="_AdminIcon" model="@("key")" />
+                                <span>Đổi mật khẩu</span>
+                            </a>
+                            <a class="dropdown-item" href="@publicSiteUrl" target="_blank" rel="noopener">
+                                <partial name="_AdminIcon" model="@("external")" />
+                                <span>Xem trang công khai</span>
+                            </a>
+                            <form class="admin-profile-form" action="/tai-khoan/dang-xuat" method="post">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="dropdown-item admin-profile-signout">
+                                    <partial name="_AdminIcon" model="@("signout")" />
+                                    <span>Đăng xuất</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="admin-main" id="admin-main-content" tabindex="-1">
+                <div class="container">
+                    <partial name="_AdminAlerts" />
+                    @RenderBody()
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site-shell.js" asp-append-version="true"></script>
+    <script src="~/admin-assets/js/admin-shell.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

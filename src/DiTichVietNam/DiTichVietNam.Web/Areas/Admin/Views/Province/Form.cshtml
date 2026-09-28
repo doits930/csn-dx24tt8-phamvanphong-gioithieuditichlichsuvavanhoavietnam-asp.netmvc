@@ -1,0 +1,171 @@
+@model ProvinceFormVM
+@{
+    var formAction = Model.IsEdit ? $"/admin/tinh-thanh/sua/{Model.Id}" : "/admin/tinh-thanh/them";
+    var cancelUrl = string.IsNullOrEmpty(Model.ReturnUrl) ? "/admin/tinh-thanh" : Model.ReturnUrl;
+    var pageTitle = Model.IsEdit ? "Sửa tỉnh thành" : "Thêm tỉnh thành";
+
+    ViewData["AdminCrumbs"] = new List<AdminCrumb>
+    {
+        new() { Label = "Quản trị", Url = DashboardController.IndexPath },
+        new() { Label = "Tỉnh thành", Url = "/admin/tinh-thanh" },
+        new() { Label = pageTitle }
+    };
+
+    var header = new AdminPageHeaderVM
+    {
+        Title = pageTitle,
+        Lead = Model.IsEdit
+            ? "Sửa tên hoặc miền của tỉnh thành. Địa chỉ công khai và mảng trên bản đồ giữ nguyên."
+            : "Thêm một tỉnh thành vào danh mục. Địa chỉ công khai sinh ra từ tên và sau đó không đổi.",
+        Links = Model.IsEdit && Model.RelicCount > 0
+            ? new List<AdminPageLinkVM>
+            {
+                new()
+                {
+                    Label = $"Di tích của tỉnh thành ({Model.RelicCount})",
+                    Url = $"/admin/di-tich?{SearchFilterVM.ProvinceKey}={Model.Slug}",
+                    Icon = "relic"
+                }
+            }
+            : new List<AdminPageLinkVM>()
+    };
+
+    var fieldOrder = new (string Field, string TargetId)[]
+    {
+        (nameof(Model.Name), "field-name"),
+        (nameof(Model.Region), "field-region")
+    };
+
+    var summary = AdminErrorSummaryVM.FromModelState(ViewData.ModelState, fieldOrder);
+
+    var nameError = ErrorFor(nameof(Model.Name));
+    var regionError = ErrorFor(nameof(Model.Region));
+}
+
+@functions {
+    private string? ErrorFor(string field)
+        => ViewData.ModelState[field]?.Errors.FirstOrDefault()?.ErrorMessage;
+
+    private static string FieldClass(string? error)
+        => error is null ? "admin-field" : "admin-field admin-field-invalid";
+
+    private static string DescribedBy(string hintId, string? error, string errorId)
+        => error is null ? hintId : $"{hintId} {errorId}";
+}
+
+<partial name="_AdminPageHeader" model="header" />
+
+<form id="catalog-form" class="admin-form admin-form-narrow" action="@formAction" method="post" novalidate>
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="ReturnUrl" value="@Model.ReturnUrl" />
+
+    <partial name="_AdminErrorSummary" model="summary" />
+
+    <p class="admin-form-legend">Ô có dấu <span class="admin-required">*</span> là bắt buộc.</p>
+
+    <section class="admin-card admin-card-pad">
+        <div class="admin-card-head">
+            <h2 class="admin-card-title">
+                <partial name="_AdminIcon" model="@("province")" />
+                <span>Tên gọi và miền</span>
+            </h2>
+            <p class="admin-card-note">Tên hiển thị ở bản đồ trang chủ, danh bạ tỉnh thành và bộ lọc.</p>
+        </div>
+
+        <div class="@FieldClass(nameError)">
+            <label for="field-name">Tên tỉnh thành <span class="admin-required" aria-hidden="true">*</span></label>
+            <input type="text" id="field-name" name="Name" value="@Model.Name" maxlength="100"
+                   autocomplete="off" spellcheck="false" data-slug-source
+                   aria-invalid="@(nameError is null ? "false" : "true")"
+                   aria-describedby="@DescribedBy("field-name-hint", nameError, "field-name-error")" />
+            <div class="admin-hint-row">
+                <p class="admin-hint" id="field-name-hint">Ghi đúng tên trong danh mục hành chính hiện hành.</p>
+                <span class="admin-field-count" data-counter aria-live="polite"></span>
+            </div>
+            @if (Model.IsEdit)
+            {
+                <p class="admin-slug-preview">Đường dẫn công khai: /tinh/@Model.Slug</p>
+            }
+            else
+            {
+                <p class="admin-slug-preview">
+                    Đường dẫn công khai sinh từ tên: /tinh/<span data-slug-preview>ten-tinh-thanh</span>
+                </p>
+            }
+            @if (nameError is not null)
+            {
+                <p class="field-error" id="field-name-error">@nameError</p>
+            }
+        </div>
+
+        <div class="@FieldClass(regionError)">
+            <label for="field-region">Miền <span class="admin-required" aria-hidden="true">*</span></label>
+            <select id="field-region" name="Region"
+                    aria-invalid="@(regionError is null ? "false" : "true")"
+                    aria-describedby="@(regionError is null ? null : "field-region-error")">
+                <option value="">Chọn miền</option>
+                @foreach (var region in RegionText.OrderedRegions)
+                {
+                    <option value="@region" selected="@(region == Model.Region)">@RegionText.DisplayName(region)</option>
+                }
+            </select>
+            @if (regionError is not null)
+            {
+                <p class="field-error" id="field-region-error">@regionError</p>
+            }
+        </div>
+    </section>
+
+    @if (Model.IsEdit)
+    {
+        <section class="admin-card admin-card-pad">
+            <div class="admin-card-head">
+                <h2 class="admin-card-title">
+                    <partial name="_AdminIcon" model="@("compass")" />
+                    <span>Ràng buộc đang có</span>
+                </h2>
+                <p class="admin-card-note">Những thứ khóa theo địa chỉ công khai của tỉnh thành này.</p>
+            </div>
+
+            <ul class="admin-fact-list">
+                <li>
+                    <span class="admin-fact-label">Số di tích</span>
+                    <span class="admin-fact-value">@Model.RelicCount</span>
+                </li>
+                <li>
+                    <span class="admin-fact-label">Bản đồ trang chủ</span>
+                    <span class="admin-fact-value">
+                        @if (Model.HasMapShape)
+                        {
+                            <span class="admin-map-state">Đã vẽ</span>
+                        }
+                        else
+                        {
+                            <span class="admin-chip map-absent">Chưa có trên bản đồ</span>
+                        }
+                    </span>
+                </li>
+            </ul>
+            <p class="admin-hint">
+                @(Model.HasMapShape
+                    ? "Mảng bản đồ khóa theo đường dẫn công khai nên đổi tên vẫn an toàn; tên mới hiện ngay trên bản đồ."
+                    : "Tỉnh thành này chưa được vẽ trên bản đồ trang chủ. Danh bạ tỉnh thành và bộ lọc vẫn hoạt động bình thường.")
+            </p>
+        </section>
+    }
+
+    <div class="admin-form-footer">
+        <div class="admin-form-actions">
+            <span class="admin-form-state" data-form-state aria-live="polite"></span>
+            <a class="admin-btn admin-btn-secondary" href="@cancelUrl" data-discard>Hủy</a>
+            <button type="submit" class="admin-btn admin-btn-primary" data-submit-button>
+                @(Model.IsEdit ? "Lưu thay đổi" : "Lưu tỉnh thành")
+            </button>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/admin-assets/js/catalog-form.js" asp-append-version="true"></script>
+}

@@ -1,0 +1,297 @@
+@using DiTichVietNam.Web.Services.Images
+@model RelicImageBoardVM
+@{
+    var board = Model.Board;
+    var imageCount = board.Images.Count;
+    var thumbnailName = board.Images.FirstOrDefault(i => i.IsThumbnail)?.Caption;
+
+    var header = new AdminPageHeaderVM
+    {
+        Title = $"Ảnh của {board.RelicName}",
+        Lead = imageCount == 0
+            ? "Di tích chưa có ảnh nào. Ảnh đầu tiên được tải lên sẽ thành ảnh đại diện."
+            : $"Đang có {imageCount} ảnh trên tổng số {ImageUploadLimits.MaxImagesPerRelic} ảnh cho mỗi di tích.",
+        Links = new List<AdminPageLinkVM>
+        {
+            new() { Label = "Quay lại danh sách", Url = Model.ListUrl, Icon = "back" },
+            new() { Label = "Mở trang công khai", Url = Model.PublicUrl, Icon = "external", OpensNewTab = true }
+        }
+    };
+
+    var confirmDialog = new AdminConfirmVM
+    {
+        ElementId = "delete-image-dialog",
+        Title = "Xóa ảnh",
+        ConfirmLabel = "Xóa ảnh",
+        CancelLabel = "Hủy"
+    };
+}
+
+<partial name="_AdminPageHeader" model="header" />
+
+<section class="admin-card admin-card-pad">
+    <div class="admin-card-head">
+        <h2 class="admin-card-title">
+            <partial name="_AdminIcon" model="@("upload")" />
+            <span>Tải ảnh lên</span>
+        </h2>
+        <p class="admin-card-note">
+            Mỗi lượt tối đa @ImageUploadLimits.MaxFilesPerBatch tệp, mỗi tệp không quá @ImageUploadLimits.MaxFileSizeText,
+            cả lượt không quá @ImageUploadLimits.MaxBatchSizeText. Nhận tệp @ImageUploadLimits.AllowedExtensionText.
+        </p>
+    </div>
+
+    @if (board.IsFull)
+    {
+        <div class="admin-empty">
+            <partial name="_AdminIcon" model="@("alert")" />
+            <p class="admin-empty-text">
+                Di tích đã có đủ @ImageUploadLimits.MaxImagesPerRelic ảnh. Xóa bớt ảnh cũ rồi tải ảnh mới.
+            </p>
+        </div>
+    }
+    else
+    {
+        <form id="image-upload-form" class="upload-form" action="@Model.UploadUrl" method="post"
+              enctype="multipart/form-data" novalidate>
+            @Html.AntiForgeryToken()
+
+            <div class="upload-tray" data-drop-zone>
+                <span class="upload-tray-icon" aria-hidden="true">
+                    <partial name="_AdminIcon" model="@("image")" />
+                </span>
+                <p class="upload-tray-lead">Kéo ảnh vào khung này hoặc chọn tệp từ máy.</p>
+                <input class="upload-tray-input" type="file" id="upload-files" name="Files" multiple
+                       accept="@ImageUploadLimits.AcceptAttribute"
+                       aria-describedby="upload-files-hint" data-upload-input />
+                <label class="upload-tray-label" for="upload-files">Chọn tệp ảnh</label>
+                <p class="admin-hint" id="upload-files-hint">
+                    Còn @board.RemainingSlots chỗ trống cho di tích này.
+                </p>
+            </div>
+
+            <ol class="upload-queue" data-upload-queue hidden></ol>
+
+            <div class="upload-shared" data-upload-shared>
+                <div class="admin-field">
+                    <label for="field-shared-caption">Chú thích chung</label>
+                    <input type="text" id="field-shared-caption" name="SharedCaption"
+                           maxlength="@ImageUploadLimits.MaxCaptionLength" autocomplete="off"
+                           aria-describedby="field-shared-caption-hint" />
+                    <div class="admin-hint-row">
+                        <p class="admin-hint" id="field-shared-caption-hint">
+                            Dùng cho những ảnh chưa có chú thích riêng. Có thể bỏ trống.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="admin-field">
+                    <label for="field-shared-source">
+                        Nguồn ảnh chung <span class="admin-required" aria-hidden="true">*</span>
+                    </label>
+                    <input type="text" id="field-shared-source" name="SharedSource"
+                           maxlength="@ImageUploadLimits.MaxSourceLength" autocomplete="off"
+                           aria-describedby="field-shared-source-hint" />
+                    <div class="admin-hint-row">
+                        <p class="admin-hint" id="field-shared-source-hint">
+                            Ghi nơi lấy ảnh, tác giả, giấy phép và đường dẫn. Ảnh nào không có nguồn riêng thì dùng dòng này.
+                        </p>
+                    </div>
+                    <button type="button" class="admin-btn-text" data-apply-source hidden>
+                        Dùng nguồn này cho mọi ảnh trong lô
+                    </button>
+                </div>
+            </div>
+
+            <div class="admin-form-actions upload-actions" data-upload-actions>
+                <span class="admin-form-state" data-upload-state aria-live="polite"></span>
+                <button type="button" class="admin-btn admin-btn-secondary" data-upload-clear hidden>Bỏ lô ảnh</button>
+                <button type="submit" class="admin-btn admin-btn-primary" data-upload-submit>Tải ảnh lên</button>
+            </div>
+        </form>
+    }
+
+    @if (Model.LastReport is not null && Model.LastReport.HasRejections)
+    {
+        <div class="alert alert-warning upload-rejects-panel" id="upload-rejects" role="alert" tabindex="-1">
+            <p class="upload-rejects-title">
+                <partial name="_AdminIcon" model="@("alert")" />
+                <span>
+                    Lượt tải vừa rồi: @Model.LastReport.SavedCount tệp đã lưu,
+                    @Model.LastReport.Rejections.Count tệp không lưu được.
+                </span>
+            </p>
+            <ul class="upload-rejects">
+                @foreach (var reject in Model.LastReport.Rejections)
+                {
+                    <li>
+                        <span class="upload-reject-name">@reject.FileName</span>
+                        <span class="upload-reject-reason">@reject.Reason</span>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+</section>
+
+<section class="admin-card admin-card-pad">
+    <div class="admin-card-head">
+        <h2 class="admin-card-title">
+            <partial name="_AdminIcon" model="@("image")" />
+            <span>Ảnh hiện có</span>
+        </h2>
+        @if (imageCount > 0)
+        {
+            <p class="admin-card-note">
+                @if (string.IsNullOrWhiteSpace(thumbnailName))
+                {
+                    <text>@imageCount ảnh, xếp theo thứ tự tải lên.</text>
+                }
+                else
+                {
+                    <text>@imageCount ảnh, xếp theo thứ tự tải lên. Ảnh đại diện: @thumbnailName</text>
+                }
+            </p>
+        }
+    </div>
+
+    @if (imageCount == 0)
+    {
+        <div class="admin-empty admin-empty-tight">
+            <partial name="_AdminIcon" model="@("image")" />
+            <p class="admin-empty-text">
+                Di tích này chưa có ảnh. Tải ảnh lên ở khung phía trên để thẻ di tích và trang chi tiết có hình.
+            </p>
+        </div>
+    }
+    else
+    {
+        <ul class="image-grid">
+            @foreach (var image in board.Images)
+            {
+                var isEditing = Model.EditingImageId == image.Id;
+                var captionValue = isEditing ? Model.EditCaption : image.Caption;
+                var sourceValue = isEditing ? Model.EditSource : image.Source;
+                var captionError = isEditing ? Model.EditCaptionError : null;
+                var sourceError = isEditing ? Model.EditSourceError : null;
+                var deleteUrl = Model.ImageActionUrl(image.Id, "xoa");
+                var confirmText = image.IsThumbnail
+                    ? "Xóa ảnh này? Đây đang là ảnh đại diện; ảnh còn lại đầu tiên sẽ thay thế."
+                    : "Xóa ảnh này? Tệp ảnh trên đĩa cũng bị xóa và không lấy lại được.";
+                <li class="image-card @(image.IsThumbnail ? "is-thumbnail" : string.Empty)">
+                    <a class="image-card-frame" href="@image.Path" target="_blank" rel="noopener"
+                       data-image-open data-image-src="@image.Path" data-image-caption="@image.AltText"
+                       title="Xem ảnh cỡ lớn">
+                        <img src="@image.Path" alt="@image.AltText" loading="lazy" decoding="async"
+                             onerror="this.src='/img/no-image.svg'" />
+                        @if (image.IsThumbnail)
+                        {
+                            <span class="image-card-badge">
+                                <partial name="_AdminIcon" model="@("star")" />
+                                <span>Ảnh đại diện</span>
+                            </span>
+                        }
+                    </a>
+
+                    <div class="image-card-body">
+                        @if (!string.IsNullOrWhiteSpace(image.Caption))
+                        {
+                            <p class="image-card-caption">@image.Caption</p>
+                        }
+                        else
+                        {
+                            <p class="image-card-caption image-card-caption-empty">Chưa có chú thích</p>
+                        }
+                        <p class="image-card-source">
+                            @image.SourceCredit
+                            @if (!string.IsNullOrEmpty(image.SourceUrl))
+                            {
+                                <a href="@image.SourceUrl" target="_blank" rel="noopener nofollow">@image.SourceHost</a>
+                            }
+                        </p>
+                    </div>
+
+                    <div class="image-card-actions">
+                        @if (image.IsThumbnail)
+                        {
+                            <span class="image-card-state">
+                                <partial name="_AdminIcon" model="@("star")" />
+                                <span>Đang là ảnh đại diện</span>
+                            </span>
+                        }
+                        else
+                        {
+                            <form action="@Model.ImageActionUrl(image.Id, "dat-dai-dien")" method="post">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="admin-btn admin-btn-secondary image-card-thumb-btn">
+                                    <partial name="_AdminIcon" model="@("star")" />
+                                    <span>Đặt làm ảnh đại diện</span>
+                                </button>
+                            </form>
+                        }
+                        <a class="admin-icon-btn admin-icon-btn-danger" href="@deleteUrl"
+                           title="Xóa ảnh" aria-label="Xóa ảnh @image.AltText"
+                           data-delete-trigger data-delete-url="@deleteUrl" data-delete-message="@confirmText">
+                            <partial name="_AdminIcon" model="@("trash")" />
+                        </a>
+                    </div>
+
+                    <details class="image-card-edit" open="@(isEditing ? "open" : null)">
+                        <summary>Sửa chú thích và nguồn</summary>
+                        <form action="@Model.ImageActionUrl(image.Id, "sua")" method="post" novalidate
+                              class="image-edit-form" data-image-edit-form>
+                            @Html.AntiForgeryToken()
+
+                            <div class="admin-field @(captionError is null ? string.Empty : "admin-field-invalid")">
+                                <label for="caption-@image.Id">Chú thích</label>
+                                <input type="text" id="caption-@image.Id" name="caption" value="@captionValue"
+                                       maxlength="@ImageUploadLimits.MaxCaptionLength" autocomplete="off"
+                                       aria-invalid="@(captionError is null ? "false" : "true")"
+                                       aria-describedby="@(captionError is null ? null : $"caption-{image.Id}-error")" />
+                                @if (captionError is not null)
+                                {
+                                    <p class="field-error" id="caption-@(image.Id)-error">@captionError</p>
+                                }
+                            </div>
+
+                            <div class="admin-field @(sourceError is null ? string.Empty : "admin-field-invalid")">
+                                <label for="source-@image.Id">
+                                    Nguồn ảnh <span class="admin-required" aria-hidden="true">*</span>
+                                </label>
+                                <input type="text" id="source-@image.Id" name="imageSource" value="@sourceValue"
+                                       maxlength="@ImageUploadLimits.MaxSourceLength" autocomplete="off"
+                                       aria-invalid="@(sourceError is null ? "false" : "true")"
+                                       aria-describedby="@(sourceError is null ? null : $"source-{image.Id}-error")" />
+                                @if (sourceError is not null)
+                                {
+                                    <p class="field-error" id="source-@(image.Id)-error">@sourceError</p>
+                                }
+                            </div>
+
+                            <div class="image-edit-actions">
+                                <button type="submit" class="admin-btn admin-btn-primary">Lưu ảnh</button>
+                            </div>
+                        </form>
+                    </details>
+                </li>
+            }
+        </ul>
+    }
+</section>
+
+<partial name="_AdminConfirmDialog" model="confirmDialog" />
+
+<dialog class="admin-viewer" id="image-viewer" data-image-viewer aria-labelledby="image-viewer-caption">
+    <div class="admin-viewer-bar">
+        <p class="admin-viewer-caption" id="image-viewer-caption" data-viewer-caption></p>
+        <button type="button" class="admin-icon-btn" data-viewer-close aria-label="Đóng khung xem ảnh">
+            <partial name="_AdminIcon" model="@("close")" />
+        </button>
+    </div>
+    <img class="admin-viewer-image" src="" alt="" data-viewer-image />
+</dialog>
+
+@section Scripts {
+    <script src="~/admin-assets/js/admin-confirm.js" asp-append-version="true"></script>
+    <script src="~/admin-assets/js/relic-images.js" asp-append-version="true"></script>
+}

@@ -1,0 +1,35 @@
+@model AdminPageHeaderVM
+
+<div class="admin-page-header">
+    <div class="admin-page-header-text">
+        <h1 class="admin-title">@Model.Title</h1>
+        @if (!string.IsNullOrWhiteSpace(Model.Lead))
+        {
+            <p class="admin-lead">@Model.Lead</p>
+        }
+    </div>
+    <div class="admin-page-header-actions">
+        @foreach (var link in Model.Links)
+        {
+            <a class="admin-btn admin-btn-secondary" href="@link.Url"
+               target="@(link.OpensNewTab ? "_blank" : null)"
+               rel="@(link.OpensNewTab ? "noopener" : null)">
+                @if (!string.IsNullOrWhiteSpace(link.Icon))
+                {
+                    <partial name="_AdminIcon" model="@link.Icon" />
+                }
+                <span>@link.Label</span>
+            </a>
+        }
+        @if (!string.IsNullOrWhiteSpace(Model.ActionUrl) && !string.IsNullOrWhiteSpace(Model.ActionLabel))
+        {
+            <a class="admin-btn admin-btn-primary" href="@Model.ActionUrl">
+                @if (!string.IsNullOrWhiteSpace(Model.ActionIcon))
+                {
+                    <partial name="_AdminIcon" model="@Model.ActionIcon" />
+                }
+                <span>@Model.ActionLabel</span>
+            </a>
+        }
+    </div>
+</div>
